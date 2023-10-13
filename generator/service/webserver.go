@@ -15,6 +15,9 @@ func StartWebServer(port string) {
 		IdleTimeout:  120 * time.Second,
 	}
 
+	r := NewRouter()
+	http.Handle("/", r)
+
 	log.Println("Starting HTTP service at " + port)
 	err := srv.ListenAndServe()
 	if err != nil {
