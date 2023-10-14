@@ -19,6 +19,10 @@ func main() {
 func initializeBoltClient() {
 	log.Println("Init ")
 	service.DBClient = &dbclient.BoltClient{}
-	service.DBClient.OpenBoltDb()
+	service.DBClient.InitDB("generator.db")
 	service.DBClient.Seed()
+	// v,_:=service.DBClient.GetSubscriberByKey("3")
+	// fmt.Printf("The answer is: %s\n", v)
+	// v,_:=service.DBClient.GetClientIpByKey("3")
+	// fmt.Printf("The answer is: %s\n", v)
 }

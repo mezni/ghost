@@ -1,13 +1,13 @@
 package model
 
-type Subsrciber struct {
-	Id               string `json:"id"`
-	SubsrciberID     string `json:"subsrciberID"`
-	SubsrciberLastTS string `json:"timestamp"`
+type Subscriber struct {
+	Id              string `json:"id"`
+	SubscriberID    string `json:"subsrciberID"`
+	SubscriberEndTS string `json:"subscriberEndTS"`
 }
 
-type ClientIpAddress struct {
-	Id                string `json:"id"`
-	ClientIpAddress   string `json:"subsrciberID"`
-	ClientIpAddressTS string `json:"timestamp"`
+type ClientIp struct {
+	Id      string `json:"id"`
+	IpID    string `json:"ipID"`
+	IpEndTS string `json:"ipEndTS"`
 }
