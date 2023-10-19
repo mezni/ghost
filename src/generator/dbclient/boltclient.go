@@ -57,7 +57,7 @@ func (bc *BoltClient) createBucket(bucketName string) {
 }
 
 func (bc *BoltClient) seedSubscribers() error {
-	subsrciberCount := 1000
+	subsrciberCount := 10000
 	subsrciberPrefix := strconv.Itoa(rand.Intn(100) + 100)
 
 	for i := 0; i < subsrciberCount; i++ {
@@ -95,7 +95,7 @@ func (bc *BoltClient) addSubscriber(subscriber model.Subscriber) error {
 }
 
 func (bc *BoltClient) seedClientIps() error {
-	ipCount := 1000
+	ipCount := 10000
 	for i := 0; i < ipCount; i++ {
 		key := strconv.Itoa(i + 1)
 

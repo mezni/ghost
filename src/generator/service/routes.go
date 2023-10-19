@@ -15,7 +15,7 @@ var routes = Routes{
 
 	Route{
 		"GetEvents",
-		"GET",
+		"POST",
 		"/events",
 		GetEvents,
 	},
