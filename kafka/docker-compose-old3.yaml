@@ -1,0 +1,49 @@
+version: '3'
+services:
+  airflow-db:
+    image: postgres:13
+    hostname: airflow-db
+    container_name: airflow-db
+    environment:
+      POSTGRES_DB: airflow
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+
+  airflow-webserver:
+    image: apache/airflow:2.0.2
+    container_name: airflow-webserver
+    depends_on:
+      - airflow-db
+    environment:
+      AIRFLOW_DATABASE_URL: postgresql+psycopg2://airflow:airflow@airflow-db/airflow
+    ports:
+      - "8080:8080"
+
+  airflow-scheduler:
+    image: apache/airflow:2.0.2
+    container_name: scheduler
+    depends_on:
+      - airflow-webserver
+    environment:
+      AIRFLOW_DATABASE_URL: postgresql+psycopg2://airflow:airflow@airflow-db/airflow
+
+  airflow-worker:
+    image: apache/airflow:2.0.2
+    container_name: worker
+    depends_on:
+      - airflow-webserver
+    environment:
+      AIRFLOW_DATABASE_URL: postgresql+psycopg2://airflow:airflow@airflow-db/airflow
+
+  flower:
+    image: apache/airflow:2.0.2
+    container_name: flower
+    depends_on:
+      - airflow-webserver
+    command: celery flower
+    ports:
+      - "5555:5555"
+
+  redis:
+    image: "redis:latest"
+    container_name: redis
