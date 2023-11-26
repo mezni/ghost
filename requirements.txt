@@ -1,0 +1,3 @@
+pyYaml
+requests
+confluent_kafka
