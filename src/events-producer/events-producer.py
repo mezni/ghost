@@ -1,3 +1,4 @@
+import configparser
 import yaml
 import os, time, json, requests
 from datetime import datetime, timedelta
@@ -46,21 +47,22 @@ def generate_next_date(events_start_date, interval_mins, interval_multiplier):
     return next_start_date
 
 
-kafka_conf_file = "../../config/kafka-producer.yaml"
-kafka_conf = read_yaml(kafka_conf_file)
-bootstrap_servers = kafka_conf["kafka"]["servers"]
-topic = kafka_conf["kafka"]["topic"]
-url = kafka_conf["kafka"]["url"]
+config = configparser.ConfigParser()
+config.read("config.ini")
 
+config_file = config.get("config", "config_file")
+events_start_date = config.get("config", "events_start_date")
+interval_mins = config.get("config", "interval_mins")
+trx_count = config.get("config", "trx_count")
+
+service_conf = read_yaml(config_file)
+bootstrap_servers = service_conf["kafka"]["servers"]
+topic = service_conf["kafka"]["topic"]
+url = service_conf["kafka"]["url"]
 
 conf = {bootstrap_servers}
 
-
 producer = Producer(**conf)
-
-events_start_date = "25/11/2023 00:00:00"
-interval_mins = 5
-trx_count = 1000
 
 f = open("lock.lck", "w")
 f.close()
