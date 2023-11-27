@@ -1,6 +1,4 @@
-import configparser
-import yaml
-import os, time, json, requests
+import os, sys, time, json, requests, yaml, configparser
 from datetime import datetime, timedelta
 from confluent_kafka import Producer
 
@@ -52,15 +50,15 @@ config.read("config.ini")
 
 config_file = config.get("config", "config_file")
 events_start_date = config.get("config", "events_start_date")
-interval_mins = config.get("config", "interval_mins")
-trx_count = config.get("config", "trx_count")
+interval_mins = int(config.get("config", "interval_mins"))
+trx_count = int(config.get("config", "trx_count"))
 
 service_conf = read_yaml(config_file)
 bootstrap_servers = service_conf["kafka"]["servers"]
 topic = service_conf["kafka"]["topic"]
 url = service_conf["kafka"]["url"]
 
-conf = {bootstrap_servers}
+conf = {"bootstrap.servers": bootstrap_servers}
 
 producer = Producer(**conf)
 
@@ -80,5 +78,5 @@ while True:
             producer.poll(1)
             time.sleep(1)
         else:
-            break
+            sys.exit(0)
     i = i + 1
