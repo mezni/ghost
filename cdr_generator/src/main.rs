@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::{self, BufReader, Read};
+use uuid::Uuid;
 
 fn main() -> io::Result<()> {
     // Specify the line terminator (can be \n or \r\n depending on your file's line endings)
@@ -16,17 +17,20 @@ fn main() -> io::Result<()> {
     let chunk_size = 8192;
 
     // Process the file in chunks and handle leftover data between chunks
-    let line_count = process_file_in_chunks(&mut reader, terminator, chunk_size)?;
+    let processed_lines = process_file_in_chunks(&mut reader, terminator, chunk_size)?;
 
-    println!("Total number of lines: {}", line_count);
+    // Print the processed lines with their UUIDs
+    for (id, line) in processed_lines {
+        println!("ID: {}, Line: {}", id, line);
+    }
 
     Ok(())
 }
 
-fn process_file_in_chunks<R: Read>(reader: &mut R, terminator: &str, chunk_size: usize) -> io::Result<usize> {
+fn process_file_in_chunks<R: Read>(reader: &mut R, terminator: &str, chunk_size: usize) -> io::Result<Vec<(Uuid, String)>> {
     let mut buffer = vec![0; chunk_size];
     let mut leftover = String::new();
-    let mut line_count = 0;
+    let mut processed_lines = Vec::new();
 
     loop {
         // Read a chunk from the file
@@ -42,15 +46,15 @@ fn process_file_in_chunks<R: Read>(reader: &mut R, terminator: &str, chunk_size:
         let mut data = leftover.clone(); // Clone leftover to keep previous state
         data.push_str(&chunk); // Append the new chunk to the data
 
-        // Process the complete lines based on the specified terminator
-        leftover = process_lines(&data, terminator, &mut line_count)?;
+        // Process the complete lines and collect them with UUIDs
+        leftover = process_lines(&data, terminator, &mut processed_lines)?;
     }
 
-    Ok(line_count)
+    Ok(processed_lines)
 }
 
 /// Process the lines in the data chunk, returning the leftover (incomplete) line if any
-fn process_lines(data: &str, terminator: &str, line_count: &mut usize) -> io::Result<String> {
+fn process_lines(data: &str, terminator: &str, processed_lines: &mut Vec<(Uuid, String)>) -> io::Result<String> {
     let mut leftover = String::new();
     let mut lines = data.split(terminator).peekable();
 
@@ -60,10 +64,9 @@ fn process_lines(data: &str, terminator: &str, line_count: &mut usize) -> io::Re
             // Save the last incomplete line as leftover
             leftover = line.to_string();
         } else {
-            // Process the complete line (for now, just increment the line counter)
-            *line_count += 1;
-            // Uncomment this to print each line if needed:
-            // println!("Line: {}", line);
+            // Create a UUID for each line and store it with the line content
+            let id = Uuid::new_v4();
+            processed_lines.push((id, line.to_string()));
         }
     }
 
