@@ -1,62 +1,84 @@
-# Variables
+# Variables for project directories and their corresponding output files
 CARGO = cargo
-APP_NAME = ghost  
-BUILD_DIR = target
+PROJECT_DIRS = cdr_generator
+OUTPUT_FILES = cdrs.json
 
 # Default target
 all: build
 
-# Build the project
-build:
-	$(CARGO) build
+# Build all projects
+build: $(PROJECT_DIRS)
+	@echo "Building all projects..."
+	@for dir in $(PROJECT_DIRS); do \
+		cd $$dir && $(CARGO) build --release; \
+	done
 
-# Build in release mode
-release:
-	$(CARGO) build --release
+# Build specific project
+build-%:
+	@echo "Building project: $*"
+	cd /path/to/$* && $(CARGO) build --release
 
-# Run the application
-run:
-	$(CARGO) run
+# Run all projects
+run: $(PROJECT_DIRS)
+	@echo "Running all projects..."
+	@for dir in $(PROJECT_DIRS); do \
+		cd $$dir && $(CARGO) run --release; \
+	done
 
-# Run in release mode
-run-release:
-	$(CARGO) run --release
+# Run specific project
+run-%:
+	@echo "Running project: $*"
+	cd /path/to/$* && $(CARGO) run --release
 
-# Run tests
-test:
-	$(CARGO) test
+# Clean all projects
+clean: $(PROJECT_DIRS)
+	@echo "Cleaning all projects..."
+	@for dir in $(PROJECT_DIRS); do \
+		cd $$dir && $(CARGO) clean; \
+		rm -f $$dir/$(OUTPUT_FILES); \
+	done
 
-# Check for linting issues
-lint:
-	$(CARGO) clippy -- -D warnings
+# Clean specific project
+clean-%:
+	@echo "Cleaning project: $*"
+	cd /path/to/$* && $(CARGO) clean
+	rm -f /path/to/$*/$(OUTPUT_FILES)
 
-# Format code
-format:
-	$(CARGO) fmt
+# Format all projects
+format: $(PROJECT_DIRS)
+	@echo "Formatting all projects..."
+	@for dir in $(PROJECT_DIRS); do \
+		cd $$dir && $(CARGO) fmt; \
+	done
 
-# Clean build artifacts
-clean:
-	$(CARGO) clean
+# Lint all projects
+lint: $(PROJECT_DIRS)
+	@echo "Linting all projects..."
+	@for dir in $(PROJECT_DIRS); do \
+		cd $$dir && $(CARGO) clippy -- -D warnings; \
+	done
 
-# Install dependencies
-install-deps:
-	rustup update
-	$(CARGO) install clippy
-	$(CARGO) install rustfmt
+# Run tests in all projects
+test: $(PROJECT_DIRS)
+	@echo "Running tests in all projects..."
+	@for dir in $(PROJECT_DIRS); do \
+		cd $$dir && $(CARGO) test; \
+	done
 
-# Display help
+# Rebuild all projects
+rebuild: clean build
+
+# Help
 help:
-	@echo "Makefile for Rust project:"
-	@echo "  make          - Build the project (default)"
-	@echo "  make build    - Build the project"
-	@echo "  make release  - Build in release mode"
-	@echo "  make run      - Run the application"
-	@echo "  make run-release - Run the application in release mode"
-	@echo "  make test     - Run tests"
-	@echo "  make lint     - Check for linting issues using Clippy"
-	@echo "  make format   - Format the code using rustfmt"
-	@echo "  make clean    - Clean the build artifacts"
-	@echo "  make install-deps - Install/update dependencies (Rust, Clippy, rustfmt)"
-
-# PHONY targets (not associated with files)
-.PHONY: all build release run run-release test lint format clean install-deps help
+	@echo "Available targets:"
+	@echo "  build      - Build all projects"
+	@echo "  build-<project_name> - Build a specific project"
+	@echo "  run        - Run all projects"
+	@echo "  run-<project_name> - Run a specific project"
+	@echo "  clean      - Clean all projects"
+	@echo "  clean-<project_name> - Clean a specific project"
+	@echo "  format     - Format all projects"
+	@echo "  lint       - Lint all projects"
+	@echo "  test       - Run tests in all projects"
+	@echo "  rebuild    - Clean and rebuild all projects"
+	@echo "  help       - Show this help message"
