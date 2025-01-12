@@ -42,3 +42,8 @@ clippy.toml
 # Files generated during tests
 /tests/*.rs.bk
 
+
+
+# Added by cargo
+
+/target
