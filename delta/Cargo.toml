@@ -1,0 +1,8 @@
+[package]
+name = "delta"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+deltalake = "0.7"  # or the latest version
+tokio = { version = "1", features = ["full"] }
