@@ -4,3 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+datafusion = "20.0.0"  # Replace with the version you're using
+arrow = { version = "34.0.0", features = ["prettyprint"] }  # Match `datafusion`'s version
+tokio = { version = "1.0", features = ["full"] }
