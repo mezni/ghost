@@ -4,6 +4,7 @@ use serde::{Serialize, Deserialize};
 use csv;
 use std::fs;
 use serde_json;
+use bincode;
 
 // Define the CDR structure
 #[derive(Serialize, Deserialize, Debug)]
@@ -26,10 +27,10 @@ impl Cdr {
         let called_number = format!("216{}", rng.gen_range(10000000..99999999));
         
         let now = Utc::now().naive_utc();
-        let random_seconds_ago = rng.gen_range(0..(2 * 60 * 60));
+        let random_seconds_ago = rng.gen_range(0..(2 * 60 * 60)); // Random start time within the last 2 hours
         let start_time = now - Duration::seconds(random_seconds_ago as i64);
         
-        let duration = rng.gen_range(1..3601);
+        let duration = rng.gen_range(1..3601); // Random duration between 1 second and 1 hour
         let end_time = start_time + Duration::seconds(duration as i64);
 
         let call_type = if rng.gen_bool(0.5) { "Incoming" } else { "Outgoing" };
@@ -57,10 +58,15 @@ fn generate_file_name(prefix: &str) -> String {
     format!("{prefix}{}", now.format("%Y%m%d%H%M%S"))
 }
 
-// Write CDRs to CSV
-fn write_to_csv(cdrs: &[Cdr]) -> Result<(), Box<dyn std::error::Error>> {
-    let dir = "OUTPUT/";
+// Helper function to create the output directory
+fn create_output_directory(dir: &str) -> Result<(), Box<dyn std::error::Error>> {
     fs::create_dir_all(dir)?;
+    Ok(())
+}
+
+// Write CDRs to CSV
+fn write_to_csv(cdrs: &[Cdr], dir: &str) -> Result<(), Box<dyn std::error::Error>> {
+    create_output_directory(dir)?;  // Use the helper function with the provided directory
 
     let file_name = dir.to_string() + &generate_file_name("CSV") + ".csv"; 
     let mut wtr = csv::Writer::from_path(&file_name)?;
@@ -74,9 +80,8 @@ fn write_to_csv(cdrs: &[Cdr]) -> Result<(), Box<dyn std::error::Error>> {
 }
 
 // Write CDRs to TSV
-fn write_to_tsv(cdrs: &[Cdr]) -> Result<(), Box<dyn std::error::Error>> {
-    let dir = "OUTPUT/";
-    fs::create_dir_all(dir)?;
+fn write_to_tsv(cdrs: &[Cdr], dir: &str) -> Result<(), Box<dyn std::error::Error>> {
+    create_output_directory(dir)?;  // Use the helper function with the provided directory
 
     let file_name = dir.to_string() + &generate_file_name("TSV") + ".tsv"; 
     let mut wtr = csv::WriterBuilder::new()
@@ -92,9 +97,8 @@ fn write_to_tsv(cdrs: &[Cdr]) -> Result<(), Box<dyn std::error::Error>> {
 }
 
 // Write CDRs to JSON
-fn write_to_json(cdrs: &[Cdr]) -> Result<(), Box<dyn std::error::Error>> {
-    let dir = "OUTPUT/";
-    fs::create_dir_all(dir)?;
+fn write_to_json(cdrs: &[Cdr], dir: &str) -> Result<(), Box<dyn std::error::Error>> {
+    create_output_directory(dir)?;  // Use the helper function with the provided directory
 
     let file_name = dir.to_string() + &generate_file_name("JSON") + ".json"; 
     let json_data = serde_json::to_string(cdrs)?;
@@ -102,16 +106,31 @@ fn write_to_json(cdrs: &[Cdr]) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-// Main function to generate and write CDRs to CSV, TSV, and JSON
+// Write CDRs to Binary
+fn write_to_binary(cdrs: &[Cdr], dir: &str) -> Result<(), Box<dyn std::error::Error>> {
+    create_output_directory(dir)?;  // Use the helper function with the provided directory
+
+    let file_name = dir.to_string() + &generate_file_name("BIN") + ".bin"; 
+    let serialized_data = bincode::serialize(cdrs)?; // Serialize data to binary format
+    fs::write(file_name, serialized_data)?; // Write to binary file
+    Ok(())
+}
+
+// Main function to generate and write CDRs to CSV, TSV, JSON, and Binary
 fn main() {
     let cdrs = generate_cdrs(1000);
-    if let Err(e) = write_to_csv(&cdrs) {
+    let dir = "OUTPUT/";  // Directory path for the output files
+
+    if let Err(e) = write_to_csv(&cdrs, dir) {
         eprintln!("Error writing to CSV: {}", e);
     }
-    if let Err(e) = write_to_tsv(&cdrs) {
+    if let Err(e) = write_to_tsv(&cdrs, dir) {
         eprintln!("Error writing to TSV: {}", e);
     }
-    if let Err(e) = write_to_json(&cdrs) {
+    if let Err(e) = write_to_json(&cdrs, dir) {
         eprintln!("Error writing to JSON: {}", e);
+    }
+    if let Err(e) = write_to_binary(&cdrs, dir) {
+        eprintln!("Error writing to Binary: {}", e);
     }
 }
