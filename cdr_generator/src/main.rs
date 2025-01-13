@@ -1,9 +1,11 @@
-use chrono::{ Utc, Duration};
+use chrono::{Utc, Duration};
 use rand::Rng;
 use serde::{Serialize, Deserialize};
 use csv;
 use std::fs;
+use serde_json;
 
+// Define the CDR structure
 #[derive(Serialize, Deserialize, Debug)]
 struct Cdr {
     call_id: u64,
@@ -15,6 +17,7 @@ struct Cdr {
     call_type: String,
 }
 
+// Implement methods for the CDR struct
 impl Cdr {
     fn new(call_id: u64) -> Self {
         let mut rng = rand::thread_rng();
@@ -35,32 +38,31 @@ impl Cdr {
             call_id,
             calling_number,
             called_number,
-            start_time: start_time.format("%Y-%m-%d %H:%M:%S").to_string(), // Formatting
-            end_time: end_time.format("%Y-%m-%d %H:%M:%S").to_string(),     // Formatting
+            start_time: start_time.format("%Y-%m-%d %H:%M:%S").to_string(),
+            end_time: end_time.format("%Y-%m-%d %H:%M:%S").to_string(),
             duration,
             call_type: call_type.to_string(),
         }
     }
 }
 
-// Generate 1000 CDRs
+// Generate a specified number of CDRs
 fn generate_cdrs(n: u64) -> Vec<Cdr> {
     (1..=n).map(Cdr::new).collect()
 }
 
 // Generate dynamic file name based on current timestamp
-fn generate_file_name() -> String {
+fn generate_file_name(prefix: &str) -> String {
     let now = Utc::now();
-    now.format("CSV%Y%m%d%H%M%S").to_string()
+    format!("{prefix}{}", now.format("%Y%m%d%H%M%S"))
 }
 
 // Write CDRs to CSV
 fn write_to_csv(cdrs: &[Cdr]) -> Result<(), Box<dyn std::error::Error>> {
-    // Ensure the OUTPUT directory exists
     let dir = "OUTPUT/";
     fs::create_dir_all(dir)?;
 
-    let file_name = dir.to_string() + &generate_file_name() + ".csv"; // Generate file name
+    let file_name = dir.to_string() + &generate_file_name("CSV") + ".csv"; 
     let mut wtr = csv::Writer::from_path(&file_name)?;
     
     for cdr in cdrs {
@@ -71,13 +73,24 @@ fn write_to_csv(cdrs: &[Cdr]) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-// Main function to generate and write CDRs to CSV
+// Write CDRs to JSON
+fn write_to_json(cdrs: &[Cdr]) -> Result<(), Box<dyn std::error::Error>> {
+    let dir = "OUTPUT/";
+    fs::create_dir_all(dir)?;
+
+    let file_name = dir.to_string() + &generate_file_name("JSON") + ".json"; 
+    let json_data = serde_json::to_string(cdrs)?;
+    fs::write(file_name, json_data)?;
+    Ok(())
+}
+
+// Main function to generate and write CDRs to CSV and JSON
 fn main() {
-    match generate_cdrs(1000) {
-        cdrs => {
-            if let Err(e) = write_to_csv(&cdrs) {
-                eprintln!("Error writing to CSV: {}", e);
-            }
-        }
+    let cdrs = generate_cdrs(1000);
+    if let Err(e) = write_to_csv(&cdrs) {
+        eprintln!("Error writing to CSV: {}", e);
+    }
+    if let Err(e) = write_to_json(&cdrs) {
+        eprintln!("Error writing to JSON: {}", e);
     }
 }

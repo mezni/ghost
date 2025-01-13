@@ -4,7 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-chrono = "0.4"          # For handling date and time
-rand = "0.8"            # For generating random numbers
-serde = { version = "1.0", features = ["derive"] }  # For serialization
-csv = "1.1"             # For writing CSV files
+chrono = "0.4"        # For handling date and time
+rand = "0.8"          # For generating random numbers
+serde = { version = "1.0", features = ["derive"] }  # For serializing and deserializing data
+serde_json = "1.0"    # For JSON serialization/deserialization
+csv = "1.1"           # For handling CSV file reading and writing
