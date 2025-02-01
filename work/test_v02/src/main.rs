@@ -24,6 +24,7 @@ use std::hash::{Hash, Hasher};
         hasher.finish() as u32
     }
 
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     env_logger::init();
