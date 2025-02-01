@@ -3,7 +3,7 @@ use std::path::Path;
 use tokio::fs::File;
 use tokio::io::{AsyncReadExt, BufReader};
 
-const DEFAULT_CHUNK_SIZE: usize = 10; 
+const DEFAULT_CHUNK_SIZE: usize = 10;
 const DEFAULT_BUFFER_SIZE: usize = 256 * 1024; // 256K
 
 struct ReadOptions {
@@ -24,10 +24,10 @@ impl ReadOptions {
         self
     }
 
-fn with_buffer_size(mut self, buffer_size: usize) -> Self {
-    self.buffer_size = buffer_size;
-    self
-}
+    fn with_buffer_size(mut self, buffer_size: usize) -> Self {
+        self.buffer_size = buffer_size;
+        self
+    }
 }
 
 struct FileSource {
