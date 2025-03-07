@@ -1,8 +1,8 @@
 use csv::ReaderBuilder;
 use serde::Deserialize;
+use std::collections::BTreeMap;
 use std::error::Error;
 use std::fs::File;
-use std::collections::BTreeMap;
 
 #[derive(Debug, Deserialize)]
 struct CountryCode {
@@ -10,6 +10,16 @@ struct CountryCode {
     code: u16,
     #[serde(rename = "CountryName")]
     name: String,
+}
+
+fn get_country_code(map: &BTreeMap<u16, String>, number: &str) -> Option<String> {
+    let first_four = &number[..4];
+    for (code, name) in map {
+        if first_four.starts_with(&code.to_string()) {
+            return Some(name.clone());
+        }
+    }
+    None
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -25,6 +35,13 @@ fn main() -> Result<(), Box<dyn Error>> {
     // Print the map
     for (code, name) in &map {
         println!("Code: {}, Name: {}", code, name);
+    }
+
+    let vlr_number = "16473840003";
+    let country_name = get_country_code(&map, vlr_number);
+    match country_name {
+        Some(name) => println!("Country Name: {}", name),
+        None => println!("Country Name not found"),
     }
 
     Ok(())
