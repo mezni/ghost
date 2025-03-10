@@ -1,0 +1,36 @@
+#"<mgsvp;
+ORDERED
+<
+ACT     MSCBC2                    AD-288  TIME 250306 1324  CLUSTER
+
+MT MOBILE SUBSCRIBER SURVEY RESULT
+
+HLRADDR             NSUB       NSUBA
+4-8617241450000            2          1
+4-48601000297              3          2
+4-33191226760011         192        161 
+4-436677700101             1          0
+4-14054729218              1          1
+
+TOTNSUB
+1691532
+
+TOTNSUBA
+1593286
+
+NSUBPR
+0
+
+NSUBXP
+0
+
+NSUBPXOU
+1691532
+
+NSUBSGS
+1092542
+
+NSUBGS
+0
+
+END"#

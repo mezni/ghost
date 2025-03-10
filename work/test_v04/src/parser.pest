@@ -1,0 +1,6 @@
+// Define the grammar
+grammar! {
+    file = { start ~ content ~ "END" }
+    start = { "<mgsvp;" }
+    content = { (!"END" ~ any)* }
+}
