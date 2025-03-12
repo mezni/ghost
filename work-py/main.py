@@ -1,13 +1,6 @@
 import pandas as pd
 import phonenumbers 
 from phonenumbers import timezone, geocoder, carrier
-file_path = '../../data.csv'
-
-try:
-    df_batch = pd.read_csv(file_path)
-except pd.errors.EmptyDataError:
-    print("Error: CSV file is empty.")
-
 
 def get_info(msisdn):
     region=None
@@ -30,43 +23,20 @@ def get_info(msisdn):
     
     return region,country,operator
 
-#region,country,operator = get_info('+21697501501')
-#print (region,country,operator)
 
 
-#df = df_batch[df_batch['VLR_NUMBER'].map(lambda x: str(x).startswith('33'))]
-#print(df.head(20))
-#print(df.size)
+def generate_output(df, output_file): 
+    df[['region', 'country', 'operator']] = df['VLR_NUMBER'].apply(lambda x: pd.Series(get_info(x)))
+    df.to_csv(output_file, index=False)
 
 
-df_batch[['region', 'country', 'operator']] = df_batch['VLR_NUMBER'].apply(lambda x: pd.Series(get_info(x)))
-#print(df_batch.head(20))
-#print(df_batch.size)
-#df_batch.to_csv('output.csv', index=False)
+file_path = '../../data.csv'
 
-#df_batch=df_batch.groupby(['country','operator'])['MSISDN'].count()
-#print(df_batch.head(20))
-
-
-df=df_batch.copy()
-grouped_df = df.groupby(['operator']).size().reset_index(name='counts')
-
-# Sort the results by Category and then by Value
-sorted_df = grouped_df.sort_values(by=['counts'], ascending=False)
-print(sorted_df.head(10))
+try:
+    df_batch = pd.read_csv(file_path)
+except pd.errors.EmptyDataError:
+    print("Error: CSV file is empty.")
 
 
-df=df_batch.copy()
-grouped_df = df.groupby(['country']).size().reset_index(name='counts')
-
-# Sort the results by Category and then by Value
-sorted_df = grouped_df.sort_values(by=['counts'], ascending=False)
-print(sorted_df.head(10))
-
-
-df=df_batch.copy()
-grouped_df = df.groupby(['region']).size().reset_index(name='counts')
-
-# Sort the results by Category and then by Value
-sorted_df = grouped_df.sort_values(by=['counts'], ascending=False)
-print(sorted_df.head(10))
+output_file='../../output.csv'
+generate_output(df_batch, output_file)
