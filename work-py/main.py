@@ -28,15 +28,19 @@ def get_info(msisdn):
 def generate_output(df, output_file): 
     df[['region', 'country', 'operator']] = df['VLR_NUMBER'].apply(lambda x: pd.Series(get_info(x)))
     df.to_csv(output_file, index=False)
+    num_rows, num_cols = df.shape
+    print(num_rows, num_cols)
 
 
+### MAIN 
 file_path = '../../data.csv'
 
 try:
     df_batch = pd.read_csv(file_path)
 except pd.errors.EmptyDataError:
     print("Error: CSV file is empty.")
-
+num_rows, num_cols = df_batch.shape
+print(num_rows, num_cols)
 
 output_file='../../output.csv'
 generate_output(df_batch, output_file)
