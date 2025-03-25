@@ -82,3 +82,4 @@ help:
 	@echo "  test       - Run tests in all projects"
 	@echo "  rebuild    - Clean and rebuild all projects"
 	@echo "  help       - Show this help message"
+
