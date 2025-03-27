@@ -1,19 +1,56 @@
+use regex::Regex;
+use std::fs;
+
+use crate::config::Config;
 use crate::errors::AppError;
 use crate::logger::Logger;
 use crate::store::{DBPool, insert_batch_exec, update_batch_execs};
 
 pub struct LoadService {
     pool: DBPool,
+    config: Config,
 }
 
 impl LoadService {
-    pub async fn new() -> Result<Self, AppError> {
+    pub async fn new(config: Config) -> Result<Self, AppError> {
         let pool = DBPool::new()?;
         Logger::info("Database connection pool initialized.");
-        Ok(LoadService { pool })
+        Ok(LoadService { pool, config })
     }
 
     pub async fn execute(&self) -> Result<(), AppError> {
+        for source in &self.config.sources {
+            let mut files_vec = Vec::new();
+
+            match fs::read_dir(&source.source_directory) {
+                Ok(files) => {
+                    files_vec.extend(files.flatten());
+                }
+                Err(err) => {
+                    Logger::error(&format!(
+                        "Failed to read directory '{}': {}",
+                        source.source_directory, err
+                    ));
+                    continue;
+                }
+            }
+
+            let file_pattern_regex = Regex::new(&source.file_pattern)
+                .map_err(|err| AppError::Unexpected(format!("Invalid file pattern: {}", err)))?;
+
+            // Find the first matching file
+            if let Some(file) = files_vec.iter().find(|file| {
+                let file_name = file.file_name();
+                let file_name_str = file_name.to_string_lossy();
+                file_pattern_regex.is_match(&file_name_str)
+            }) {
+                Logger::info(&format!("Processing file: {}", file.path().display()));
+            }
+        }
+        Ok(())
+    }
+
+    pub async fn execute2(&self) -> Result<(), AppError> {
         let path_name = "TEST";
         let status = "TEST";
 
