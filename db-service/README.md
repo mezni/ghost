@@ -1,0 +1,1 @@
+docker exec -it roam_db psql -U myuser -d roamdb
