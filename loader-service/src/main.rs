@@ -1,11 +1,9 @@
 mod config;
 mod errors;
-mod file;
 mod logger;
 
-use config::read_config;
+use config::{read_app_config, read_srv_config};
 use errors::AppError;
-use file::FileManager;
 use logger::Logger;
 
 #[tokio::main]
@@ -14,37 +12,27 @@ async fn main() -> Result<(), AppError> {
     Logger::init();
     Logger::info("Start Service");
 
-    // Read the configuration file
+    // Read the server configuration
+    match read_srv_config() {
+        Ok(srv_config) => {
+            Logger::info("Server Config: loaded successfully.");
+        }
+        Err(err) => {
+            Logger::error(&format!("Server Config: {}", err));
+            Logger::info("Stop Service");
+            std::process::exit(1);
+        }
+    }
     let config_file = "config.yaml";
-    let config = match read_config(config_file) {
-        Ok(config) => config,
-        Err(err) => {
-            Logger::error(&format!(
-                "Failed to read config file '{}': {}",
-                config_file, err
-            ));
-            Logger::error("Stop Service");
-            std::process::exit(1); // Exit with an error status code
-        }
-    };
-
-    // Initialize FileManager
-    let file_manager = match FileManager::new(config) {
-        Ok(manager) => {
-            Logger::info("FileManager initialized successfully.");
-            manager
+    match read_app_config(config_file) {
+        Ok(srv_config) => {
+            Logger::info("Server Config: loaded successfully.");
         }
         Err(err) => {
-            Logger::error(&format!("Failed to initialize FileManager: {}", err));
-            Logger::error("Stop Service");
-            std::process::exit(1); // Exit with an error status code
+            Logger::error(&format!("Server Config: {}", err));
+            Logger::info("Stop Service");
+            std::process::exit(1);
         }
-    };
-
-    // Execute file operations
-    if let Err(err) = file_manager.execute().await {
-        Logger::error(&format!("Error during execution: {}", err));
-        std::process::exit(1);
     }
 
     Logger::info("Stop Service");
