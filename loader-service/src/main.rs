@@ -28,13 +28,23 @@ async fn main() -> Result<(), AppError> {
         }
     };
 
-    match FileManager::new(config) {
-        Ok(_) => Logger::info("FileManager initialized successfully."),
+    // Initialize FileManager
+    let file_manager = match FileManager::new(config) {
+        Ok(manager) => {
+            Logger::info("FileManager initialized successfully.");
+            manager
+        }
         Err(err) => {
             Logger::error(&format!("Failed to initialize FileManager: {}", err));
             Logger::error("Stop Service");
             std::process::exit(1); // Exit with an error status code
         }
+    };
+
+    // Execute file operations
+    if let Err(err) = file_manager.execute().await {
+        Logger::error(&format!("Error during execution: {}", err));
+        std::process::exit(1);
     }
 
     Logger::info("Stop Service");
