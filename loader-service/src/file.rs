@@ -70,10 +70,9 @@ impl FileManager {
                 let file_name_str = file.file_name().to_string_lossy().to_string(); // Convert to owned String
                 file_pattern_regex.is_match(&file_name_str)
             }) {
-                Logger::info(&format!("Processing file: {}", file.path().display()));
-                if source.source_type == "ROAM_IN" {
+                if source.source_type.to_uppercase() == "ROAM_IN" {
                     self.process_roam_in_file(&file.path()).await?;
-                } else if source.source_type == "ROAM_OUT" {
+                } else if source.source_type.to_uppercase() == "ROAM_OUT" {
                     self.process_roam_out_file(&file.path()).await?;
                 } else {
                     Logger::error(&format!("Unknown source type: {}", source.source_type));
@@ -84,12 +83,18 @@ impl FileManager {
     }
 
     pub async fn process_roam_in_file(&self, file_path: &PathBuf) -> Result<(), AppError> {
-        println!("Processing ROAM_IN file: {}", file_path.display());
+        Logger::info(&format!(
+            "Processing ROAM_IN file: {}",
+            file_path.as_path().display()
+        ));
         Ok(())
     }
 
     pub async fn process_roam_out_file(&self, file_path: &PathBuf) -> Result<(), AppError> {
-        println!("Processing ROAM_OUT file: {}", file_path.display());
+        Logger::info(&format!(
+            "Processing ROAM_OUT file: {}",
+            file_path.as_path().display()
+        ));
         Ok(())
     }
 }
