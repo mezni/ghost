@@ -6,7 +6,6 @@ use std::path::Path;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Config {
-    pub work_dir: String,
     pub sleep_duration_seconds: u64,
     pub sources: Vec<Source>,
 }
