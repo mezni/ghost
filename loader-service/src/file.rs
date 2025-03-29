@@ -10,6 +10,7 @@ const REJECTED_DIR_NAME: &str = "REJECTED";
 const PROCESSED_DIR_NAME: &str = "PROCESSED";
 
 pub struct FileManager {
+    config: AppConfig,
     work_base_dir: PathBuf,
     work_process_dir: PathBuf,
     work_rejected_dir: PathBuf,
@@ -31,7 +32,6 @@ impl FileManager {
         let work_rejected_dir_path = work_base_dir_path.join(REJECTED_DIR_NAME);
         let work_processed_dir_path = work_base_dir_path.join(PROCESSED_DIR_NAME);
 
-        // Ensure all directories exist
         for dir in [
             &work_process_dir_path,
             &work_rejected_dir_path,
@@ -41,6 +41,7 @@ impl FileManager {
         }
 
         Ok(FileManager {
+            config: config,
             work_base_dir: work_base_dir_path,
             work_process_dir: work_process_dir_path,
             work_rejected_dir: work_rejected_dir_path,
