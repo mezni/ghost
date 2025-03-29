@@ -1,5 +1,4 @@
 use crate::errors::AppError;
-use crate::logger::Logger;
 use dotenvy::dotenv;
 use serde::{Deserialize, Serialize};
 use serde_yaml;
