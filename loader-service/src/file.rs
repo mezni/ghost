@@ -3,7 +3,7 @@ use crate::errors::AppError;
 use crate::logger::Logger;
 use regex::Regex;
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 const PROCESS_DIR_NAME: &str = "PROCESS";
 const REJECTED_DIR_NAME: &str = "REJECTED";
@@ -47,5 +47,50 @@ impl FileManager {
             work_rejected_dir: work_rejected_dir_path,
             work_processed_dir: work_processed_dir_path,
         })
+    }
+
+    pub async fn next(&self) -> Result<Option<(PathBuf, String)>, AppError> {
+        for source in &self.config.sources {
+            let files_vec: Vec<_> = match fs::read_dir(&source.source_directory) {
+                Ok(files) => files.flatten().collect(),
+                Err(err) => {
+                    continue;
+                }
+            };
+            let file_pattern_regex = Regex::new(&source.file_pattern)
+                .map_err(|err| AppError::Unexpected(format!("Invalid file pattern: {}", err)))?;
+
+            if let Some(file) = files_vec.iter().find(|file| {
+                let file_name_str = file.file_name().to_string_lossy().to_string(); // Convert to owned String
+                file_pattern_regex.is_match(&file_name_str)
+            }) {
+                if source.source_type.to_uppercase() == "ROAM_IN" {
+                    return Ok(Some((file.path(), "ROAM_IN".to_string())));
+                } else if source.source_type.to_uppercase() == "ROAM_OUT" {
+                    return Ok(Some((file.path(), "ROAM_OUT".to_string())));
+                }
+            }
+        }
+
+        Ok(None)
+    }
+
+    pub async fn process_roam_in(
+        &self,
+        base_dir: std::path::PathBuf,
+        file_name: String,
+    ) -> Result<(), AppError> {
+        println!("process_roam_in");
+        Ok(())
+    }
+
+    pub async fn process_roam_out(
+        &self,
+        base_dir: std::path::PathBuf,
+        file_name: String,
+    ) -> Result<(), AppError> {
+        println!("process_roam_out");
+        let full_path = base_dir.join(file_name);
+        Ok(())
     }
 }
