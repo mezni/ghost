@@ -42,7 +42,7 @@ async fn main() -> Result<(), AppError> {
     };
 
     let service = LoadService::new(srv_config, app_config).await?;
-
+    service.execute().await?;
     Logger::info("Stop Service");
     Ok(())
 }
