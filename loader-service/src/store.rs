@@ -27,9 +27,8 @@ impl StoreManager {
     pub async fn get_client(&self) -> Result<Client, AppError> {
         let client = self.pool.get().await.map_err(|e| AppError::PoolError(e))?;
         Ok(client)
-    }    
+    }
 }
-
 
 pub async fn insert_batch_exec(store_mgr: &StoreManager, path_name: &str) -> Result<i32, AppError> {
     let client = store_mgr.get_client().await?;
@@ -41,7 +40,11 @@ pub async fn insert_batch_exec(store_mgr: &StoreManager, path_name: &str) -> Res
     Ok(id)
 }
 
-pub async fn update_batch_execs(store_mgr: &StoreManager, batch_id: i32, status: &str) -> Result<u64, AppError> {
+pub async fn update_batch_execs(
+    store_mgr: &StoreManager,
+    batch_id: i32,
+    status: &str,
+) -> Result<u64, AppError> {
     let client = store_mgr.get_client().await?;
     let query = "UPDATE batch_execs SET batch_status = $1, end_time = NOW() WHERE id = $2";
     let rows_affected = client.execute(query, &[&status, &batch_id]).await?;

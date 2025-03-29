@@ -1,8 +1,8 @@
 use crate::config::{AppConfig, ServerConfig};
 use crate::errors::AppError;
 use crate::file::FileManager;
-use crate::store::{StoreManager, insert_batch_exec};
 use crate::logger::Logger;
+use crate::store::{StoreManager, insert_batch_exec};
 
 pub struct LoadService {
     store_manager: StoreManager,
@@ -22,7 +22,7 @@ impl LoadService {
 
     pub async fn start_batch(&self, path_name: &str) -> Result<i32, AppError> {
         Logger::info(&format!("Starting batch with name: {}", path_name));
-            match insert_batch_exec(&self.store_manager, path_name).await {
+        match insert_batch_exec(&self.store_manager, path_name).await {
             Ok(id) => {
                 Logger::info(&format!("Batch started with ID: {}", id));
                 Ok(id)
