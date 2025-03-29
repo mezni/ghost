@@ -1,3 +1,4 @@
+use csv::Error as CsvError;
 use serde_yaml::Error as YamlError;
 use std::env;
 use std::io;
@@ -20,6 +21,9 @@ pub enum AppError {
 
     #[error("Missing environment variable: {0}")]
     MissingEnvVar(String),
+
+    #[error("CSV error: {0}")]
+    CsvError(#[from] CsvError),
 
     #[error("Database error: {0}")]
     DatabaseError(#[from] PostgresError),

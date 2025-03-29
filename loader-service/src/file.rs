@@ -1,9 +1,16 @@
 use crate::config::AppConfig;
+use crate::entities::RoamOutDAO;
 use crate::errors::AppError;
 use crate::logger::Logger;
 use regex::Regex;
-use std::fs;
 use std::path::{Path, PathBuf};
+
+use csv::{ReaderBuilder, Trim};
+use std::fs;
+use std::{
+    fs::File,
+    io::{self, BufReader},
+};
 
 const PROCESS_DIR_NAME: &str = "PROCESS";
 const REJECTED_DIR_NAME: &str = "REJECTED";
@@ -88,9 +95,28 @@ impl FileManager {
         &self,
         base_dir: std::path::PathBuf,
         file_name: String,
-    ) -> Result<(), AppError> {
+    ) -> Result<Vec<RoamOutDAO>, AppError> {
         println!("process_roam_out");
         let full_path = base_dir.join(file_name);
-        Ok(())
+
+        let file = File::open(full_path)?;
+        let mut reader = ReaderBuilder::new()
+            .trim(Trim::All)
+            .from_reader(BufReader::new(file));
+
+        let mut records = Vec::new();
+        for result in reader.records() {
+            let record = result?;
+            let imsi = record[0].to_string();
+            let msisdn = record[1].to_string();
+            let vlr_number = record[2].to_string();
+            records.push(RoamOutDAO {
+                imsi: imsi,
+                msisdn: msisdn,
+                vlr_number: vlr_number,
+            });
+        }
+
+        Ok(records)
     }
 }

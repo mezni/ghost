@@ -1,4 +1,5 @@
 use crate::config::{AppConfig, ServerConfig};
+use crate::entities::{RoamOutDAO, RoamOutDB};
 use crate::errors::AppError;
 use crate::file::FileManager;
 use crate::logger::Logger;
@@ -114,24 +115,34 @@ impl LoadService {
             }
         };
 
-        // Start a batch execution
-        let batch_id = match self.start_batch(&file_name).await {
-            Ok(id) => id,
-            Err(e) => {
-                return Err(e);
-            }
-        };
+        let batch_id = self.start_batch(&file_name).await?;
 
-        // Process ROAM_OUT by passing dir_name as PathBuf and file_name as String
-        if let Err(e) = self
+        let records = self
             .file_manager
             .process_roam_out(dir_name, file_name)
             .await
-        {
-            return Err(AppError::Unexpected(format!(
-                "Failed to process ROAM_OUT: {}",
-                e
-            )));
+            .map_err(|e| {
+                Logger::error(&format!(
+                    "Failed to process ROAM_OUT for {}: {}",
+                    path.display(),
+                    e
+                ));
+                AppError::Unexpected(format!("Failed to process ROAM_OUT: {}", e))
+            })?;
+
+        let mut db_records = Vec::new();
+        for record in records {
+            //            println!("{:?}", record);
+            let db_record = RoamOutDB {
+                batch_id: batch_id,
+                batch_date: "2025-03-29".to_string(),
+                imsi: record.imsi,
+                msisdn: record.msisdn,
+                vlr_number: record.vlr_number,
+                carrier_name: "".to_string(),
+                country_name: "".to_string(),
+            };
+            db_records.push(db_record);
         }
 
         // Update the batch status

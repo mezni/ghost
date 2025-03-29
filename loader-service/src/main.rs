@@ -1,4 +1,5 @@
 mod config;
+mod entities;
 mod errors;
 mod file;
 mod logger;
