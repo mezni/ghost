@@ -1,4 +1,5 @@
 use crate::config::ServerConfig;
+use crate::entities::{Prefixes, RoamOutDB};
 use crate::errors::AppError;
 use deadpool_postgres::{Client, Config, Pool};
 use tokio_postgres::NoTls;
@@ -49,4 +50,53 @@ pub async fn update_batch_execs(
     let query = "UPDATE batch_execs SET batch_status = $1, end_time = NOW() WHERE id = $2";
     let rows_affected = client.execute(query, &[&status, &batch_id]).await?;
     Ok(rows_affected as u64)
+}
+
+pub async fn insert_roam_out_stg(
+    store_mgr: &StoreManager,
+    db_records: Vec<RoamOutDB>,
+) -> Result<(), AppError> {
+    let client = store_mgr.get_client().await?;
+    let query = "
+        INSERT INTO stg_roam_out (batch_id, batch_date, imsi, msisdn, vlr_number, carrier_name, country_name)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+    ";
+
+    for record in db_records {
+        client
+            .execute(
+                query,
+                &[
+                    &record.batch_id,
+                    &record.batch_date,
+                    &record.imsi,
+                    &record.msisdn,
+                    &record.vlr_number,
+                    &record.carrier_name,
+                    &record.country_name,
+                ],
+            )
+            .await
+            .map_err(AppError::DatabaseError)?;
+    }
+
+    Ok(())
+}
+
+pub async fn select_all_prefixes(store_mgr: &StoreManager) -> Result<Vec<Prefixes>, AppError> {
+    let client = store_mgr.get_client().await?;
+    let query = "SELECT p.prefix, p.carrier_name, c.country_name FROM prefixes p, countries c WHERE p.country_alpha2=c.country_alpha2;";
+
+    let rows = client.query(query, &[]).await.map_err(AppError::from)?;
+
+    let prefixes = rows
+        .into_iter()
+        .map(|row| Prefixes {
+            prefix: row.get(0),
+            carrier_name: row.get::<_, Option<String>>(1).unwrap_or_default(), // Replace null with ""
+            country_name: row.get::<_, Option<String>>(2).unwrap_or_default(), // Replace null with ""
+        })
+        .collect();
+
+    Ok(prefixes)
 }

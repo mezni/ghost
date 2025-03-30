@@ -15,3 +15,10 @@ pub struct RoamOutDB {
     pub carrier_name: String,
     pub country_name: String,
 }
+
+#[derive(Debug)]
+pub struct Prefixes {
+    pub prefix: String,
+    pub carrier_name: String,
+    pub country_name: String,
+}
