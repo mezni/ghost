@@ -7,8 +7,10 @@ CREATE TABLE IF NOT EXISTS countries (
 CREATE TABLE IF NOT EXISTS prefixes (
     id SERIAL PRIMARY KEY,
     prefix VARCHAR(10) NOT NULL,
+    country_alpha2 VARCHAR(100),
+    carrier_id VARCHAR(100),
     carrier_name VARCHAR(100),
-    country_alpha2 VARCHAR(2)    
+    length VARCHAR(2)        
 );
 
 
