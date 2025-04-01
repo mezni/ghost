@@ -54,4 +54,30 @@ impl FileManager {
             work_processed_dir: work_processed_dir_path,
         })
     }
+
+    pub async fn next(&self) -> Result<Option<(PathBuf, String)>, AppError> {
+        for source in &self.config.sources {
+            let files_vec: Vec<_> = match fs::read_dir(&source.source_directory) {
+                Ok(files) => files.flatten().collect(),
+                Err(err) => {
+                    continue;
+                }
+            };
+            let file_pattern_regex = Regex::new(&source.file_pattern)
+                .map_err(|err| AppError::Unexpected(format!("Invalid file pattern: {}", err)))?;
+
+            if let Some(file) = files_vec.iter().find(|file| {
+                let file_name_str = file.file_name().to_string_lossy().to_string(); // Convert to owned String
+                file_pattern_regex.is_match(&file_name_str)
+            }) {
+                if source.source_type.to_uppercase() == "ROAM_IN" {
+                    return Ok(Some((file.path(), "ROAM_IN".to_string())));
+                } else if source.source_type.to_uppercase() == "ROAM_OUT" {
+                    return Ok(Some((file.path(), "ROAM_OUT".to_string())));
+                }
+            }
+        }
+
+        Ok(None)
+    }
 }

@@ -3,7 +3,7 @@ use crate::errors::AppError;
 use deadpool_postgres::{Client, Config, Pool};
 use tokio_postgres::NoTls;
 use tokio_postgres::Row;
-use tokio_postgres::types::FromSql;
+use tokio_postgres::types::{FromSql, ToSql};
 
 const BATCH_STATUS_START: &str = "Started";
 const INSERT_BATCH_EXEC_QUERY: &str = "INSERT INTO batch_execs (batch_name, source_type, source_name, start_time, batch_status) \
@@ -48,5 +48,39 @@ impl StoreManager {
             .await?;
         let id: i32 = row.try_get("id")?;
         Ok(id)
+    }
+
+    pub async fn update_batch_exec(
+        &self,
+        batch_id: i32,
+        batch_status: Option<&str>,
+    ) -> Result<u64, AppError> {
+        let client: Client = self.get_client().await?;
+        let mut set_clauses = vec!["end_time = NOW()".to_string()];
+        let mut params: Vec<Box<dyn ToSql + Sync>> = Vec::new();
+
+        if let Some(status) = batch_status {
+            let status_owned = status.to_string();
+            params.push(Box::new(status_owned));
+            set_clauses.push(format!("batch_status = ${}", params.len()));
+        }
+
+        if set_clauses.is_empty() {
+            return Ok(0);
+        }
+
+        params.push(Box::new(batch_id));
+        let id_placeholder = params.len();
+
+        let query = format!(
+            "UPDATE batch_execs SET {} WHERE id = ${}",
+            set_clauses.join(", "),
+            id_placeholder
+        );
+
+        let params_refs: Vec<&(dyn ToSql + Sync)> = params.iter().map(|p| p.as_ref()).collect();
+
+        let rows_affected = client.execute(&query, &params_refs).await?;
+        Ok(rows_affected)
     }
 }
