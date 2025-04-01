@@ -41,15 +41,12 @@ pub struct Source {
     pub archive_directory: Option<String>,
 }
 
-/// Reads the application configuration from a YAML file at the specified file path.
 pub fn read_app_config(file_path: &str) -> Result<AppConfig, AppError> {
     let file = File::open(Path::new(file_path))?;
     let config = serde_yaml::from_reader(file).map_err(AppError::YamlError)?;
     Ok(config)
 }
 
-/// Reads the server configuration from environment variables.
-/// Loads variables from a `.env` file using the `dotenvy` crate.
 pub fn read_srv_config() -> Result<ServerConfig, AppError> {
     // Load environment variables from the .env file.
     if let Err(err) = dotenv() {
@@ -59,10 +56,8 @@ pub fn read_srv_config() -> Result<ServerConfig, AppError> {
         )));
     }
 
-    // Create a new ServerConfig instance.
     let mut cfg = ServerConfig::new();
 
-    // Read and assign environment variables.
     cfg.dbname = Some(env::var("DB_NAME").map_err(|_| AppError::MissingEnvVar("DB_NAME".into()))?);
     cfg.user = Some(env::var("DB_USER").map_err(|_| AppError::MissingEnvVar("DB_USER".into()))?);
     cfg.password =

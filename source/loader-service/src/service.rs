@@ -10,13 +10,9 @@ pub struct LoadService {
 
 impl LoadService {
     pub async fn new(srv_config: ServerConfig, app_config: AppConfig) -> Result<Self, AppError> {
-        // Log service initialization before creating the instance.
         Logger::info(&format!("{} : init.", SERVICE_NAME));
 
-        // Initialize your LoadService here (populate fields as needed)
-        Ok(LoadService {
-            // Initialize fields here, if any.
-        })
+        Ok(LoadService {})
     }
 
     pub async fn execute(&self) -> Result<(), AppError> {
