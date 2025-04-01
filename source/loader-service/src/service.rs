@@ -1,14 +1,14 @@
 use core::config::{AppConfig, ServerConfig};
 use core::errors::AppError;
+use core::file::FileManager;
 use core::logger::Logger;
 use core::store::StoreManager;
-use core::file::FileManager;
 
 const SERVICE_NAME: &str = "loader-srv";
 
 pub struct LoadService {
     store_manager: StoreManager,
-    file_manager: FileManager,    
+    file_manager: FileManager,
 }
 
 impl LoadService {
@@ -34,11 +34,11 @@ impl LoadService {
                 Logger::error(&format!("File - failed: {:?}", e));
                 return Err(e);
             }
-        };        
+        };
 
         Ok(LoadService {
             store_manager: store_mgr,
-            file_manager: file_mgr,    
+            file_manager: file_mgr,
         })
     }
 
