@@ -67,31 +67,22 @@ impl LoadService {
 
     pub async fn process_roam_in(&self) -> Result<(), AppError> {
         println!("roam_in");
-        let batch_id = self
-            .start_batch(SERVICE_NAME, SOURCE_TYPE_ROAM_IN, "TEST")
-            .await?;
+        let batch_id = self.start_batch(SOURCE_TYPE_ROAM_IN, "TEST").await?;
         self.update_batch(batch_id, BATCH_STATUS_SUCCESS).await?;
         Ok(())
     }
 
     pub async fn process_roam_out(&self) -> Result<(), AppError> {
         println!("roam_out");
-        let batch_id = self
-            .start_batch(SERVICE_NAME, SOURCE_TYPE_ROAM_OUT, "TEST")
-            .await?;
+        let batch_id = self.start_batch(SOURCE_TYPE_ROAM_OUT, "TEST").await?;
         self.update_batch(batch_id, BATCH_STATUS_SUCCESS).await?;
         Ok(())
     }
 
-    pub async fn start_batch(
-        &self,
-        path_name: &str,
-        source_type: &str,
-        action: &str,
-    ) -> Result<i32, AppError> {
+    pub async fn start_batch(&self, source_type: &str, source_name: &str) -> Result<i32, AppError> {
         let result = self
             .store_manager
-            .insert_batch_exec(SERVICE_NAME, source_type, path_name)
+            .insert_batch_exec(SERVICE_NAME, source_type, source_name)
             .await;
 
         match &result {
