@@ -33,12 +33,11 @@ impl LoadService {
 
         let result = self
             .store_manager
-            .insert_batch_exec(SERVICE_NAME, "TEST")
+            .insert_batch_exec(SERVICE_NAME, "ROAM_OUT", "TEST")
             .await;
 
-        // Log based on whether the insertion was successful.
         match result {
-            Ok(id) => Logger::info(&format!("Batch started: ID={}", id)),
+            Ok(batch_id) => Logger::info(&format!("Batch started: ID={}", batch_id)),
             Err(e) => Logger::error(&format!("Batch failed: {:?}", e)),
         }
 

@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS prefixes (
 CREATE TABLE IF NOT EXISTS batch_execs (
     id SERIAL PRIMARY KEY,
     batch_name VARCHAR(10) NOT NULL,
-    source_name VARCHAR(100) NOT NULL,
+    source_type VARCHAR(10),
+    source_name VARCHAR(100),
     start_time TIMESTAMP,
     end_time TIMESTAMP,        
     corr_id INT,
