@@ -15,11 +15,11 @@ async fn main() -> Result<(), AppError> {
 
     let srv_config = match read_srv_config() {
         Ok(cfg) => {
-            Logger::info("Config Server: Loaded");
+            Logger::info("Config Server - Loaded");
             cfg
         }
         Err(e) => {
-            Logger::error(&format!("Config Server: Failed - {:?}", e));
+            Logger::error(&format!("Config Server - Failed : {:?}", e));
             Logger::info("Stop.");
             process::exit(1);
         }
@@ -27,11 +27,11 @@ async fn main() -> Result<(), AppError> {
     let config_file = "config.yaml";
     let app_config = match read_app_config(config_file) {
         Ok(cfg) => {
-            Logger::info("App Server: Loaded");
+            Logger::info("App Server - Loaded");
             cfg
         }
         Err(e) => {
-            Logger::error(&format!("App Server: Failed - {:?}", e));
+            Logger::error(&format!("App Server - Failed : {:?}", e));
             Logger::info("Stop.");
             process::exit(1);
         }

@@ -1,22 +1,47 @@
-use crate::AppError;
 use core::config::{AppConfig, ServerConfig};
+use core::errors::AppError;
 use core::logger::Logger;
+use core::store::StoreManager;
 
-const SERVICE_NAME: &str = "Loader-srv";
+const SERVICE_NAME: &str = "loader-srv";
 
 pub struct LoadService {
-    // Add fields if necessary
+    store_manager: StoreManager,
 }
 
 impl LoadService {
     pub async fn new(srv_config: ServerConfig, app_config: AppConfig) -> Result<Self, AppError> {
         Logger::info(&format!("{} : init.", SERVICE_NAME));
+        let store_mgr = match StoreManager::new(srv_config) {
+            Ok(sm) => {
+                Logger::info("Storage - init");
+                sm
+            }
+            Err(e) => {
+                Logger::error(&format!("Storage - failed: {:?}", e));
+                return Err(e);
+            }
+        };
 
-        Ok(LoadService {})
+        Ok(LoadService {
+            store_manager: store_mgr,
+        })
     }
 
     pub async fn execute(&self) -> Result<(), AppError> {
         Logger::info(&format!("{} : start.", SERVICE_NAME));
+
+        let result = self
+            .store_manager
+            .insert_batch_exec(SERVICE_NAME, "TEST")
+            .await;
+
+        // Log based on whether the insertion was successful.
+        match result {
+            Ok(id) => Logger::info(&format!("Batch started: ID={}", id)),
+            Err(e) => Logger::error(&format!("Batch failed: {:?}", e)),
+        }
+
         Ok(())
     }
 }
