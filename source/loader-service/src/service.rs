@@ -2,11 +2,13 @@ use core::config::{AppConfig, ServerConfig};
 use core::errors::AppError;
 use core::logger::Logger;
 use core::store::StoreManager;
+use core::file::FileManager;
 
 const SERVICE_NAME: &str = "loader-srv";
 
 pub struct LoadService {
     store_manager: StoreManager,
+    file_manager: FileManager,    
 }
 
 impl LoadService {
@@ -14,17 +16,29 @@ impl LoadService {
         Logger::info(&format!("{} : init.", SERVICE_NAME));
         let store_mgr = match StoreManager::new(srv_config) {
             Ok(sm) => {
-                Logger::info("Storage - init");
+                Logger::info("Store - init");
                 sm
             }
             Err(e) => {
-                Logger::error(&format!("Storage - failed: {:?}", e));
+                Logger::error(&format!("Store - failed: {:?}", e));
                 return Err(e);
             }
         };
 
+        let file_mgr = match FileManager::new(app_config) {
+            Ok(fm) => {
+                Logger::info("File - init");
+                fm
+            }
+            Err(e) => {
+                Logger::error(&format!("File - failed: {:?}", e));
+                return Err(e);
+            }
+        };        
+
         Ok(LoadService {
             store_manager: store_mgr,
+            file_manager: file_mgr,    
         })
     }
 
