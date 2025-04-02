@@ -9,10 +9,12 @@ use tokio_postgres::types::{FromSql, ToSql};
 const BATCH_STATUS_START: &str = "Started";
 
 // SQL Query Constants
-const INSERT_BATCH_EXEC_QUERY: &str = "INSERT INTO batch_execs (batch_name, source_type, source_name, start_time, batch_status) 
+const INSERT_BATCH_EXEC_QUERY: &str =
+    "INSERT INTO batch_execs (batch_name, source_type, source_name, start_time, batch_status) 
                                        VALUES ($1, $2, $3, NOW(), $4) RETURNING id";
 
-const UPDATE_BATCH_EXEC_QUERY: &str = "UPDATE batch_execs SET end_time = NOW(), batch_status = $1 WHERE id = $2";
+const UPDATE_BATCH_EXEC_QUERY: &str =
+    "UPDATE batch_execs SET end_time = NOW(), batch_status = $1 WHERE id = $2";
 
 const SELECT_ALL_PREFIXES_QUERY: &str = "SELECT p.prefix, p.carrier_name, p.country_alpha2, 
                                          COALESCE(c.country_name, '') AS country_name
@@ -48,7 +50,8 @@ const INSERT_DIM_MSISDN_QUERY: &str = "INSERT INTO dim_msisdn(msisdn)
                                        SELECT msisdn
                                        FROM dim_msisdn;";
 
-const INSERT_FCT_ROAM_OUT_QUERY: &str = "INSERT INTO fct_roam_out(batch_id,date_id,imsi_id,msisdn_id,carrier_id)
+const INSERT_FCT_ROAM_OUT_QUERY: &str =
+    "INSERT INTO fct_roam_out(batch_id,date_id,imsi_id,msisdn_id,carrier_id)
                                          SELECT stg.batch_id, dt.id , di.id, dm.id, dc.id
                                          FROM stg_roam_out stg
                                          JOIN dim_time dt ON stg.batch_date = dt.date_text
@@ -99,9 +102,13 @@ impl StoreManager {
         Ok(id)
     }
 
-    pub async fn update_batch_exec(&self, batch_id: i32, batch_status: Option<&str>) -> Result<u64, AppError> {
+    pub async fn update_batch_exec(
+        &self,
+        batch_id: i32,
+        batch_status: Option<&str>,
+    ) -> Result<u64, AppError> {
         let client = self.get_client().await?;
-        
+
         if let Some(status) = batch_status {
             let rows_affected = client
                 .execute(UPDATE_BATCH_EXEC_QUERY, &[&status, &batch_id])
@@ -114,7 +121,10 @@ impl StoreManager {
 
     pub async fn select_all_prefixes(&self) -> Result<Vec<Prefixes>, AppError> {
         let client = self.get_client().await?;
-        let rows = client.query(SELECT_ALL_PREFIXES_QUERY, &[]).await.map_err(AppError::from)?;
+        let rows = client
+            .query(SELECT_ALL_PREFIXES_QUERY, &[])
+            .await
+            .map_err(AppError::from)?;
 
         let prefixes = rows
             .into_iter()
