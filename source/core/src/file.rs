@@ -1,6 +1,8 @@
 use crate::config::AppConfig;
+use crate::entities::RoamOutDTO;
 use crate::errors::AppError;
 use crate::logger::Logger;
+use chrono::Local;
 use regex::Regex;
 use std::path::{Path, PathBuf};
 
@@ -67,7 +69,7 @@ impl FileManager {
                 .map_err(|err| AppError::Unexpected(format!("Invalid file pattern: {}", err)))?;
 
             if let Some(file) = files_vec.iter().find(|file| {
-                let file_name_str = file.file_name().to_string_lossy().to_string(); // Convert to owned String
+                let file_name_str = file.file_name().to_string_lossy().to_string();
                 file_pattern_regex.is_match(&file_name_str)
             }) {
                 if source.source_type.to_uppercase() == "ROAM_IN" {
@@ -79,5 +81,51 @@ impl FileManager {
         }
 
         Ok(None)
+    }
+
+    pub async fn read_file_roam_out(
+        &self,
+        base_dir: std::path::PathBuf,
+        file_name: String,
+    ) -> Result<Vec<RoamOutDTO>, AppError> {
+        println!("process_roam_out");
+        let full_path = base_dir.join(file_name);
+
+        let file = File::open(full_path)?;
+        let mut reader = ReaderBuilder::new()
+            .trim(Trim::All)
+            .from_reader(BufReader::new(file));
+
+        let mut records = Vec::new();
+        for result in reader.records() {
+            let record = result?;
+            let imsi = record[0].to_string();
+            let msisdn = record[1].to_string();
+            let vlr_number = record[2].to_string();
+            records.push(RoamOutDTO {
+                imsi: imsi,
+                msisdn: msisdn,
+                vlr_number: vlr_number,
+            });
+        }
+
+        Ok(records)
+    }
+
+    pub fn extract_and_format_date(&self, filename: &str) -> String {
+        let re = Regex::new(r"\d{8}").unwrap(); // Match 8-digit date
+        if let Some(mat) = re.find(filename) {
+            let date_str = mat.as_str();
+            return format!(
+                "{}-{}-{}",
+                &date_str[0..4], // Year
+                &date_str[4..6], // Month
+                &date_str[6..8]  // Day
+            );
+        }
+
+        // Return today's date if no match is found
+        let today = Local::now().format("%Y-%m-%d").to_string();
+        today
     }
 }
