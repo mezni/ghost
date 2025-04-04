@@ -5,6 +5,36 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def scrape_africa():
+    url = "https://en.wikipedia.org/wiki/List_of_mobile_network_operators_in_the_Middle_East_and_Africa"
+
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    tables = pd.read_html(url)
+
+    headers = []
+    for heading in soup.find_all(['h2', 'h3']):
+        headers.append(heading.text.strip())
+    headers.remove('Contents') 
+    headers.remove('See also') 
+    headers.remove('References') 
+    print (headers)
+
+    table_data = []
+    for i, table in enumerate(tables):
+        title = headers[i] if i < len(headers) else f"Table {i}"  
+        try:
+            table = table.drop(columns=["Coverage"])
+        except:
+            pass
+        print (i, len(table.columns))
+        if len(len(table.colums)) !=2:
+            print (table)
+
+scrape_africa()
+
+
 def scrape_europe():
     url = "https://en.wikipedia.org/wiki/List_of_mobile_network_operators_in_Europe"
 
@@ -109,4 +139,4 @@ def scrape_europe():
 #    df_total.to_csv('xxx.csv') 
     df_total.to_csv ('WORK/europe.csv', index=False)
 
-scrape_europe()
+#scrape_europe()
