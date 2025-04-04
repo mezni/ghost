@@ -19,18 +19,31 @@ def scrape_africa():
     headers.remove('Contents') 
     headers.remove('See also') 
     headers.remove('References') 
-    print (headers)
 
     table_data = []
     for i, table in enumerate(tables):
         title = headers[i] if i < len(headers) else f"Table {i}"  
         try:
-            table = table.drop(columns=["Coverage"])
+            table = table.drop(columns=["Mobile Prefix"])
         except:
             pass
-        print (i, len(table.columns))
-        if len(len(table.colums)) !=2:
-            print (table)
+
+        input_file = "swap_in.csv"
+        output_file = "swap_out.csv"
+    
+        table.to_csv(input_file, sep="|",index=False)
+
+        with open(input_file, "r", encoding="utf-8") as infile, open(output_file, "w", encoding="utf-8") as outfile:
+            for line in infile:
+                if "This section needs to be updated." not in line:                    
+                    outfile.write(line)
+
+        table = pd.read_csv(output_file, sep="|")
+        os.remove(input_file)
+        os.remove(output_file)
+
+        if len(table)!=5:
+            print (len(table))
 
 scrape_africa()
 
