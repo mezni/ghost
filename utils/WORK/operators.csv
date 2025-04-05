@@ -1,0 +1,822 @@
+Country,Operator,Ownership,MCCMNC,2G,GPRS/3G,4G,Notes,OperatorId
+Afghanistan,Afghan Wireless,Telephone Systems International,,X,X,X,,afghanistan_afghan_wireless
+Afghanistan,Etisalat Afghanistan,Emirates Telecommunications Corporation,,X,X,X,,afghanistan_etisalat_afghanistan
+Afghanistan,MTN,MTN,,X,X,,,afghanistan_mtn
+Afghanistan,Roshan,Aga Khan Fund for Economic Development (AKFED),,X,X,,,afghanistan_roshan
+Afghanistan,Salaam,,,X,X,,,afghanistan_salaam
+Albania,One Albania,4iG[4][5],27601 27603,X,X,X, | • Includes the former ALBtelecom Mobile network.[3],albania_one_albania
+Albania,Vodafone Albania,Vodafone Group plc (99.9%),27602,X,X,X,,albania_vodafone_albania
+Algeria,Djezzy,State-owned[2],,X,X,X,,algeria_djezzy
+Algeria,Mobilis,Algérie Télécom,,X,X,X,,algeria_mobilis
+Algeria,Ooredoo,Ooredoo (74.4%),,X,X,X,formerly Nedjma,algeria_ooredoo
+American Samoa,American Samoa Telecommunications Authority,Government of American Samoa,,,X,X,ASTCA,american samoa_american_samoa_telecommunications_authority
+American Samoa,Blue Sky Communications,Amper SpA,,X,X,X,,american samoa_blue_sky_communications
+Andorra,Andorra Telecom,Government of Andorra[8],21303,,X,X,formerly Servei de Telecomunicacions d'Andorra,andorra_andorra_telecom
+Angola,Africell,Africell Group,,,,,,angola_africell
+Angola,Movicel,"Government (Angola Telecom) (18%), Correios Telegrafos de Angola (2%),  Porturil (40%), Modus Comicare (19%), Ipang (10%), Lambda (6%)",,X,X,X,,angola_movicel
+Angola,Unitel,Sonangol (50%)[5] Government of Angola (50%)[5],,X,X,X,,angola_unitel
+Anguilla,Digicel,Digicel,,,X,X,,anguilla_digicel
+Anguilla,FLOW,,,,X,X,,anguilla_flow
+Antigua and Barbuda,APUA,Antigua Public Utilities Authority,,,,X,inet,antigua and barbuda_apua
+Antigua and Barbuda,Digicel,Digicel,,X,X,X,,antigua and barbuda_digicel
+Antigua and Barbuda,FLOW,Liberty Latin America[2],,X,X,X,,antigua and barbuda_flow
+Argentina,Claro,América Móvil (100%)[5],,X,X,X,,argentina_claro
+Argentina,Movistar,Telefónica (100%)[6],,X,X,X,,argentina_movistar
+Argentina,Nuestro[11],FECOSUR[12],,,,,using Personal network,argentina_nuestro[11]
+Argentina,Personal,Telecom Argentina,,X,X,X,,argentina_personal
+Argentina,Tuenti[8],Telefónica (100%)[10],,,,,using Movistar network,argentina_tuenti[8]
+Armenia,Team,Telecom Armenia CJSC,28301,X,X,X,,armenia_team
+Armenia,Ucom,Ucom,28310,X,X,X,,armenia_ucom
+Armenia,Viva Armenia,Viva Armenia Fedilco Group Limited (Zhe Zhang (75%) and Konstantin Sokolov (25%)) (80%) and Government of Armenia (20%),28305,X,X,X,,armenia_viva_armenia
+Aruba,Digicel,Digicel,,X,X,,,aruba_digicel
+Aruba,SetarNV,Setar N.V.,,X,X,X,,aruba_setarnv
+Australia,Optus,Singtel,,,,,,australia_optus
+Australia,Telstra,Telstra,,,,,,australia_telstra
+Australia,Vodafone AU,TPG Telecom,,,,,,australia_vodafone_au
+Austria,A1,"A1 Group (América Móvil (60.6%), ÖBAG (28.4%), institutional and others (7.6%), retail (3.4%)).",23201,X,X,X,,austria_a1
+Austria,Drei,CK Hutchison Holdings,23205,X,X,X, | • Includes the previous Orange network.,austria_drei
+Austria,Magenta Telekom,Deutsche Telekom AG,23203,X,X,X,"formerly T-Mobile, max.mobil",austria_magenta_telekom
+Azerbaijan,Azercell,AzInTelecom (state-owned company),40001,X,X,X,,azerbaijan_azercell
+Azerbaijan,Bakcell,Neqsol Holding,40002,X,X,X,,azerbaijan_bakcell
+Azerbaijan,Nakhtel,Nakhtel LLC,40006,X,X,X,operating in Nakhchivan Autonomous Republic,azerbaijan_nakhtel
+Azerbaijan,Nar,Azerfon LLC,40004,X,X,X,,azerbaijan_nar
+Bahamas,Aliv,Cable Bahamas Government of the Bahamas,,,X,X,,bahamas_aliv
+Bahamas,BTC,"Liberty Latin America[2] (49% of ownership, 51% of voting rights),[14]",,X,X,X,,bahamas_btc
+Bahrain,Batelco,Bahrain Telecommunications Company,,X,X,X,,bahrain_batelco
+Bahrain,Zain,Zain Group (56.25%),,X,X,X,formerly MTC-Vodafone,bahrain_zain
+Bahrain,stc,STC,,X,X,X,,bahrain_stc
+Bangladesh,Banglalink,veon,,X,,X,,bangladesh_banglalink
+Bangladesh,Citycell,,,,,,,bangladesh_citycell
+Bangladesh,Grameenphone,Telenor (55.8%)Grameen Telecom (34.2%)General Public & other Institutions (10%),,X,,X,,bangladesh_grameenphone
+Bangladesh,Robi,Axiata Group Berhad (61.82%)Bharti Airtel (28.18%)General public (10%),,X,,X,,bangladesh_robi
+Bangladesh,Teletalk,State-owned,,X,X,X,,bangladesh_teletalk
+Barbados,Digicel,Digicel (75)%[19],,X,X,X,,barbados_digicel
+Barbados,FLOW,Liberty Latin America[2] (81%)[14],,X,X,X,,barbados_flow
+Belarus,A1,A1 Group,25701,X,X,X,formerly velcom,belarus_a1
+Belarus,Life,Turkcell,25704,X,X,X,,belarus_life
+Belarus,MTS,Beltelecom (51%)  MTS (49%),25702,X,X,X,,belarus_mts
+Belgium,Base/Telenet,Telenet Group N.V./S.A. (Liberty Global 100%),20620,X,X,X,,belgium_base/telenet
+Belgium,DIGI,"51% CityMesh, (subsidiary of Cegeka Groep N.V.)  49% Digi Communications N.V.",20612,,,X,,belgium_digi
+Belgium,Orange,"Orange S.A. (76.97%), others (23.03%)",20610,X,X,X,"formerly Mobistar, OBE",belgium_orange
+Belgium,Proximus,"Proximus Group N.V./S.A.(Government of Belgium 53.3%, NJJ 6.61%[21])",20601,X,X,X,formerly Belgacom,belgium_proximus
+Belize,Digi[20],Belize Telemedia Limited,,X,X,X,,belize_digi[20]
+Belize,Smart[22],Speednet,,,X,X,,belize_smart[22]
+Benin,BBcom,Bell Benin Communications,,X,,,,benin_bbcom
+Benin,Glo,Globacom,,X,,,,benin_glo
+Benin,Libercom,Benin Telecom,,X,,,,benin_libercom
+Benin,MTN,MTN (75%),,X,X,X,,benin_mtn
+Benin,Moov,Etisalat,,X,X,X,,benin_moov
+Bermuda,Digicel,Digicel,,X,X,X,,bermuda_digicel
+Bermuda,One,Bermuda Digital Communications Ltd,,X,X,X,,bermuda_one
+Bhutan,B-Mobile,Bhutan Telecom Limited (BTL),,X,X,X,,bhutan_b-mobile
+Bhutan,TashiCell,Tashi Group,,X,X,X,,bhutan_tashicell
+Bolivia,Entel,"Ministry of Public Works, Services and Housing (97.4671%) and 1200 other shareholders (2.5329%)[27]",,X,X,X,,bolivia_entel
+Bolivia,Tigo [es],Millicom (100%)[29](Atlas Investissement (Iliad S.A.) 40.4%)[30],,X,X,X,,bolivia_tigo [es]
+Bolivia,Viva,Trilogy International Partners (71.5%) and Cooperativa de Telecomunicaciones Cochabamba R.L. [es] (28.5%),,X,X,,,bolivia_viva
+Bonaire,Digicel,Digicel,,X,X,X,formerly TELBO[32],bonaire_digicel
+Bonaire,FLOW,Liberty Latin America (100%)[33][34],,X,X,X,,bonaire_flow
+Bosnia and Herzegovina,BH Mobile,"Federation of Bosnia and Herzegovina (90%), free float (10%)",21890,X,X,X,formerly GSM-BIH,bosnia and herzegovina_bh_mobile
+Bosnia and Herzegovina,HT ERONET,"Federation of Bosnia and Herzegovina (50.10%), Hrvatski Telekom (39.10%), Hrvatska pošta (5.23%), free float (5.27%)",21803,X,X,X,formerly HTmobile,bosnia and herzegovina_ht_eronet
+Bosnia and Herzegovina,haloo,"Federation of Bosnia and Herzegovina (50.10%), Hrvatski Telekom (39.10%, Hrvatska pošta (5.23%), free float (5.27%)",21803,X,X,X,MVNO of ERONET,bosnia and herzegovina_haloo
+Bosnia and Herzegovina,m:tel,Telekom Srbija,21805,X,X,X,formerly MOBI'S,bosnia and herzegovina_m:tel
+Botswana,Mascom,"Mascom, MTN (53%)",,X,X,X,,botswana_mascom
+Botswana,Orange,"Orange S.A. (69%), Mosokelatsebeng Cellular (local investors, 26%), local individuals (5%)",,X,X,X,,botswana_orange
+Botswana,btc,BTC Botswana Telecommunications Corporation,,X,X,,,botswana_btc
+Bougainville,PNG dataco,"PNG DataCo Limited is a state owned entity, created in 2014 to provide wholesale services to the Information and Communication Industry, mandated to build, own and operate the National Transmission Network (NTN).",,X,X,X,,bougainville_png_dataco
+Brazil,"Algar Telecom • Only in some areas of GO, MG, MS and SP states",Grupo Algar,,X,X,X,,"brazil_algar_telecom_•_only_in_some_areas_of_go,_mg,_ms_and_sp_states"
+Brazil,Claro,América Móvil,,X,X,X,,brazil_claro
+Brazil,Surf • Only in city of São Paulo • Operates nationally as MVNE using TIM networks,Surf Telecom S.A.,,,,X,,brazil_surf_•_only_in_city_of_são_paulo_•_operates_nationally_as_mvne_using_tim_networks
+Brazil,TIM,Telecom Italia (67%),,X,X,X,,brazil_tim
+Brazil,Vivo,Telefónica (75.3%),,X,X,X,,brazil_vivo
+British Virgin Islands,CCT[42],CCT Global Communications,,X,X,X,,british virgin islands_cct[42]
+British Virgin Islands,Digicel,Digicel (85%)[19],,X,X,X,,british virgin islands_digicel
+British Virgin Islands,FLOW,Liberty Latin America[2],,X,X,X,,british virgin islands_flow
+Brunei,Datastream Technology Sdn Bhd,Datastream Digital,,X,X,X,DST,brunei_datastream_technology_sdn_bhd
+Brunei,Progresif Cellular Sdn Bhd,Darussalam Assets Sdn Bhd,,,X,,formerly B-mobile,brunei_progresif_cellular_sdn_bhd
+Bulgaria,A1,A1 Group,28401,X,X,X,"formerly Mtel, Mobiltel",bulgaria_a1
+Bulgaria,Vivacom,United Group,28403,X,X,X,formerly Vivatel,bulgaria_vivacom
+Bulgaria,Yettel,e& PPF Telecom Group,28405,X,X,X,"formerly Telenor, Globul",bulgaria_yettel
+Burkina Faso,Orange,Orange[17],,X,X,,,burkina faso_orange
+Burkina Faso,Telecel Faso,Planor Afrique,,X,,,,burkina faso_telecel_faso
+Burkina Faso,Telmob,Maroc Telecom (51%),,X,X,,Onatel,burkina faso_telmob
+Burundi,Econet Leo,Econet Wireless (purchased Leo from Vimpelcom),,X,X,X,,burundi_econet_leo
+Burundi,Lumitel,Viettel Group (Vietnam),,X,X,X,Viettel Burundi S.A.,burundi_lumitel
+Burundi,ONAMOB,Onatel Burundi (state owned),,X,,,,burundi_onamob
+Burundi,Smart Mobile,Smart Telecom,,X,X,,formerly Lacell,burundi_smart_mobile
+Cambodia,Cellcard,The Royal Group[16],,X,X,X,,cambodia_cellcard
+Cambodia,Metfone,Viettel Cambodia,,X,X,X,,cambodia_metfone
+Cambodia,Smart,Axiata Group Berhad,,X,X,X,,cambodia_smart
+Cameroon,Camtel,Camtel (government),,X,,,,cameroon_camtel
+Cameroon,MTN,MTN Group (70%),,X,,X,,cameroon_mtn
+Cameroon,Nexttel,"Viettel Global, Bestinver Cameroon S.A.R.L",,X,X,,,cameroon_nexttel
+Cameroon,Orange,Orange S.A.,,X,,X,,cameroon_orange
+Cameroon,YooMee,YooMee,,,,,,cameroon_yoomee
+Canada,Bell Includes MTS and Virgin Mobile,Bell Canada,,,X,X,,canada_bell_includes_mts_and_virgin_mobile
+Canada,Rogers Includes Fido and Chatr,Rogers Communications,,X,X,X,,canada_rogers_includes_fido_and_chatr
+Canada,SaskTel,SaskTel,,,X,X,,canada_sasktel
+Canada,Telus Includes Koodo and Public Mobile,Telus Communications,,,X,X,,canada_telus_includes_koodo_and_public_mobile
+Canada,Vidéotron Includes Freedom Mobile,Quebecor,,,X,X,,canada_vidéotron_includes_freedom_mobile
+Cape Verde,CV Móvel,Portugal Telecom (40%),,X,X,,,cape verde_cv_móvel
+Cape Verde,T-MAIS,T-Mais,,X,,,,cape verde_t-mais
+Cayman Islands,Digicel,Digicel (96.875%)[19],,X,X,X,,cayman islands_digicel
+Cayman Islands,FLOW Cayman,Liberty Latin America[2],,X,X,X,,cayman islands_flow_cayman
+Central African Republic,Moov Africa,Maroc Telecom,,X,,,,central african republic_moov_africa
+Central African Republic,Orange,Orange S.A.,,X,X,,,central african republic_orange
+Central African Republic,azur,Bintel,,X,,,,central african republic_azur
+Central African Republic,telecel,Orascom Telecom,,X,,,,central african republic_telecel
+Chad,Airtel,Bharti Airtel,,X,X,X,,chad_airtel
+Chad,Moov,Maroc Telecom,,X,X,X,,chad_moov
+Chile,Claro,"ClaroVTR (50% América Móvil, 50% Liberty Latin America)[54]",,,,,"formerly, Smartcom",chile_claro
+Chile,Entel,Almendral Group (100%)[52],,,,,"formerly, Entel PCS",chile_entel
+Chile,Mobile virtual network operators,Mobile virtual network operators,,,,,,chile_mobile_virtual_network_operators
+Chile,Movistar,Telefónica (100%)[6],,,,,"formerly, Telefónica Móvil and BellSouth",chile_movistar
+Chile,Mundo Móvil,DigitalBridge[55] (100%),,,,,using Movistar,chile_mundo_móvil
+Chile,Suma Móvil/Smobi,Suma Móvil (100%),,,,,using Movistar,chile_suma_móvil/smobi
+Chile,VTR Móvil,"ClaroVTR (50% América Móvil, 50% Liberty Latin America)",,,,,using Claro,chile_vtr_móvil
+Chile,Virgin Mobile,"Virgin Mobile Latin America (Beyond ONE, Virgin Group)[58]",,,,,using Movistar,chile_virgin_mobile
+Chile,WOM,Novator Partners (100%)[53],,,,,"formerly, Nextel",chile_wom
+China,China Broadnet,Government of China,,,,X,,china_china_broadnet
+China,China Mobile,Government of China,,X,,X,,china_china_mobile
+China,China Telecom,Government of China,,,,X,,china_china_telecom
+China,China Unicom,Government of China,,,X,X,,china_china_unicom
+Colombia,Claro,América Móvil (99.4%)[5],,,X,X,,colombia_claro
+Colombia,ETB,ETB,,,X,X,using Tigo[64],colombia_etb
+Colombia,Flash Móvil,,,,X,X,using Tigo,colombia_flash_móvil
+Colombia,Movistar,"Telefónica (67.5%), Colombian Government (32.5%)[61]",,,X,X,,colombia_movistar
+Colombia,Móvil Éxito[63],Grupo Éxito,,,X,X,using Tigo,colombia_móvil_éxito[63]
+Colombia,Suma Móvil,,,,X,X,using Tigo,colombia_suma_móvil
+Colombia,Tigo,"Millicom (Atlas Investissement (iliad) 40.2%)[62] (50% + 1 Share), EPM and ETB",,,X,X,,colombia_tigo
+Colombia,Virgin Mobile,Virgin Mobile,,,X,X,using Movistar,colombia_virgin_mobile
+Colombia,WOM,Novator Partners (majority stake),,,X,X,,colombia_wom
+Comoros,HURI,government (Societe Nationale des Telecommunications),,X,X,X,,comoros_huri
+Comoros,Telma,Telecom Madagascar,,X,,X,,comoros_telma
+Congo,Airtel,Bharti Airtel (90%),,X,X,X,,congo_airtel
+Congo,Azur,Bintel,,X,,,,congo_azur
+Congo,MTN,MTN,,X,X,X,,congo_mtn
+Cook Islands,Vodafone,Teleraro Limited (60%)[22],,X,X,X,formerly Bluesky,cook islands_vodafone
+Costa Rica,Claro,América Móvil[5],,X,X,X,,costa rica_claro
+Costa Rica,Fullmóvil[72],Virtualis[73],,X,X,,using Kölbi,costa rica_fullmóvil[72]
+Costa Rica,Kölbi[69],Instituto Costarricense de Electricidad,,X,X,X,,costa rica_kölbi[69]
+Costa Rica,Liberty,Liberty Latin America[70],,X,X,X,,costa rica_liberty
+Costa Rica,Mobile virtual network operators,Mobile virtual network operators,,,,,,costa rica_mobile_virtual_network_operators
+Costa Rica,Tuyo Móvil[71],Televisora de Costa Rica S.A.,,X,X,,using Kölbi,costa rica_tuyo_móvil[71]
+Croatia,A1,A1 Group,21910,X,X,X,formerly vip,croatia_a1
+Croatia,Hrvatski Telekom,Deutsche Telekom AG (51.7%),21901,X,,X,"formerly T-Mobile, HTmobile, HT CRONET",croatia_hrvatski_telekom
+Croatia,Telemach,United Group,21902,X,X,X,formerly Tele2,croatia_telemach
+Cuba,Cubacel[74],ETECSA,,X,X,X,,cuba_cubacel[74]
+Curaçao,Digicel,Digicel[75],,X,X,X,,curaçao_digicel
+Curaçao,FLOW,Liberty Latin America (100%)[33][34],,X,X,X,,curaçao_flow
+Cyprus,Cablenet,Cablenet Communications Systems PLC (GO Malta 63.4%),28022,,,X,"formerly Lemontel, as MVNO on Cyta",cyprus_cablenet
+Cyprus,Cytamobile-Vodafone,Cyta (Government of Cyprus 100%),28001,X,X,X,,cyprus_cytamobile-vodafone
+Cyprus,Epic,Monaco Telecom SAM,28010,X,X,X,"formerly MTN, Areeba",cyprus_epic
+Cyprus,Kuzey Kıbrıs Turkcell,Turkcell A.Ş.,28601,X,X,X,,cyprus_kuzey_kıbrıs_turkcell
+Cyprus,PrimeTel,PrimeTel PLC (Signal Capital Partners 100%),28020,,X,X,formerly as MVNO on Epic,cyprus_primetel
+Cyprus,Telsim Vodafone,Vodafone Turkey A.Ş.,28602,X,X,X,,cyprus_telsim_vodafone
+Czech Republic,O2,PPF N.V.,23002,X,,X,"formerly Eurotel, Český Telecom",czech republic_o2
+Czech Republic,T-Mobile,Deutsche Telekom AG,23001,X,,X,formerly Paegas,czech republic_t-mobile
+Czech Republic,Vodafone,Vodafone Group plc,23003,X,,X,formerly Oskar,czech republic_vodafone
+Democratic Republic of the Congo,Africell,Africell Holding[39],,X,X,,,democratic republic of the congo_africell
+Democratic Republic of the Congo,Airtel,Bharti Airtel (98.5%),,X,X,,,democratic republic of the congo_airtel
+Democratic Republic of the Congo,Orange,Orange S.A.,,X,X,,,democratic republic of the congo_orange
+Democratic Republic of the Congo,SemaTel,Hits Telecom[42] (60%),,X,,,,democratic republic of the congo_sematel
+Democratic Republic of the Congo,Smile,"Smile Communications (Al-Nahla Technology, Atheeb Trading Company, Capitalworks, Verene) [45]",,,,X,,democratic republic of the congo_smile
+Democratic Republic of the Congo,Supercell,[41],,X,,,,democratic republic of the congo_supercell
+Democratic Republic of the Congo,U-Com,Global Vision Telecom (Telecel International)[43],,,,,,democratic republic of the congo_u-com
+Democratic Republic of the Congo,Vodacom,"Vodacom (51%), Congolese Wireless Network (49%)",,X,X,,,democratic republic of the congo_vodacom
+Denmark,3,"CK Hutchison Holdings (60%), Investor AB (40%)",23806,X,X,X,,denmark_3
+Denmark,TDC,"Macquarie Group and Danish pension funds (PFA, PKA, ATP)",23801,X,X,X,,denmark_tdc
+Denmark,Telenor,Telenor,23802,X,X,X,formerly Sonofon,denmark_telenor
+Denmark,Telia,Norlys[50],23820,X,,X,rebranding as Norlys Mobil[49],denmark_telia
+Djibouti,Evatis,Djibouti Telecom (government),,X,X,,,djibouti_evatis
+Dominica,Digicel,Digicel,,X,X,X,,dominica_digicel
+Dominica,FLOW,Liberty Latin America[2],,X,X,X,,dominica_flow
+Dominican Republic,Claro,América Móvil (100%)[5],,X,X,X,formerly CODETEL,dominican republic_claro
+Dominican Republic,Viva,Trilogy International Partners,,X,X,,,dominican republic_viva
+Dominican Republic,altice,Altice Hispaniola,,X,X,X,formerly Orange and Tricom,dominican republic_altice
+Ecuador,Claro,América Móvil (100%)[5],,X,X,X,,ecuador_claro
+Ecuador,Cnt,"Corporación Nacional de Telecomunicaciones, CNT EP",,X,X,X,,ecuador_cnt
+Ecuador,Movistar,Telefónica (100%)[6],,X,X,X,,ecuador_movistar
+Ecuador,Tuenti[82],Tuenti Ecuador[83],,,,,using Movistar network,ecuador_tuenti[82]
+Egypt,Etisalat,"Etisalat (76%), Egypt Post (20%), Other Investors (4%)",,X,X,X,,egypt_etisalat
+Egypt,Orange,"Orange S.A. (99.39%), free float (0.61%)",,X,X,X,formerly Mobinil,egypt_orange
+Egypt,Vodafone Egypt,"Vodafone Group plc (55%), Telecom Egypt (45%)",,X,X,X,,egypt_vodafone_egypt
+Egypt,We,"Egyptian government (80%), free float (20%)",,X,X,X,by Telecom Egypt,egypt_we
+El Salvador,Claro,América Móvil (95.8%)[5],,X,X,,,el salvador_claro
+El Salvador,Digicel,Digicel,,X,X,,,el salvador_digicel
+El Salvador,Movistar,"Telefónica (59.58%),[6] Corporación Multi Inversiones (40%)[90]",,X,X,X,,el salvador_movistar
+El Salvador,RED,Intelfon,,,,,,el salvador_red
+El Salvador,Tigo,Millicom (100%)[86](Atlas Investissement (NJJ) 41.8%)[87],,X,X,X,,el salvador_tigo
+Equatorial Guinea,Gecomsa,"Equatorial Guinea state (51%), China state (49%)",,,,,,equatorial guinea_gecomsa
+Equatorial Guinea,Muni,Green-com S.A. (Hits Africa),,X,X,,,equatorial guinea_muni
+Equatorial Guinea,Orange,"Orange S.A. (40%), Equatorial Guinea state (60%)",,X,,,,equatorial guinea_orange
+Eritrea,Eritel,Eritrea Telecommunications Services Corporation,,X,,,,eritrea_eritel
+Estonia,Elisa,Elisa,24802,X,,X,formerly Radiolinja,estonia_elisa
+Estonia,Tele2,Tele2,24803,X,X,X,formerly Q-GSM,estonia_tele2
+Estonia,Telia,Telia Company,24801,X,X,X,formerly EMT,estonia_telia
+Eswatini,Eswatini Mobile,,,,,X,,eswatini_eswatini_mobile
+Eswatini,MTN,MTN Group (30%),,X,X,X,,eswatini_mtn
+Ethiopia,Ethiotelecom,Ethiopian Telecommunications Corporation,,X,X,X,,ethiopia_ethiotelecom
+Ethiopia,Safaricom Telecommunications Ethiopia,Safaricom (55.7%)|Sumitomo Corporation (27.20%)|British International Investment (10.9%)|Vodacom (6.20%),,,,,,ethiopia_safaricom_telecommunications_ethiopia
+Falkland Islands,Sure[92],Batelco,,X,,,,falkland islands_sure[92]
+Faroe Islands,Føroya Tele,Government of Faroe Islands,28801,X,X,X,,faroe islands_føroya_tele
+Faroe Islands,Nema,Nema,28802,X,X,X,"formerly Hey, Vodafone, Kall",faroe islands_nema
+Faroe Islands,Tosa,Tosa,28803,X,X,X,,faroe islands_tosa
+Fiji,Digicel,Digicel,,X,X,X,,fiji_digicel
+Fiji,Vodafone,"Amalgamated Telecom Holdings, 72.6% owned by the Fiji National Provident Fund[25] (51%) Fiji National Provident Fund (49%)[26]",,X,X,X,,fiji_vodafone
+Finland,DNA,Telenor,24403 24404 24412 24413 24436 (SYV[2]),X,X,X,,finland_dna
+Finland,Elisa,Elisa,24405 24406 24421,X,X,X,formerly Radiolinja,finland_elisa
+Finland,Telia,Telia Company,24420 24436 (SYV[3]) 24491,X,X,X,"formerly Telecom Finland, Sonera",finland_telia
+Finland,Ålcom,"Mariehamns Telefon, Ålands Telefonandelslag",24414,X,X,X,formerly ÅMT / Ålands Mobiltelefon,finland_ålcom
+France,Bouygues Telecom,Bouygues Group (90.53%),20820,X,X,X,,france_bouygues_telecom
+France,Free Mobile,Iliad S.A.,20815,X,X,X,,france_free_mobile
+France,Orange,Orange S.A.,20801,X,X,X,"formerly Orange-Itineris, Itineris",france_orange
+France,SFR,"Altice (80.4%), free float (19.6%)[59]",20810,X,X,X,,france_sfr
+France (Saint-Pierre-et-Miquelon),Globatel,,,,,,,france (saint-pierre-et-miquelon)_globatel
+France (Saint-Pierre-et-Miquelon),SPM Telecom[93],"Orange S.A. (70%), Landry (30%)",,X,,,,france (saint-pierre-et-miquelon)_spm_telecom[93]
+French Polynesia,VINI,ONATi,,,X,X,,french polynesia_vini
+French Polynesia,VITI,,,,,X,,french polynesia_viti
+French Polynesia,Vodafone,Pacific Mobile Telecom,,,,X,,french polynesia_vodafone
+Gabon,Airtel,Bharti Airtel (90%),,X,X,X,"formerly Celtel, Zain",gabon_airtel
+Gabon,Moov Africa Gabon Telecom,"Maroc Telecom (51%), Gabonese government (49%)",,X,,,,gabon_moov_africa_gabon_telecom
+Gambia,Africell,Africell Gambia LTD,,X,X,X,,gambia_africell
+Gambia,Comium,Comium Group,,X,,,,gambia_comium
+Gambia,Gamcel,Gambia Telecommunications Cellular Company Ltd,,X,,,,gambia_gamcel
+Gambia,Qcell,Qcell,,X,X,,,gambia_qcell
+Georgia,A-Mobile,A-Mobile LLSC,28988 (MCC is not listed by ITU),X,X,X,,georgia_a-mobile
+Georgia,Aquafon,Aquafon JSC,28967 (MCC is not listed by ITU),X,X,X,,georgia_aquafon
+Georgia,Cellfie,CBS Group,28204,X,X,X,formerly Beeline,georgia_cellfie
+Georgia,Magticom,International Tellcell LLC,28202,X,X,X,,georgia_magticom
+Georgia,MegaFon,CJSC Ostelkom (branding licence agreement with MegaFon)[66],25002,X,X,X,,georgia_megafon
+Georgia,Silknet,Silk Road Group,28201,X,X,X,formerly Geocell,georgia_silknet
+Germany,1&1,"United Internet AG (78.32%), free float (18.26%), TGW Logistics Group (3.00%), others (0,42 %)",26223,,,X,,germany_1&1
+Germany,O2,"Telefónica S.A. (96.8%), free float (3.2%)",26203,X,,X,formerly VIAG Interkom | • Includes the previous E-Plus network.,germany_o2
+Germany,Telekom,Deutsche Telekom AG,26201,X,,X,"formerly D1 DeTeMobil, T-Mobile",germany_telekom
+Germany,Vodafone Germany,Vodafone Group plc,26202,X,,X,formerly D2 Mannesmann,germany_vodafone_germany
+Ghana,AirtelTigo,Government of Ghana,,,,,,ghana_airteltigo
+Ghana,Glo,Globacom,,X,X,,,ghana_glo
+Ghana,MTN,MTN (97.7%),,X,X,X,,ghana_mtn
+Ghana,Vodafone Ghana,Telecel Group (70%) Government of Ghana (30%),,X,X,X,,ghana_vodafone_ghana
+Gibraltar,Gibtelecom,Government of Gibraltar,26601,X,X,X,,gibraltar_gibtelecom
+Greece,COSMOTE,OTE A.E. (Deutsche Telekom AG 54.5%),"20201, 20202",X,,X,,greece_cosmote
+Greece,NOVA,United Group B.V.,"20209 (Q-TELECOM), 20210 (NOVA)",X,,X,"formerly TELESTET, TIM, WIND | • Includes the previous Q-TELECOM network.",greece_nova
+Greece,Vodafone,Vodafone Group (100%),"20205 (Vodafone), 20214 (CYTA Hellas)",X,,X,formerly Panafon | • Includes the previous CYTA Hellas network.,greece_vodafone
+Greenland,tusass,TELE Greenland,,X,X,X,formerly TELE Greenland,greenland_tusass
+Grenada,Digicel,Digicel (100%)[19],,X,X,X,,grenada_digicel
+Grenada,FLOW,Liberty Latin America[2],,X,X,X,,grenada_flow
+"Guadeloupe, Martinique and French Guiana (Guyane)",Digicel,Digicel (100%)[19],,X,X,X,,"guadeloupe, martinique and french guiana (guyane)_digicel"
+"Guadeloupe, Martinique and French Guiana (Guyane)",IEC Telecom,IEC Telecom (100%)[19],,X,X,X,,"guadeloupe, martinique and french guiana (guyane)_iec_telecom"
+"Guadeloupe, Martinique and French Guiana (Guyane)",Orange Caraïbe[98],Orange S.A.,,X,X,X,,"guadeloupe, martinique and french guiana (guyane)_orange_caraïbe[98]"
+"Guadeloupe, Martinique and French Guiana (Guyane)",Outremer Telecom,Outremer Telecom (100%)[19],,X,X,X,,"guadeloupe, martinique and french guiana (guyane)_outremer_telecom"
+"Guadeloupe, Martinique and French Guiana (Guyane)",SFR Caraïbe [fr][99],Numericable (Altice),,X,X,X,,"guadeloupe, martinique and french guiana (guyane)_sfr_caraïbe [fr][99]"
+Guam,Docomo Pacific,NTT Docomo,,X,X,X,,guam_docomo_pacific
+Guam,GTA,TeleGuam Holdings LLC,,X,X,X,,guam_gta
+Guam,IT&E and Iconnect,PTI Pacifica Inc.,,,X,X,,guam_it&e_and_iconnect
+Guatemala,Claro,América Móvil (99.3%)[5],,X,X,,,guatemala_claro
+Guatemala,Tigo,Millicom (Altas Investissement (NJJ) 29.1%)[103](55%)[104],,X,X,X,,guatemala_tigo
+Guernsey,Airtel-Vodafone,Batelco,23403,X,X,X,,guernsey_airtel-vodafone
+Guernsey,JT,JT Group,23450,X,X,X,,guernsey_jt
+Guernsey,Sure,Batelco,23455,X,X,X,,guernsey_sure
+Guinea,Cellcom Guinée,Cellcom Telecommunications Ltd[61],,X,X,,,guinea_cellcom_guinée
+Guinea,Intercel,Telecel Guinee SARL,,X,,,,guinea_intercel
+Guinea,MTN,MTN (75%),,X,X,,formerly Areeba,guinea_mtn
+Guinea,Orange,Orange S.A. (52.2%),,X,,,,guinea_orange
+Guinea,Sotelgui,"Telekom Malaysia, government",,X,,,,guinea_sotelgui
+Guinea-Bissau,Guinetel,Guinea Telecom,,X,,,,guinea-bissau_guinetel
+Guinea-Bissau,MTN,MTN Group,,X,X,X,,guinea-bissau_mtn
+Guinea-Bissau,Orange,Orange S.A. (52.2%),,X,,X,,guinea-bissau_orange
+Guyana,Digicel,Digicel,,X,X,X,,guyana_digicel
+Guyana,gtt[108],Guyana Telephone and Telegraph Company,,X,,,,guyana_gtt[108]
+Haiti,Digicel,Digicel,,X,X,,,haiti_digicel
+Haiti,NATCOM[110],60% owned by Viettel Mobile and 40% by the Haitian State[112],,X,X,X,,haiti_natcom[110]
+Honduras,Claro,América Móvil (100%)[5],,X,X,X,,honduras_claro
+Honduras,HONDUTEL,HONDUTEL,,X,,,,honduras_hondutel
+Honduras,Tigo,Millicom (Altas Investissement (NJJ) 41.9%)[115](66.7%)[116],,X,X,X,,honduras_tigo
+Hong Kong,3,Hutchison Telecom,,,X,X,,hong kong_3
+Hong Kong,CMHK,China Mobile,,X,X,X,,hong kong_cmhk
+Hong Kong,SmarTone,Sun Hung Kai Properties,,,X,X,,hong kong_smartone
+Hong Kong,csl,Hong Kong Telecom,,X,X,X,,hong kong_csl
+Hungary,Magyar Telekom,"Deutsche Telekom AG (61.39%), free float (40.79%)[71]",21630,X,,X,"formerly Westel 900, Westel, T-Mobile",hungary_magyar_telekom
+Hungary,One,4iG (70.5%) and Government of Hungary (29.5%)[72],21670,X,,X,formerly Vodafone,hungary_one
+Hungary,Yettel,e& PPF Telecom Group,21601,X,,X,"formerly Pannon GSM, Pannon, Telenor HU",hungary_yettel
+Iceland,Nova,Nova,27411,,X,X,,iceland_nova
+Iceland,Síminn,Síminn,27401,X,X,X,formerly Landssíminn,iceland_síminn
+Iceland,Vodafone,Sýn,27402,X,X,X,"formerly Og Vodafone, Íslandssími",iceland_vodafone
+India,Airtel,Bharti Airtel,,X,,X,,india_airtel
+India,BSNL,Government of India,,X,,X,,india_bsnl
+India,Jio,Jio Platforms,,,,X,,india_jio
+India,MTNL,Government of India Subsidiary of Bharat Sanchar Nigam Limited,,X,X,,"Areas: Mumbai, Delhi",india_mtnl
+India,Vi,Government Of India (33.14%) Vodafone Group Plc (32.30%) Aditya Birla Group(18.10%) Private Equity(15.97%) ATC telecom infrastructure (3.18%),,X,,X,,india_vi
+Indonesia,Indosat Ooredoo Hutchison,Ooredoo Hutchison Asia (65%) Government of Indonesia (9.6%),,X,,X,"Include previous Satelindo, Indosat-M3, 3 and StarOne network",indonesia_indosat_ooredoo_hutchison
+Indonesia,Smartfren,Sinar Mas[58],,,,X,Include previous Esia and Mobile-8 network,indonesia_smartfren
+Indonesia,Telkomsel,Telkom Indonesia (69.9%) Singtel (30.1%)[54],,X,,X,Include previous TelkomFlexi network,indonesia_telkomsel
+Indonesia,XL Axiata,Axiata Group Berhad (66.25%),,X,,X,,indonesia_xl_axiata
+Iran,Hamrahe Aval,Telecommunication Company of Iran,,X,,X,,iran_hamrahe_aval
+Iran,Irancell,Iran Electronic Development Company (51%) MTN Group (49%),,X,,X,,iran_irancell
+Iran,RighTel,Social Security Investment Company,,,,X,,iran_rightel
+Iraq,Asia Cell,Ooredoo (30%),,X,,,,iraq_asia_cell
+Iraq,Itisaluna,Itisaluna,,X,,,,iraq_itisaluna
+Iraq,Korek,Korek Telecom Ltd.,,X,,,,iraq_korek
+Iraq,Omnnea,Omnnea,,,,,,iraq_omnnea
+Iraq,Zain,Zain Group (71.67%),,X,,X,,iraq_zain
+Ireland,Three,CK Hutchison Holdings,"27205 (Three), 27202 (O2)",X,X,X, | • Includes the previous O2 network,ireland_three
+Ireland,Vodafone,Vodafone Group plc,27201,X,X,X,formerly Eircell,ireland_vodafone
+Ireland,eir,"Iliad (31.6%), NJJ (32.9%)[75]",27203,X,X,X,formerly Meteor,ireland_eir
+Isle of Man,Manx Telecom,Basalt Investment Partners,23458,X,X,X,,isle of man_manx_telecom
+Isle of Man,Sure,Batelco,23436,X,X,X,,isle of man_sure
+Israel,019 Mobile,,,X,X,X,using Partner,israel_019_mobile
+Israel,Cellact,Cellact Communication,,,X,X,using Pelephone,israel_cellact
+Israel,Cellcom,"DIC (41.77%), Public (58.23%)",,X,X,X,,israel_cellcom
+Israel,Golan Telecom,ELCO Group,,X,X,X,,israel_golan_telecom
+Israel,HomeCellular,,,X,X,X,using Cellcom,israel_homecellular
+Israel,Hot Mobile,HOT,,,X,X,,israel_hot_mobile
+Israel,Partner,"S.B. Israel Telecom (30.4%), exclusive Israeli shareholders (5%), Public (64.6%)",,X,X,X,,israel_partner
+Israel,Pelephone,Bezeq,,,X,X,,israel_pelephone
+Israel,Rami Levy,Rami Levy Hashikma Marketing,,,X,X,using Pelephone,israel_rami_levy
+Israel,XFONE,Marathon Telecom Ltd,,,,X,,israel_xfone
+Italy,Fastweb,Swisscom,22208,,,X,,italy_fastweb
+Italy,Iliad,Iliad Group,22250,,X,X,,italy_iliad
+Italy,TIM,TIM Group,22201,X,,X,formerly SIP,italy_tim
+Italy,Vodafone Italy,Swisscom,22210,X,,X,formerly Omnitel,italy_vodafone_italy
+Italy,Wind Tre,CK Hutchison Holdings,22288 and 22299,X,X,X,formerly 3 Italy and Wind,italy_wind_tre
+Ivory Coast,GreenN,LAP Oricel (licence revoqued)[72],,X,,,,ivory coast_greenn
+Ivory Coast,Koz,Comium (licence revoqued)[72],,X,,,,ivory coast_koz
+Ivory Coast,MTN,"MTN (64.7%), Planor (25.3%), Teylium group (10%)",,X,X,X,,ivory coast_mtn
+Ivory Coast,Mobile Cafe,Aircomm (licence revoqued)[72],,X,,,,ivory coast_mobile_cafe
+Ivory Coast,Moov,Etisalat,,X,X,,,ivory coast_moov
+Ivory Coast,Orange,"Orange S.A. (85%), Comafrique (15%)",,X,X,X,,ivory coast_orange
+Ivory Coast,Warid,Warid Telecom (licence revoqued)[72],,X,,,,ivory coast_warid
+Ivory Coast,YooMee,YooMee,,,,X,,ivory coast_yoomee
+Jamaica,Digicel,Digicel,,X,X,X,,jamaica_digicel
+Jamaica,FLOW,Liberty Latin America[2] (82%)[14],,,X,X,,jamaica_flow
+Japan,Disney Mobile,SoftBank / The Walt Disney Company,,,X,X,using SoftBank Mobile,japan_disney_mobile
+Japan,IIJmio,Internet Initiative Japan,,,,,,japan_iijmio
+Japan,NTT Docomo,NTT,,,,X,,japan_ntt_docomo
+Japan,Rakuten Mobile[62],Rakuten Jio Platforms,,,,X,,japan_rakuten_mobile[62]
+Japan,SoftBank Corp. & Ymobile,SoftBank Group (99.99%)[61],,,,X,,japan_softbank_corp._&_ymobile
+Japan,au,KDDI,,,,X,,japan_au
+Japan,b-mobile,Japan Communications Inc.,,,X,X,using NTT Docomo,japan_b-mobile
+Jersey,Airtel-Vodafone,Batelco,23403,X,X,X,,jersey_airtel-vodafone
+Jersey,JT,JT Group,23450,X,X,X,,jersey_jt
+Jersey,Sure,Batelco,23455,X,X,X,,jersey_sure
+Jordan,Orange Jordan,Orange S.A.,,X,X,X,,jordan_orange_jordan
+Jordan,Umniah,Batelco,,X,X,X,,jordan_umniah
+Jordan,Zain Jordan,Zain Group,,X,X,X,,jordan_zain_jordan
+Kazakhstan,Beeline,"VEON (75%), Verny Capital [ru] (25%)",,X,X,X,including izi,kazakhstan_beeline
+Kazakhstan,Forte Mobile[70],ForteBank,,X,X,X,using Beeline,kazakhstan_forte_mobile[70]
+Kazakhstan,Kcell,"Kazakhtelecom (51%), Others (49%)[65]",,X,X,X,including activ,kazakhstan_kcell
+Kazakhstan,Mobile virtual network operators,Mobile virtual network operators,,,,,,kazakhstan_mobile_virtual_network_operators
+Kazakhstan,Tele2 Kazakhstan,Power International Holding[69],,X,X,X,including Altel [ru],kazakhstan_tele2_kazakhstan
+Kenya,Airtel Kenya,Bharti Airtel (80%),,X,X,X,formerly Zain,kenya_airtel_kenya
+Kenya,Jamii Telecommunications,Jamii Telecommunications Limited,,,,X,Faiba 4G,kenya_jamii_telecommunications
+Kenya,Safaricom,Vodacom (35%)  Govt of Kenya (35%)  Vodafone Group plc (5%)  Public Float (25%),,X,X,X,,kenya_safaricom
+Kenya,Telkom Kenya,Government of Kenya[76],,X,X,X,formerly Orange,kenya_telkom_kenya
+Kosovo,Ipko,Telekom Slovenije,22102,X,X,X,,kosovo_ipko
+Kosovo,Vala,Government of Kosovo,22101,X,X,X,,kosovo_vala
+Kuwait,Ooredoo,Ooredoo (52.5%),,X,X,X,formerly Wataniya,kuwait_ooredoo
+Kuwait,Saudi Telecom Company,STC (26%),,X,X,X,formerly Viva Kuwait,kuwait_saudi_telecom_company
+Kuwait,Zain,Zain Group,,X,X,X,,kuwait_zain
+Kyrgyzstan,Beeline,Sky Mobile Ltd. (VEON),,X,X,,,kyrgyzstan_beeline
+Kyrgyzstan,Fonex,Aktel Ltd.,,,,,,kyrgyzstan_fonex
+Kyrgyzstan,Katel,KATEL,,,,,,kyrgyzstan_katel
+Kyrgyzstan,MegaCom,JSC Alpha Telecom,,X,X,X,,kyrgyzstan_megacom
+Kyrgyzstan,Nexi,SoTel,,,,,,kyrgyzstan_nexi
+Kyrgyzstan,O!,NUR Telecom Ltd.,,X,X,X,,kyrgyzstan_o!
+Kyrgyzstan,Saima Telecom,,,,,,,kyrgyzstan_saima_telecom
+Kyrgyzstan,Sapat Mobile,Winline Ltd.,,,,,,kyrgyzstan_sapat_mobile
+Kyrgyzstan,iTel,,,,,,,kyrgyzstan_itel
+Laos,ETL,Jiafu Holdings (51%)  Government of Lao P.D.R. (49%)[78],,X,X,,,laos_etl
+Laos,Lao Telecom,"Government of Lao P.D.R. (51%), Shennington Investments (Thaicom) (49%)[76]",,X,X,X,,laos_lao_telecom
+Laos,TPLUS,Government of Lao P.D.R. (100%)[77],,X,X,,,laos_tplus
+Laos,Unitel,"Lao Asia Telecommunication State Enterprise (LAT) (51%), Viettel Global (49%)[74]",,X,X,X,,laos_unitel
+Latvia,Bitė,Providence Equity Partners,24705,X,X,X,,latvia_bitė
+Latvia,LMT,"Telia (49%), Tet (Possessor (51%) and Telia (49%)) (23%), Latvian State Radio and Television Centre (LVRTC) (23%), Possessor (5%)",24701,X,X,X,,latvia_lmt
+Latvia,Tele2,Tele2,24702,X,X,X,,latvia_tele2
+Latvia,Triatel,,24703,,X,,,latvia_triatel
+Latvia,Xomobile,,24709,,,,,latvia_xomobile
+Lebanon,Alfa,government - management contract: Orascom Telecom,,X,X,X,,lebanon_alfa
+Lebanon,touch,government - management contract: Zain Group,,X,X,X,,lebanon_touch
+Lesotho,Econet Telecom Lesotho,Econet Ezi Cel Lesotho (Pty),,X,X,,,lesotho_econet_telecom_lesotho
+Lesotho,Vodacom,"Vodacom (80%), Sekha-Metsi Consortium (20%)",,X,X,X,,lesotho_vodacom
+Liberia,LTC Mobile,Liberia Telecommunications Corporation,,,,,,liberia_ltc_mobile
+Liberia,Lonestar Cell MTN,MTN (60%),,X,,,,liberia_lonestar_cell_mtn
+Liberia,Novafone,Comium Services BVI,,X,X,,formerly Comium,liberia_novafone
+Liberia,Orange,Orange Côte d'Ivoire (formerly owned by Cellcom Telecommunications),,X,X,X,,liberia_orange
+Libya,Almadar Aljadid,State-owned via LPTIC,,X,X,X,,libya_almadar_aljadid
+Libya,Libyana,State-owned via LPTIC,,X,X,X,,libya_libyana
+Liechtenstein,7acht,Salt Mobile,29502,X,X,X,formerly Orange FL,liechtenstein_7acht
+Liechtenstein,FL1 [de],State-owned,29505,X,X,X,formerly Mobilkom Liechtenstein AG,liechtenstein_fl1 [de]
+Liechtenstein,Swisscom FL,Swisscom,29501,X,X,X,,liechtenstein_swisscom_fl
+Lithuania,Bitė,Providence Equity Partners,24602 24608 • includes the previous Mezon network.,X,,X, | • includes the previous Mezon network.,lithuania_bitė
+Lithuania,Tele2,Tele2,24603,X,,X,,lithuania_tele2
+Lithuania,Telia Lietuva,Telia Company,24601,X,,X,"formerly Omnitel, Teo LT",lithuania_telia_lietuva
+Luxembourg,Luxembourg Online,Luxembourg Online,27005,,X,,,luxembourg_luxembourg_online
+Luxembourg,Orange,Orange Belgium,27099,X,X,X,,luxembourg_orange
+Luxembourg,POST,POST Luxembourg,27001,X,X,X,,luxembourg_post
+Luxembourg,Tango,Proximus Group,27077,X,X,X,,luxembourg_tango
+Macau,3 Macau,Hutchison Telecom,,,,,,macau_3_macau
+Macau,CTM,CITIC Telecom International (99%) Correios de Macau (1%),,,,,,macau_ctm
+Macau,China Telecom,Government of China,,,,,,macau_china_telecom
+Madagascar,Airtel,Bharti Airtel,,X,X,X,,madagascar_airtel
+Madagascar,Blueline,Gulfsat,,,,X,,madagascar_blueline
+Madagascar,Orange,Orange S.A. (40.01%),,X,,X,,madagascar_orange
+Madagascar,Telma Mobile,"Distacom Group, Telma SA, Hiridjee group",,X,X,X,,madagascar_telma_mobile
+Malawi,Access,,,X,,X,,malawi_access
+Malawi,Airtel,Bharti Airtel,,X,X,X,formerly Zain,malawi_airtel
+Malawi,G-Expresso,Expresso Telecom Group Limited[93],,X,,,,malawi_g-expresso
+Malawi,G-Mobile,"Globally Advanced Integrated Networks,[92] Beryl (South Africa)",,X,,,license revoked [91],malawi_g-mobile
+Malawi,Lacell,La Cell Private Limited[93],,X,,,,malawi_lacell
+Malawi,MTL,"Press Corporation, NICO, Malawi Government",,,,X,Malawi Telecommunications Limited,malawi_mtl
+Malawi,TNM,"Malawi Telecommunications Limited, Telekom Malaysia",,X,X,X,,malawi_tnm
+Malaysia,ALTEL,Puncak Semangat Sdn Bhd (owned by Syed Mokhtar Al-Bukhary).,,,,X,,malaysia_altel
+Malaysia,CelcomDigi,Major shareholders: Axiata Group Berhad (33.1%) Telenor (33.1%) Employees Provident Fund (Malaysia) (9%)[91],,,,X,,malaysia_celcomdigi
+Malaysia,Digital Nasional Berhad,Ministry of Finance (Malaysia),,,,X,DNB,malaysia_digital_nasional_berhad
+Malaysia,HelloSIM,Merchantrade Asia,,,,,uses Celcom,malaysia_hellosim
+Malaysia,MY Evolution,M2M services in Asia[99],,,,,uses DiGi,malaysia_my_evolution
+Malaysia,Maxis,"Major shareholders: BGSM Equity (62%) (itself co-owned by Ananda Krishnan via Usaha Tegas (37%), Harapan Nusantara (""a discretionary trust for bumiputra object(ives)"")[93] (30%), Saudi Telecom Company (25%)[94]",,,,X,,malaysia_maxis
+Malaysia,Redtone,Berjaya Corporation Berhad,,,,,,malaysia_redtone
+Malaysia,SpeakOut,Pavo Communications,,,,,uses DiGi,malaysia_speakout
+Malaysia,Telin Malaysia,"Telin Malaysia. Telin Malaysia is a joint venture (JV) company between Compudyne Telecommunication Systems Sdn. Bhd and PT Telin, a company fully owned by PT. Telekomunikasi Indonesia (Telkom).[100]",,,,,Kartu As,malaysia_telin_malaysia
+Malaysia,Tune Talk,Gurtaj Singh (37.71%) CelcomDigi (35%),,,,,uses Celcom,malaysia_tune_talk
+Malaysia,U Mobile,ST Telemedia (35%) U Television Sdn Bhd (21%) Ibrahim Ismail of Johor (15%) MPHB Capital Bhd (6%),,,,X,,malaysia_u_mobile
+Malaysia,Unifi Mobile,Telekom Malaysia,,,,X,,malaysia_unifi_mobile
+Malaysia,XOX,XOX,,,,,uses Celcom,malaysia_xox
+Malaysia,Yes,YTL Communications (a unit of publicly listed YTL Corporation),,,,X,,malaysia_yes
+Malaysia,mCalls,Partnership between Pavo Communications and DiGi.[101],,,,,uses DiGi,malaysia_mcalls
+Malaysia,redONE,Gurtaj Singh (37.71%) Celcom(35%),,,,,uses Celcom,malaysia_redone
+Maldives,Dhiraagu,Dhiraagu,,X,X,X,,maldives_dhiraagu
+Maldives,Ooredoo Maldives,Ooredoo,,X,X,X,,maldives_ooredoo_maldives
+Mali,Moov Africa Malitel[97],"Maroc Telecom 51%, local investors 20%, government 19%, staff 10%[98]",,X,X,,,mali_moov_africa_malitel[97]
+Mali,Orange[96],Orange S.A. 52.2%,,X,X,,,mali_orange[96]
+Mali,Planor,Planor (support of Monaco Telecom),,X,,,,mali_planor
+Malta,Epic,Monaco Telecom,27801,X,X,X,"formerly Telecell, Vodafone",malta_epic
+Malta,GO,"Tunisie Telecom (65.42%), public (34.58%)",27821,X,X,X,formerly MALTACOM,malta_go
+Malta,Melita,EQT AB  (pending sale to Goldman Sachs Alternatives[91]),27877,,X,X,,malta_melita
+Marshall Islands,NTA,MINTA,,X,X,X,,marshall islands_nta
+Mauritania,Chinguitel,Sudatel (60%),,X,X,,,mauritania_chinguitel
+Mauritania,MATTEL,"Tunisie Telecom (51%), Mauritanian Investors (49%)",,X,X,X,,mauritania_mattel
+Mauritania,Moov Mauritel,Maroc Telecom (51.5%),,X,X,X,,mauritania_moov_mauritel
+Mauritius,CHiLi,Mahanagar Telephone Mauritius Limited (MTML),,X,X,,,mauritius_chili
+Mauritius,Emtel,Currimjee,,X,X,X,,mauritius_emtel
+Mauritius,Mauritius Telecom,Orange S.A. (40%)| Government of Mauritius (33.49%)| SBM Investments Managers Ltd	(19%)| National Pensions Fund (6.55%)| Employees of Mauritius Telecom (0.96%),,X,X,X,,mauritius_mauritius_telecom
+Mexico,AT&T Mexico,AT&T Inc.,,,X,X,Includes Unefón,mexico_at&t_mexico
+Mexico,Cierto,Teligentia[130],,X,X,,using Movistar,mexico_cierto
+Mexico,Flash Mobile,Logística ACN México[133],,X,X,X,using Movistar,mexico_flash_mobile
+Mexico,Maz Tiempo,Maz Tiempo[131],,X,X,,using Movistar,mexico_maz_tiempo
+Mexico,Movistar,Telefónica (100%)[6][121][122][123],,,X,X,,mexico_movistar
+Mexico,Oui Móvil,Telecomunicaciones 360[132],,X,X,X,using Telcel,mexico_oui_móvil
+Mexico,QBO Cel,Canaliza Software[127],,X,X,,using Movistar,mexico_qbo_cel
+Mexico,Red Compartida,ALTÁN Redes,,,,X,Shared network available for MVNOs,mexico_red_compartida
+Mexico,Telcel,América Móvil (100%)[5],,X,X,X,,mexico_telcel
+Mexico,Virgin Mobile,Virgin Mobile,,X,X,X,using Movistar,mexico_virgin_mobile
+Mexico,weex,Truu Innovation[128],,X,X,X,using Movistar,mexico_weex
+"Micronesia, Federated States of",FSM Telecom,FSMTC,,X,X,,,"micronesia, federated states of_fsm_telecom"
+Moldova,Interdnestrcom operating in Transnistria region only,Sheriff,25906,,,X,,moldova_interdnestrcom_operating_in_transnistria_region_only
+Moldova,Moldcell,CG Corp Global[94],25902,X,X,X,,moldova_moldcell
+Moldova,Moldtelecom,Moldtelecom,259032590525999,,X,X,,moldova_moldtelecom
+Moldova,Orange,Orange S.A. (94.3%),25901,X,X,X,,moldova_orange
+Monaco,Monaco Telecom,"NJJ 55%, Société Nationale de Financement 45%",21210,X,X,X,,monaco_monaco_telecom
+Mongolia,G-Mobile,,,,X,,,mongolia_g-mobile
+Mongolia,Mobicom,"KDDI, Sumitomo Corporation, Newcom Group",,X,X,X,,mongolia_mobicom
+Mongolia,Skytel,"Altai Holdings, Shunkhlai Group",,,X,,,mongolia_skytel
+Mongolia,Unitel,MCS Group,,X,X,X,,mongolia_unitel
+Montenegro,Crnogorski Telekom,"Hrvatski Telekom (76.53%) (Deutsche Telekom AG 60.49%), free float (23.47%)",29702,X,,X,,montenegro_crnogorski_telekom
+Montenegro,One Montenegro,4iG[5],29701,X,X,X,,montenegro_one_montenegro
+Montenegro,m:tel,"51% Telekom Srbija, 49% Telekom Srpske",29703,X,X,X,,montenegro_m:tel
+Montserrat,Digicel,Digicel Group,,X,X,X,,montserrat_digicel
+Montserrat,FLOW,Liberty Latin America[2],,X,X,,,montserrat_flow
+Morocco,Maroc Telecom,"Etisalat (53%), Government Morocco (22%)",,X,X,X,,morocco_maroc_telecom
+Morocco,Orange Morocco,"Orange S.A. (49%), FinanceCom+CDG (51%)",,X,X,X,,morocco_orange_morocco
+Morocco,inwi,Zain Group (31%),,X,X,X,,morocco_inwi
+Mozambique,Movitel,"Viettel (70%), SPI (30%)[106]",,X,,,,mozambique_movitel
+Mozambique,Tmcel,Partially state-owned,,X,X,,,mozambique_tmcel
+Mozambique,Vodacom,Vodacom (85%),,X,X,,,mozambique_vodacom
+Myanmar,ATOM,M1 Group,,X,X,X,Formerly Telenor,myanmar_atom
+Myanmar,MPT,"State-owned, KDDI, Sumitomo Corporation",,X,X,X,,myanmar_mpt
+Myanmar,Mytel,Viettel (49%) Star High Telecom (28%) Myanmar National Telecom Holding (23%)[111],,X,,X,,myanmar_mytel
+Myanmar,Ooredoo,Nine communications,,X,X,X,,myanmar_ooredoo
+Namibia,MTC[109],Namibia Post and Telecommunications Holdings (66%)  Portugal Telecom (34%),,X,X,X,,namibia_mtc[109]
+Namibia,TN Mobile[110],Telecom Namibia Ltd.,,X,X,X,"formerly Cell One, Leo",namibia_tn_mobile[110]
+Nauru,Digicel,Digicel Pacific Ltd.,,X,X,X,,nauru_digicel
+Nepal,Ncell,Spectrlite UK Limited (80%) [117],,X,X,X,,nepal_ncell
+Nepal,Nepal Telecom,Nepal Doorsanchar Company Ltd.,,X,X,X,,nepal_nepal_telecom
+Nepal,SmartCell,Smart Private Telcom Limited,,X,,X,,nepal_smartcell
+Netherlands,KPN,Koninklijke KPN,20408,X,,X,O2 Netherlands | • Includes the previous Telfort network.,netherlands_kpn
+Netherlands,Odido,"WP/AP Telecom Holdings IV B.V. (Warburg Pincus 50%, Apax Partners 50%)",20416 and 20402,,X,X,"formerly T-Mobile, Ben | • Includes the previous Tele2 and Orange networks.",netherlands_odido
+Netherlands,Vodafone,"VodafoneZiggo (Vodafone Group 50%, Liberty Global 50%)",20404,X,,X,formerly Libertel,netherlands_vodafone
+New Caledonia,Mobilis,Office des Postes et Télécommunications de Nouvelle-Calédonie,,X,X,X,,new caledonia_mobilis
+New Zealand,2degrees,Voyage Australia Pty Limited[122],,,X,X,,new zealand_2degrees
+New Zealand,Compass Mobile[123],Compass Communications,,,X,X,using Spark,new zealand_compass_mobile[123]
+New Zealand,Contact Mobile,Contact Energy,,X,X,X,using One NZ,new zealand_contact_mobile
+New Zealand,Kiwi Mobile[124],Electric Kiwi,,,X,X,using 2degrees,new zealand_kiwi_mobile[124]
+New Zealand,Kogan Mobile,Kogan.com (ASX: KGN),,X,X,X,using One NZ,new zealand_kogan_mobile
+New Zealand,Mighty Mobile,Mighty Ape,,X,X,X,using One NZ,new zealand_mighty_mobile
+New Zealand,Mobile virtual network operators,Mobile virtual network operators,,,,,,new zealand_mobile_virtual_network_operators
+New Zealand,One NZ,Infratil Limited,,X,X,X,"formerly Vodafone NZ, BellSouth",new zealand_one_nz
+New Zealand,Rocket Mobile,My Republic,,X,X,X,using One NZ,new zealand_rocket_mobile
+New Zealand,Skinny,Spark (NZX: SPK),,,X,X,using Spark,new zealand_skinny
+New Zealand,Slingshot Mobile,Voyage Australia Pty Limited,,,X,X,using Spark,new zealand_slingshot_mobile
+New Zealand,Spark,Public (NZX: SPK),,,X,X,formerly Telecom,new zealand_spark
+New Zealand,Warehouse Mobile[124],The Warehouse Group (NZX: TWG),,,X,X,using 2degrees,new zealand_warehouse_mobile[124]
+Nicaragua,Claro,América Móvil (99.6%)[5],,X,X,X,formerly Enitel,nicaragua_claro
+Nicaragua,Tigo,Millicom (Altas Investissement (NJJ) 29.1%)[136],,X,X,X,,nicaragua_tigo
+Niger,Airtel,Bharti Airtel,,X,,,,niger_airtel
+Niger,Moov Africa Niger,Maroc Telecom,,X,,,,niger_moov_africa_niger
+Niger,Niger Telecoms,"Sahel-Com, Lap Green overtaken by government[111]",,X,,,,niger_niger_telecoms
+Niger,Zamani Telecom,Zamani Com,,X,X,,,niger_zamani_telecom
+Nigeria,9mobile,"Etisalat, Mubadala, Nigerian Investors (15.60%)",,X,X,X,formerly Etisalat,nigeria_9mobile
+Nigeria,Airtel,Bharti Airtel (20.6%),,X,X,X,formerly Zain,nigeria_airtel
+Nigeria,Glo Mobile,Globacom (20.78%),,X,X,X,,nigeria_glo_mobile
+Nigeria,MTN,MTN (41.5%),,X,X,X,,nigeria_mtn
+Niue,Telecom Niue,Telecom Niue,,X,,X,,niue_telecom_niue
+Norfolk Island,Norfolk Telecom,Norfolk Telecom,,,X,X,,norfolk island_norfolk_telecom
+North Korea,Kangsong NET,Ministry of Information Industry,,,X,X,,north korea_kangsong_net
+North Korea,Koryolink,Global Telecom Holding S.A.E. (75%) Korea Post and Telecommunications Corporation (25%),,,X,,,north korea_koryolink
+North Macedonia,A1,A1 Group,29403,X,X,X,"formerly one, Vip, Cosmofon",north macedonia_a1
+North Macedonia,Telekom,Magyar Telekom (51.00%) (Stone Bridge Communications),29401,X,X,X,"formerly T-Mobile, MOBIMAK",north macedonia_telekom
+Northern Mariana Islands,Docomo Pacific,NTT Docomo,,X,X,X,,northern mariana islands_docomo_pacific
+Northern Mariana Islands,IT&E,IT&E Overseas Inc,,X,X,X,,northern mariana islands_it&e
+Norway,Ice,Lyse AS[115],"24214, 24206",,,X,formerly Ice.net,norway_ice
+Norway,Telenor,Telenor Government of Norway (54%),24201,X,,X,,norway_telenor
+Norway,Telia,Telia Company,24202,X,,X,formerly NetCom | • Includes the previous Tele2 network.,norway_telia
+Oman,Omantel,Omantel (99%),,X,X,X,,oman_omantel
+Oman,Ooredoo,Ooredoo (55%),,X,X,X,formerly Nawras,oman_ooredoo
+Pakistan,Jazz,VEON Ltd. (100%),,,,X,PMCL - Pakistan Mobile Communications Limited,pakistan_jazz
+Pakistan,Onic[133],Ufone,,,,X,Ufone MVNO,pakistan_onic[133]
+Pakistan,ROX[134],Jazz,,,,X,Jazz MVNO,pakistan_rox[134]
+Pakistan,Telenor Pakistan,Telenor ASA (100%),,,,X,,pakistan_telenor_pakistan
+Pakistan,Ufone,Government of Pakistan (62%) Etisalat by e& (26%) General public (12%),,,,X,PTML - Pak Telecommunication Mobile Limited,pakistan_ufone
+Pakistan,Zong,China Mobile Limited (100%),,,,X,CMPak Limited,pakistan_zong
+Palau,PalauCel,Palau National Communications Corporation (PNCC),,,X,X,,palau_palaucel
+Palestine,Jawwal,Paltel,,X,X,,,palestine_jawwal
+Palestine,Ooredoo,"Ooredoo (57%), Palestine Investment Fund (43%)",,X,X,,,palestine_ooredoo
+Panama,+móvil,Cable & Wireless (49%)[14],,X,X,X,,panama_+móvil
+Panama,Tigo,Millicom (Altas Investissement (iliad) 40.2%)[138][139],,X,X,X,,panama_tigo
+Papua New Guinea,BMobile,Pacific Mobile Communications,,X,X,,,papua new guinea_bmobile
+Papua New Guinea,Digicel,Digicel,,X,X,X,,papua new guinea_digicel
+Papua New Guinea,Telikom PNG,Telikom (PNG) LTD,,X,,X,,papua new guinea_telikom_png
+Paraguay,Claro,América Móvil (100%)[5],,X,X,X,,paraguay_claro
+Paraguay,Personal,ABC Color and Telecom Argentina,,X,X,X,,paraguay_personal
+Paraguay,Tigo,Millicom (Atlas Investissement (iliad S.A.) 29.1%)[142](100%)[143],,X,X,X,,paraguay_tigo
+Paraguay,VOX [es],COPACO S.A.[144],,X,X,X,,paraguay_vox [es]
+Peru,ASU MOBILE,UNION TELECOMl (100%)[5],,X,X,X,Formerly TIM,peru_asu_mobile
+Peru,Bitel [es],Viettel Mobile,,,X,X,Formerly Viettel Peru S.A.C.,peru_bitel [es]
+Peru,Claro,América Móvil (100%)[5],,X,X,X,Formerly TIM,peru_claro
+Peru,Cuy Móvil [es],Cuy Móvil [es],,,,,using Claro,peru_cuy_móvil [es]
+Peru,Entel,Entel (Chile),,,X,X,Formerly Nextel,peru_entel
+Peru,Movistar,Telefónica (99.3%)[61],,X,X,X,,peru_movistar
+Peru,UNION TELECOM,UNION TELECOM (100%)[5],,X,X,X,Formerly TIM,peru_union_telecom
+Philippines,Dito Telecommunity,Dito CME Holdings Corporation (60%) China Telecommunications Corporation (40%),,,,X,,philippines_dito_telecommunity
+Philippines,GOMO,Globe Telecom,,,,,using Globe,philippines_gomo
+Philippines,Globe Telecom,"Ayala Corporation (13.20%) Singtel (20.10%) Asiacom Philippines, Inc. (50.85%) Directors, Officers, ESOP (0.19%) Public Stock (15.66%)",,X,X,X,,philippines_globe_telecom
+Philippines,Now Telecom,Now Corporation (30%),,,,,,philippines_now_telecom
+Philippines,Smart Communications,PLDT (NTT docomo),,X,X,X,,philippines_smart_communications
+Philippines,TM,Globe Telecom,,,,X,using Globe,philippines_tm
+Philippines,TNT,Smart Communications,,,,X,using Smart,philippines_tnt
+Poland,Orange,"Orange S.A. (50.67%), free float (49.33%)",26003,X,X,X,formerly Idea,poland_orange
+Poland,Play,Iliad S.A.,26006,X,X,X,,poland_play
+Poland,Plus,Grupa Polsat Plus,26001,X,X,X,formerly Plus GSM,poland_plus
+Poland,T-Mobile,Deutsche Telekom AG,26002,X,,X,formerly Era,poland_t-mobile
+Portugal,DIGI,Digi Communications N.V.,26802,,,,New Network,portugal_digi
+Portugal,MEO,Altice,26806,X,X,X,formerly TMN,portugal_meo
+Portugal,NOS,NOS,26803,X,X,X,formerly Optimus,portugal_nos
+Portugal,Vodafone,Vodafone Group plc,26801,X,X,X,formerly Telecel,portugal_vodafone
+Puerto Rico and United States Virgin Islands,Claro,América Móvil (100%)[5],,X,X,X,,puerto rico and united states virgin islands_claro
+Puerto Rico and United States Virgin Islands,Liberty[2],Liberty Latin America[2],,,X,X,formerly AT&T,puerto rico and united states virgin islands_liberty[2]
+Puerto Rico and United States Virgin Islands,Mobile virtual network operators,Mobile virtual network operators,,,,,,puerto rico and united states virgin islands_mobile_virtual_network_operators
+Puerto Rico and United States Virgin Islands,T-Mobile,Deutsche Telekom AG (43%) SoftBank Group Corporation (24%) free float (33%),,,,,"GPRS, EDGE | •Includes Metro by T-Mobile •Includes the previous Sprint network Includes the next Orange by T Mobile CDMA2000 1xRTT, EV-DO Rev 0, Rev A GSM-1900 AWS UMTS, HSDPA, HSUPA, HSPA, HSPA+ 600/700/1700/1900 MHz LTE, LTE-A 600/2500 MHz 5G NR",puerto rico and united states virgin islands_t-mobile
+Puerto Rico and United States Virgin Islands,TracFone Wireless,Verizon (100%),,X,X,,,puerto rico and united states virgin islands_tracfone_wireless
+Qatar,Ooredoo,Ooredoo,,X,X,X,formerly Qtel,qatar_ooredoo
+Qatar,Vodafone,"Qatar Foundation LLC (50%), Pension Fund (13.05%), free float (36.95%)",,X,X,X,,qatar_vodafone
+Romania,Digi,Digi Communications N.V.,22605,X,,X,,romania_digi
+Romania,Orange,Orange S.A.,22610,X,X,X,,romania_orange
+Romania,Telekom,OTE (Deutsche Telekom AG 54.5%),22603,X,,X,"formerly Cosmorom, Cosmote",romania_telekom
+Romania,Vodafone,Vodafone Group plc,22601,X,X,X,,romania_vodafone
+Russia,Beeline,PJSC VimpelCom,25099,X,X,X,,russia_beeline
+Russia,K-Telecom,OOO K-Telecom,"25032, 25096",X,X,X," | Coverage: Crimea, Sevastopol, Luhansk, Donetsk, Zaporozhye, Kherson",russia_k-telecom
+Russia,MKS,OOO MKS,25098,X,X,X, | Coverage: Luhansk,russia_mks
+Russia,MOTIV,OOO EKATERINBURG-2000,25035,X,,X," | Coverage: Sverdlovsk, Kurgan, Khanty-Mansi, Yamalo-Nenets",russia_motiv
+Russia,MTS,"PJSC Sistema (42.09%), PJSC MTS (1.93%), free float (50.03%)[123]",25001,X,X,X,,russia_mts
+Russia,MegaFon,"OOO USM Holdings (50%), OOO AF Telecom Holdings (50%)[125]",25002,X,X,X,,russia_megafon
+Russia,Miranda,OOO Miranda-Media,25054,X,X,X," | Coverage: Crimea, Sevastopol, Luhansk, Donetsk, Zaporozhye, Kherson",russia_miranda
+Russia,Phoenix,"SUE DPR ""ROS""",25097,X,X,X, | Coverage: Donetsk,russia_phoenix
+Russia,Tattelecom,PJSC Tattelecom,25027,X,,X, | Coverage: Tatarstan,russia_tattelecom
+Russia,Vainah Telecom,JSC Vainah Telecom,25008,X,,X, | Coverage: Chechnya,russia_vainah_telecom
+Russia,t2,PJSC Rostelecom,25020,X,X,X,,russia_t2
+Rwanda,Airtel,Bharti Airtel,,X,X,X,,rwanda_airtel
+Rwanda,MTN Rwanda,"MTN Group (55%), Crystal Telecom (35%)",,X,X,X,,rwanda_mtn_rwanda
+Rwanda,Rwandatel,LAP Green Networks (80%),,X,X,,,rwanda_rwandatel
+Réunion,FREE,fr: ILIAD and TELCO OI,,X,X,,,réunion_free
+Réunion,Orange,Orange,,X,X,X,,réunion_orange
+Réunion,SFR,SFR,,X,X,X,,réunion_sfr
+Saint Helena,Sure,Batelco,,X,,X,,saint helena_sure
+Saint Kitts and Nevis,Digicel,Digicel,,X,X,,,saint kitts and nevis_digicel
+Saint Kitts and Nevis,FLOW,Liberty Latin America[2],,X,X,X,,saint kitts and nevis_flow
+Saint Lucia,Digicel,Digicel (91.02%)[19],,X,X,,,saint lucia_digicel
+Saint Lucia,FLOW,Liberty Global,,X,X,X,,saint lucia_flow
+Saint Lucia,NTRC,,,X,X,X,,saint lucia_ntrc
+Saint Lucia,SLICTA,,,X,X,X,,saint lucia_slicta
+Saint Vincent and the Grenadines,Bouygues,Bouygues,,X,X,,,saint vincent and the grenadines_bouygues
+Saint Vincent and the Grenadines,Digicel,Digicel,,X,X,,,saint vincent and the grenadines_digicel
+Saint Vincent and the Grenadines,FLOW,Liberty Latin America[2],,X,X,,,saint vincent and the grenadines_flow
+Samoa,Digicel,Digicel,,X,X,X,,samoa_digicel
+Samoa,Vodafone Samoa,,,X,,X,formerly Bluesky Samoa,samoa_vodafone_samoa
+San Marino,Prima,San Marino Telecom,29201,X,X,,,san marino_prima
+San Marino,TIM San Marino,TIM,22201,X,X,X,,san marino_tim_san_marino
+San Marino,Telefonia Mobile Sammarinese,Telecom Italia San Marino (51%),22201,X,X,X,,san marino_telefonia_mobile_sammarinese
+Saudi Arabia,Lebara Mobile KSA,Lebara,,X,X,X,,saudi arabia_lebara_mobile_ksa
+Saudi Arabia,Mobily,Etisalat (27.45%),,X,X,X,,saudi arabia_mobily
+Saudi Arabia,Virgin mobile KSA,,,X,X,X,,saudi arabia_virgin_mobile_ksa
+Saudi Arabia,Zain,Zain Group (37%),,X,X,X,,saudi arabia_zain
+Saudi Arabia,stc,70% state owned and 30% private[citation needed],,X,X,X,,saudi arabia_stc
+Senegal,Expresso,Sudatel,,X,X,,,senegal_expresso
+Senegal,Free,"Teyliom, NJJ and AXIAN [134]",,X,X,X,,senegal_free
+Senegal,Hayo Telecom,CSU,,X,X,,,senegal_hayo_telecom
+Senegal,Orange,"Sonatel, Orange S.A. (52.2%)",,X,X,X,,senegal_orange
+Serbia,A1,A1 Group,22005,X,X,X,,serbia_a1
+Serbia,MTS,Telekom Srbija,22003,X,X,X,,serbia_mts
+Serbia,Yettel,e& PPF Telecom Group,22001,X,X,X,,serbia_yettel
+Seychelles,Airtel,Bharti Airtel,,X,X,X,,seychelles_airtel
+Seychelles,Cable & Wireless,Cable & Wireless,,X,,,,seychelles_cable_&_wireless
+Sierra Leone,Africell,Lintel Limited,,X,X,,,sierra leone_africell
+Sierra Leone,Comium,"Comium licence revoked since October 2014,[142] while NATCOM managers have been sacked in 2015[143]",,X,,,,sierra leone_comium
+Sierra Leone,GreenN,Ambitel (LapGreen) licence revoked since September 2014[144],,X,,,,sierra leone_greenn
+Sierra Leone,Orange,Orange[17],,X,X,X,,sierra leone_orange
+Sierra Leone,Qcell,Qcell,,X,X,,,sierra leone_qcell
+Sierra Leone,Sierratel,"government, managed by MDIC[140]",,,,,,sierra leone_sierratel
+Singapore,Changi Mobile,Changi Recommends,,,,X,Using M1,singapore_changi_mobile
+Singapore,China Mobile CMLink SG,China Mobile International,,,,X,Using Singtel,singapore_china_mobile_cmlink_sg
+Singapore,China Unicom CUniq SG,China Unicom (Singapore) Operations,,,,X,Using StarHub,singapore_china_unicom_cuniq_sg
+Singapore,Circles.Life,Liberty Wireless Pte Ltd,,,,X,Using M1,singapore_circles.life
+Singapore,GRID Communications,GRID Communications Pte Ltd,,,,,,singapore_grid_communications
+Singapore,Geenet Mobile,Geenet Pte Ltd,,,,X,Using M1,singapore_geenet_mobile
+Singapore,M1 with a digital sub-brand Maxx,Keppel Corporation SPH,,,,X,,singapore_m1_with_a_digital_sub-brand_maxx
+Singapore,Mobile virtual network operators,Mobile virtual network operators,,,,,,singapore_mobile_virtual_network_operators
+Singapore,MyRepublic,MyRepublic[150],,,,X,Using StarHub for its 5G plans; Using M1 for its 4G plans,singapore_myrepublic
+Singapore,SIMBA,TUAS Limited,,,,X,formerly TPG Mobile,singapore_simba
+Singapore,Singtel Mobile with digital sub-brands GOMO and heya,Temasek Holdings,,,,X,,singapore_singtel_mobile_with_digital_sub-brands_gomo_and_heya
+Singapore,StarHub with digital sub-brands giga! and eight telecom,ST Telemedia Ooredoo NTT docomo,,,,X,,singapore_starhub_with_digital_sub-brands_giga!_and_eight_telecom
+Singapore,VIVIFI,ICYMI Pte Ltd,,,,X,Using Singtel,singapore_vivifi
+Singapore,ZYM Mobile,mDR Limited,,,,X,Using Singtel,singapore_zym_mobile
+Singapore,Zero1,Zero1,,,,X,Using Singtel,singapore_zero1
+Singapore,redONE,Redtone International,,,,X,Using StarHub,singapore_redone
+Slovakia,4ka,SWAN,23103,X,,X,SWAN,slovakia_4ka
+Slovakia,O2,e& PPF Telecom Group,23106,X,X,X,"formerly Telefónica, O2 Telefónica",slovakia_o2
+Slovakia,Orange,Orange S.A.,"23101, 23105",X,,X,"formerly Globtel, Slovtel",slovakia_orange
+Slovakia,Telekom,Deutsche Telekom AG,"23102, 23104",X,,X,"formerly Eurotel, T-Mobile",slovakia_telekom
+Slovenia,A1,A1 Group,29340,X,,X,formerly Si.mobil,slovenia_a1
+Slovenia,T-2,Garnol (pending sale to Telemach),29364,,X,X,,slovenia_t-2
+Slovenia,Telekom Slovenije,Telekom Slovenije,29341,X,,X,formerly Mobitel,slovenia_telekom_slovenije
+Slovenia,Telemach,United Group,29370,X,X,X,formerly Tušmobil,slovenia_telemach
+Solomon Islands,Our Telekom,Solomon Telekom Company Limited,,X,X,X,,solomon islands_our_telekom
+Somalia,Golis Telecom Somalia,"Golis Telecom Somalia, Gaani Wireless",,X,,,,somalia_golis_telecom_somalia
+Somalia,Hormuud,Hormuud Telecom Somalia Inc,,X,X,X,,somalia_hormuud
+Somalia,Nationlink,Bintel,,X,,,,somalia_nationlink
+Somalia,Netco,Somali Telecom Group,,X,,,,somalia_netco
+Somalia,SomNet[147][148],SomNet Telecom,,X,,X,,somalia_somnet[147][148]
+Somalia,Somafone,Somali Telecom Group,,X,,,,somalia_somafone
+Somalia,Somtel,Dahabshiil,,X,X,X,,somalia_somtel
+Somalia,Telcom Somalia,Haatif Telecom Somalia,,X,X,X,,somalia_telcom_somalia
+Somalia,Telesom Mobile,Telesom Group,,X,X,,,somalia_telesom_mobile
+South Africa,Cell C,Oger Telecom in process of diluting it's 70% stake to 27% Blue Label Telecoms is planning to acquire a 30% stake in Cell C[153],,X,X,X,,south africa_cell_c
+South Africa,MTN,MTN Group,,X,X,X,,south africa_mtn
+South Africa,Rain,Rain (formerly Wireless Business Solutions) 80% ARC 20%,,,,X,,south africa_rain
+South Africa,Telkom,Telkom,,X,X,X,,south africa_telkom
+South Africa,Vodacom,Vodacom (65.1%),,X,X,X,,south africa_vodacom
+South Korea,KT,KT Corporation,,,X,X,"formerly olleh, KTF",south korea_kt
+South Korea,LG U+,LG Corporation (37%),,,,X,formerly LG Telecom,south korea_lg_u+
+South Korea,SK Telecom,SK Group,,,X,X,,south korea_sk_telecom
+South Sudan,Gemtel,Lap Green Networks (80%),,X,,,,south sudan_gemtel
+South Sudan,MTN,MTN Group,,X,X,,,south sudan_mtn
+South Sudan,Sudani,Sudatel[not operationally active],,X,X,,,south sudan_sudani
+South Sudan,Vivacell,"Fattouch Investment Group (75%), Wawat Securities (25%)[156]",,X,,,NOW,south sudan_vivacell
+South Sudan,Zain,Zain Group,,X,X,,,south sudan_zain
+Spain,DIGI,Digi Communications,21422,,,X,,spain_digi
+Spain,Movistar,Telefónica,21407,X,X,X,formerly Moviline,spain_movistar
+Spain,MásOrange,"Orange S.A. (50,00%), Lorca JVco Ltd (50,00%)",21403 21404,X,X,X,formerly Amena | •Includes the previous Yoigo network.,spain_másorange
+Spain,Vodafone,Zegona Communications,21401,X,X,X,formerly Airtel,spain_vodafone
+Sri Lanka,Dialog,Axiata Group Berhad (73.75%)  Bharti Airtel Limited (10.36%) [166],,,,, | •Includes the Airtel sub-brand.[158],sri lanka_dialog
+Sri Lanka,Hutch,CK Hutchison Holdings Limited (85%)[170] Emirates Telecommunication Group Company PJSC (15%),,,,, | •Includes the previous Etisalat network.[170],sri lanka_hutch
+Sri Lanka,SLTMobitel,Sri Lanka Telecom PLC (100%),,,,,Formerly Mobitel,sri lanka_sltmobitel
+Sudan,Canar,Bank of Khartoum (100%),,,,,,sudan_canar
+Sudan,MTN,MTN Group (85%),,X,X,X,,sudan_mtn
+Sudan,Sudani,Sudatel,,X,X,,,sudan_sudani
+Sudan,Zain,Zain Group,,X,X,X,,sudan_zain
+Suriname,Digicel,Digicel (87.7%)[19],,X,X,,,suriname_digicel
+Suriname,Telesur,Telesur,,X,X,X,,suriname_telesur
+Sweden,Tele2,Tele2 AB (Freya Investissement (Iliad/NJJ) 19.88%)[150],24007,X,X,X,,sweden_tele2
+Sweden,Telenor,Telenor,24008,X,X,X,formerly Vodafone,sweden_telenor
+Sweden,Telia,Telia Company,24001,X,X,X,,sweden_telia
+Sweden,Tre,"CK Hutchison Holdings (60%), Investor AB (40%)",24002,,X,X,,sweden_tre
+Switzerland,Salt,NJJ[154],22803,,X,X,formerly Orange CH,switzerland_salt
+Switzerland,Sunrise,Free float (100%),22802,,X,X,formerly diAx,switzerland_sunrise
+Switzerland,Swisscom,"Partially state-owned (50% plus one share), free float (49%)",22801,,X,X,,switzerland_swisscom
+Syria,MTN,MTN Group (39%),,X,X,X,formerly Areeba,syria_mtn
+Syria,Rcell,Rcell,,,,X,,syria_rcell
+Syria,Syriatel,Rami Makhlouf,,X,X,X,,syria_syriatel
+São Tomé and Príncipe,CST[128],Portugal Telecom (51%),,X,X,,,são tomé and príncipe_cst[128]
+Taiwan,Chunghwa Telecom 中華電信,Republic of China Ministry of Transportation and Communications (35.29%),,,,X,,taiwan_chunghwa_telecom_中華電信
+Taiwan,Far EasTone 遠傳電信,Far Eastern Group,,,,X,,taiwan_far_eastone_遠傳電信
+Taiwan,Ibon Mobile,7-Eleven,,,,X,Using FarEasTone,taiwan_ibon_mobile
+Taiwan,Line Mobile,LINE Corporation,,,,X,Using Chunghwa Telecom,taiwan_line_mobile
+Taiwan,Mobile virtual network operators,Mobile virtual network operators,,,,,,taiwan_mobile_virtual_network_operators
+Taiwan,Taiwan Mobile 台灣大哥大,Fubon Group,,,,X,,taiwan_taiwan_mobile_台灣大哥大
+Tajikistan,Babilon-Mobile,,,X,X,X,,tajikistan_babilon-mobile
+Tajikistan,MegaFon,MegaFon (75%),,X,X,,,tajikistan_megafon
+Tajikistan,Tcell,Aga Khan Fund for Economic Development (100%)[179],,X,X,X,,tajikistan_tcell
+Tajikistan,ZET Mobile,ZET Mobile Ltd. (100%)[182],,X,X,,Formerly Beeline,tajikistan_zet_mobile
+Tanzania,Airtel,Bharti Airtel (51%),,X,X,X,formerly Zain,tanzania_airtel
+Tanzania,Halotel,Viettel Tanzania Limited (Subsidiary of Viettel Group[161][162]),,X,X,X,,tanzania_halotel
+Tanzania,Tigo,Axian Group,,X,X,X,,tanzania_tigo
+Tanzania,Vodacom,Vodacom (75%),,X,X,X,,tanzania_vodacom
+Tanzania,Zantel,Etisalat (51%) and Zanzibar Telecom Ltd,,X,X,,,tanzania_zantel
+Thailand,168,168 Communication Co Ltd.,,,X,,Host operator CAT,thailand_168
+Thailand,AIS or Advanced Info Service,Intouch Holdings,,X,X,X,,thailand_ais_or_advanced_info_service
+Thailand,AJ SIM,AJ Advance Technology Pcl.,,,X,X,Host operator TOT,thailand_aj_sim
+Thailand,Feels,"Feels Telecom Corporation Co., Ltd.",,,X,X,Host operator TOT,thailand_feels
+Thailand,IEC3G Buzzme,Mobile 8 Telco Sdn Bhd.,,,X,,Host operator TOT,thailand_iec3g_buzzme
+Thailand,Mojo 3G,"MConzult Asia Co., Ltd.",,,X,,Host operator TOT,thailand_mojo_3g
+Thailand,MyWorld 3G,"Data CDMA Communication Co., Ltd.",,,X,,Host operator CAT,thailand_myworld_3g
+Thailand,NT Mobile,TOT Public Company Limited,,,X,X,formerly TOT Mobile,thailand_nt_mobile
+Thailand,OPEN SIM i-mobile,Samart Corporation Public Company Limited.,,,X,,Host operator CAT,thailand_open_sim_i-mobile
+Thailand,Penguin,The WhiteSpace Co.Ltd.,,,X,,Host operator CAT & TOT,thailand_penguin
+Thailand,Redone),"Red One Network (Thailand) Co., Ltd",,,X,X,Host operator NT Mobile (formerly TOT Mobile,thailand_redone)
+Thailand,True,Major shareholders: Charoen Pokphand (20.95%) Telenor (20.95.1%) Thai NVDR (10.02%) China Mobile (7.81%),,X,X,X,with a digital sub-brand FINN Mobile | • Includes Truemove-H and dtac,thailand_true
+Thailand,Tune Talk,"Loxley Public Company Limited (50%) Tune Group Sdn Bhd (10%) Thai AirAsia Co., Ltd. (40%)",,,X,,Host operator TOT,thailand_tune_talk
+Thailand,i-Kool 3G,Loxley Public Company Limited.,,,X,,Host operator TOT,thailand_i-kool_3g
+Thailand,imobile-3GX,Samart Corporation Public Company Limited.,,,X,,Host operator CAT,thailand_imobile-3gx
+Thailand,my by NT,CAT Telecom,,,X,X,,thailand_my_by_nt
+Timor-Leste,Telemor,Viettel,,X,X,X,,timor-leste_telemor
+Timor-Leste,Telkomcel,Telekomunikasi Indonesia International (TL) S.A.,,X,X,X,,timor-leste_telkomcel
+Timor-Leste,Timor Telecom,Timor Telecom,,X,X,X,,timor-leste_timor_telecom
+Togo,Moov Africa Togo,Maroc Telecom,,X,,,,togo_moov_africa_togo
+Togo,Togocel,Togo Telecom (state owned),,X,X,,,togo_togocel
+Tonga,Digicel,Digicel Group Ltd,,X,,X,,tonga_digicel
+Tonga,TCC,Tonga Government,,X,X,,,tonga_tcc
+Tonga,Wantok,Tonga Government,,X,X,,,tonga_wantok
+Trinidad and Tobago,Digicel,Digicel (100%)[19],,X,X,X,,trinidad and tobago_digicel
+Trinidad and Tobago,bmobile,Cable & Wireless Communications(49%) Government of Trinidad and Tobago (51%),,X,X,X,,trinidad and tobago_bmobile
+Tunisia,Ooredoo,Ooredoo (75%),,X,X,X,formerly Tunisiana,tunisia_ooredoo
+Tunisia,Orange,"Orange S.A., Divona",,X,X,X,,tunisia_orange
+Tunisia,Tunisie Telecom,"Tunisie Télécom Group (65%), Tecom DIG (35%) [165]",,X,X,X,,tunisia_tunisie_telecom
+Turkey,Turkcell,"Turkey Wealth Fund (26.2%), LetterOne (19.8%), free float (54%)",,X,X,X,,turkey_turkcell
+Turkey,Türk Telekom,Türk Telekom,,X,X,X,"Formerly Avea, Aria, Aycell",turkey_türk_telekom
+Turkey,Vodafone,Vodafone Group plc,,X,X,X,Formerly Telsim,turkey_vodafone
+Turkmenistan,AȘTU,Ashgabat City Telephone Network,,X,,,,turkmenistan_aștu
+Turkmenistan,TM CELL,TM CELL,,X,X,X,Altyn Asyr,turkmenistan_tm_cell
+Turks and Caicos Islands,Digicel,Digicel (51%)[19],,X,X,X,,turks and caicos islands_digicel
+Turks and Caicos Islands,FLOW,Liberty Latin America[2],,X,X,X,which acquired the assets of Islandcom Wireless,turks and caicos islands_flow
+Tuvalu,TTC,TTC,,X,,X,,tuvalu_ttc
+Türkiye,Turkcell,"Turkey Wealth Fund (26.2%), LetterOne (19.8%), free float (54%)",,X,X,X,,türkiye_turkcell
+Türkiye,Türk Telekom,"Türk Telekom (Turkey Wealth Fund (60%), Ministry of Treasury and Finance (Turkey) (25%), free float (15%)) [156]",,X,X,X,"formerly Avea, Aria, Aycell",türkiye_türk_telekom
+Türkiye,Vodafone Turkey,Vodafone Group plc,,X,X,X,formerly Telsim,türkiye_vodafone_turkey
+Uganda,Airtel Uganda,Bharti Airtel,,X,X,,,uganda_airtel_uganda
+Uganda,Lycamobile,,,,,,,uganda_lycamobile
+Uganda,MTN Uganda,MTN Group (96%),,X,X,X,,uganda_mtn_uganda
+Uganda,Smile Telecom,,,,,,Uganda,uganda_smile_telecom
+Uganda,UTel,Uganda Telecommunications Corporation Limited,,X,X,,,uganda_utel
+Ukraine,Intertelecom,"Odinaco Ltd (49%), Viktor Gushan (35.7%)",25504,,X,,,ukraine_intertelecom
+Ukraine,Kyivstar*,"VEON (LetterOne (45.5%), The Stichting (7.9%), Lingotto Investment Management LLP (7.2%), Shah Capital Management Inc. (6.8%), free float 32.6%)",25503,X,X,X,Including previous Beeline Ukraine network,ukraine_kyivstar*
+Ukraine,PEOPLEnet,Telesystemy Ukrainy,25521,,X,,,ukraine_peoplenet
+Ukraine,TriMob*,Ukrtelecom,25507,,X,,,ukraine_trimob*
+Ukraine,Vodafone*,Bakcell,25501,X,X,X,"formerly MTS Ukraine, UMC",ukraine_vodafone*
+Ukraine,lifecell*,DVL Telecom (NJJ 85%),25506,X,X,X,formerly life:,ukraine_lifecell*
+United Arab Emirates,Etisalat,UAE Federal Government (40%) and public shareholders (60%),,X,X,X,,united arab emirates_etisalat
+United Arab Emirates,du,"UAE Federal Government (39.5%), Mubadala Development Company (19.75%), TECOM Investments (19.5%), and public shareholders (21.25%)",,X,X,X,,united arab emirates_du
+United Kingdom,EE,BT Group,23430 and 23433,X,,X,,united kingdom_ee
+United Kingdom,O2,"Virgin Media O2 (50% Telefónica, 50% Liberty Global)",23410,X,X,X,,united kingdom_o2
+United Kingdom,Three,CK Hutchison Holdings,23420,,X,X,,united kingdom_three
+United Kingdom,Vodafone,Vodafone Group plc,23415,X,,X,,united kingdom_vodafone
+United States,AT&T Includes Cricket Wireless and FirstNet,AT&T Inc.,,,,X,,united states_at&t_includes_cricket_wireless_and_firstnet
+United States,Boost Mobile Includes Gen Mobile and Ting Mobile,EchoStar Corporation,,,,,,united states_boost_mobile_includes_gen_mobile_and ting_mobile
+United States,T-Mobile Includes Assurance Wireless and Metro by T-Mobile,Deutsche Telekom AG (51.4%) SoftBank Group Corporation (8.5%) free float (39.4%),,X,,X,,united states_t-mobile_includes_assurance_wireless and_metro_by_t-mobile
+United States,U.S. Cellular,Telephone and Data Systems Inc. (84%) and will be sold to T-Mobile,,,,X,,united states_u.s._cellular
+United States,Verizon Includes TracFone Wireless and Visible by Verizon,Verizon Communications Inc.,,,,X,,united states_verizon_includes_tracfone_wireless_and_visible_by_verizon
+Uruguay,Antel,State-owned,,X,X,X,,uruguay_antel
+Uruguay,Claro,América Móvil (100%)[5],,X,X,X,,uruguay_claro
+Uruguay,Movistar,Telefónica (100%)[6],,X,X,X,,uruguay_movistar
+Uzbekistan,Beeline,VEON,,X,X,X,,uzbekistan_beeline
+Uzbekistan,Mobi.UZ,ООО Universal Mobile Systems,,X,X,X,Formerly UMS,uzbekistan_mobi.uz
+Uzbekistan,Perfectum,Perfectum,,,,,,uzbekistan_perfectum
+Uzbekistan,UCell,State Competition Committee of Uzbekistan,,X,X,X,Formerly Coscom,uzbekistan_ucell
+Uzbekistan,Uzmobile,Uzbektelecom,,,,,,uzbekistan_uzmobile
+Vanuatu,AIL,ACES International,,X,,,,vanuatu_ail
+Vanuatu,Digicel,Digicel Group Ltd,,X,X,X,,vanuatu_digicel
+Vanuatu,Vodafone Vanuatu,Vodafone Vanuatu,,X,,,,vanuatu_vodafone_vanuatu
+Vanuatu,WanTok,,,,,X,,vanuatu_wantok
+Venezuela,Digitel GSM,Telvenco,,X,X,X,,venezuela_digitel_gsm
+Venezuela,Movilnet,CANTV,,X,X,X,,venezuela_movilnet
+Venezuela,Movistar,Telefónica (100%)[6],,X,X,X,,venezuela_movistar
+Vietnam,MobiFone,Ministry of Public Security,,,X,X,,vietnam_mobifone
+Vietnam,Vietnamobile,Ministry of Health,,,X,,,vietnam_vietnamobile
+Vietnam,Viettel,Ministry of Defence,,,X,X,,vietnam_viettel
+Vietnam,Vinaphone,Vietnam Posts and Telecommunications Group,,,X,X,,vietnam_vinaphone
+Yemen,Sabafon,Al-Ahmar Group Batelco Hayel Saeed Anam & Co. Ltd. Consolidated Constructors International company S.A.L. (CCC),,X,,,,yemen_sabafon
+Yemen,Y Telecom,"Formerly, owned by Saudi and Kuwaiti corporations. Currently owned by the family of Abdrabbuh Mansur Hadi[178]",,X,,,formerly HiTS-UNITEL,yemen_y_telecom
+Yemen,YOU,"Emerald International Investment, a subsidiary of the Zubair Corporation [177]",,X,,,"formerly, MTN",yemen_you
+Yemen,Yemen Mobile,Government-run company with shareholders.,,,X,X,,yemen_yemen_mobile
+Zambia,Airtel,Bharti Airtel (78.88%),,X,X,X,,zambia_airtel
+Zambia,MTN,MTN Group,,X,X,X,,zambia_mtn
+Zambia,Zamtel,Zambia Telecommunications Company Ltd,,X,X,,,zambia_zamtel
+Zimbabwe,Econet,Econet Wireless (Private) Limited,,X,X,X,,zimbabwe_econet
+Zimbabwe,NetOne,NetOne Cellular (Pvt) Ltd (government),,X,X,X,,zimbabwe_netone
+Zimbabwe,telecel,State-owned,,X,X,,,zimbabwe_telecel

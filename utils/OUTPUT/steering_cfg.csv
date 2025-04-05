@@ -1,0 +1,1658 @@
+NetworkId,NetworkName,Rate,Routage,Source
+onmarine_worldwide,OnMarine,,,system
+tampnet_as_norway,TampNet AS,,,system
+digicel_aruba,Digicel,,,system
+mtn_afghanistan,MTN,,,system
+awcc_afghanistan,AWCC,,,system
+etisalat_afghanistan,Etisalat,,,system
+roshan_afghanistan,Roshan,,,system
+unitel_angola,UNITEL,,,system
+flow_anguilla_(uk),FLOW,,,system
+telekom.al_albania,Telekom.al,0+,Bilateral,system
+eagle_mobile_albania,Eagle Mobile,0+,Bilateral,system
+plus_communication_albania,Plus Communication,HLR BARRING,Bilateral,system
+vodafone_albania,Vodafone,100,Orange Hub,system
+mobiland_andorra,Mobiland,,,system
+digicel_former_netherlands_antilles,Digicel,,,system
+telcell_former_netherlands_antilles,Telcell,,,system
+du_united_arab_emirates,du,100,Bilateral,system
+etisalat_united_arab_emirates,Etisalat,0+,Bilateral,system
+thuraya_uae,Thuraya,HLR BARRING,Bilateral,system
+claro_argentina,Claro,,,system
+telefonica_moviles_argentina_argentina,Telefonica Moviles Argentina,100,Bilateral,system
+telecom_personal_s.a_argentina,Telecom Personal S.A,HLR BARRING,Comfone,system
+beeline_armenia,Beeline,100,Bilateral,system
+vivacell-mts_armenia,VivaCell-MTS,HLR BARRING,Bilateral,system
+ucom_armenia,Ucom,HLR BARRING,Orange Hub,system
+flow_antigua_and_barbuda,FLOW,,,system
+optus_australia,Optus,0+,Bilateral,system
+telstra_australia,Telstra,,,system
+vodafone_australia,Vodafone,100,Bilateral,system
+3_austria,3,90,Bilateral,system
+magenta_austria,Magenta,0+,Bilateral,system
+a1.net_austria,A1.net,10,Bilateral,system
+azercell_azerbaijan,Azercell,,,system
+nar_mobile_azerbaijan,Nar Mobile,,,system
+bakcell_azerbaijan,Bakcell,,,system
+smart_mobile_burundi,Smart Mobile,,,system
+lumitel_burundi,Lumitel,,,system
+base_belgium,Base,0+,Bilateral,system
+orange_belgium_belgium,Orange Belgium,90,Bilateral,system
+proximus_belgium,Proximus,10,Bilateral,system
+sunrise_communications_ag_belgium,Sunrise Communications AG,0+,Bilateral,system
+moov_benin,Moov,HLR BARRING,Orange Hub,system
+sbin_benin_benin,SBIN Benin,10,Orange Hub,system
+bell_benin_communications_(bbcom)_benin,Bell Benin Communications (BBCOM),HLR BARRING,Bilateral,system
+spacetel-benin_benin,Spacetel-Benin,90,Orange Hub,system
+orange_burkina_faso,Orange,100,Orange Hub,system
+onatel_burkina_faso,Onatel,HLR BARRING,Comfone,system
+robi_axiata_limited_bangladesh,Robi Axiata Limited,HLR BARRING,Comfone,system
+banglalink_bangladesh,Banglalink,,,system
+grameenphone_bangladesh,Grameenphone,100,Bilateral,system
+a1_bulgaria,A1,90,Bilateral,system
+telenor_bulgaria,Telenor,10,Bilateral,system
+vivacom_(telemach)_bulgaria_bulgaria,Vivacom (Telemach) Bulgaria,HLR BARRING,Bilateral,system
+batelco_bahrain,Batelco,,,system
+batelco_bahrain,Batelco,,,system
+zain_bh_bahrain,zain BH,10,Bilateral,system
+viva_bahrain_(stc)_bahrain,Viva Bahrain (STC),90,Bilateral,system
+btc_bahamas,BTC,100,Orange Hub,system
+aliv_bahamas,Aliv,HLR BARRING,Comfone,system
+ht-eronet_bosnia_and_herzegovina,HT-ERONET,HLR BARRING,Bilateral,system
+m:tel_bih_bosnia_and_herzegovina,m:tel BiH,100,Comfone,system
+bh_mobile_bosnia_and_herzegovina,BH Mobile,,,system
+mts_belarus,MTS,HLR BARRING,Comfone,system
+life_best_belarus_belarus,Life Best Belarus,HLR BARRING,Bilateral,system
+a1_belarus,A1,100,Bilateral,system
+digicell_belize,DigiCell,,,system
+smart_belize,SMART,,,system
+cellular_@sea_worldwide,Cellular @Sea,0,Comfone,system
+viva_bolivia,Viva,,,system
+tigo_bolivia,Tigo,,,system
+brasil_telecom_gsm_brazil,Brasil Telecom GSM,hLR BARRING,Bilateral,system
+algar_telecom_brazil,Algar Telecom,,,system
+claro_brazil,Claro,,,system
+tim_brazil,TIM,20,Bilateral,system
+tim_brazil,TIM,20,Bilateral,system
+tim_brazil,TIM,20,Bilateral,system
+vivo_brazil,Vivo,80,Bilateral,system
+oi_brazil,Oi,HLR BARRING,Bilateral,system
+vivo_brazil,Vivo,80,Bilateral,system
+vivo_brazil,Vivo,80,Bilateral,system
+vivo_brazil,Vivo,80,Bilateral,system
+flow_barbados,FLOW,,,system
+pcsb_brunei,PCSB,,,system
+dst_brunei,DST,,,system
+bemobile_botswana,beMobile,HLR BARRING,Comfone,system
+mascom_botswana,Mascom,HLR BARRING,Comfone,system
+orange_botswana_botswana,Orange Botswana,100,Orange Hub,system
+telecel_centrafrique__centrafrique,Telecel Centrafrique ,HLR BARRING,,system
+orange_central_african_republic,Orange,100,Orange Hub,system
+bell_mobility_canada,Bell Mobility,10,Bilateral,system
+rogers_wireless_canada,Rogers Wireless,80,Bilateral,system
+sasktel_canada,SaskTel,0,Orange Hub,system
+"telus_mobility,_koodo_mobile,_public_mobile_canada","Telus Mobility, Koodo Mobile, Public Mobile",10,Bilateral,system
+videotron_canada,Videotron,,,system
+swisscom_switzerland,Swisscom,30,Bilateral,system
+sunrise_switzerland,Sunrise,70,Bilateral,system
+sita_onair_switzerland_switzerland,SITA OnAir Switzerland,HLR BARRING,Bilateral,system
+salt_switzerland,Salt,0+,Orange Hub,system
+entel_chile,entel,HLR BARRING,Comfone,system
+claro_cl_chile,CLARO CL,10,Bilateral,system
+movistar_chile,movistar,90,Bilateral,system
+china_mobile_china,China Mobile,,,system
+china_mobile_china,China Mobile,80,Bilateral,system
+china_unicom_china,China Unicom,20,Bilateral,system
+china_mobile_china,China Mobile,,,system
+moov_ivory_coast,Moov,HLR BARRING,Bilateral,system
+orange_côte_d'ivoire,Orange,100,Orange Hub,system
+mtn_ivory_coast,MTN,0,Orange Hub,system
+orange_cameroun,Orange,100,Orange Hub,system
+mtn_cameroon_cameroon,MTN Cameroon,0,Orange Hub,system
+nexttel_cameroon,Nexttel,,,system
+africell_democratic_republic_of_the_congo,Africell,HLR BARRING,Comfone,system
+airtel_democratic_republic_of_the_congo,Airtel,,,system
+orange_rdc_democratic_republic_of_the_congo,Orange RDC,90,Orange Hub,system
+orange_rdc_democratic_republic_of_the_congo,Orange RDC,,,system
+vodacom_democratic_republic_of_the_congo,Vodacom,10,Orange Hub,system
+airtel_congo,Airtel,,,system
+claro_colombia,Claro,,,system
+tigo_colombia,Tigo,,,system
+movistar_colombia,movistar,,,system
+huri_comoros,HURI,,,system
+telco_sa_comoros,TELCO SA,,,system
+cvmovel_cape_verde,CVMOVEL,100,Bilateral,system
+t+_cape_verde,T+,HLR BARRING,Comfone,system
+claro_costa_rica,Claro,10,Comfone,system
+kölbi_ice_costa_rica,Kölbi ICE,HLR BARRING,Bilateral,system
+movistar_costa_rica,movistar,90,Bilateral,system
+cubacel_cuba,CUBACEL,,,system
+flow_cayman_islands_(uk),FLOW,,,system
+cytamobile-vodafone_cyprus,Cytamobile-Vodafone,,,system
+primetel_cyprus,PrimeTel,20,Bilateral,system
+epic_cyprus,Epic,80,Bilateral,system
+vodafone_czech_republic,Vodafone,90,Orange Hub,system
+o2_czech_republic,O2,0+,Bilateral,system
+t-mobile_czech_republic,T-Mobile,10,Bilateral,system
+telekom_germany,Telekom,0+,Bilateral,system
+vodafone_germany,Vodafone,80,Orange Hub,system
+o2_germany,O2,20,Bilateral,system
+evatis_djibouti,Evatis,,,system
+flow_dominica,FLOW,,,system
+telenor_denmark,Telenor,10,Bilateral,system
+3_denmark,3,90,Bilateral,system
+telia_denmark,Telia,0+,Bilateral,system
+tdc_denmark,TDC,0+,Bilateral,system
+claro_dominican_republic,Claro,,,system
+mobilis_algeria,Mobilis,90,Bilateral,system
+djezzy_algeria,Djezzy,0+,Bilateral,system
+ooredoo_algeria,Ooredoo,10,Bilateral,system
+cnt_mobile_ecuador,CNT Mobile,,,system
+movistar_ecuador,Movistar,,,system
+claro_ecuador,Claro,,,system
+orange_egypt,Orange,90,Orange Hub,system
+etisalat_egypt,Etisalat,0,Bilateral,system
+vodafone_egypt,Vodafone,10,Bilateral,system
+vodafone_spain,Vodafone,10,Orange Hub,system
+digi_spain,DIGI,0,Comfone,system
+orange_spain,Orange,90,Orange Hub,system
+movistar_spain,Movistar,0+,Bilateral,system
+yoigo_spain,Yoigo,0,Bilateral,system
+telia_estonia,Telia,10,Bilateral,system
+tele2_estonia,Tele2,90,Bilateral,system
+elisa_estonia,Elisa,0+,Bilateral,system
+mtn_ethiopia,MTN,HLR BARRING,Bilateral,system
+safaricom_ethiopia_ethiopia,Safaricom Ethiopia,100,Bilateral,system
+dna_finland,DNA,90,Bilateral,system
+ålcom_finland,Ålcom,HLR BARRING,Bilateral,system
+elisa_finland,Elisa,0+,Bilateral,system
+dna_finland,DNA,,,system
+telia_finland,Telia,10,Bilateral,system
+digicel_fiji,Digicel,,,system
+orange_france,Orange,85,Bilateral,system
+sfr_france,SFR,0+,Bilateral,system
+bouygues_france,Bouygues,0+,Bilateral,system
+digicel_french_antilles_(france),Digicel,HLR BARRING,Bilateral,system
+free_mobile_france,Free Mobile,15,Bilateral,system
+vini_french_polynesia_(france),Vini,HLR BARRING,Comfone,system
+faroese_telecom_faroe_islands,Faroese Telecom,,,system
+hey_faroe_islands,Hey,,,system
+libertis_gabon,Libertis,,,system
+azur_gabon,Azur,,,system
+airtel_gabon,Airtel,,,system
+moov_gabon,Moov,,,system
+o2_(uk)_united_kingdom,O2 (UK),0,Bilateral,system
+sure_ltd_uk,SURE Ltd,HLR BARRING,Comfone,system
+3_united_kingdom,3,20,Comfone,system
+jt_guernsey_(uk),JT,HLR BARRING,Bilateral,system
+jt_jersey_(uk),JT,HLR BARRING,Bilateral,system
+jt_united_kingdom,JT,HLR BARRING,Bilateral,system
+t-mobile_uk_united_kingdom,T-Mobile UK,0+,Bilateral,system
+pronto_gsm_isle_of_man_(uk),Pronto GSM,HLR BARRING,Comfone,system
+pronto_gsm_united_kingdom,Pronto GSM,HLR BARRING,Comfone,system
+orange_united_kingdom,Orange,0+,Bilateral,system
+vodafone_uk_united_kingdom,Vodafone UK,80,Orange Hub,system
+geocell_georgia,Geocell,,,system
+beeline_georgia,Beeline,,,system
+globacom_ghana,Globacom,,,system
+vodafone_ghana,Vodafone,95,Orange Hub,system
+airteltigo_ghana,AirtelTigo,HLR BARRING,Bilateral,system
+mtn_ghana,MTN,,,system
+mtn_ghana_(scancom)_ghana,MTN Ghana (Scancom),5,,system
+airteltigo_ghana,AirtelTigo,,,system
+gibtel_gibraltar_(uk),GibTel,,,system
+mtn_guinea,MTN,10,Orange Hub,system
+orange_guinea,Orange,90,Orange Hub,system
+orange_french_antilles_(france),Orange,100,Orange Hub,system
+dauphin_telecom_(amigo_gsm)_caraibes,Dauphin Telecom (Amigo GSM),HLR BARRING,Comfone,system
+africell_gambia,Africell,,,system
+qcell_gambia,QCell,,,system
+orange_bissau_guinee_bissau,Orange Bissau,90,Orange Hub,system
+mtn_areeba_guinea-bissau,MTN Areeba,10,Orange Hub,system
+muni_equatorial_guinea,Muni,,,system
+cosmote_greece,Cosmote,10,Bilateral,system
+vodafone_greece,Vodafone,90,Orange Hub,system
+wind_greece,Wind,,,system
+flow_grenada,FLOW,,,system
+tele_greenland_a/s_greenland,TELE Greenland A/S,,,system
+comunicaciones_celulares_s.a._guatemala,Comunicaciones Celulares S.A.,HLR BARRING,Comfone,system
+claro_guatemala,Claro,100,Comfone,system
+movistar_guatemala,movistar,,,system
+docomo_guam_(usa),Docomo,,,system
+docomo_northern_mariana_islands_(usa),Docomo,,,system
+docomo_united_states_of_america,Docomo,,,system
+digicel_guyana,Digicel,,,system
+3_hong_kong,3,,,system
+3_(2g)_hong_kong,3 (2G),,,system
+pccw_mobile_(3g)_hong_kong,PCCW Mobile (3G),,,system
+pccw_mobile_(2g)_hong_kong,PCCW Mobile (2G),,,system
+new_world_mobility_hong_kong,New World Mobility,,,system
+cmcc_hk_hong_kong,CMCC HK,,,system
+smartone_hong_kong,SmarTone,20,Bilateral,system
+1o1o_/_one2free_/_new_world_mobility_/_sunmobile_hong_kong,1O1O / One2Free / New World Mobility / SUNMobile,80,Orange Hub,system
+"telefónica_celular,_s.a._(celtel)___honduras","Telefónica Celular, S.A. (CELTEL)  ",HLR BARRING,Comfone,system
+digicel_honduras,Digicel,,,system
+claro_honduras,Claro,100,Comfone,system
+t-mobile_croatia,T-Mobile,20,Comfone,system
+tele2_croatia,Tele2,HLR BARRING,Bilateral,system
+a1_croatia,A1,80,Bilateral,system
+voila_haiti,Voila,,,system
+natcom_haiti,Natcom,,,system
+telenor_hungary_hungary,Telenor Hungary,0+,Bilateral,system
+t-mobile_hungary,T-Mobile,10,Bilateral,system
+vodafone_hungary,Vodafone,90,Orange Hub,system
+3_indonesia,3,20,Bilateral,system
+xl_indonesia,XL,,,system
+im3_indonesia,IM3,,,system
+axis_indonesia,AXIS,,,system
+indosat_ooredoo_indonesia,Indosat Ooredoo,80,Comfone,system
+telkomsel_indonesia,Telkomsel,HLR BARRING,Bilateral,system
+aircel_india,Aircel,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+idea_india,IDEA,,,system
+aircel_india,AIRCEL,,,system
+airtel_india,AirTel,,,system
+airtel_india,AirTel,,,system
+airtel_india,AirTel,,,system
+airtel_india,AirTel,,,system
+airtel_india,AirTel,,,system
+airtel_india,Airtel,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+aircel_india,AIRCEL,,,system
+airtel_india,AirTel,,,system
+airtel_india,AirTel,,,system
+airtel_india,AirTel,,,system
+airtel_india,AirTel,,,system
+airtel_india,AirTel,,,system
+airtel_india,AirTel,,,system
+aircel_india,Aircel,,,system
+airtel_india,AirTel,,,system
+idea_india,IDEA,,,system
+vodafone_india_india,Vodafone India,,,system
+airtel_india,AirTel,,,system
+vodafone_india_india,Vodafone India,,,system
+idea_india,IDEA,,,system
+vodafone_india_india,Vodafone India,,,system
+vodafone_india_india,Vodafone India,,,system
+dolphin_india,DOLPHIN,,,system
+vodafone_india_india,Vodafone India,,,system
+idea_india,IDEA,,,system
+idea_india,IDEA,,,system
+idea_india,IDEA,,,system
+vodafone_india_india,Vodafone India,,,system
+vodafone_india_india,Vodafone India,,,system
+idea_india,IDEA,,,system
+idea_india,IDEA,,,system
+idea_india,IDEA,,,system
+idea_india,IDEA,,,system
+idea_india,IDEA,,,system
+idea_india,IDEA,,,system
+idea_india,IDEA,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+airtel_india,Airtel,,,system
+jio_india,Jio,,,system
+airtel_india,Airtel,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+jio_india,Jio,,,system
+dolphin_india,DOLPHIN,,,system
+idea_india,IDEA,,,system
+airtel_india,AirTel,,,system
+aircel_india,Aircel,,,system
+reliance_india,Reliance,,,system
+idea_india,IDEA,,,system
+idea_india,IDEA,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+cellone_india,cellone,,,system
+3_ireland,3,0+,Bilateral,system
+vodafone_ireland,Vodafone,100,Orange Hub,system
+3_ireland,3,,,system
+eir_ireland,Eir,0,Comfone,system
+ir-tci_(hamrah-e-avval)_iran,IR-TCI (Hamrah-e-Avval),,,system
+mtn_irancell_iran,MTN Irancell,,,system
+rightel_iran,Rightel,,,system
+asia_cell_iraq,Asia Cell,,,system
+nova_iceland,Nova,,,system
+síminn_iceland,Síminn,,,system
+vodafone_iceland,Vodafone,,,system
+viking_iceland,Viking,,,system
+partner_israel,Partner,,,system
+cellcom_israel,Cellcom,,,system
+hot_mobile_israel,Hot Mobile,,,system
+pelephone_israel,Pelephone,,,system
+iliad_italy,Iliad,65,Bilateral,system
+tim@sea_worldwide,TIM@sea,HLR BARRING,Bilateral,system
+3_italia_italy,3 Italia,,,system
+vodafone_italy,Vodafone,30,Orange Hub,system
+tim_italy,TIM,5,Bilateral,system
+wind_italy,Wind,0,Bilateral,system
+flow_jamaica,FLOW,,,system
+digicel_bermuda_bermuda,Digicel Bermuda,,,system
+digicel_saint_lucia,Digicel,,,system
+digicel_jamaica,Digicel,,,system
+digicel_turks_and_caicos_islands,Digicel,,,system
+zain_jo_jordan,zain JO,HLR BARRING,Bilateral,system
+orange_jordan,Orange,100,Orange Hub,system
+umniah_jordan,Umniah,HLR BARRING,Bilateral,system
+ntt_docomo_japan,NTT docomo,10,Bilateral,system
+softbank_japan,SoftBank,90,Bilateral,system
+au_japan,au,,,system
+ipko_kosovo,IPKO,,,system
+tele2.kz_kazakhstan,Tele2.kz,HLR BARRING,Bilateral,system
+beeline_kazakhstan,Beeline,100,Comfone,system
+kcell_kazakhstan,Kcell,HLR BARRING,Bilateral,system
+yu_kenya,yu,,,system
+airtel_kenya,Airtel,,,system
+safaricom_kenya,Safaricom,,,system
+telkom_kenya,Telkom,,,system
+beeline_kyrgyzstan,Beeline,,,system
+qb_cambodia,qb,,,system
+cellcard_cambodia,Cellcard,,,system
+metfone_cambodia,Metfone,,,system
+kiribati_-_ath_kiribati,Kiribati - ATH,,,system
+flow_saint_kitts_and_nevis,FLOW,,,system
+olleh_south_korea,olleh,HLR BARRING,Bilateral,system
+lg_u+_south_korea,LG U+,,,system
+sktelecom_south_korea,SKTelecom,100,Bilateral,system
+stc_kuwait,STC,10,Bilateral,system
+zain_kw_kuwait,zain KW,90,Bilateral,system
+k.s.c_ooredoo_kuwait,K.S.C Ooredoo,HLR BARRING,Bilateral,system
+unitel_laos,Unitel,,,system
+etl_laos,ETL,,,system
+laotel_laos,LaoTel,,,system
+beeline_laos,Beeline,,,system
+alfa_lebanon,Alfa,0,Bilateral,system
+touch_lebanon,Touch,100,Bilateral,system
+orange_(cellcom)_liberia__liberia,Orange (Cellcom) Liberia ,90,Bilateral,system
+lonestar_communications_corporation_liberia,Lonestar Communications Corporation,10,Orange Hub,system
+madar_libya,Madar,0,Bilateral,system
+libyana_libya,Libyana,100,Bilateral,system
+flow_saint_lucia,FLOW,,,system
+fl1_liechtenstein,FL1,100,Bilateral,system
+alpmobil_liechtenstein,Alpmobil,,,system
+7acht_liechtenstein,7acht,0+,Orange Hub,system
+mobitel_sri_lanka,Mobitel,HLR BARRING,Comfone,system
+etisalat_sri_lanka,Etisalat,,,system
+dialog_sri_lanka,Dialog,HLR BARRING,Bilateral,system
+hutch_sri_lanka,Hutch,100,Comfone,system
+econet_telecom_lesotho,Econet Telecom,,,system
+vodacom_lesotho,Vodacom,,,system
+tele2_lithuania,Tele2,90,Bilateral,system
+bitė_lithuania,BITĖ,10,Comfone,system
+telia_lithuania,Telia,0+,Bilateral,system
+post_luxembourg,POST,0+,Comfone,system
+tango_luxembourg,Tango,10,Bilateral,system
+orange_luxembourg,Orange,90,Bilateral,system
+tele2_latvia,Tele2,5,Bilateral,system
+sia_bite_mobile_latvia,SIA Bite Mobile,90,Comfone,system
+lmt_latvia,LMT,5,Bilateral,system
+ctm_macau_(china),CTM,,,system
+3_macau_(china),3,,,system
+smartone_macau_(china),SmarTone,,,system
+iam_morocco,IAM,15,Bilateral,system
+inwi_morocco,INWI,0,Bilateral,system
+orange_morocco_morocco,Orange Morocco,85,Bilateral,system
+office_des_telephones_monaco,Office des Telephones,,,system
+moldcell_moldova,Moldcell,HLR BARRING,Comfone,system
+moldetelecom_moldova,Moldetelecom,0,Comfone,system
+orange_moldova,Orange,100,Orange Hub,system
+orange_madagascar,Orange,100,Orange Hub,system
+airtel_madagascar,Airtel,,,system
+telma_madagascar,Telma,HLR BARRING,Bilateral,system
+dhiraagu_maldives,Dhiraagu,,,system
+ooredoo_maldives,Ooredoo,,,system
+altan_redes_mexico,Altan Redes,,,system
+at&t_/_unefon_mexico,AT&T / Unefon,80,Orange Hub,system
+pegaso_(movistar)_mexico_mexico,Pegaso (Movistar) Mexico,20,Bilateral,system
+at&t_mexico,AT&T,80,Comfone,system
+telcel_mexico,Telcel,,,system
+makedonski_telekom_(t-mobile)_macedonia__,Makedonski Telekom (T-Mobile),HLR BARRING,Comfone,system
+vip_north_macedonia,vip,100,Bilateral,system
+moov_malitel_mali,MOOV Malitel,10,Bilateral,system
+orange_mali,Orange,90,Orange Hub,system
+go_malta,GO,HLR BARRING,Bilateral,system
+vodafone_malta_maritime_worldwide,Vodafone Malta Maritime,0+,Orange Hub,system
+melita_mobile_ltd_malta,Melita Mobile LTD,80,Bilateral,system
+vodafone_malta,Vodafone,20,Bilateral,system
+ooredoo_myanmar,Ooredoo,HLR BARRING,Comfone,system
+mpt_myanmar,MPT,HLR BARRING,Orange Hub,system
+telenor_myanmar,Telenor,100,Comfone,system
+m:tel_cg_montenegro,m:tel CG,0+,Bilateral,system
+telenor_montenegro,Telenor,HLR BARRING,Comfone,system
+crnogorski_telekom_a.d._podgorica__montenegro,Crnogorski Telekom a.d. Podgorica ,100,Bilateral,system
+mobicom_mongolia,Mobicom,,,system
+unitel_mongolia,Unitel,,,system
+mcel_mozambique,mCel,HLR BARRING,Bilateral,system
+vodacom_mozambique,Vodacom,100,Orange Hub,system
+movitel_mozambique,Movitel,HLR BARRING,Comfone,system
+mattel_mauritania,Mattel,,,system
+flow_montserrat_(uk),FLOW,,,system
+my.t_mauritius,my.t,100,Orange Hub,system
+emtel_mauritius,Emtel,,,system
+chili_mauritius,CHILI,HLR BARRING,Orange Hub,system
+tnm_malawi,TNM,,,system
+airtel_malawi,Airtel,,,system
+maxis_malaysia,Maxis,10,Bilateral,system
+celcom_malaysia,Celcom,,,system
+u_mobile_malaysia,U Mobile,HLR BARRING,Orange Hub,system
+celcom_malaysia,Celcom,,,system
+digi_malaysia,DiGi,90,Orange Hub,system
+mtc_namibia,MTC,,,system
+tn_mobile_namibia,TN Mobile,,,system
+mobilis_new_caledonia_(france),Mobilis,,,system
+airtel_niger,Airtel,,,system
+orange_niger,Orange,100,Orange Hub,system
+telecel_niger__niger,Telecel Niger ,HLR BARRING,Comfone,system
+9mobile_nigeria,9mobile,,,system
+airtel_nigeria,Airtel,,,system
+glo_nigeria,Glo,,,system
+mtn_nigeria,MTN,,,system
+ntel_nigeria,Ntel,,,system
+claro_nicaragua,Claro,,,system
+claro_nicaragua,Claro,,,system
+odido_netherlands,Odido,0+,Bilateral,system
+vodafone_netherlands,Vodafone,10,Orange Hub,system
+odido_netherlands,Odido,0+,Bilateral,system
+kpn_netherlands,KPN,90,Bilateral,system
+aeromobile_worldwide,AeroMobile,,,system
+telenor_worldwide,Telenor,,,system
+netcom_norway_norway,Netcom Norway,10,Bilateral,system
+telia_norway,Telia,,,system
+telenor_norway,Telenor,90,Bilateral,system
+ncell_nepal,Ncell,,,system
+namaste_/_nt_mobile_/_sky_phone_nepal,Namaste / NT Mobile / Sky Phone,,,system
+vodafone_new_zealand,Vodafone,100,Orange Hub,system
+2degrees_new_zealand,2degrees,HLR BARRING,Comfone,system
+spark_new_zealand,Spark,HLR BARRING,Comfone,system
+omantel_oman,Omantel,100,Bilateral,system
+ooredoo_oman,ooredoo,HLR BARRING,Bilateral,system
+jazz_pakistan,Jazz,100,Bilateral,system
+cmpak_limited_pakistan,CMPak Limited,HLR BARRING,Bilateral,system
+telenor_pakistan,Telenor,,,system
+ufone_pakistan,Ufone,,,system
+jazz_pakistan,Jazz,100,Bilateral,system
+claro_panama,Claro,,,system
+cable_&_wireless_panama,Cable & Wireless,HLR BARRING,Orange Hub,system
+digicel_panama,Digicel,HLR BARRING,Bilateral,system
+movistar_panama,movistar,100,Bilateral,system
+movistar_peru,Movistar,100,Bilateral,system
+entel_perú_s.a._peru,Entel Perú S.A.,HLR BARRING,Comfone,system
+claro_peru,Claro,,,system
+bitel_peru,Bitel,HLR BARRING,Comfone,system
+sun_cellular_philippines,Sun Cellular,,,system
+globe_philippines,Globe,,,system
+smart_philippines,SMART,,,system
+digicel_papua_new_guinea,Digicel,,,system
+bmobile_papua_new_guinea,bmobile,,,system
+t-mobile_poland,T-Mobile,0+,Bilateral,system
+orange_poland,Orange,85,Orange Hub,system
+plus_poland,Plus,10,Bilateral,system
+play_poland,Play,5,Bilateral,system
+claro_puerto_rico_puerto_rico,Claro Puerto Rico,,,system
+nos_portugal,NOS,0+,Orange Hub,system
+vodafone_portugal,Vodafone,10,Orange Hub,system
+meo_portugal,MEO,90,Bilateral,system
+claro_paraguay,Claro,,,system
+personal_paraguay,Personal,,,system
+tigo_paraguay,Tigo,,,system
+vox_paraguay,VOX,,,system
+jawwal_israel,Jawwal,,,system
+jawwal_palestine,Jawwal,,,system
+pacific_mobile_telecom_french_polynesia,Pacific Mobile Telecom,100,Orange Hub,system
+vodafone_qatar,Vodafone,90,Bilateral,system
+ooredoo_qatar,ooredoo,10,Bilateral,system
+digi_romania,DIGI,0,Bilateral,system
+telekom_romania,Telekom,0+,Bilateral,system
+vodafone_romania,Vodafone,10,Orange Hub,system
+orange_romania,Orange,90,Bilateral,system
+mts_russian_federation,MTS,80,Bilateral,system
+tvoi_mobil'nye_tekhnologii_llc_(tmt)_russia_russia,Tvoi Mobil'nye Tekhnologii LLC (TMT) Russia,HLR BARRING,Comfone,system
+beeline_russian_federation,Beeline,0+,Bilateral,system
+motiv_russian_federation,MOTIV,,,system
+megafon_russian_federation,MegaFon,10,Bilateral,system
+tele2_russian_federation,Tele2,10,Comfone,system
+airtel_rwanda,Airtel,HLR BARRING,Bilateral,system
+mtn_rwanda,MTN,100,Orange Hub,system
+airtel_rwanda,Airtel,HLR BARRING,Bilateral,system
+al_jawal_(stc_)_saudi_arabia,Al Jawal (STC ),10,Bilateral,system
+mobily_saudi_arabia,Mobily,0+,Bilateral,system
+zain_sa_saudi_arabia,Zain SA,90,Bilateral,system
+mtn_sudan,MTN,,,system
+orange_senegal_senegal,Orange Senegal,100,Orange Hub,system
+expresso_senegal,Expresso,,,system
+tigo_senegal,Tigo,0+,Comfone,system
+m1_singapore,M1,,,system
+singtel-g18_singapore,SingTel-G18,,,system
+starhub_singapore,StarHub,,,system
+singtel_singapore,SingTel,,,system
+africell_sierra_leone,Africell,0,Bilateral,system
+orange_sierra_leone,Orange,100,Orange Hub,system
+digicel_el_salvador,Digicel,,,system
+tigo_el_salvador,Tigo,,,system
+claro_el_salvador,Claro,,,system
+movistar_el_salvador,movistar,,,system
+telesom_somalia,Telesom,,,system
+vip_serbia,VIP,90,Bilateral,system
+mtn_south_sudan,MTN,,,system
+zain_south_sudan,Zain,,,system
+cstmovel_sao_tome_and_principe,CSTmovel,,,system
+zain_sd_sudan,Zain SD,,,system
+digicel_suriname,Digicel,,,system
+telesur_suriname,Telesur,,,system
+telekom_slovakia,Telekom,0+,Bilateral,system
+orange_slovakia,Orange,90,Orange Hub,system
+o2_slovakia,O2,10,Bilateral,system
+mobitel_slovenia,Mobitel,40,Comfone,system
+a1_slovenia,A1,60,Bilateral,system
+telemach_tusmobil_d.o.o._slovenia,Telemach Tusmobil d.o.o.,HLR BARRING,Bilateral,system
+telenor_sweden_sweden,Telenor Sweden,0+,Bilateral,system
+telenor_sweden,Telenor,0+,Bilateral,system
+3_sweden,3,90,Bilateral,system
+tele2_sweden,Tele2,10,Bilateral,system
+tele2_sweden_sweden,Tele2 Sweden,10,Bilateral,system
+telenor_sweden_sweden,Telenor Sweden,0+,Bilateral,system
+telia_sweden,Telia,0,Bilateral,system
+swazi_mtn_swaziland,Swazi MTN,,,system
+airtel_seychelles,Airtel,,,system
+cable_&_wireless_seychelles,Cable & Wireless,,,system
+mtn_syria,MTN,,,system
+flow_turks_and_caicos_islands,FLOW,,,system
+airtel_chad,Airtel,,,system
+tigo_chad,Tigo,,,system
+togo_cell_togo,Togo Cell,,,system
+moov_togo,Moov,,,system
+truemove_h_thailand,TrueMove H,HLR BARRING,Bilateral,system
+truemove_thailand,TrueMove,HLR BARRING,Bilateral,system
+truemove_h_/_my_by_cat_thailand,TrueMove H / my by CAT,HLR BARRING,Bilateral,system
+dtac_trinet_/_line_thailand,dtac TriNet / LINE,100,Comfone,system
+ais_thailand,AIS,HLR BARRING,Comfone,system
+dtac_thailand,dtac,,,system
+zet-mobile_tajikistan,ZET-Mobile,,,system
+telemor_east_timor,Telemor,,,system
+digicel_tonga,Digicel,,,system
+digicel_trinidad_and_tobago,Digicel,,,system
+orange_tunisia,Orange,,,system
+ooredoo_tn_tunisia,OOREDOO TN,,,system
+tunicell_tunisia,Tunicell,,,system
+aycell_turkey,Aycell,,,system
+türk_telekom_turkey,Türk Telekom,10,Bilateral,system
+turkcell_turkey,Turkcell,50,Bilateral,system
+vodafone_turkey,Vodafone,40,Orange Hub,system
+fareastone_taiwan,FarEasTone,,,system
+chunghwa_taiwan,Chunghwa,,,system
+taiwan_mobile_taiwan,Taiwan Mobile,,,system
+t_star_taiwan,T Star,,,system
+airtel_tanzania,Airtel,,,system
+tigo_tanzania,tiGO,0+,Comfone,system
+vodacom_tanzania,Vodacom,100,Orange Hub,system
+halotel_tanzania,Halotel,HLR BARRING,Comfone,system
+smart_tanzania,Smart,,,system
+zantel_tanzania,Zantel,0+,Orange Hub,system
+airtel_uganda,Airtel,,,system
+mtn_uganda,MTN,,,system
+africell_uganda,Africell,,,system
+smart_uganda,Smart,,,system
+uganda_telecom_uganda,Uganda Telecom,,,system
+airtel_uganda,Airtel,,,system
+lifecell_ukraine,lifecell,,,system
+kyivstar_ukraine,Kyivstar,,,system
+kyivstar_ukraine,Kyivstar,,,system
+vodafone_ukraine,Vodafone,,,system
+3mob;_lycamobile_ukraine,3Mob; Lycamobile,,,system
+claro_uruguay,Claro,,,system
+movistar_uruguay,Movistar,,,system
+cincinnati_bell_united_states_of_america,Cincinnati Bell,,,system
+choice_wireless_united_states_of_america,Choice Wireless,HLR BARRING,Comfone,system
+at&t_united_states_of_america,AT&T,0+,Bilateral,system
+viaero_united_states_of_america,Viaero,,,system
+choice_wireless_united_states_of_america,Choice Wireless,,,system
+limitless_mobile_united_states_of_america,Limitless Mobile,,,system
+gci_wireless_united_states_of_america,GCI Wireless,,,system
+it&e_wireless_northern_mariana_islands_(usa),IT&E Wireless,,,system
+it&e_wireless_united_states_of_america,IT&E Wireless,,,system
+indigo_wireless_united_states_of_america,Indigo Wireless,,,system
+newcore_wireless__usa,NewCore Wireless ,HLR BARRING,Comfone,system
+tampnet_united_states_of_america,Tampnet,,,system
+t-mobile_usa_usa,T-Mobile USA,100,Bilateral,system
+sprint_united_states_of_america,Sprint,,,system
+u.s._cellular_united_states_of_america,U.S. Cellular,,,system
+union_wireless_united_states_of_america,Union Wireless,HLR BARRING,Comfone,system
+verizon_united_states_of_america,Verizon,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+ucell_uzbekistan,Ucell,,,system
+beeline_uzbekistan,Beeline,,,system
+flow_saint_vincent_and_the_grenadines,FLOW,,,system
+movistar_venezuela,movistar,,,system
+cct_boatphone_british_virgin_islands_(uk),CCT Boatphone,,,system
+flow_british_virgin_islands_(uk),FLOW,,,system
+digicel_british_virgin_islands_(uk),Digicel,,,system
+gtel_mobile_joint_stock_company_(gtel_mobile)_vietnam,GTEL Mobile Joint Stock Company (GTEL Mobile),HLR BARRING,Bilateral,system
+mobifone_vietnam,MobiFone,100,Bilateral,system
+vinaphone_vietnam,Vinaphone,HLR BARRING,Comfone,system
+vietnamobile_vietnam,Vietnamobile,HLR BARRING,Comfone,system
+viettel_mobile_vietnam,Viettel Mobile,HLR BARRING,Comfone,system
+digicel_vanuatu,Digicel,,,system
+sabafon_yemen,SabaFon,,,system
+telenor_serbia,Telenor,10,Bilateral,system
+telekom_srbija_a.d._serbia,Telekom Srbija a.d.,HLR BARRING,Bilateral,system
+cell_c_south_africa,Cell C,HLR BARRING,Bilateral,system
+telkom_south_africa,Telkom,,,system
+mtn_south_africa,MTN,10,Orange Hub,system
+telkom_south_africa__south_africa,Telkom South Africa ,0+,Comfone,system
+vodacom_south_africa,Vodacom,90,Orange Hub,system
+mtn_(zambia)_ltd_zambia,MTN (Zambia) Ltd,100,Orange Hub,system
+airtel_zambia,Airtel,,,system
+zamtel_zambia,ZAMTEL,HLR BARRING,Bilateral,system
+econet_zimbabwe,Econet,,,system
+telecel_zimbabwe,Telecel,,,system
+orange_guinea-bissau,Orange,,,system
+sanatel_iraq,SanaTel,,,system
+ipse_2000_italy,IPSE 2000,,,system
+kazakhtelecom_kazakhstan,Kazakhtelecom,,,system
+akos_russian_federation,Akos,,,system
+osnova_telecom_russian_federation,Osnova Telecom,,,system
+cingular_wireless_saint_vincent_and_the_grenadines,Cingular Wireless,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+sweden_sweden,SWEDEN,,,system
+3g_mobile_ag_switzerland,3G Mobile AG,,,system
+42_telecom_ab_sweden,42 Telecom AB,,,system
+firstnet_united_states_of_america,FirstNet,,,system
+firstnet_united_states_of_america,FirstNet,,,system
+a-mobile_abkhazia,A-Mobile,,,system
+abc_canada,ABC,,,system
+ab_spectrum_llc_united_states_of_america,AB Spectrum LLC,,,system
+access_malawi,Access,,,system
+ail_vanuatu,AIL,,,system
+adams_networks_inc_united_states_of_america,Adams Networks Inc,,,system
+antel_uruguay,Antel,,,system
+adif_spain,ADIF,,,system
+ais_thailand,AIS,,,system
+dtc_wireless_united_states_of_america,DTC Wireless,,,system
+aero2_poland,Aero2,,,system
+aero2_poland,Aero2,,,system
+aero2_poland,Aero2,,,system
+salaam_afghanistan,Salaam,,,system
+salaam_afghanistan,Salaam,,,system
+vodafone_uganda,Vodafone,,,system
+mispot_united_states_of_america,miSpot,,,system
+café_ivory_coast,café,,,system
+"aire_networks_del_mediterráneo,_s.l.u._spain","Aire Networks del Mediterráneo, S.L.U.",,,system
+gci_united_states_of_america,GCI,,,system
+megacom_kyrgyzstan,MegaCom,,,system
+algar_telecom_brazil,Algar Telecom,,,system
+algar_telecom_brazil,Algar Telecom,,,system
+at_algeria,AT,,,system
+at_algeria,AT,,,system
+telecel_mali,Telecel,,,system
+altecom/fibracat_spain,Altecom/Fibracat,,,system
+altel_kazakhstan,Altel,,,system
+sfr_france,SFR,,,system
+sfr_france,SFR,,,system
+sfr_france,SFR,,,system
+altice_dominican_republic,Altice,,,system
+altice_dominican_republic,Altice,,,system
+tm-cell_turkmenistan,TM-Cell,,,system
+kiribati_-_frigate_net_kiribati,Kiribati - Frigate Net,,,system
+acs_myanmar,ACS,,,system
+acs_myanmar,ACS,,,system
+ambit_microsystems_taiwan,Ambit Microsystems,,,system
+ecotel_canada,ECOTEL,,,system
+ecotel_canada,ECOTEL,,,system
+astca_american_samoa_(usa),ASTCA,,,system
+astca_united_states_of_america,ASTCA,,,system
+claro_argentina,Claro,,,system
+claro_argentina,Claro,,,system
+cellone_india,cellone,,,system
+vodafone_india_india,Vodafone India,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+uninor_india,Uninor,,,system
+idea_india,IDEA,,,system
+etisalat_db(cheers)_india,Etisalat DB(cheers),,,system
+anesrif_algeria,ANESRIF,,,system
+apua_antigua_and_barbuda,APUA,,,system
+digicel_antigua_and_barbuda,Digicel,,,system
+digicel_former_netherlands_antilles,Digicel,,,system
+aquafon_abkhazia,Aquafon,,,system
+astac_united_states_of_america,ASTAC,,,system
+argonet_austria,ArgoNET,,,system
+asia_cell_iraq,Asia Cell,,,system
+aptg_taiwan,APTG,,,system
+reliance_india,Reliance,,,system
+cellone_india,cellone,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+vodafone_india_india,Vodafone India,,,system
+videocon_datacom_india,Videocon Datacom,,,system
+idea_india,IDEA,,,system
+uninor_india,Uninor,,,system
+s_tel_india,S Tel,,,system
+com4innov_france,Com4Innov,,,system
+agts_cdma_turkmenistan,AGTS CDMA,,,system
+unefon_mexico,Unefon,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+at&t_united_states_of_america,AT&T,,,system
+moov_niger,Moov,,,system
+moov_central_african_republic,Moov,,,system
+avantel_colombia,AVANTEL,,,system
+robi_bangladesh,Robi,,,system
+azerfon_worldwide,Azerfon,,,system
+azur_central_african_republic,Azur,,,system
+b-mobile_bhutan,B-Mobile,,,system
+babilon-m_tajikistan,Babilon-M,,,system
+babilon-t_tajikistan,Babilon-T,,,system
+gsm-r_dk_denmark,GSM-R DK,,,system
+ollo_bangladesh,ollo,,,system
+banglalion_bangladesh,Banglalion,,,system
+baykalwestcom_russian_federation,Baykalwestcom,,,system
+bc_tel_mobility_(telus)_canada,BC Tel Mobility (Telus),,,system
+gsm.aq_worldwide,GSM.AQ,,,system
+beeline_russian_federation,Beeline,,,system
+life:)_belarus,life:),,,system
+diallog_belarus,DIALLOG,,,system
+bbcom_benin,BBCOM,,,system
+bell_canada,Bell,,,system
+bell_canada,Bell,,,system
+mts_canada,MTS,,,system
+mts_canada,MTS,,,system
+bellsouth_colombia_colombia,Bellsouth Colombia,,,system
+becloud_belarus,beCloud,,,system
+bendbroadband_united_states_of_america,BendBroadband,,,system
+libercom_benin,Libercom,,,system
+one_bermuda,One,,,system
+airtel_bangladesh,Airtel,,,system
+airtel_sri_lanka,Airtel,,,system
+big_river_broadband_united_states_of_america,Big River Broadband,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+reliance_india,Reliance,,,system
+vodafone_india_india,Vodafone India,,,system
+bite_latvia,Bite,,,system
+maoré_mobile_french_indian_ocean_territories_(france),Maoré Mobile,,,system
+blu_italy,BLU,,,system
+blu_ghana,Blu,,,system
+bluegrass_cellular_llc_united_states_of_america,Bluegrass Cellular LLC,,,system
+bluegrass_cellular_llc_united_states_of_america,Bluegrass Cellular LLC,,,system
+bluesky_american_samoa_(usa),Bluesky,,,system
+bluesky_samoa,Bluesky,,,system
+bluewave_communications_ltd_united_kingdom,Bluewave Communications Ltd,,,system
+bluewave_communications_ltd._isle_of_man_(uk),Bluewave Communications Ltd.,,,system
+bemobile_solomon_islands,BeMobile,,,system
+bouygues_france,Bouygues,,,system
+bouygues_france,Bouygues,,,system
+eastlink_canada,EastLink,,,system
+bbcp_united_states_of_america,BBCP,,,system
+bt_united_kingdom,BT,,,system
+bt_united_kingdom,BT,,,system
+vivacom_bulgaria,Vivacom,,,system
+blue_wireless_united_states_of_america,Blue Wireless,,,system
+bug_tussel_wireless_united_states_of_america,Bug Tussel Wireless,,,system
+bulsatcom_bulgaria,Bulsatcom,,,system
+busy_ghana,busy,,,system
+buztel_uzbekistan,Buztel,,,system
+mid-rivers_wireless_united_states_of_america,Mid-Rivers Wireless,,,system
+flow_turks_and_caicos_islands,FLOW,,,system
+cfr_romania,CFR,,,system
+"cambio_wifi_of_delmarva,_llc_united_states_of_america","Cambio WiFi of Delmarva, LLC",,,system
+qb_cambodia,qb,,,system
+camtel_cameroon,Camtel,,,system
+canar_sudan,canar,,,system
+capcom_nigeria,Capcom,,,system
+capx_b.v._netherlands,CapX B.V.,,,system
+carolina_west_wireless_united_states_of_america,Carolina West Wireless,,,system
+carolina_west_wireless_united_states_of_america,Carolina West Wireless,,,system
+cat_cdma_thailand,CAT CDMA,,,system
+fonex_azerbaijan,FONEX,,,system
+cellcom_guinea,Cellcom,,,system
+pioneer_cellular_united_states_of_america,Pioneer Cellular,,,system
+pioneer_cellular_united_states_of_america,Pioneer Cellular,,,system
+c_spire_wireless_united_states_of_america,C Spire Wireless,,,system
+tigo_honduras,Tigo,,,system
+newcore_united_states_of_america,NewCore,,,system
+tambov_gsm_russian_federation,Tambov GSM,,,system
+challenge_networks_pty_ltd_australia,Challenge Networks Pty Ltd,,,system
+ccc_event_germany,CCC Event,,,system
+chariton_valley_united_states_of_america,Chariton Valley,,,system
+chariton_valley_united_states_of_america,Chariton Valley,,,system
+cellone_india,cellone,,,system
+vodafone_india_india,Vodafone India,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+reliance_india,Reliance,,,system
+koryolink_north_korea,Koryolink,,,system
+koryolink_north_korea,Koryolink,,,system
+zong_pakistan,Zong,,,system
+china_telecom_china,China Telecom,,,system
+china_telecom_china,China Telecom,,,system
+china_telecom_macau_(china),China Telecom,,,system
+china_telecom_macau_(china),China Telecom,,,system
+china_tietong_china,China Tietong,,,system
+china_unicom_china,China Unicom,,,system
+chinguitel_mauritania,Chinguitel,,,system
+cbrs_united_states_of_america,CBRS,,,system
+skylink_russian_federation,Skylink,,,system
+"clear_stream_communications,_llc_united_states_of_america","Clear Stream Communications, LLC",,,system
+cloud_9_mobile_isle_of_man_(uk),Cloud 9 Mobile,,,system
+tigo_colombia,Tigo,,,system
+comium_gambia,Comium,,,system
+comium_sierra_leone,Comium,,,system
+koz_ivory_coast,KoZ,,,system
+choice_wireless_united_states_of_america,Choice Wireless,,,system
+choice_wireless_united_states_of_america,Choice Wireless,,,system
+commtel_ns_australia,CommTel NS,,,system
+ctm_macau_(china),CTM,,,system
+murcia4g_spain,Murcia4G,,,system
+copaco_paraguay,Copaco,,,system
+copper_valley_wireless_united_states_of_america,Copper Valley Wireless,,,system
+cordova_wireless_united_states_of_america,Cordova Wireless,,,system
+digitel_venezuela,Digitel,,,system
+digitel_gsm_venezuela,Digitel GSM,,,system
+cosmote_greece,Cosmote,,,system
+coverageco_united_states_of_america,CoverageCo,,,system
+bigfoot_cellular_united_states_of_america,Bigfoot Cellular,,,system
+bravado_wireless_united_states_of_america,Bravado Wireless,,,system
+vainah_telecom_russian_federation,Vainah Telecom,,,system
+csl_limited_hong_kong,CSL Limited,,,system
+csl_limited_hong_kong,CSL Limited,,,system
+cts_mobile_gibraltar_(uk),CTS Mobile,,,system
+digicel_former_netherlands_antilles,Digicel,,,system
+custer_telephone_co-op_(ctci)_united_states_of_america,Custer Telephone Co-op (CTCI),,,system
+avacell(hiweb)_iran,Avacell(HiWEB),,,system
+datatel_(sl)_ltd._sierra_leone,Datatel (SL) Ltd.,,,system
+dauphin_french_antilles_(france),Dauphin,,,system
+db_netz_ag_germany,DB Netz AG,,,system
+db_telematik_germany,DB Telematik,,,system
+idea_india,IDEA,,,system
+reliance_india,Reliance,,,system
+uninor_india,Uninor,,,system
+etisalat_db(cheers)_india,Etisalat DB(cheers),,,system
+dense_air_belgium_sprl_belgium,Dense Air Belgium SPRL,,,system
+dialog_sri_lanka,Dialog,,,system
+digi_hungary,DIGI,,,system
+digicel_anguilla_(uk),Digicel,,,system
+digicel_barbados,Digicel,,,system
+digicel_nauru,Digicel,,,system
+digicel_saint_vincent_and_the_grenadines,Digicel,,,system
+digicel_cayman_islands_(uk),Digicel,,,system
+digicel_grenada,Digicel,,,system
+digicel_dominica,Digicel,,,system
+digicel_suriname,Digicel,,,system
+digicel_samoa,Digicel,,,system
+ais_gsm_1800_thailand,AIS GSM 1800,,,system
+directv_colombia_ltda_colombia,DirecTV Colombia Ltda,,,system
+dna_finland,DNA,,,system
+dtc_russian_federation,DTC,,,system
+sasatel_(dovetel)_tanzania,Sasatel (Dovetel),,,system
+mio_former_netherlands_antilles,MIO,,,system
+ecc_former_netherlands_antilles,ECC,,,system
+appalachian_wireless_united_states_of_america,Appalachian Wireless,,,system
+appalachian_wireless_united_states_of_america,Appalachian Wireless,,,system
+appalachian_wireless_united_states_of_america,Appalachian Wireless,,,system
+shine_gibraltar_(uk),Shine,,,system
+econet_leo_burundi,econet Leo,,,system
+econet_leo_burundi,econet Leo,,,system
+t-mobile_uk_united_kingdom,T-Mobile UK,,,system
+t-mobile_uk_united_kingdom,T-Mobile UK,,,system
+orange_united_kingdom,Orange,,,system
+eir_ireland,Eir,,,system
+epic_pcs_united_states_of_america,Epic PCS,,,system
+etb_colombia,eTb,,,system
+hondutel_honduras,Hondutel,,,system
+emcali_colombia,EMCALI,,,system
+etc_united_states_of_america,ETC,,,system
+entel_peru,Entel,,,system
+entel_bolivia,Entel,,,system
+entel_chile,entel,,,system
+eritel_eritrea,Eritel,,,system
+uname_iran,Uname,,,system
+mobinnet_iran,Mobinnet,,,system
+eutel_n.v._former_netherlands_antilles,Eutel N.V.,,,system
+eventis_moldova,Eventis,,,system
+evntelecom_vietnam,EVNTelecom,,,system
+evolve_broadband_united_states_of_america,Evolve Broadband,,,system
+fareastone_taiwan,FarEasTone,,,system
+fareastone_taiwan,FarEasTone,,,system
+fareastone_taiwan,FarEasTone,,,system
+fareastone_taiwan,FarEasTone,,,system
+farmers_wireless_united_states_of_america,Farmers Wireless,,,system
+farzanegan_pars_iran,Farzanegan Pars,,,system
+first_canada,FIRST,,,system
+cleartalk_united_states_of_america,ClearTalk,,,system
+cleartalk_united_states_of_america,ClearTalk,,,system
+fms_solutions_ltd_united_kingdom,FMS Solutions Ltd,,,system
+fsmtc_federated_states_of_micronesia,FSMTC,,,system
+ftc_wireless_united_states_of_america,FTC Wireless,,,system
+fuego_wireless_united_states_of_america,Fuego Wireless,,,system
+g-mobile_mongolia,G-Mobile,,,system
+directv_venezuela,DirecTV,,,system
+gamcel_gambia,Gamcel,,,system
+gamtel-ecowan_gambia,Gamtel-Ecowan,,,system
+gci_united_states_of_america,GCI,,,system
+gemtel_south_sudan,Gemtel,,,system
+orange_gq_equatorial_guinea,Orange GQ,,,system
+glo_benin,Glo,,,system
+globaltel_saint_pierre_and_miquelon_(france),GLOBALTEL,,,system
+islacom_philippines,Islacom,,,system
+globecomm_network_services_worldwide,Globecomm Network Services,,,system
+golan_telecom_israel,Golan Telecom,,,system
+golis_somalia,Golis,,,system
+great_north_woods_wireless_llc_united_states_of_america,Great North Woods Wireless LLC,,,system
+greenfly_llc_united_states_of_america,GreenFly LLC,,,system
+group_3g_umts_germany,Group 3G UMTS,,,system
+gmobile_vietnam,Gmobile,,,system
+airtel-vodafone_guernsey_(uk),Airtel-Vodafone,,,system
+guinetel_guinea-bissau,Guinetel,,,system
+guinetel_guinea-bissau,Guinetel,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+videocon_datacom_india,Videocon Datacom,,,system
+etisalat_db(cheers)_india,Etisalat DB(cheers),,,system
+gulf_coast_broadband_llc_united_states_of_america,Gulf Coast Broadband LLC,,,system
+bip_/_blueline_madagascar,BIP / blueline,,,system
+gt&t_cellink_plus_guyana,GT&T Cellink Plus,,,system
+halló_frjáls_fjarskipti_hf._iceland,Halló Frjáls fjarskipti hf.,,,system
+vodafone_india_india,Vodafone India,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+idea_india,IDEA,,,system
+hatef_libya_libya,Hatef Libya,,,system
+haute-garonne_numérique_france,Haute-Garonne numérique,,,system
+hay_systems_ltd_united_kingdom,Hay Systems Ltd,,,system
+phoenix_united_states_of_america,Phoenix,,,system
+reliance_india,Reliance,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+vodafone_india_india,Vodafone India,,,system
+hormuud_somalia,Hormuud,,,system
+horntel_group_somalia,Horntel Group,,,system
+3_austria,3,,,system
+3_(cdma)_hong_kong,3 (CDMA),,,system
+hutchison_telecom_hong_kong,Hutchison Telecom,,,system
+port-hable_argentina,PORT-HABLE,,,system
+hutch_sri_lanka,Hutch,,,system
+3_macau_(china),3,,,system
+ice_norway,ice,,,system
+net_1_denmark,Net 1,,,system
+ice_norway,ice,,,system
+ice_wireless_canada,ICE Wireless,,,system
+icecell_iceland,IceCell,,,system
+on-waves_iceland,On-waves,,,system
+idilis_romania,Idilis,,,system
+free_mobile_france,Free Mobile,,,system
+illinois_valley_cellular_united_states_of_america,Illinois Valley Cellular,,,system
+imperial_county_office_of_education_united_states_of_america,Imperial County Office of Education,,,system
+in&phone_switzerland,IN&Phone,,,system
+indigo_russian_federation,INDIGO,,,system
+tcell_tajikistan,Tcell,,,system
+tcell_tajikistan,Tcell,,,system
+infrabel_belgium,Infrabel,,,system
+"infraestruturas_de_portugal,_s.a._portugal","Infraestruturas de Portugal, S.A.",,,system
+"infrastructure_networks,_llc_united_states_of_america","Infrastructure Networks, LLC",,,system
+inland_cellular_telephone_company_united_states_of_america,Inland Cellular Telephone Company,,,system
+inquam_deutschland_germany,Inquam Deutschland,,,system
+kölbi_ice_costa_rica,Kölbi ICE,,,system
+interc_nigeria,InterC,,,system
+telecel_guinee_guinea,Telecel Guinee,,,system
+idc_moldova,IDC,,,system
+idc_moldova,IDC,,,system
+smart_mobile_sierra_leone,Smart Mobile,,,system
+intertelecom_russian_federation,Intertelecom,,,system
+intertelecom_ukraine,Intertelecom,,,system
+cdma_ukraine_ukraine,CDMA Ukraine,,,system
+nuuk_tv_greenland,Nuuk TV,,,system
+chat_mobility_united_states_of_america,Chat Mobility,,,system
+iwireless_united_states_of_america,iWireless,,,system
+iraphone_iran,Iraphone,,,system
+iraphone_iran,Iraphone,,,system
+big_sky_mobile_united_states_of_america,Big Sky Mobile,,,system
+imod_israel,IMOD,,,system
+it&e_wireless_guam_(usa),IT&E Wireless,,,system
+it&e_wireless_united_states_of_america,IT&E Wireless,,,system
+itisaluna_iraq,Itisaluna,,,system
+faiba_4g_kenya,Faiba 4G,,,system
+aircel_india,Aircel,,,system
+cellone_india,cellone,,,system
+tata_docomo_india,TATA DOCOMO,,,system
+reliance_india,Reliance,,,system
+airtel_india,Airtel,,,system
+vodafone_india_india,Vodafone India,,,system
+idea_india,IDEA,,,system
+jio_india,Jio,,,system
+jernbaneverket_as_norway,Jernbaneverket AS,,,system
+jernbaneverket_as_norway,Jernbaneverket AS,,,system
+airtel-vodafone_jersey_(uk),Airtel-Vodafone,,,system
+airtel-vodafone_united_kingdom,Airtel-Vodafone,,,system
+utel_russian_federation,Utel,,,system
+navitas_worldwide,Navitas,,,system
+tcell_tajikistan,Tcell,,,system
+win_mobile_russian_federation,Win Mobile,,,system
+pace_united_states_of_america,PACE,,,system
+karabakh_telecom_armenia,Karabakh Telecom,,,system
+vodafone_india_india,Vodafone India,,,system
+reliance_india,Reliance,,,system
+uninor_india,Uninor,,,system
+idea_india,IDEA,,,system
+cellone_india,cellone,,,system
+expresso_ghana,Expresso,,,system
+au_japan,au,,,system
+au_japan,au,,,system
+au_japan,au,,,system
+au_japan,au,,,system
+au_japan,au,,,system
+au_japan,au,,,system
+au_japan,au,,,system
+au_japan,au,,,system
+au_japan,au,,,system
+au_japan,au,,,system
+au_japan,au,,,system
+keewaytinook_mobile_canada,Keewaytinook Mobile,,,system
+keewaytinook_mobile_canada,Keewaytinook Mobile,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+uninor_india,Uninor,,,system
+etisalat_db(cheers)_india,Etisalat DB(cheers),,,system
+ketchikan_public_utilities_(kpu)_united_states_of_america,Ketchikan Public Utilities (KPU),,,system
+skylink_russian_federation,Skylink,,,system
+"king_street_wireless,_lp_united_states_of_america","King Street Wireless, LP",,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+reliance_india,Reliance,,,system
+uninor_india,Uninor,,,system
+koning_en_hartman_b.v._netherlands,Koning en Hartman B.V.,,,system
+sunnet_north_korea,SunNet,,,system
+kpn_netherlands,KPN,,,system
+krymtelekom_russian_federation,Krymtelekom,,,system
+volna_mobile_russian_federation,Volna mobile,,,system
+kugsm_russian_federation,KUGSM,,,system
+sahelcom_niger,SahelCom,,,system
+lanka_bell_sri_lanka,Lanka Bell,,,system
+chunghwa_ldm_taiwan,Chunghwa LDM,,,system
+nmobile_united_states_of_america,NMobile,,,system
+libtelco_liberia,LIBTELCO,,,system
+libya_phone_libya,Libya Phone,,,system
+libyana_libya,Libyana,,,system
+litrail_lithuania,LitRail,,,system
+mezon_lithuania,MEZON,,,system
+ligado_networks_united_states_of_america,Ligado Networks,,,system
+lightsquared_l.p._united_states_of_america,Lightsquared L.P.,,,system
+lightsquared_l.p._united_states_of_america,Lightsquared L.P.,,,system
+lightsquared_l.p._united_states_of_america,Lightsquared L.P.,,,system
+liikennevirasto_finland,Liikennevirasto,,,system
+limitless_mobile_united_states_of_america,Limitless Mobile,,,system
+linkem_italy,LINKEM,,,system
+africell_sierra_leone,Africell,,,system
+lonestar_cell_mtn_liberia,Lonestar Cell MTN,,,system
+lynx_mobility_canada,Lynx Mobility,,,system
+mobility_bermuda,Mobility,,,system
+reliance_india,Reliance,,,system
+videocon_datacom_india,Videocon Datacom,,,system
+cellone_india,cellone,,,system
+vodafone_india_india,Vodafone India,,,system
+magti_georgia,Magti,,,system
+magtifix_georgia,MagtiFix,,,system
+mav_gsm-r_hungary,MAV GSM-R,,,system
+mokoze_/_azu_mauritius,MOKOZE / AZU,,,system
+idea_india,IDEA,,,system
+uninor_india,Uninor,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+mainepcs_llc_united_states_of_america,MainePCS LLC,,,system
+telekom.mk_north_macedonia,Telekom.mk,,,system
+malitel_mali,Malitel,,,system
+mara_telecom_french_polynesia_(france),Mara Telecom,,,system
+we4g_israel,We4G,,,system
+marathon_telecom_limited_jersey_(uk),Marathon Telecom Limited,,,system
+marshall_islands_national_telecommunications_authority_(minta)_marshall_islands,Marshall Islands National Telecommunications Authority (MINTA),,,system
+mta_united_states_of_america,MTA,,,system
+mauritel_mauritania,Mauritel,,,system
+maxis_malaysia,Maxis,,,system
+"maxis,_digi,_celcom,_xox_malaysia","Maxis, DiGi, Celcom, XOX",,,system
+mb_tel_mobility_canada,MB Tel Mobility,,,system
+mediatech_seychelles,Mediatech,,,system
+sky_high_worldwide,Sky High,,,system
+megafon_russian_federation,MegaFon,,,system
+melita_malta,Melita,,,system
+mid-rivers_wireless_united_states_of_america,Mid-Rivers Wireless,,,system
+west_central_wireless_united_states_of_america,West Central Wireless,,,system
+tigo_guatemala,Tigo,,,system
+ministry_of_interior_qatar,Ministry of Interior,,,system
+chariton_valley_united_states_of_america,Chariton Valley,,,system
+mobilcom_multimedia_germany,Mobilcom Multimedia,,,system
+espadan_(jv-pjs)_iran,Espadan (JV-PJS),,,system
+mobitai_taiwan,MobiTai,,,system
+mobitel_iraq,Mobitel,,,system
+unité_moldova,Unité,,,system
+unité_moldova,Unité,,,system
+unité_moldova,Unité,,,system
+mosaic_telecom_united_states_of_america,Mosaic Telecom,,,system
+movicel_angola,MOVICEL,,,system
+mt&t_mobility_(aliant)_canada,MT&T Mobility (Aliant),,,system
+libertis_telecom_congo,Libertis Telecom,,,system
+mtn_zambia,MTN,,,system
+mtn_namibia_namibia,MTN Namibia,,,system
+mts_turkmenistan,MTS,,,system
+multefire_allicance_worldwide,MulteFire Allicance,,,system
+loop_mobile_india,Loop Mobile,,,system
+reliance_india,Reliance,,,system
+mvm_net_ltd._hungary,MVM Net Ltd.,,,system
+cdma800_myanmar,CDMA800,,,system
+mytel_myanmar,Mytel,,,system
+naxtel_azerbaijan,Naxtel,,,system
+nash_technologies_germany,Nash Technologies,,,system
+nbn_australia,NBN,,,system
+nbn_australia,NBN,,,system
+nationlink_somalia,Nationlink,,,system
+nationlink_somalia,Nationlink,,,system
+khartoum_inc_sudan,khartoum INC,,,system
+nemont_united_states_of_america,Nemont,,,system
+neotel_south_africa,Neotel,,,system
+neotel_south_africa,Neotel,,,system
+nep_united_states_of_america,nep,,,system
+net*one_zimbabwe,Net*One,,,system
+sweden_2g_sweden,Sweden 2G,,,system
+net_1_sweden,Net 1,,,system
+netpage_gambia,NETPAGE,,,system
+netset_communications_canada,NetSet Communications,,,system
+vivacell_south_sudan,Vivacell,,,system
+network_rail_infrastructure_limited_united_kingdom,Network Rail Infrastructure Limited,,,system
+railtrack_united_kingdom,Railtrack,,,system
+railtrack_united_kingdom,Railtrack,,,system
+plateau_wireless_united_states_of_america,Plateau Wireless,,,system
+new_tel_mobility_(aliant)_canada,New Tel Mobility (Aliant),,,system
+cellcom_united_states_of_america,Cellcom,,,system
+newcore_united_states_of_america,NewCore,,,system
+nex-tech_wireless_united_states_of_america,Nex-Tech Wireless,,,system
+nex-tech_wireless_united_states_of_america,Nex-Tech Wireless,,,system
+nextel_brazil,Nextel,,,system
+ncc_russian_federation,NCC,,,system
+nokia_finland,Nokia,,,system
+nokia_finland,Nokia,,,system
+nokia_solutions_and_networks_oy_finland,Nokia Solutions and Networks Oy,,,system
+nordic_telecom_5g_a.s._czech_republic,Nordic Telecom 5G a.s.,,,system
+nordic_telecom_s.r.o._czech_republic,Nordic Telecom s.r.o.,,,system
+nordisk_polska_poland,Nordisk Polska,,,system
+norfolk_is._australia,Norfolk Is.,,,system
+norfolk_telecom_norfolk_island,Norfolk Telecom,,,system
+reliance_india,Reliance,,,system
+cellone_india,cellone,,,system
+vodafone_india_india,Vodafone India,,,system
+idea_india,IDEA,,,system
+nmu_united_states_of_america,NMU,,,system
+northwestcell_united_states_of_america,NorthwestCell,,,system
+novafone_liberia,Novafone,,,system
+wom_chile,WOM,,,system
+cellcom_united_states_of_america,Cellcom,,,system
+cellcom_united_states_of_america,Cellcom,,,system
+ntelos_united_states_of_america,nTelos,,,system
+ntelos_united_states_of_america,nTelos,,,system
+o!_kyrgyzstan,O!,,,system
+gsm-r_a_austria,GSM-R A,,,system
+claro_jamaica,Claro,,,system
+ogero_mobile_lebanon,Ogero Mobile,,,system
+au_japan,au,,,system
+olleh_rwanda,Olleh,,,system
+onair_worldwide,OnAir,,,system
+telmob_burkina_faso,Telmob,,,system
+onatel_burundi,Onatel,,,system
+one.tel_australia,One.Tel,,,system
+one.tel_australia,One.Tel,,,system
+vip_north_macedonia,vip,,,system
+"oniway_-_inforcomunicaçôes,_s.a._portugal","Oniway - Inforcomunicaçôes, S.A.",,,system
+evo_uzbekistan,EVO,,,system
+optus_australia,Optus,,,system
+orange_ivory_coast,Orange,,,system
+orange_botswana,Orange,,,system
+orange_cameroon,Orange,,,system
+orange_french_indian_ocean_territories_(france),Orange,,,system
+orange_lbr_liberia,Orange LBR,,,system
+orange_madagascar,Orange,,,system
+orange_worldwide,Orange,,,system
+orange_france,Orange,,,system
+orange_slovakia,Orange,,,system
+greenn_ivory_coast,GreenN,,,system
+orion_telekom_serbia,Orion Telekom,,,system
+reliance_india,Reliance,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+vodafone_india_india,Vodafone India,,,system
+ose_greece,OSE,,,system
+otz_cellular_united_states_of_america,OTZ Cellular,,,system
+breeze_solomon_islands,BREEZE,,,system
+sfr_caraïbe_french_antilles_(france),SFR Caraïbe,,,system
+ozone_barbados,Ozone,,,system
+play_poland,Play,,,system
+citycell_bangladesh,Citycell,,,system
+vodafone_french_polynesia_(france),Vodafone,,,system
+paladin_wireless_united_states_of_america,Paladin Wireless,,,system
+pt_waves_palau,PT Waves,,,system
+pmci_palau,PMCI,,,system
+palau_mobile_palau,Palau Mobile,,,system
+pncc_palau,PNCC,,,system
+ptci_united_states_of_america,PTCI,,,system
+paratus_telecommunications_(pty)_namibia,Paratus Telecommunications (Pty),,,system
+partner_israel,Partner,,,system
+pccw_mobile_(4g)_hong_kong,PCCW Mobile (4G),,,system
+pccw_mobile_(cdma)_hong_kong,PCCW Mobile (CDMA),,,system
+phi_networks_israel,PHI Networks,,,system
+phoenix_ukraine,Phoenix,,,system
+pine_belt_wireless_united_states_of_america,Pine Belt Wireless,,,system
+pine_cellular_united_states_of_america,Pine Cellular,,,system
+blaze_united_states_of_america,BLAZE,,,system
+blaze_united_states_of_america,BLAZE,,,system
+pkp_polskie_linie_kolejowe_s.a._poland,PKP Polskie Linie Kolejowe S.A.,,,system
+cure_philippines,Cure,,,system
+poda_a.s._czech_republic,PODA a.s.,,,system
+orange_poland,Orange,,,system
+open_mobile_puerto_rico,Open Mobile,,,system
+open_mobile_puerto_rico,Open Mobile,,,system
+kyivstar_ukraine,Kyivstar,,,system
+peoplenet_ukraine,PEOPLEnet,,,system
+newtone_ukraine,NEWTONE,,,system
+progroup_holding_estonia,Progroup Holding,,,system
+prorail_b.v._netherlands,ProRail B.V.,,,system
+proximiti_mobility_inc._united_states_of_america,Proximiti Mobility Inc.,,,system
+proximiti_mobility_inc._united_states_of_america,Proximiti Mobility Inc.,,,system
+esia_indonesia,Esia,,,system
+hinet_indonesia,Hinet,,,system
+starone_indonesia,StarOne,,,system
+bolt!_4g_lte_indonesia,BOLT! 4G LTE,,,system
+fren/hepi_indonesia,Fren/Hepi,,,system
+net_1_indonesia,Net 1,,,system
+smartfren_indonesia,Smartfren,,,system
+telkomcel_east_timor,Telkomcel,,,system
+telkomflexi_indonesia,TelkomFlexi,,,system
+telkommobile_indonesia,TELKOMMobile,,,system
+3g_evo_/_charji_4g_pakistan,3G EVO / CharJi 4G,,,system
+alltel_united_states_of_america,Alltel,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+idea_india,IDEA,,,system
+quark_communications_inc._guyana,Quark Communications Inc.,,,system
+queensland_rail_limited_australia,Queensland Rail Limited,,,system
+railcorp_australia,RailCorp,,,system
+cellone_india,cellone,,,system
+vodafone_india_india,Vodafone India,,,system
+reliance_india,Reliance,,,system
+digi.mobil_romania,Digi.Mobil,,,system
+redzone_wireless_united_states_of_america,Redzone Wireless,,,system
+région_bourgogne-franche-comté_france,Région Bourgogne-Franche-Comté,,,system
+rfi_italy,RFI,,,system
+rogers_wireless_canada,Rogers Wireless,,,system
+rostelecom_russian_federation,Rostelecom,,,system
+royal_thai_police_thailand,Royal Thai Police,,,system
+chat_mobility_united_states_of_america,Chat Mobility,,,system
+rtc_communications_llc_united_states_of_america,RTC Communications LLC,,,system
+perfectum_mobile_uzbekistan,Perfectum Mobile,,,system
+rural_netco_limited_tanzania,Rural NetCo Limited,,,system
+rwandatel_rwanda,Rwandatel,,,system
+s-fone_vietnam,S-Fone,,,system
+sacel_madagascar,Sacel,,,system
+nemont_united_states_of_america,Nemont,,,system
+saima_telecom_kyrgyzstan,Saima Telecom,,,system
+prima_san_marino,PRIMA,,,system
+sasktel_canada,SaskTel,,,system
+samk_finland,SAMK,,,system
+rgsm_saudi_arabia,RGSM,,,system
+sbb-cff-ffs_switzerland,SBB-CFF-FFS,,,system
+sco_mobile_pakistan,SCO Mobile,,,system
+sco_mobile_pakistan,SCO Mobile,,,system
+seatel_cambodia,SEATEL,,,system
+sercomtel_brazil,Sercomtel,,,system
+manuia_wallis_and_futuna,Manuia,,,system
+setar_aruba,SETAR,,,system
+sevmobile_russian_federation,Sevmobile,,,system
+bell_/_telus_/_sasktel_canada,Bell / Telus / SaskTel,,,system
+freedom_mobile_canada,Freedom Mobile,,,system
+power_017_south_korea,Power 017,,,system
+mobilenation_united_states_of_america,MobileNation,,,system
+sibchallenge_russian_federation,Sibchallenge,,,system
+siemens_ag_germany,Siemens AG,,,system
+sierratel_sierra_leone,SierraTel,,,system
+s1_georgia,S1,,,system
+silk_lte_georgia,Silk LTE,,,system
+silver_star_communications_united_states_of_america,Silver Star Communications,,,system
+skytel_mongolia,Skytel,,,system
+telekom_slovakia,Telekom,,,system
+smart_cambodia,Smart,,,system
+smart_cambodia,Smart,,,system
+smart_cambodia,Smart,,,system
+smartcell_nepal,SmartCell,,,system
+smartone_macau_(china),SmarTone,,,system
+smartone_mobile_communications_limited_hong_kong,SmarTone Mobile Communications Limited,,,system
+smartone_mobile_communications_limited_hong_kong,SmarTone Mobile Communications Limited,,,system
+smarts_russian_federation,SMARTS,,,system
+smile_nigeria,Smile,,,system
+smile_uganda,Smile,,,system
+smilecom_tanzania,SmileCom,,,system
+cellular_one_united_states_of_america,Cellular One,,,system
+sncf_réseau_france,SNCF Réseau,,,system
+rightel_iran,Rightel,,,system
+cfl_luxembourg,CFL,,,system
+sfr_réunion_french_indian_ocean_territories_(france),SFR Réunion,,,system
+y!mobile_japan,Y!Mobile,,,system
+softbank_japan,SoftBank,,,system
+softbank_japan,SoftBank,,,system
+somafone_somalia,Somafone,,,system
+somnet_somalia,SOMNET,,,system
+somtel_somalia,Somtel,,,system
+orange_senegal,Orange,,,system
+sonic_duo_russian_federation,Sonic Duo,,,system
+sotelgui_guinea,Sotelgui,,,system
+tawali_chad,Tawali,,,system
+salam_chad,Salam,,,system
+syncsouth_united_states_of_america,SyncSouth,,,system
+southern_linc_united_states_of_america,Southern LINC,,,system
+mtn_benin,MTN,,,system
+mtn_yemen,MTN,,,system
+spectranet_nigeria,Spectranet,,,system
+smart_belize,SMART,,,system
+"správa_železniční_dopravní_cesty,_s.o._czech_republic","Správa železniční dopravní cesty, s.o.",,,system
+sprint_united_states_of_america,Sprint,,,system
+slt_sri_lanka,SLT,,,system
+qiniq_canada,Qiniq,,,system
+ameris_saint_pierre_and_miquelon_(france),Ameris,,,system
+rock_wireless_united_states_of_america,Rock Wireless,,,system
+star_solutions_international_inc._canada,Star Solutions International Inc.,,,system
+stc_bahrain,STC,,,system
+stelera_wireless_united_states_of_america,Stelera Wireless,,,system
+sudani_one_sudan,Sudani One,,,system
+supercell_democratic_republic_of_the_congo,Supercell,,,system
+foneplus_british_indian_ocean_territory_(uk),FonePlus,,,system
+sure_mobile_guernsey_(uk),Sure Mobile,,,system
+sure_mobile_united_kingdom,Sure Mobile,,,system
+sure_mobile_jersey_(uk),Sure Mobile,,,system
+sure_mobile_isle_of_man_(uk),Sure Mobile,,,system
+sure_mobile_united_kingdom,Sure Mobile,,,system
+sure_falkland_islands_(uk),Sure,,,system
+"sure_saint_helena,_ascension_and_tristan_da_cunha",Sure,,,system
+surfline_ghana,Surfline,,,system
+sweden_3g_sweden,Sweden 3G,,,system
+4ka_slovakia,4ka,,,system
+swazi_mobile_limited_swaziland,Swazi Mobile Limited,,,system
+swift_nigeria,Swift,,,system
+swisscom_liechtenstein,Swisscom,,,system
+caricel_jamaica,Caricel,,,system
+syndicat_mixte_ouvert_charente_numérique_france,Syndicat mixte ouvert Charente Numérique,,,system
+syriatel_syria,Syriatel,,,system
+syringa_wireless_united_states_of_america,Syringa Wireless,,,system
+"sž_-_infrastruktura,_d.o.o._slovenia","SŽ - Infrastruktura, d.o.o.",,,system
+t-2_slovenia,T-2,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t-mobile_montenegro,T-Mobile,,,system
+t-mobile_serbia,T-Mobile,,,system
+networks!_poland,NetWorkS!,,,system
+t-mobile_united_states_of_america,T-Mobile,,,system
+t_star_taiwan,T Star,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+tangerine_uganda_limited_uganda,Tangerine Uganda Limited,,,system
+ttcl_mobile_tanzania,TTCL Mobile,,,system
+tashicell_bhutan,TashiCell,,,system
+letai_russian_federation,Letai,,,system
+ttk_russian_federation,TTK,,,system
+taliya_iran,Taliya,,,system
+tci_(gsm_wll)_iran,TCI (GSM WLL),,,system
+telalaska_cellular_united_states_of_america,Telalaska Cellular,,,system
+free_french_indian_ocean_territories_(france),Free,,,system
+telcom_somalia,Telcom,,,system
+tele4u_switzerland,Tele4u,,,system
+tele2_netherlands,Tele2,,,system
+tc_central_african_republic,TC,,,system
+telecel_faso_burkina_faso,Telecel Faso,,,system
+bluesky_cook_islands_(pacific_ocean),Bluesky,,,system
+we_egypt,WE,,,system
+tfl_fiji,TFL,,,system
+korek_iraq,Korek,,,system
+switch_namibia,switch,,,system
+telecom_new_zealand,Telecom,,,system
+telecom_niue_niue,Telecom Niue,,,system
+vala_kosovo,Vala,,,system
+personal_argentina,Personal,,,system
+smile_vanuatu,SMILE,,,system
+tkc/kfzo_iran,TKC/KFZO,,,system
+digicel_bermuda_bermuda,Digicel Bermuda,,,system
+telesur_suriname,Telesur,,,system
+movilnet_venezuela,Movilnet,,,system
+telbo_former_netherlands_antilles,Telbo,,,system
+movistar_nicaragua,movistar,,,system
+o2_(uk)_united_kingdom,O2 (UK),,,system
+o2_(uk)_united_kingdom,O2 (UK),,,system
+o2_germany,O2,,,system
+o2_germany,O2,,,system
+o2_germany,O2,,,system
+o2_germany,O2,,,system
+o2_germany,O2,,,system
+movistar_argentina,Movistar,,,system
+movistar_argentina,Movistar,,,system
+movistar_panama,movistar,,,system
+gta_wireless_guam_(usa),GTA Wireless,,,system
+gta_wireless_united_states_of_america,GTA Wireless,,,system
+triatel_latvia,TRIATEL,,,system
+telekom_germany,Telekom,,,system
+atur_450_malaysia,ATUR 450,,,system
+tm_homeline_malaysia,TM Homeline,,,system
+clicknet_mobile_romania,Clicknet Mobile,,,system
+cosmote/zapp_romania,Cosmote/Zapp,,,system
+telekom/zapp_romania,Telekom/Zapp,,,system
+mts_serbia,mts,,,system
+telenor_denmark,Telenor,,,system
+telenor_serbia,Telenor,,,system
+telenor_sweden,Telenor,,,system
+mtce_iran,MTCE,,,system
+koohe_noor_iran,KOOHE NOOR,,,system
+telesol_ghana,Telesol,,,system
+telet_research_(n.i.)_limited_united_kingdom,Telet Research (N.I.) Limited,,,system
+teletalk_bangladesh,TeleTalk,,,system
+teletok_tokelau,Teletok,,,system
+kou_estonia,Kou,,,system
+private_mobile_networks_pmn_united_kingdom,Private Mobile Networks PMN,,,system
+telia_/_dna_finland,Telia / DNA,,,system
+telia_norway,Telia,,,system
+citifon_papua_new_guinea,citifon,,,system
+vodafone_new_zealand,Vodafone,,,system
+telus_canada,Telus,,,system
+telus_canada,Telus,,,system
+telus_canada,Telus,,,system
+texas_energy_network_llc_united_states_of_america,Texas Energy Network LLC,,,system
+peoples_telephone_united_states_of_america,Peoples Telephone,,,system
+cellcard_cambodia,Cellcard,,,system
+thumb_cellular_lp_united_states_of_america,Thumb Cellular LP,,,system
+thumb_cellular_lp_united_states_of_america,Thumb Cellular LP,,,system
+tbaytel_canada,TBaytel,,,system
+ти.ком_bulgaria,Ти.ком,,,system
+tt_east_timor,TT,,,system
+tiscali_italy,Tiscali,,,system
+tnw_wireless_canada,TNW Wireless,,,system
+u-call_tonga,U-Call,,,system
+ais-t_/_tot_mobile_thailand,AIS-T / TOT Mobile,,,system
+dtac-t_/_line_/_tot_mobile_thailand,dtac-T / LINE / TOT Mobile,,,system
+tpg_telecom_pte_ltd_singapore,TPG Telecom Pte Ltd,,,system
+mobisir_sweden,MobiSir,,,system
+transasia_taiwan,TransAsia,,,system
+triangle_communication_system_inc._united_states_of_america,Triangle Communication System Inc.,,,system
+viva_dominican_republic,Viva,,,system
+bmobile_trinidad_and_tobago,bmobile,,,system
+megafon_tajikistan,MegaFon,,,system
+tt-netværket_p/s_denmark,TT-Netværket P/S,,,system
+telemach_slovenia,Telemach,,,system
+ttc_tuvalu,TTC,,,system
+cellular_one_united_states_of_america,Cellular One,,,system
+cellular_one_of_east_texas_united_states_of_america,Cellular One of East Texas,,,system
+u.s._cellular_united_states_of_america,U.S. Cellular,,,system
+strata_united_states_of_america,STRATA,,,system
+relish_united_kingdom,Relish,,,system
+ukko_mobile_finland,Ukko Mobile,,,system
+ultranet_mexico,Ultranet,,,system
+tigo_colombia,Tigo,,,system
+digicel_haiti,Digicel,,,system
+utl_nepal,UTL,,,system
+chippie_former_netherlands_antilles,Chippie,,,system
+chippie_former_netherlands_antilles,Chippie,,,system
+chippie_former_netherlands_antilles,Chippie,,,system
+united_wireless_united_states_of_america,United Wireless,,,system
+unitel_somalia,UNITEL,,,system
+unitel_stp_sao_tome_and_principe,Unitel STP,,,system
+ums_uzbekistan,UMS,,,system
+dishnet_wireless_india,Dishnet Wireless,,,system
+uq_wimax_japan,UQ WiMAX,,,system
+uq_wimax_japan,UQ WiMAX,,,system
+utility_connect_b.v._netherlands,Utility Connect B.V.,,,system
+chippie_french_antilles_(france),Chippie,,,system
+vodafone_india_india,Vodafone India,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+cellone_india,cellone,,,system
+reliance_india,Reliance,,,system
+vodafone_india_india,Vodafone India,,,system
+uninor_india,Uninor,,,system
+uzmobile_uzbekistan,UzMobile,,,system
+uzmobile_uzbekistan,UzMobile,,,system
+uzmacom_uzbekistan,Uzmacom,,,system
+vainakh_telecom_russian_federation,Vainakh Telecom,,,system
+velocity_communications_inc._united_states_of_america,Velocity Communications Inc.,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_wireless_united_states_of_america,Verizon Wireless,,,system
+verizon_wireless_united_states_of_america,Verizon Wireless,,,system
+verizon_wireless_united_states_of_america,Verizon Wireless,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_united_states_of_america,Verizon,,,system
+verizon_united_states_of_america,Verizon,,,system
+viaero_united_states_of_america,Viaero,,,system
+victrack_australia,VicTrack,,,system
+videotron_canada,Videotron,,,system
+metfone_cambodia,Metfone,,,system
+visafone_nigeria,Visafone,,,system
+viya_united_states_of_america,Viya,,,system
+ora_french_polynesia_(france),Ora,,,system
+vodafone_uk_united_kingdom,Vodafone UK,,,system
+vodafone_czech_republic,Vodafone,,,system
+vodafone_germany,Vodafone,,,system
+vodafone_germany,Vodafone,,,system
+vodafone_fiji,Vodafone,,,system
+3_australia,3,,,system
+3_australia,3,,,system
+voiceworks_netherlands,Voiceworks,,,system
+votek_mobile_russian_federation,Votek Mobile,,,system
+tempo_burundi,Tempo,,,system
+vtel_wireless_united_states_of_america,VTel Wireless,,,system
+inwi_morocco,INWI,,,system
+wantok_vanuatu,WanTok,,,system
+airtel_congo,Airtel,,,system
+wasel_afghanistan,WASEL,,,system
+wataniya_mobile_israel,Wataniya Mobile,,,system
+wataniya_palestine,Wataniya,,,system
+iconnect_guam_(usa),iConnect,,,system
+iconnect_united_states_of_america,iConnect,,,system
+unifi_malaysia,unifi,,,system
+reliance_india,Reliance,,,system
+reliance_india,Reliance,,,system
+uninor_india,Uninor,,,system
+west_central_united_states_of_america,West Central,,,system
+wicc_n.v._former_netherlands_antilles,WICC N.V.,,,system
+wightman_mobility_canada,Wightman Mobility,,,system
+wilkes_cellular_united_states_of_america,Wilkes Cellular,,,system
+will_chile,Will,,,system
+wind_greece,Wind,,,system
+wind_dominican_republic,Wind,,,system
+wins_limited_worldwide,Wins Limited,,,system
+rain_south_africa,Rain,,,system
+wireless_city_planning_inc._japan,Wireless City Planning Inc.,,,system
+wireless_maingate_messaging_services_ab_sweden,Wireless Maingate Messaging Services AB,,,system
+"wireless_partners,_llc_united_states_of_america","Wireless Partners, LLC",,,system
+"wireless_partners,_llc_united_states_of_america","Wireless Partners, LLC",,,system
+digicel_saint_kitts_and_nevis,Digicel,,,system
+woosh_new_zealand,Woosh,,,system
+wue_inc._united_states_of_america,WUE Inc.,,,system
+xfera_moviles_s.a.u._spain,Xfera Moviles S.A.U.,,,system
+xplornet_canada,Xplornet,,,system
+xplornet_canada,Xplornet,,,system
+hits-unitel_yemen,HiTS-UNITEL,,,system
+yemen_mobile_yemen,Yemen Mobile,,,system
+etk_russian_federation,ETK,,,system
+yoomee_ivory_coast,YooMee,,,system
+ytt_democratic_republic_of_the_congo,YTT,,,system
+yes_malaysia,Yes,,,system
+zain_iraq,Zain,,,system
+zain_iraq,Zain,,,system
+smarts_russian_federation,SMARTS,,,system
+zapp_portugal,Zapp,,,system
+žsr_slovakia,ŽSR,,,system
+zeop_french_indian_ocean_territories_(france),Zeop,,,system
+ziggo_netherlands,Ziggo,,,system
+нкжи_bulgaria,НКЖИ,,,system

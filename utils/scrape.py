@@ -539,9 +539,17 @@ def scrape_america():
     df_total.to_csv ('WORK/america.csv', index=False)
 
 
-#scrape_europe()
-#scrape_africa()
-#scrape_asia()
-
-
+scrape_europe()
+scrape_africa()
+scrape_asia()
 scrape_america()
+
+
+
+df_europe=pd.read_csv("WORK/europe.csv")
+df_africa=pd.read_csv("WORK/africa.csv")
+df_asia=pd.read_csv("WORK/asia.csv")
+df_america=pd.read_csv("WORK/america.csv")
+df_total = pd.concat([df_europe, df_africa, df_asia, df_america], ignore_index=True)
+df_total = df_total.sort_values(by=['Country', 'Operator'])
+df_total.to_csv('WORK/operators.csv', index=False)
