@@ -1,0 +1,251 @@
+Country,Operator,Ownership,MCCMNC,2G,GPRS/3G,4G,Notes,OperatorId
+Algeria,Mobilis,Algérie Télécom,,X,X,X,,algeria_mobilis
+Algeria,Djezzy,State-owned[2],,X,X,X,,algeria_djezzy
+Algeria,Ooredoo,Ooredoo (74.4%),,X,X,X,formerly Nedjma,algeria_ooredoo
+Angola,Unitel,Sonangol (50%)[5] Government of Angola (50%)[5],,X,X,X,,angola_unitel
+Angola,Movicel,"Government (Angola Telecom) (18%), Correios Telegrafos de Angola (2%),  Porturil (40%), Modus Comicare (19%), Ipang (10%), Lambda (6%)",,X,X,X,,angola_movicel
+Angola,Africell,Africell Group,,,,,,angola_africell
+Bahrain,Batelco,Bahrain Telecommunications Company,,X,X,X,,bahrain_batelco
+Bahrain,Zain,Zain Group (56.25%),,X,X,X,formerly MTC-Vodafone,bahrain_zain
+Bahrain,stc,STC,,X,X,X,,bahrain_stc
+Benin,MTN,MTN (75%),,X,X,X,,benin_mtn
+Benin,Moov,Etisalat,,X,X,X,,benin_moov
+Benin,Glo,Globacom,,X,,,,benin_glo
+Benin,Libercom,Benin Telecom,,X,,,,benin_libercom
+Benin,BBcom,Bell Benin Communications,,X,,,,benin_bbcom
+Botswana,Mascom,"Mascom, MTN (53%)",,X,X,X,,botswana_mascom
+Botswana,Orange,"Orange S.A. (69%), Mosokelatsebeng Cellular (local investors, 26%), local individuals (5%)",,X,X,X,,botswana_orange
+Botswana,btc,BTC Botswana Telecommunications Corporation,,X,X,,,botswana_btc
+Burkina Faso,Orange,Orange[17],,X,X,,,burkina faso_orange
+Burkina Faso,Telmob,Maroc Telecom (51%),,X,X,,Onatel,burkina faso_telmob
+Burkina Faso,Telecel Faso,Planor Afrique,,X,,,,burkina faso_telecel_faso
+Burundi,Lumitel,Viettel Group (Vietnam),,X,X,X,Viettel Burundi S.A.,burundi_lumitel
+Burundi,Econet Leo,Econet Wireless (purchased Leo from Vimpelcom),,X,X,X,,burundi_econet_leo
+Burundi,ONAMOB,Onatel Burundi (state owned),,X,,,,burundi_onamob
+Burundi,Smart Mobile,Smart Telecom,,X,X,,formerly Lacell,burundi_smart_mobile
+Cameroon,MTN,MTN Group (70%),,X,,X,,cameroon_mtn
+Cameroon,Orange,Orange S.A.,,X,,X,,cameroon_orange
+Cameroon,Nexttel,"Viettel Global, Bestinver Cameroon S.A.R.L",,X,X,,,cameroon_nexttel
+Cameroon,Camtel,Camtel (government),,X,,,,cameroon_camtel
+Cameroon,YooMee,YooMee,,,,,,cameroon_yoomee
+Cape Verde,CV Móvel,Portugal Telecom (40%),,X,X,,,cape verde_cv_móvel
+Cape Verde,T-MAIS,T-Mais,,X,,,,cape verde_t-mais
+Central African Republic,telecel,Orascom Telecom,,X,,,,central african republic_telecel
+Central African Republic,Orange,Orange S.A.,,X,X,,,central african republic_orange
+Central African Republic,azur,Bintel,,X,,,,central african republic_azur
+Central African Republic,Moov Africa,Maroc Telecom,,X,,,,central african republic_moov_africa
+Chad,Moov,Maroc Telecom,,X,X,X,,chad_moov
+Chad,Airtel,Bharti Airtel,,X,X,X,,chad_airtel
+Comoros,HURI,government (Societe Nationale des Telecommunications),,X,X,X,,comoros_huri
+Comoros,Telma,Telecom Madagascar,,X,,X,,comoros_telma
+Congo,MTN,MTN,,X,X,X,,congo_mtn
+Congo,Airtel,Bharti Airtel (90%),,X,X,X,,congo_airtel
+Congo,Azur,Bintel,,X,,,,congo_azur
+Democratic Republic of the Congo,Vodacom,"Vodacom (51%), Congolese Wireless Network (49%)",,X,X,,,democratic republic of the congo_vodacom
+Democratic Republic of the Congo,Orange,Orange S.A.,,X,X,,,democratic republic of the congo_orange
+Democratic Republic of the Congo,Africell,Africell Holding[39],,X,X,,,democratic republic of the congo_africell
+Democratic Republic of the Congo,Airtel,Bharti Airtel (98.5%),,X,X,,,democratic republic of the congo_airtel
+Democratic Republic of the Congo,Supercell,[41],,X,,,,democratic republic of the congo_supercell
+Democratic Republic of the Congo,SemaTel,Hits Telecom[42] (60%),,X,,,,democratic republic of the congo_sematel
+Democratic Republic of the Congo,U-Com,Global Vision Telecom (Telecel International)[43],,,,,,democratic republic of the congo_u-com
+Democratic Republic of the Congo,Smile,"Smile Communications (Al-Nahla Technology, Atheeb Trading Company, Capitalworks, Verene) [45]",,,,X,,democratic republic of the congo_smile
+Djibouti,Evatis,Djibouti Telecom (government),,X,X,,,djibouti_evatis
+Egypt,Vodafone Egypt,"Vodafone Group plc (55%), Telecom Egypt (45%)",,X,X,X,,egypt_vodafone_egypt
+Egypt,Orange,"Orange S.A. (99.39%), free float (0.61%)",,X,X,X,formerly Mobinil,egypt_orange
+Egypt,Etisalat,"Etisalat (76%), Egypt Post (20%), Other Investors (4%)",,X,X,X,,egypt_etisalat
+Egypt,We,"Egyptian government (80%), free float (20%)",,X,X,X,by Telecom Egypt,egypt_we
+Equatorial Guinea,Orange,"Orange S.A. (40%), Equatorial Guinea state (60%)",,X,,,,equatorial guinea_orange
+Equatorial Guinea,Muni,Green-com S.A. (Hits Africa),,X,X,,,equatorial guinea_muni
+Equatorial Guinea,Gecomsa,"Equatorial Guinea state (51%), China state (49%)",,,,,,equatorial guinea_gecomsa
+Eritrea,Eritel,Eritrea Telecommunications Services Corporation,,X,,,,eritrea_eritel
+Eswatini,MTN,MTN Group (30%),,X,X,X,,eswatini_mtn
+Eswatini,Eswatini Mobile,,,,,X,,eswatini_eswatini_mobile
+Ethiopia,Ethiotelecom,Ethiopian Telecommunications Corporation,,X,X,X,,ethiopia_ethiotelecom
+Ethiopia,Safaricom Telecommunications Ethiopia,Safaricom (55.7%)|Sumitomo Corporation (27.20%)|British International Investment (10.9%)|Vodacom (6.20%),,,,,,ethiopia_safaricom_telecommunications_ethiopia
+Gabon,Airtel,Bharti Airtel (90%),,X,X,X,"formerly Celtel, Zain",gabon_airtel
+Gabon,Moov Africa Gabon Telecom,"Maroc Telecom (51%), Gabonese government (49%)",,X,,,,gabon_moov_africa_gabon_telecom
+Gambia,Africell,Africell Gambia LTD,,X,X,X,,gambia_africell
+Gambia,Comium,Comium Group,,X,,,,gambia_comium
+Gambia,Gamcel,Gambia Telecommunications Cellular Company Ltd,,X,,,,gambia_gamcel
+Gambia,Qcell,Qcell,,X,X,,,gambia_qcell
+Ghana,MTN,MTN (97.7%),,X,X,X,,ghana_mtn
+Ghana,Vodafone Ghana,Telecel Group (70%) Government of Ghana (30%),,X,X,X,,ghana_vodafone_ghana
+Ghana,AirtelTigo,Government of Ghana,,,,,,ghana_airteltigo
+Ghana,Glo,Globacom,,X,X,,,ghana_glo
+Guinea,Orange,Orange S.A. (52.2%),,X,,,,guinea_orange
+Guinea,MTN,MTN (75%),,X,X,,formerly Areeba,guinea_mtn
+Guinea,Cellcom Guinée,Cellcom Telecommunications Ltd[61],,X,X,,,guinea_cellcom_guinée
+Guinea,Intercel,Telecel Guinee SARL,,X,,,,guinea_intercel
+Guinea,Sotelgui,"Telekom Malaysia, government",,X,,,,guinea_sotelgui
+Guinea-Bissau,MTN,MTN Group,,X,X,X,,guinea-bissau_mtn
+Guinea-Bissau,Orange,Orange S.A. (52.2%),,X,,X,,guinea-bissau_orange
+Guinea-Bissau,Guinetel,Guinea Telecom,,X,,,,guinea-bissau_guinetel
+Iran,Hamrahe Aval,Telecommunication Company of Iran,,X,,X,,iran_hamrahe_aval
+Iran,Irancell,Iran Electronic Development Company (51%) MTN Group (49%),,X,,X,,iran_irancell
+Iran,RighTel,Social Security Investment Company,,,,X,,iran_rightel
+Iraq,Zain,Zain Group (71.67%),,X,,X,,iraq_zain
+Iraq,Asia Cell,Ooredoo (30%),,X,,,,iraq_asia_cell
+Iraq,Korek,Korek Telecom Ltd.,,X,,,,iraq_korek
+Iraq,Omnnea,Omnnea,,,,,,iraq_omnnea
+Iraq,Itisaluna,Itisaluna,,X,,,,iraq_itisaluna
+Israel,Cellcom,"DIC (41.77%), Public (58.23%)",,X,X,X,,israel_cellcom
+Israel,Partner,"S.B. Israel Telecom (30.4%), exclusive Israeli shareholders (5%), Public (64.6%)",,X,X,X,,israel_partner
+Israel,Pelephone,Bezeq,,,X,X,,israel_pelephone
+Israel,Hot Mobile,HOT,,,X,X,,israel_hot_mobile
+Israel,Golan Telecom,ELCO Group,,X,X,X,,israel_golan_telecom
+Israel,XFONE,Marathon Telecom Ltd,,,,X,,israel_xfone
+Israel,Rami Levy,Rami Levy Hashikma Marketing,,,X,X,using Pelephone,israel_rami_levy
+Israel,HomeCellular,,,X,X,X,using Cellcom,israel_homecellular
+Israel,019 Mobile,,,X,X,X,using Partner,israel_019_mobile
+Israel,Cellact,Cellact Communication,,,X,X,using Pelephone,israel_cellact
+Ivory Coast,Orange,"Orange S.A. (85%), Comafrique (15%)",,X,X,X,,ivory coast_orange
+Ivory Coast,MTN,"MTN (64.7%), Planor (25.3%), Teylium group (10%)",,X,X,X,,ivory coast_mtn
+Ivory Coast,Moov,Etisalat,,X,X,,,ivory coast_moov
+Ivory Coast,Koz,Comium (licence revoqued)[72],,X,,,,ivory coast_koz
+Ivory Coast,GreenN,LAP Oricel (licence revoqued)[72],,X,,,,ivory coast_greenn
+Ivory Coast,Warid,Warid Telecom (licence revoqued)[72],,X,,,,ivory coast_warid
+Ivory Coast,Mobile Cafe,Aircomm (licence revoqued)[72],,X,,,,ivory coast_mobile_cafe
+Ivory Coast,YooMee,YooMee,,,,X,,ivory coast_yoomee
+Jordan,Zain Jordan,Zain Group,,X,X,X,,jordan_zain_jordan
+Jordan,Orange Jordan,Orange S.A.,,X,X,X,,jordan_orange_jordan
+Jordan,Umniah,Batelco,,X,X,X,,jordan_umniah
+Kenya,Safaricom,Vodacom (35%)  Govt of Kenya (35%)  Vodafone Group plc (5%)  Public Float (25%),,X,X,X,,kenya_safaricom
+Kenya,Airtel Kenya,Bharti Airtel (80%),,X,X,X,formerly Zain,kenya_airtel_kenya
+Kenya,Telkom Kenya,Government of Kenya[76],,X,X,X,formerly Orange,kenya_telkom_kenya
+Kenya,Jamii Telecommunications,Jamii Telecommunications Limited,,,,X,Faiba 4G,kenya_jamii_telecommunications
+Kuwait,Zain,Zain Group,,X,X,X,,kuwait_zain
+Kuwait,Ooredoo,Ooredoo (52.5%),,X,X,X,formerly Wataniya,kuwait_ooredoo
+Kuwait,Saudi Telecom Company,STC (26%),,X,X,X,formerly Viva Kuwait,kuwait_saudi_telecom_company
+Lebanon,touch,government - management contract: Zain Group,,X,X,X,,lebanon_touch
+Lebanon,Alfa,government - management contract: Orascom Telecom,,X,X,X,,lebanon_alfa
+Lesotho,Vodacom,"Vodacom (80%), Sekha-Metsi Consortium (20%)",,X,X,X,,lesotho_vodacom
+Lesotho,Econet Telecom Lesotho,Econet Ezi Cel Lesotho (Pty),,X,X,,,lesotho_econet_telecom_lesotho
+Liberia,Lonestar Cell MTN,MTN (60%),,X,,,,liberia_lonestar_cell_mtn
+Liberia,Orange,Orange Côte d'Ivoire (formerly owned by Cellcom Telecommunications),,X,X,X,,liberia_orange
+Liberia,Novafone,Comium Services BVI,,X,X,,formerly Comium,liberia_novafone
+Liberia,LTC Mobile,Liberia Telecommunications Corporation,,,,,,liberia_ltc_mobile
+Libya,Libyana,State-owned via LPTIC,,X,X,X,,libya_libyana
+Libya,Almadar Aljadid,State-owned via LPTIC,,X,X,X,,libya_almadar_aljadid
+Madagascar,Airtel,Bharti Airtel,,X,X,X,,madagascar_airtel
+Madagascar,Telma Mobile,"Distacom Group, Telma SA, Hiridjee group",,X,X,X,,madagascar_telma_mobile
+Madagascar,Orange,Orange S.A. (40.01%),,X,,X,,madagascar_orange
+Madagascar,Blueline,Gulfsat,,,,X,,madagascar_blueline
+Malawi,Airtel,Bharti Airtel,,X,X,X,formerly Zain,malawi_airtel
+Malawi,TNM,"Malawi Telecommunications Limited, Telekom Malaysia",,X,X,X,,malawi_tnm
+Malawi,MTL,"Press Corporation, NICO, Malawi Government",,,,X,Malawi Telecommunications Limited,malawi_mtl
+Malawi,Access,,,X,,X,,malawi_access
+Malawi,G-Mobile,"Globally Advanced Integrated Networks,[92] Beryl (South Africa)",,X,,,license revoked [91],malawi_g-mobile
+Malawi,Lacell,La Cell Private Limited[93],,X,,,,malawi_lacell
+Malawi,G-Expresso,Expresso Telecom Group Limited[93],,X,,,,malawi_g-expresso
+Mali,Orange[96],Orange S.A. 52.2%,,X,X,,,mali_orange[96]
+Mali,Moov Africa Malitel[97],"Maroc Telecom 51%, local investors 20%, government 19%, staff 10%[98]",,X,X,,,mali_moov_africa_malitel[97]
+Mali,Planor,Planor (support of Monaco Telecom),,X,,,,mali_planor
+Mauritania,Moov Mauritel,Maroc Telecom (51.5%),,X,X,X,,mauritania_moov_mauritel
+Mauritania,Chinguitel,Sudatel (60%),,X,X,,,mauritania_chinguitel
+Mauritania,MATTEL,"Tunisie Telecom (51%), Mauritanian Investors (49%)",,X,X,X,,mauritania_mattel
+Mauritius,Mauritius Telecom,Orange S.A. (40%)| Government of Mauritius (33.49%)| SBM Investments Managers Ltd	(19%)| National Pensions Fund (6.55%)| Employees of Mauritius Telecom (0.96%),,X,X,X,,mauritius_mauritius_telecom
+Mauritius,Emtel,Currimjee,,X,X,X,,mauritius_emtel
+Mauritius,CHiLi,Mahanagar Telephone Mauritius Limited (MTML),,X,X,,,mauritius_chili
+Morocco,Maroc Telecom,"Etisalat (53%), Government Morocco (22%)",,X,X,X,,morocco_maroc_telecom
+Morocco,Orange Morocco,"Orange S.A. (49%), FinanceCom+CDG (51%)",,X,X,X,,morocco_orange_morocco
+Morocco,inwi,Zain Group (31%),,X,X,X,,morocco_inwi
+Mozambique,Tmcel,Partially state-owned,,X,X,,,mozambique_tmcel
+Mozambique,Vodacom,Vodacom (85%),,X,X,,,mozambique_vodacom
+Mozambique,Movitel,"Viettel (70%), SPI (30%)[106]",,X,,,,mozambique_movitel
+Namibia,MTC[109],Namibia Post and Telecommunications Holdings (66%)  Portugal Telecom (34%),,X,X,X,,namibia_mtc[109]
+Namibia,TN Mobile[110],Telecom Namibia Ltd.,,X,X,X,"formerly Cell One, Leo",namibia_tn_mobile[110]
+Niger,Airtel,Bharti Airtel,,X,,,,niger_airtel
+Niger,Niger Telecoms,"Sahel-Com, Lap Green overtaken by government[111]",,X,,,,niger_niger_telecoms
+Niger,Zamani Telecom,Zamani Com,,X,X,,,niger_zamani_telecom
+Niger,Moov Africa Niger,Maroc Telecom,,X,,,,niger_moov_africa_niger
+Nigeria,MTN,MTN (41.5%),,X,X,X,,nigeria_mtn
+Nigeria,Airtel,Bharti Airtel (20.6%),,X,X,X,formerly Zain,nigeria_airtel
+Nigeria,Glo Mobile,Globacom (20.78%),,X,X,X,,nigeria_glo_mobile
+Nigeria,9mobile,"Etisalat, Mubadala, Nigerian Investors (15.60%)",,X,X,X,formerly Etisalat,nigeria_9mobile
+Oman,Omantel,Omantel (99%),,X,X,X,,oman_omantel
+Oman,Ooredoo,Ooredoo (55%),,X,X,X,formerly Nawras,oman_ooredoo
+Palestine,Jawwal,Paltel,,X,X,,,palestine_jawwal
+Palestine,Ooredoo,"Ooredoo (57%), Palestine Investment Fund (43%)",,X,X,,,palestine_ooredoo
+Qatar,Ooredoo,Ooredoo,,X,X,X,formerly Qtel,qatar_ooredoo
+Qatar,Vodafone,"Qatar Foundation LLC (50%), Pension Fund (13.05%), free float (36.95%)",,X,X,X,,qatar_vodafone
+Réunion,SFR,SFR,,X,X,X,,réunion_sfr
+Réunion,Orange,Orange,,X,X,X,,réunion_orange
+Réunion,FREE,fr: ILIAD and TELCO OI,,X,X,,,réunion_free
+Rwanda,MTN Rwanda,"MTN Group (55%), Crystal Telecom (35%)",,X,X,X,,rwanda_mtn_rwanda
+Rwanda,Airtel,Bharti Airtel,,X,X,X,,rwanda_airtel
+Rwanda,Rwandatel,LAP Green Networks (80%),,X,X,,,rwanda_rwandatel
+Saint Helena,Sure,Batelco,,X,,X,,saint helena_sure
+São Tomé and Príncipe,CST[128],Portugal Telecom (51%),,X,X,,,são tomé and príncipe_cst[128]
+Saudi Arabia,stc,70% state owned and 30% private[citation needed],,X,X,X,,saudi arabia_stc
+Saudi Arabia,Mobily,Etisalat (27.45%),,X,X,X,,saudi arabia_mobily
+Saudi Arabia,Zain,Zain Group (37%),,X,X,X,,saudi arabia_zain
+Saudi Arabia,Virgin mobile KSA,,,X,X,X,,saudi arabia_virgin_mobile_ksa
+Saudi Arabia,Lebara Mobile KSA,Lebara,,X,X,X,,saudi arabia_lebara_mobile_ksa
+Senegal,Orange,"Sonatel, Orange S.A. (52.2%)",,X,X,X,,senegal_orange
+Senegal,Free,"Teyliom, NJJ and AXIAN [134]",,X,X,X,,senegal_free
+Senegal,Expresso,Sudatel,,X,X,,,senegal_expresso
+Senegal,Hayo Telecom,CSU,,X,X,,,senegal_hayo_telecom
+Seychelles,Airtel,Bharti Airtel,,X,X,X,,seychelles_airtel
+Seychelles,Cable & Wireless,Cable & Wireless,,X,,,,seychelles_cable_&_wireless
+Sierra Leone,Africell,Lintel Limited,,X,X,,,sierra leone_africell
+Sierra Leone,Orange,Orange[17],,X,X,X,,sierra leone_orange
+Sierra Leone,Sierratel,"government, managed by MDIC[140]",,,,,,sierra leone_sierratel
+Sierra Leone,Qcell,Qcell,,X,X,,,sierra leone_qcell
+Sierra Leone,Comium,"Comium licence revoked since October 2014,[142] while NATCOM managers have been sacked in 2015[143]",,X,,,,sierra leone_comium
+Sierra Leone,GreenN,Ambitel (LapGreen) licence revoked since September 2014[144],,X,,,,sierra leone_greenn
+Somalia,Hormuud,Hormuud Telecom Somalia Inc,,X,X,X,,somalia_hormuud
+Somalia,Telcom Somalia,Haatif Telecom Somalia,,X,X,X,,somalia_telcom_somalia
+Somalia,Telesom Mobile,Telesom Group,,X,X,,,somalia_telesom_mobile
+Somalia,Nationlink,Bintel,,X,,,,somalia_nationlink
+Somalia,Somtel,Dahabshiil,,X,X,X,,somalia_somtel
+Somalia,Golis Telecom Somalia,"Golis Telecom Somalia, Gaani Wireless",,X,,,,somalia_golis_telecom_somalia
+Somalia,Somafone,Somali Telecom Group,,X,,,,somalia_somafone
+Somalia,Netco,Somali Telecom Group,,X,,,,somalia_netco
+Somalia,SomNet[147][148],SomNet Telecom,,X,,X,,somalia_somnet[147][148]
+South Africa,Vodacom,Vodacom (65.1%),,X,X,X,,south africa_vodacom
+South Africa,MTN,MTN Group,,X,X,X,,south africa_mtn
+South Africa,Cell C,Oger Telecom in process of diluting it's 70% stake to 27% Blue Label Telecoms is planning to acquire a 30% stake in Cell C[153],,X,X,X,,south africa_cell_c
+South Africa,Telkom,Telkom,,X,X,X,,south africa_telkom
+South Africa,Rain,Rain (formerly Wireless Business Solutions) 80% ARC 20%,,,,X,,south africa_rain
+South Sudan,MTN,MTN Group,,X,X,,,south sudan_mtn
+South Sudan,Zain,Zain Group,,X,X,,,south sudan_zain
+South Sudan,Sudani,Sudatel[not operationally active],,X,X,,,south sudan_sudani
+South Sudan,Vivacell,"Fattouch Investment Group (75%), Wawat Securities (25%)[156]",,X,,,NOW,south sudan_vivacell
+South Sudan,Gemtel,Lap Green Networks (80%),,X,,,,south sudan_gemtel
+Sudan,Zain,Zain Group,,X,X,X,,sudan_zain
+Sudan,MTN,MTN Group (85%),,X,X,X,,sudan_mtn
+Sudan,Sudani,Sudatel,,X,X,,,sudan_sudani
+Sudan,Canar,Bank of Khartoum (100%),,,,,,sudan_canar
+Syria,MTN,MTN Group (39%),,X,X,X,formerly Areeba,syria_mtn
+Syria,Syriatel,Rami Makhlouf,,X,X,X,,syria_syriatel
+Syria,Rcell,Rcell,,,,X,,syria_rcell
+Tanzania,Vodacom,Vodacom (75%),,X,X,X,,tanzania_vodacom
+Tanzania,Airtel,Bharti Airtel (51%),,X,X,X,formerly Zain,tanzania_airtel
+Tanzania,Tigo,Axian Group,,X,X,X,,tanzania_tigo
+Tanzania,Halotel,Viettel Tanzania Limited (Subsidiary of Viettel Group[161][162]),,X,X,X,,tanzania_halotel
+Tanzania,Zantel,Etisalat (51%) and Zanzibar Telecom Ltd,,X,X,,,tanzania_zantel
+Togo,Togocel,Togo Telecom (state owned),,X,X,,,togo_togocel
+Togo,Moov Africa Togo,Maroc Telecom,,X,,,,togo_moov_africa_togo
+Tunisia,Ooredoo,Ooredoo (75%),,X,X,X,formerly Tunisiana,tunisia_ooredoo
+Tunisia,Tunisie Telecom,"Tunisie Télécom Group (65%), Tecom DIG (35%) [165]",,X,X,X,,tunisia_tunisie_telecom
+Tunisia,Orange,"Orange S.A., Divona",,X,X,X,,tunisia_orange
+Turkey,Turkcell,"Turkey Wealth Fund (26.2%), LetterOne (19.8%), free float (54%)",,X,X,X,,turkey_turkcell
+Turkey,Türk Telekom,Türk Telekom,,X,X,X,"Formerly Avea, Aria, Aycell",turkey_türk_telekom
+Turkey,Vodafone,Vodafone Group plc,,X,X,X,Formerly Telsim,turkey_vodafone
+Uganda,MTN Uganda,MTN Group (96%),,X,X,X,,uganda_mtn_uganda
+Uganda,Airtel Uganda,Bharti Airtel,,X,X,,,uganda_airtel_uganda
+Uganda,UTel,Uganda Telecommunications Corporation Limited,,X,X,,,uganda_utel
+Uganda,Smile Telecom,,,,,,Uganda,uganda_smile_telecom
+Uganda,Lycamobile,,,,,,,uganda_lycamobile
+United Arab Emirates,Etisalat,UAE Federal Government (40%) and public shareholders (60%),,X,X,X,,united arab emirates_etisalat
+United Arab Emirates,du,"UAE Federal Government (39.5%), Mubadala Development Company (19.75%), TECOM Investments (19.5%), and public shareholders (21.25%)",,X,X,X,,united arab emirates_du
+Yemen,Yemen Mobile,Government-run company with shareholders.,,,X,X,,yemen_yemen_mobile
+Yemen,Sabafon,Al-Ahmar Group Batelco Hayel Saeed Anam & Co. Ltd. Consolidated Constructors International company S.A.L. (CCC),,X,,,,yemen_sabafon
+Yemen,YOU,"Emerald International Investment, a subsidiary of the Zubair Corporation [177]",,X,,,"formerly, MTN",yemen_you
+Yemen,Y Telecom,"Formerly, owned by Saudi and Kuwaiti corporations. Currently owned by the family of Abdrabbuh Mansur Hadi[178]",,X,,,formerly HiTS-UNITEL,yemen_y_telecom
+Zambia,MTN,MTN Group,,X,X,X,,zambia_mtn
+Zambia,Airtel,Bharti Airtel (78.88%),,X,X,X,,zambia_airtel
+Zambia,Zamtel,Zambia Telecommunications Company Ltd,,X,X,,,zambia_zamtel
+Zimbabwe,Econet,Econet Wireless (Private) Limited,,X,X,X,,zimbabwe_econet
+Zimbabwe,telecel,State-owned,,X,X,,,zimbabwe_telecel
+Zimbabwe,NetOne,NetOne Cellular (Pvt) Ltd (government),,X,X,X,,zimbabwe_netone
