@@ -184,7 +184,7 @@ for old_val, new_val in country_replacements:
 
 
 df = df.sort_values(by=['country_upper','carrier_name_upper'])
-
+print (df.head())
 
 
 #l=sorted(df['country'].dropna().unique().tolist())
