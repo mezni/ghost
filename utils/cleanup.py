@@ -158,6 +158,8 @@ country_replacements = [
 ('COOK','Cook Islands'),
 ('CONGO [DRC', 'Democratic Republic Of Congo'),
 ('CONGO [REPUBLIC', 'Republic Of Congo'),
+('ANGILLA', 'Anguilla'),
+('BOLIV', 'Bolivia'),
 ]
 
 df = pd.read_excel("ContryCode.xls")
@@ -183,11 +185,48 @@ for old_val, new_val in country_replacements:
     df.loc[df['country_upper'].str.contains(old_val, na=False, regex=False), 'country'] = new_val
 
 
-df = df.sort_values(by=['country_upper','carrier_name_upper'])
-print (df.head())
+df = df.sort_values(by=['country','carrier_name'])
+df = df[['country','carrier_name','CC','NDC']]
+df['CC'] = df['CC'].apply(lambda x: str(int(x)) if pd.notnull(x) else x)
+df['prefix'] = df['CC'].fillna('').astype(str) + df['NDC'].fillna('').astype(str)
+
+df_legacy=df
+
 
 
 #l=sorted(df['country'].dropna().unique().tolist())
 #print (l)
 
 #df.to_csv('prefixes.csv', index=False)
+
+
+import pandas as pd
+import json
+
+# Read the JSON file
+with open('prefixes.json', 'r') as f:
+    data = json.load(f)
+
+# Convert to DataFrame
+df = pd.DataFrame(data)
+
+
+df = df.rename(columns={"carrierName": "carrier_name", "countryName": "country", "callingCode": "CC", "mobilePrefix":"NDC", "fullCode":"prefix"})
+df['CC'] = df['CC'].str.replace('x', '', regex=False)
+df['NDC'] = df['NDC'].str.replace('x', '', regex=False)
+df['prefix'] = df['prefix'].str.replace('x', '', regex=False)
+df['CC'] = df['CC'].str.replace('+', '', regex=False)
+df['NDC'] = df['NDC'].str.replace('+', '', regex=False)
+df['prefix'] = df['prefix'].str.replace('+', '', regex=False)
+df = df[['country','carrier_name','CC','NDC', 'prefix']]
+
+df_web=df
+df = pd.concat([df_web, df_legacy], ignore_index=True)
+df = df.sort_values(by=['country','carrier_name'])
+print(df.head(20))
+
+
+l=sorted(df['country'].dropna().unique().tolist())
+print (l)
+
+print (len(df))
