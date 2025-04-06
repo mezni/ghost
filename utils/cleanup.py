@@ -64,6 +64,106 @@ carrier_web_replacements = [
 ]
 
 
+country_replacements = [
+    
+('BUTSWANA','Botswana'),
+('BOSNIA','Bosnia & Herzegovina'),
+('IRELAND','Ireland'),
+('BOLIVIA','Bolivia, Plurinational State Of'),
+('TIMOR','East Timor'),
+('SWITZERL','Switzerland'), 
+('SALVADOR','El Salvador'), 
+('SYRIA','Syrian Arab Republic'),  
+('TONGA','Tonga'),        
+('TANZANIA','Tanzania, United Republic Of'),
+('TCHAD','Chad'),
+('TRINIDAD','Trinidad And Tobago'),
+('VENEZUELA','Venezuela, Bolivarian Republic Of'),
+('VIETNAM','Viet Nam'),
+('UK','United Kingdom'),
+('ROYAUME-UNI','United Kingdom'),
+('USA','United States'),
+('TUNIS','Tunisia'),
+('TUNISIE','Tunisia'),
+('TAJAKISTAN','Tajikistan'),
+('TAIWAN','Taiwan'),
+('SWITZELAND','Switzerland'),
+('SURINAM','Suriname'),
+('SURINAM','Suriname'),
+('SUREGUER','Guernsey'),
+('SOUTHAFRICA','South Africa'),
+('SLOVAK','Slovakia'),
+('SIERRALEONE','Sierra Leone'),
+('REPUBLIQUE CHEQUE','Czech Republic'),
+('ROAMANIA','Romania'),
+('RWANDA','Rwanda'),
+('REUNION','Reunion'),
+('NORWAY','Norway'),
+('NLECALE','New Caledonia'),
+('NEWGUINEA','Papua New Guinea'),
+('NEW GUINEA','Papua New Guinea'),
+('MYANMA','Myanmar'),
+('MOZAMBI','Mozambique'),
+('INDIA','India'),
+('MOLDOVA','Moldova'),
+('MOLDAVIA','Moldova'),
+('MAURITAN','Mauritania'),
+('MALTE','Malta'),
+('MACEDONIA','Macedonia'),
+('LIBYE','Libya'),
+('INDONESI','Indonesia'),
+('IVORYCOAST','Côte d''Ivoire'),
+('HONGKONG','Hong Kong'),
+('GUYANE','Guyana'),
+('GUINEEB','Guinea-Bissau'),
+('GUINEAB','Guinea-Bissau'),
+('GUINEE','Guinea'),
+('ETHIOP','Ethiopia'),
+('FIJI','Fiji'),
+('GABON','Gabon'),
+('GHABON','Gabon'),
+('DEUTSCHLAND','Germany'),
+('EGYPT','Egypt'),
+('EQUATORIALGUINEA','Equatorial Guinea'),
+('COSTARICA','Costa Rica'),
+('IRAN','Iran, Islamic Republic Of'),
+('UZBEKISTAN','Uzbekistan'),
+('THAILAND','Thailand'),
+('CHINE','China'),
+('COMBODGE','Cambodia'),
+('CAMBODGE','Cambodia'),
+('SOUTH SUDAN','South Sudan'),
+('KITTS','Saint Kitts And Nevis'),
+('SAOTOME','São Tomé and Príncipe'),
+('RUSSIA','Russian Federation'),
+('PALESTINE','Palestine, State of'),
+('CENTRAL AFRIC','Central African Republic'),
+('CAPVERT','Cabo Verde'),
+('CAP VERD','Cabo Verde'),
+('CAMEROUN','Cameroon'),
+('AZERBAIJAN','Azerbaijan'),
+('BORKINAFASO','Burkina Faso'),
+('ANTIGUA','Antigua And Barbuda'),
+('VIRGIN ISL','Virgin Islands (British)'),
+('VIRGINISL','Virgin Islands (British)'),
+('CANADA','Canada'),
+('CONGO RDC','Democratic Republic Of Congo'),
+('CAICOS','Turks And Caicos Islands'),
+('BRUNEI','Brunei Darussalam'),
+('COOK','Cook Islands'),
+('CONGO [DRC', 'Democratic Republic Of Congo'),
+('CONGO [REPUBLIC', 'Republic Of Congo'),
+('ANGILLA', 'Anguilla'),
+('IVOIRE','Côte d''Ivoire'),
+('COMORES','Comoros'),
+('DOMENICA','Dominica'),
+('GRANADA','Grenada'),
+('MACAU','Macao'),
+('MACAU','Lao People''s Democratic Republic'),
+('COLUMBIA','Colombia'),
+('CAYMAN','Cayman Islands'),
+]
+
 def cleanup_prefixes_web():
     with open('INPUT/prefixes.json', 'r') as f:
         data = json.load(f)
@@ -95,20 +195,34 @@ def cleanup_prefixes_web():
     df = df[['country','carrier_name','CC','NDC', 'prefix']]
     return df
 
-
-
-df_web_prefixes=cleanup_prefixes_web()
-
-
 def cleanup_prefixes_legacy():
     df = pd.read_excel("ContryCode.xls")
     df = df.drop(columns=['ID'])
     df = df.rename(columns={"PLMNNAME": "carrier_name", "COUNTRY": "country", "COUNTRY_CODE": "CC", "NATIONAL_DESTINATION_CODE":"NDC"})
     df = df[~df['NDC'].str.contains('P', na=False)]
     df['prefix']=''
+    df['country'] = df['country'].str.strip()
+    df['carrier_name'] = df['carrier_name'].str.strip()
+
+    df['country_upper'] = df['country'].where(df['country'].isnull(), df['country'].str.upper())
+    df['carrier_name_upper'] = df['carrier_name'].where(df['carrier_name'].isnull(), df['carrier_name'].str.upper())
+
+    mask = df['carrier_name_upper'].isin(['MEXICO','LATVIA','LITHUANIA'])
+    temp = df.loc[mask, 'carrier_name']
+    df.loc[mask, 'carrier_name'] = df.loc[mask, 'country']
+    df.loc[mask, 'country'] = temp
+
+
+    for old_val, new_val in country_replacements:
+        df.loc[df['country_upper'].str.contains(old_val, na=False, regex=False), 'country'] = new_val
+
     df = df[['country','carrier_name','CC','NDC', 'prefix']]
 
-df=cleanup_prefixes_web()
+    return df
+
+df_prefixes_web=cleanup_prefixes_web()
+df_prefixes_legacy=cleanup_prefixes_legacy()
+df = df_prefixes_legacy[~df_prefixes_legacy['carrier_name'].isin(df_prefixes_web['carrier_name'])]
 print(df.head(20))
 
 
