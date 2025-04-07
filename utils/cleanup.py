@@ -199,6 +199,7 @@ def cleanup_prefixes_legacy():
     df = pd.read_excel("ContryCode.xls")
     df = df.drop(columns=['ID'])
     df = df.rename(columns={"PLMNNAME": "carrier_name", "COUNTRY": "country", "COUNTRY_CODE": "CC", "NATIONAL_DESTINATION_CODE":"NDC"})
+
     df = df[~df['NDC'].str.contains('P', na=False)]
     df['prefix']=''
     df['country'] = df['country'].str.strip()
@@ -222,11 +223,22 @@ def cleanup_prefixes_legacy():
 
 df_prefixes_web=cleanup_prefixes_web()
 df_prefixes_legacy=cleanup_prefixes_legacy()
-df = df_prefixes_legacy[~df_prefixes_legacy['carrier_name'].isin(df_prefixes_web['carrier_name'])]
-print(df.head(20))
+
+my_list = sorted(df_prefixes_web['carrier_name'].dropna().unique().tolist())
+carrier_list = sorted(my_list, key=len, reverse=True)
+
+#print (len(sorted(df_prefixes_legacy['carrier_name'].dropna().unique().tolist())))
+#for keyword in carrier_list:
+#    df_prefixes_legacy.loc[df_prefixes_legacy['carrier_name'].astype(str).str.upper().str.contains(keyword.upper(), na=False, regex=False), 'carrier_name'] = keyword.capitalize()
 
 
-l=sorted(df['carrier_name'].dropna().unique().tolist())
-print (l)
+print (df_prefixes_legacy.head())
 
-print (len(df))
+#df = df_prefixes_legacy[~df_prefixes_legacy['carrier_name'].isin(df_prefixes_web['carrier_name'])]
+#print(df.head(20))
+
+
+#l=sorted(df['carrier_name'].dropna().unique().tolist())
+#print (l)
+
+#print (len(df))
