@@ -265,9 +265,15 @@ df_combined = df_combined.rename(columns={
         "prefix_web": "prefix"
     })
 
+df_combined['carrier_name_upper'] = df_combined['carrier_name'].str.upper()
+for old_val, new_val in carrier_replacements:
+    df_combined.loc[df_combined['carrier_name_upper'].str.contains(old_val, na=False, regex=False), 'carrier_name'] = new_val
+
 df = df_combined[['country', 'carrier_name', 'CC', 'NDC', 'prefix']]
 df = df.drop_duplicates(subset=['country','prefix'], keep='first')
 df = df.sort_values(by=['country','prefix'])
+
+
 
 df.to_csv('OUTPUT/prefixes.csv',index=False)
 
@@ -289,6 +295,11 @@ df_combined = df_combined.rename(columns={
 #        'Networks':'Operator'
     })
 df_combined['PLMN'] = df_combined['PLMN'].apply(lambda x: str(int(x)) if pd.notnull(x) else x)
+
+
+df_combined['Networks_upper'] = df_combined['Networks'].str.upper()
+for old_val, new_val in carrier_replacements:
+    df_combined.loc[df_combined['Networks_upper'].str.contains(old_val, na=False, regex=False), 'Networks'] = new_val
 
 df = df_combined[[ 'Country','Region', 'ISO']]
 df = df.drop_duplicates(subset=['Country','Region', 'ISO'], keep='first')
