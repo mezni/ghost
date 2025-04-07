@@ -214,6 +214,33 @@ def cleanup_prefixes_legacy():
     return df[['country', 'carrier_name', 'CC', 'NDC', 'prefix']]
 
 
+def process_bands_columns(df):
+    """Process and classify Bands columns (2G, GPRS/3G, 4G)."""
+    df['2G'] = df['Bands'].str.contains('GSM') | df['Bands'].str.contains('CDMA ')
+    df['2G'] = df['2G'].map({True: 'YES', False: ''})
+    
+    df['GPRS/3G'] = df['Bands'].str.contains('UMTS') | df['Bands'].str.contains('CDMA2000')
+    df['GPRS/3G'] = df['GPRS/3G'].map({True: 'YES', False: ''})
+    
+    df['LTE'] = df['Bands'].str.contains('LTE') 
+    df['LTE'] = df['LTE'].map({True: 'YES', False: ''})
+    
+    return df.drop(columns=["Bands"])
+
+def cleanup_mccmnc_web():
+    df = pd.read_csv('INPUT/mcc-mnc.csv',sep=';')
+    df = df[df['TADIG'].notnull() & df['Bands'].notnull()]
+    df=process_bands_columns(df)
+    df['Brand'] = df['Brand'].fillna(df['Operator'])
+    
+    return df
+
+def cleanup_mccmnc_legacy():
+    df = pd.read_excel("INPUT/steering_plan.xlsx", header=1)
+    return df
+
+
+
 df_prefixes_web = cleanup_prefixes_web()
 df_prefixes_legacy = cleanup_prefixes_legacy()
 
@@ -243,3 +270,35 @@ df = df.drop_duplicates(subset=['country','prefix'], keep='first')
 df = df.sort_values(by=['country','prefix'])
 
 df.to_csv('OUTPUT/prefixes.csv',index=False)
+
+
+df_mccmnc_web= cleanup_mccmnc_web()
+df_mccmnc_legacy= cleanup_mccmnc_legacy()
+df_combined = pd.merge(df_mccmnc_legacy, df_mccmnc_web, how='outer', left_on='VPMN Public Code', right_on='TADIG')
+
+df_combined['VPMN Public Code'] = df_combined['VPMN Public Code'].fillna(df_combined['TADIG'])
+df_combined['Pays'] = df_combined['Pays'].fillna(df_combined['Country'])
+df_combined['Networks'] = df_combined['Networks'].fillna(df_combined['Brand'])
+df_combined = df_combined.drop(columns=['Brand','TADIG','2G_y','GPRS/3G_y','LTE_y','MCC_y','MNC_y','Pays'])
+df_combined = df_combined.rename(columns={
+        "MNC_x": "MNC",
+        "MCC_x": "MCC",
+        "2G_x": "2G",
+        "GPRS/3G_x": "GPRS/3G",
+        "LTE_x": "LTE",
+#        'Networks':'Operator'
+    })
+df_combined['PLMN'] = df_combined['PLMN'].apply(lambda x: str(int(x)) if pd.notnull(x) else x)
+
+df = df_combined[[ 'Country','Region', 'ISO']]
+df = df.drop_duplicates(subset=['Country','Region', 'ISO'], keep='first')
+df.to_csv('OUTPUT/countries.csv', index=False)
+
+
+df = df_combined[['VPMN Public Code','Networks', 'Rate',  'Routage']]
+df = df.drop_duplicates(subset=['VPMN Public Code'], keep='first')
+df.to_csv('OUTPUT/steering.csv', index=False)
+
+df = df_combined[['VPMN Public Code','Networks', 'Rate',  'MNC',  'MCC',    '2G', 'GPRS/3G',  'LTE', 'PLMN', 'Country']]
+df = df.drop_duplicates(subset=['VPMN Public Code'], keep='first')
+df.to_csv('OUTPUT/networks.csv', index=False)

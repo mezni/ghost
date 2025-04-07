@@ -1,0 +1,208 @@
+Country,Region,ISO
+Worldwide,Worldwide,XX
+Norway,Europe,NO
+Aruba,North America and the Caribbean,AW
+Afghanistan,Asia and the Middle East,AF
+Angola,Africa,AO
+Anguilla (UK),North America and the Caribbean,AI
+Albania,Europe,AL
+Andorra,Europe,AD
+Former Netherlands Antilles,North America and the Caribbean,BQ/CW/SX
+United Arab Emirates,Asia and the Middle East,AE
+Argentina,South and Central America,AR
+,,
+Armenia,Europe,AM
+Antigua and Barbuda,North America and the Caribbean,AG
+Australia,Oceania,AU
+Austria,Europe,AT
+Azerbaijan,Asia and the Middle East,AZ
+Burundi,Africa,BI
+Belgium,Europe,BE
+Benin,Africa,BJ
+Burkina Faso,Africa,BF
+Bangladesh,Asia and the Middle East,BD
+Bulgaria,Europe,BG
+Bahrain,Asia and the Middle East,BH
+Bahamas,North America and the Caribbean,BS
+Bosnia and Herzegovina,Europe,BA
+Belarus,Europe,BY
+Belize,South and Central America,BZ
+Bolivia,South and Central America,BO
+Brazil,South and Central America,BR
+Barbados,North America and the Caribbean,BB
+Brunei,Oceania,BN
+Botswana,Africa,BW
+Central African Republic,Africa,CF
+Canada,North America and the Caribbean,CA
+Switzerland,Europe,CH
+Chile,South and Central America,CL
+China,Asia and the Middle East,CN
+Ivory Coast,Africa,CI
+Cameroon,Africa,CM
+Democratic Republic of the Congo,Africa,CD
+Congo,Africa,CG
+Colombia,South and Central America,CO
+Comoros,Africa,KM
+Cape Verde,Africa,CV
+Costa Rica,South and Central America,CR
+Cuba,North America and the Caribbean,CU
+Cayman Islands (UK),North America and the Caribbean,KY
+Cyprus,Europe,CY
+Czech Republic,Europe,CZ
+Germany,Europe,DE
+Djibouti,Africa,DJ
+Dominica,North America and the Caribbean,DM
+Denmark,Europe,DK
+Dominican Republic,North America and the Caribbean,DO
+Algeria,Africa,DZ
+Ecuador,South and Central America,EC
+Egypt,Africa,EG
+Spain,Europe,ES
+Estonia,Europe,EE
+Ethiopia,Africa,ET
+Finland,Europe,FI
+Fiji,Oceania,FJ
+France,Europe,FR
+French Antilles (France),North America and the Caribbean,BL/GF/GP/MF/MQ
+French Polynesia (France),Oceania,PF
+Faroe Islands,Europe,FO
+Gabon,Africa,GA
+United Kingdom,Europe,GB
+Guernsey (UK),Europe,GG
+Jersey (UK),Europe,JE
+Isle of Man (UK),Europe,IM
+Georgia,Europe,GE
+Ghana,Africa,GH
+Gibraltar (UK),Europe,GI
+Guinea,Africa,GN
+Gambia,Africa,GM
+Guinea-Bissau,Africa,GW
+Equatorial Guinea,Africa,GQ
+Greece,Europe,GR
+Grenada,North America and the Caribbean,GD
+Greenland,Europe,GL
+Guatemala,South and Central America,GT
+Guam (USA),North America and the Caribbean,GU
+Northern Mariana Islands (USA),North America and the Caribbean,MP
+United States of America,North America and the Caribbean,US
+Guyana,South and Central America,GY
+Hong Kong,Asia and the Middle East,HK
+Honduras,South and Central America,HN
+Croatia,Europe,HR
+Haiti,North America and the Caribbean,HT
+Hungary,Europe,HU
+Indonesia,Oceania,ID
+India,Asia and the Middle East,IN
+Ireland,Europe,IE
+Iran,Asia and the Middle East,IR
+Iraq,Asia and the Middle East,IQ
+Iceland,Europe,IS
+Israel,Asia and the Middle East,IL
+Italy,Europe,IT
+Jamaica,North America and the Caribbean,JM
+Bermuda,North America and the Caribbean,BM
+Saint Lucia,North America and the Caribbean,LC
+Turks and Caicos Islands,North America and the Caribbean,TC
+Jordan,Asia and the Middle East,JO
+Japan,Asia and the Middle East,JP
+Kosovo,Europe,XK
+Kazakhstan,Asia and the Middle East,KZ
+Kenya,Africa,KE
+Kyrgyzstan,Asia and the Middle East,KG
+Cambodia,Asia and the Middle East,KH
+Kiribati,Oceania,KI
+Saint Kitts and Nevis,North America and the Caribbean,KN
+South Korea,Asia and the Middle East,KR
+Kuwait,Asia and the Middle East,KW
+Laos,Asia and the Middle East,LA
+Lebanon,Asia and the Middle East,LB
+Libya,Africa,LY
+Liechtenstein,Europe,LI
+Sri Lanka,Asia and the Middle East,LK
+Lesotho,Africa,LS
+Lithuania,Europe,LT
+Luxembourg,Europe,LU
+Latvia,Europe,LV
+Macau (China),Asia and the Middle East,MO
+Morocco,Africa,MA
+Monaco,Europe,MC
+Moldova,Europe,MD
+Madagascar,Africa,MG
+Maldives,Asia and the Middle East,MV
+Mexico,North America and the Caribbean,MX
+North Macedonia,Europe,MK
+Mali,Africa,ML
+Malta,Europe,MT
+Myanmar,Asia and the Middle East,MM
+Montenegro,Europe,ME
+Mongolia,Asia and the Middle East,MN
+Mozambique,Africa,MZ
+Mauritania,Africa,MR
+Montserrat (UK),North America and the Caribbean,MS
+Mauritius,Africa,MU
+Malawi,Africa,MW
+Malaysia,Oceania,MY
+Namibia,Africa,
+New Caledonia (France),Oceania,NC
+Niger,Africa,NE
+Nigeria,Africa,NG
+Nicaragua,South and Central America,NI
+Netherlands,Europe,NL
+Nepal,Asia and the Middle East,NP
+New Zealand,Oceania,NZ
+Oman,Asia and the Middle East,OM
+Pakistan,Asia and the Middle East,PK
+Panama,South and Central America,PA
+Peru,South and Central America,PE
+Philippines,Oceania,PH
+Papua New Guinea,Oceania,PG
+Poland,Europe,PL
+Puerto Rico,North America and the Caribbean,PR
+Portugal,Europe,PT
+Paraguay,South and Central America,PY
+Palestine,Asia and the Middle East,PS
+Qatar,Asia and the Middle East,QA
+Romania,Europe,RO
+Russian Federation,Europe,RU
+Rwanda,Africa,RW
+Saudi Arabia,Asia and the Middle East,SA
+Sudan,Africa,SD
+Senegal,Africa,SN
+Singapore,Oceania,SG
+Sierra Leone,Africa,SL
+El Salvador,South and Central America,SV
+Somalia,Africa,SO
+Serbia,Europe,RS
+South Sudan,Africa,SS
+Sao Tome and Principe,Africa,ST
+Suriname,South and Central America,SR
+Slovakia,Europe,SK
+Slovenia,Europe,SI
+Sweden,Europe,SE
+Swaziland,Africa,SZ
+Seychelles,Africa,SC
+Syria,Asia and the Middle East,SY
+Chad,Africa,TD
+Togo,Africa,TG
+Thailand,Oceania,TH
+Tajikistan,Asia and the Middle East,TJ
+East Timor,Oceania,TL
+Tonga,Oceania,TO
+Trinidad and Tobago,North America and the Caribbean,TT
+Tunisia,Africa,TN
+Turkey,Europe,TR
+Taiwan,Asia and the Middle East,TW
+Tanzania,Africa,TZ
+Uganda,Africa,UG
+Ukraine,Europe,UA
+Uruguay,South and Central America,UY
+Uzbekistan,Asia and the Middle East,UZ
+Saint Vincent and the Grenadines,North America and the Caribbean,VC
+Venezuela,South and Central America,VE
+British Virgin Islands (UK),North America and the Caribbean,VG
+Vietnam,Asia and the Middle East,VN
+Vanuatu,Oceania,VU
+Yemen,Asia and the Middle East,YE
+South Africa,Africa,ZA
+Zambia,Africa,ZM
+Zimbabwe,Africa,ZW

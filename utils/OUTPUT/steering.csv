@@ -1,0 +1,688 @@
+VPMN Public Code,Networks,Rate,Routage
+AAMOM,OnMarine,,
+AAMT1,TampNet AS,,
+ABWDC,Digicel,,
+AFGAR,MTN,,
+AFGAW,AWCC,,
+AFGEA,Etisalat,,
+AFGTD,Roshan,,
+AGOUT,UNITEL,,
+AIACW,FLOW,,
+ALBAM,One Albania,0+,Bilateral
+ALBEM,One Albania,0+,Bilateral
+ALBM4,Plus Albania,HLR BARRING,Bilateral
+ALBVF,Vodafone Albania,100,Orange Hub
+ANDMA,Mobiland,,
+ANTCT,Digicel,,
+ANTTC,Telcell,,
+AREDU,DU UAE,100,Bilateral
+ARETC,Etisalat UAE,0+,Bilateral
+ARETH,Thuraya,HLR BARRING,Bilateral
+ARGCM,Claro,,
+ARGTM,Telefonica Moviles Argentina,100,Bilateral
+ARGTP,Telecom Personal S.A,HLR BARRING,Comfone
+ARM01,Telecom Armenia CJSC,100,Bilateral
+ARM05,MTS Armenia,HLR BARRING,Bilateral
+ARMOR,Ucom CJSC Armenia,HLR BARRING,Orange Hub
+ATGCW,FLOW,,
+AUSOP,Optus Mobile Pty Limited,0+,Bilateral
+AUSTA,Telstra,,
+AUSVF,Vodafone Australia,100,Bilateral
+AUTCA,H3G Austria,90,Bilateral
+AUTMM,T-Mobile Austria GmbH,0+,Bilateral
+AUTPT,A1 Telekom Austria AG,10,Bilateral
+AZEAC,Azercell,,
+AZEAF,Nar Mobile,,
+AZEBC,Bakcell,,
+BDIL1,Smart Mobile,,
+BDIVG,Lumitel,,
+BELKO,Sunrise Communications AG,0+,Bilateral
+BELMO,Mobistar S.A.,90,Bilateral
+BELTB,Belgacom Mobile N.V./S.A. – Proximus,10,Bilateral
+BELTN,Sunrise Communications AG,0+,Bilateral
+BEN02,Etisalat Benin SA,HLR BARRING,Orange Hub
+BEN07,SBIN Benin,10,Orange Hub
+BENBB,Bell Benin Communications (BBCOM),HLR BARRING,Bilateral
+BENSP,Spacetel-Benin,90,Orange Hub
+BFACT,Orange Burkina Fasso,100,Orange Hub
+BFAON,Onatel,HLR BARRING,Comfone
+BGDAK,Robi Axiata Limited,HLR BARRING,Comfone
+BGDBL,Banglalink,,
+BGDGP,Grameenphone Ltd,100,Bilateral
+BGR01,A1 Bulgaria (Mobiltel),90,Bilateral
+BGRCM,Yettel Bulgaria,10,Bilateral
+BGRVA,Vivacom (Telemach) Bulgaria,HLR BARRING,Bilateral
+BHRB2,Batelco,,
+BHRBT,Batelco,,
+BHRMV,Zain BH,10,Bilateral
+BHRST,Viva Bahrain (STC),90,Bilateral
+BHSBH,BTC Bahamas Telecommunications Company ,100,Orange Hub
+BHSNC,Be Aliv Limited,HLR BARRING,Comfone
+BIHER,HT Eronet,HLR BARRING,Bilateral
+BIHMS,RS Telecommunications JSC Banja Luka,100,Comfone
+BIHPT,BH Mobile,,
+BLR02,MTS Belarus,HLR BARRING,Comfone
+BLRBT,Life Best Belarus,HLR BARRING,Bilateral
+BLRMD,Velcom Belarus,100,Bilateral
+BLZ67,DigiCell,,
+BLZSC,SMART,,
+BMU01,AT&T Mobility (Maritime service),0,Comfone
+BOLNT,Viva,,
+BOLTE,Tigo,,
+BRABT,Oi Brazil/ Telemar,hLR BARRING,Bilateral
+BRAC4,Algar Telecom,,
+BRACL,Claro,,
+BRACS,TIM Celular S.A.,20,Bilateral
+BRARN,TIM Celular S.A.,20,Bilateral
+BRASP,TIM Celular S.A.,20,Bilateral
+BRATC,VIVO Brazil / Telefonica ,80,Bilateral
+BRATM,Oi Brazil ,HLR BARRING,Bilateral
+BRAV1,VIVO Brazil / Telefonica ,80,Bilateral
+BRAV2,VIVO Brazil / Telefonica ,80,Bilateral
+BRAV3,VIVO Brazil / Telefonica ,80,Bilateral
+BRBCW,FLOW,,
+BRNBR,PCSB,,
+BRNDS,DST,,
+BWABC,Botswana Telecommunications Corporation,HLR BARRING,Comfone
+BWAGA,Mascom Wireless (Pty),HLR BARRING,Comfone
+BWAVC,Orange Botswana,100,Orange Hub
+CAF02,Telecel Centrafrique ,HLR BARRING,
+CAF03,Orange CentrAfrique,100,Orange Hub
+CANBM,Bell Mobility Inc.,10,Bilateral
+CANMC,Fido,,
+CANRW,Rogers,80,Bilateral
+CANST,SaskTel Canada ,0,Orange Hub
+CANTS,TELUS,10,Bilateral
+CANVT,Videotron,,
+CHEC1,Swisscom (Switzerland) Ltd,30,Bilateral
+CHEDX,Sunrise Communications AG,70,Bilateral
+CHEOA,SITA OnAir Switzerland,HLR BARRING,Bilateral
+CHEOR,Salt,0+,Orange Hub
+CHLMV,Entel Chile,HLR BARRING,Comfone
+CHLSM,Claro Chile,10,Bilateral
+CHLTM,Telefónica Móvil de Chile S.A.,90,Bilateral
+CHNCM,China Mobile,,
+CHNCT,China Mobile,80,Bilateral
+CHNCU,China Unicom,20,Bilateral
+CHNTD,China Mobile,,
+CIV02,Moov,HLR BARRING,Bilateral
+CIV03,Orange,100,Orange Hub
+CIVTL,MTN ,0,Orange Hub
+CMR02,Orange,100,Orange Hub
+CMRMT,MTN,0,Orange Hub
+CMRVG,Nexttel,,
+CODAC,Africell RDC sprl,HLR BARRING,Comfone
+CODCT,Airtel,,
+CODOR,Orange RDC ,90,Orange Hub
+CODSA,Orange RDC,,
+CODVC,Vodacom RDC,10,Orange Hub
+COGCT,Airtel,,
+COLCM,Claro,,
+COLCO,Tigo,,
+COLTM,movistar,,
+COMHR,HURI,,
+COMTM,TELCO SA,,
+CPVCV,CVMovel Cap Verde,100,Bilateral
+CPVTM,T+ Unitel Telecomunicacoes,HLR BARRING,Comfone
+CRICL,Claro Costa Rica,10,Comfone
+CRICR,ICE Costarica,HLR BARRING,Bilateral
+CRITC,LIBERTY Telecomuncationes de Costa Rica,90,Bilateral
+CUB01,CUBACEL,,
+CYMCW,FLOW,,
+CYPCT,Cytamobile-Vodafone,,
+CYPPT,PrimeTel Cyprus,20,Bilateral
+CYPSC,Epic (MTN) Cyprus,80,Bilateral
+CZECM,vodafone Czech,90,Orange Hub
+CZEET,"Telefonica Czech Republic a.s., Czech Republic",0+,Bilateral
+CZERM,T-MOBILE CZECH REPUBLIC A.S.,10,Bilateral
+DEUD1,"T-Mobile Deutschland GmbH(262,01)",0+,Bilateral
+DEUD2,"Vodafone D2 GmbH(262,02)",80,Orange Hub
+DEUE2,"Telefonica Germany(262,03)",20,Bilateral
+DJIDJ,Evatis,,
+DMACW,FLOW,,
+DNKDM,Telenor Denmark ,10,Bilateral
+DNKHU,Hi3G Denmark,90,Bilateral
+DNKIA,Telia Danmark,0+,Bilateral
+DNKTD,TDC (Nuuday) Denmark,0+,Bilateral
+DOMCL,Claro,,
+DZAA1,ATM MOBILIS,90,Bilateral
+DZAOT,Djezzy Algeria,0+,Bilateral
+DZAWT,wataniya nejma algérie,10,Bilateral
+ECUAL,CNT Mobile,,
+ECUOT,Movistar,,
+ECUPG,Claro,,
+EGYAR,Mobinil Egypt,90,Orange Hub
+EGYEM,Etisalat Misr,0,Bilateral
+EGYMS,vodafone Egypt ,10,Bilateral
+ESPAT,Vodafone Spain,10,Orange Hub
+ESPDI,DIGI,0,Comfone
+ESPRT,Orange Espana SA,90,Orange Hub
+ESPTE,"Telefonica Moviles España, S.A.",0+,Bilateral
+ESPXF,Xfera Moviles S.A.,0,Bilateral
+ESTEM,Telia (AS EMT),10,Bilateral
+ESTRB,Tele2 Estonia,90,Bilateral
+ESTRE,Elisa Estonia,0+,Bilateral
+ETH01,Ethio Telecom,HLR BARRING,Bilateral
+ETH02,Safaricom Ethiopia,100,Bilateral
+FIN2G,DNA Finland,90,Bilateral
+FINAM,Alands Telekommunikation Ab,HLR BARRING,Bilateral
+FINRL,Elisa Finland,0+,Bilateral
+FINTA,DNA,,
+FINTF,Telia Sonera Finland,10,Bilateral
+FJIDP,Digicel,,
+FRAF1,Orange France,85,Bilateral
+FRAF2,SFR,0+,Bilateral
+FRAF3,Bouygues Telecom,0+,Bilateral
+FRAF4,Digicel Antilles françaises Guyane,HLR BARRING,Bilateral
+FRAFM,Free,15,Bilateral
+FRATK,Onati S.A.S.,HLR BARRING,Comfone
+FROFT,Faroese Telecom,,
+FROKA,Hey,,
+GAB01,Libertis,,
+GABAZ,Azur,,
+GABCT,Airtel,,
+GABTL,Moov,,
+GBRCN,Virgin Media O2,0,Bilateral
+GBRGT,SURE Ltd,HLR BARRING,Comfone
+GBRHU,Hutchison H3G UK,20,Comfone
+GBRJT,JT (Jersey) Limited,HLR BARRING,Bilateral
+GBRME,EE Limited UK,0+,Bilateral
+GBRMT,Manx Telecom,HLR BARRING,Comfone
+GBROR,EE Limited UK,0+,Bilateral
+GBRVF,Vodafone UK,80,Orange Hub
+GEOGC,Geocell,,
+GEOMT,Beeline,,
+GHAGM,Globacom,,
+GHAGT,Vodafone Ghana ,95,Orange Hub
+GHAMT,Airtel (Tigo) Ghana ,HLR BARRING,Bilateral
+GHASC,MTN,,
+GHASC ,MTN Ghana (Scancom),5,
+GHAZN,AirtelTigo,,
+GIBGT,GibTel,,
+GINAG,MTN Guinee (Areeba),10,Orange Hub
+GINGS,Orange Guinee,90,Orange Hub
+GLP01,Orange Caraibe,100,Orange Hub
+GLPDT,Dauphin Telecom (Amigo GSM),HLR BARRING,Comfone
+GMBAC,Africell,,
+GMBQC,QCell,,
+GNB03,Orange Bissau,90,Orange Hub
+GNBSB,MTN Guinee Bissau (Spacetel),10,Orange Hub
+GNQHT,Muni,,
+GRCCO,T Mobile greece,10,Bilateral
+GRCCT,Cyta Hellas,,
+GRCPF,Vodafone Panafon Greece,90,Orange Hub
+GRCSH,Wind,,
+GRDCW,FLOW,,
+GRLTG,TELE Greenland A/S,,
+GTMCM,Comunicaciones Celulares S.A.,HLR BARRING,Comfone
+GTMSC,"Telecomunicaciones de Guatemala, . (TELGUA)",100,Comfone
+GTMTG,movistar,,
+GUMDP,Docomo,,
+GUYUM,Digicel,,
+HKGH3,3,,
+HKGHT,3 (2G),,
+HKGM3,PCCW Mobile (3G),,
+HKGMC,PCCW Mobile (2G),,
+HKGNW,New World Mobility,,
+HKGPP,CMCC HK,,
+HKGSM,SmarTone Mobile Communications Limited,20,Bilateral
+HKGTC,CSL Hong Kong,80,Orange Hub
+HND02,"Telefónica Celular, S.A. (CELTEL)  ",HLR BARRING,Comfone
+HNDDC,Digicel,,
+HNDME,Servicios de Comunicaciones de Honduras,100,Comfone
+HRVCN,Hrvatski Telekom (T-Mobile) ,20,Comfone
+HRVT2,Telemach Croatia Ltd (Tele2) Croatia,HLR BARRING,Bilateral
+HRVVI,A1 Hrvatska (Vipnet d.o.o) Croatia,80,Bilateral
+HTICL,Voila,,
+HTIVT,Natcom,,
+HUNH1,Yettel Hungary,0+,Bilateral
+HUNH2,Telekom Hungary (T-Mobile),10,Bilateral
+HUNVR,Vodafone Hungary,90,Orange Hub
+IDN89,H3G Indonesia,20,Bilateral
+IDNEX,XL,,
+IDNIM,IM3,,
+IDNLT,AXIS,,
+IDNSL,PT Indosat Tbk,80,Comfone
+IDNTS,Telkomcel Indonesia,HLR BARRING,Bilateral
+IND02,Aircel,,
+IND03,AIRCEL,,
+IND04,AIRCEL,,
+IND05,AIRCEL,,
+IND06,AIRCEL,,
+IND07,IDEA,,
+IND09,AIRCEL,,
+IND10,AirTel,,
+IND11,AirTel,,
+IND12,AirTel,,
+IND14,AirTel,,
+IND15,AirTel,,
+IND16,Airtel,,
+IND17,AIRCEL,,
+IND18,AIRCEL,,
+IND19,AIRCEL,,
+IND20,AIRCEL,,
+IND21,AIRCEL,,
+IND22,AIRCEL,,
+IND23,AIRCEL,,
+IND24,AIRCEL,,
+IND25,AIRCEL,,
+IND26,AIRCEL,,
+IND27,AIRCEL,,
+IND28,AIRCEL,,
+IND29,AIRCEL,,
+INDA1,AirTel,,
+INDA2,AirTel,,
+INDA5,AirTel,,
+INDA7,AirTel,,
+INDA8,AirTel,,
+INDA9,AirTel,,
+INDAC,Aircel,,
+INDAT,AirTel,,
+INDBI,IDEA,,
+INDBK,Vodafone India,,
+INDBL,AirTel,,
+INDBM,Vodafone India,,
+INDBO,IDEA,,
+INDBT,Vodafone India,,
+INDCC,Vodafone India,,
+INDDL,DOLPHIN,,
+INDE1,Vodafone India,,
+INDEH,IDEA,,
+INDEK,IDEA,,
+INDEU,IDEA,,
+INDF1,Vodafone India,,
+INDHM,Vodafone India,,
+INDIB,IDEA,,
+INDID,IDEA,,
+INDIK,IDEA,,
+INDIM,IDEA,,
+INDIO,IDEA,,
+INDIT,IDEA,,
+INDIW,IDEA,,
+INDJ1,Jio,,
+INDJ2,Jio,,
+INDJ3,Jio,,
+INDJ4,Jio,,
+INDJ5,Jio,,
+INDJ6,Jio,,
+INDJ7,Jio,,
+INDJ8,Airtel,,
+INDJ9,Jio,,
+INDJH,Airtel,,
+INDJL,Jio,,
+INDJM,Jio,,
+INDJN,Jio,,
+INDJO,Jio,,
+INDJP,Jio,,
+INDJQ,Jio,,
+INDJR,Jio,,
+INDJS,Jio,,
+INDJT,Jio,,
+INDJU,Jio,,
+INDJV,Jio,,
+INDJW,Jio,,
+INDJX,Jio,,
+INDMB,DOLPHIN,,
+INDMP,IDEA,,
+INDMT,AirTel,,
+INDRC,Aircel,,
+INDRM,Reliance,,
+INDSK,IDEA,,
+INDSP,IDEA,,
+INDT0,TATA DOCOMO,,
+INDT1,TATA DOCOMO,,
+INDT2,TATA DOCOMO,,
+INDT3,TATA DOCOMO,,
+INDT4,TATA DOCOMO,,
+INDT5,TATA DOCOMO,,
+INDT6,TATA DOCOMO,,
+INDT7,TATA DOCOMO,,
+INDT8,TATA DOCOMO,,
+INDT9,TATA DOCOMO,,
+INDTB,TATA DOCOMO,,
+INDTD,TATA DOCOMO,,
+INDTG,TATA DOCOMO,,
+INDTH,TATA DOCOMO,,
+INDTK,TATA DOCOMO,,
+INDTM,TATA DOCOMO,,
+INDTO,TATA DOCOMO,,
+INDTP,TATA DOCOMO,,
+INDTR,TATA DOCOMO,,
+INDWB,cellone,,
+IRLDF,Hutchison Ireland,0+,Bilateral
+IRLEC,Vodafone Ireland,100,Orange Hub
+IRLH3,3,,
+IRLME,Meteor Ireland ,0,Comfone
+IRN11,IR-TCI (Hamrah-e-Avval),,
+IRNMI,MTN Irancell,,
+IRNTT,Rightel,,
+IRQAC,Asia Cell,,
+ISLNO,Nova,,
+ISLPS,Síminn,,
+ISLTL,Vodafone,,
+ISLVW,Viking,,
+ISR01,Partner,,
+ISRCL,Cellcom,,
+ISRMS,Hot Mobile,,
+ISRPL,Pelephone,,
+ITAFM,Iliad Italy,65,Bilateral
+ITAGT,TIM-GOS,HLR BARRING,Bilateral
+ITAH3,3 Italia,,
+ITAOM,Vodafone Italy,30,Orange Hub
+ITASI,Telecom Italia SpA,5,Bilateral
+ITAWI,WIND,0,Bilateral
+JAMCW,FLOW,,
+JAMDC,Digicel Bermuda,,
+JORFL,zain ,HLR BARRING,Bilateral
+JORMC,Orange Jordanie,100,Orange Hub
+JORUM,umniah,HLR BARRING,Bilateral
+JPNDO,NTT DOCOMO,10,Bilateral
+JPNJP,SoftBank Mobile Japan,90,Bilateral
+JPNKI,au,,
+K0001,IPKO,,
+KAZ77,Mobile Telecom-Service LLP,HLR BARRING,Bilateral
+KAZKT,KaR-Tel,100,Comfone
+KAZKZ,K'Cell ,HLR BARRING,Bilateral
+KENEC,yu,,
+KENKC,Airtel,,
+KENSA,Safaricom,,
+KENTK,Telkom,,
+KGZ01,Beeline,,
+KHMCC,qb,,
+KHMGM,Cellcard,,
+KHMVC,Metfone,,
+KIRKL,Kiribati - ATH,,
+KNACW,FLOW,,
+KORKF,KT Korea,HLR BARRING,Bilateral
+KORLU,LG U+,,
+KORSK,SK Korea ,100,Bilateral
+KWTKT,Kuwait Telecom Company ,10,Bilateral
+KWTMT,Zain Kuwait,90,Bilateral
+KWTNM,Wataniya Telecom Kuwait,HLR BARRING,Bilateral
+LAOAS,Unitel,,
+LAOET,ETL,,
+LAOTC,LaoTel,,
+LAOTL,Beeline,,
+LBNFL,Alfa MIC1,0,Bilateral
+LBNLC,MIC 2 Touch Lebanon,100,Bilateral
+LBR07,Orange (Cellcom) Liberia ,90,Bilateral
+LBRLC,Lonestar Communications Corporation,10,Orange Hub
+LBY01,ELMADAR,0,Bilateral
+LBYLM,Libyana,100,Bilateral
+LCACW,FLOW,,
+LIEMK,Telekom Liechtenstein,100,Bilateral
+LIETG,Alpmobil,,
+LIEVE,Salt Liechtenstein,0+,Orange Hub
+LKA71,Mobitel Sri Lanka,HLR BARRING,Comfone
+LKACT,Etisalat,,
+LKADG,Dialog Axiata Sri Lanka,HLR BARRING,Bilateral
+LKAHT,Hutchison Telecommunications Lanka,100,Comfone
+LSOET,Econet Telecom,,
+LSOVL,Vodacom,,
+LTU03,UAB tele2,90,Bilateral
+LTUMT,UAB Bite Lietuva,10,Comfone
+LTUOM,Omnitel,0+,Bilateral
+LUXPT,Post Luxembourg,0+,Comfone
+LUXTG,Tango,10,Bilateral
+LUXVM,Orange,90,Bilateral
+LVABC,Tele2 Latvia,5,Bilateral
+LVABT,SIA Bite Mobile,90,Comfone
+LVALM,LMT Latvia,5,Bilateral
+MACCT,CTM,,
+MACHT,3,,
+MACSM,SmarTone,,
+MARM1,Maroc Telecom,15,Bilateral
+MARM3,Wana Coporate,0,Bilateral
+MARMT,MEDI TELECOM  SA,85,Bilateral
+MCOM2,Office des Telephones,,
+MDAMC,Moldcell moldavia,HLR BARRING,Comfone
+MDAUN,Moldetelecom,0,Comfone
+MDAVX,Orange Moldova,100,Orange Hub
+MDGAN,Orange,100,Orange Hub
+MDGCO,Airtel,,
+MDGTM,Telma,HLR BARRING,Bilateral
+MDV01,Dhiraagu,,
+MDVWM,Ooredoo,,
+MEXAL,Altan Redes,,
+MEXIU,AT&T Comunicaciones Digital Mexico,80,Orange Hub
+MEXMS,Pegaso (Movistar) Mexico,20,Bilateral
+MEXN3,AT&T Comunicaciones Digital Mexico,80,Comfone
+MEXTL,Telcel,,
+MKDMM,Makedonski Telekom (T-Mobile),HLR BARRING,Comfone
+MKDNO,A1 Makedonija DOOEL Skopje ,100,Bilateral
+MLI01,MOOV Malitel,10,Bilateral
+MLI02,Orange Mali,90,Orange Hub
+MLTGO,MobIsle Communications Ltd. (GO Mobile),HLR BARRING,Bilateral
+MLTMA,Vodafone Malta Maritime,0+,Orange Hub
+MLTMM,Melita Mobile LTD,80,Bilateral
+MLTTL,SALT Group,20,Bilateral
+MMROM,Ooredoo Myanmar,HLR BARRING,Comfone
+MMRPT,MPT Myanmar,HLR BARRING,Orange Hub
+MMRTN,ATOM Myanmar,100,Comfone
+MNEMT,MTEL d.o.o. Podgorica,0+,Bilateral
+MNEPM,One Crna Gora DOO,HLR BARRING,Comfone
+MNETM,Crnogorski Telekom a.d. Podgorica ,100,Bilateral
+MNGMC,Mobicom,,
+MNGMN,Unitel,,
+MOZ01,Mcel Mozambique,HLR BARRING,Bilateral
+MOZVC,Vodacom Mozambico,100,Orange Hub
+MOZVG,Movitel SA Mozambico,HLR BARRING,Comfone
+MRTMT,Mattel,,
+MSRCW,FLOW,,
+MUSCP,Cellplus Mobile Communications Ltd.,100,Orange Hub
+MUSEM,Emtel,,
+MUSMT,Mahanagar Telephone (Mauritius) Ltd.,HLR BARRING,Orange Hub
+MWICP,TNM,,
+MWICT,Airtel,,
+MYSBC,Maxis Malaysia,10,Bilateral
+MYSCC,Celcom,,
+MYSMI,U Mobile Malayzia,HLR BARRING,Orange Hub
+MYSMR,Celcom,,
+MYSMT,Digi Malaysia,90,Orange Hub
+NAM01,MTC,,
+NAM03,TN Mobile,,
+NCLPT,Mobilis,,
+NERCT,Airtel,,
+NEROR,Zamani (Orange) Niger,100,Orange Hub
+NERTL,Telecel Niger ,HLR BARRING,Comfone
+NGAEM,9mobile,,
+NGAET,Airtel,,
+NGAGM,Glo,,
+NGAMN,MTN,,
+NGANT,Ntel,,
+NICEN,Claro,,
+NICSC,Claro,,
+NLDDT,T-Mobile Netherlands,0+,Bilateral
+NLDLT,Vodafone,10,Orange Hub
+NLDPN,T-Mobile Netherlands,0+,Bilateral
+NLDPT,KPN B.V. The Netherlands,90,Bilateral
+NORAM,AeroMobile,,
+NORMC,Telenor,,
+NORNC,Netcom Norway,10,Bilateral
+NORNN,Telia,,
+NORTD,Telia,,
+NORTM,Telenor Norway,90,Bilateral
+NPLM2,Ncell,,
+NPLNM,Namaste / NT Mobile / Sky Phone,,
+NZLBS,Vodafone New Zealand ,100,Orange Hub
+NZLNH,Two Degrees New Zealand,HLR BARRING,Comfone
+NZLTM,Spark Telecom New Zealand ,HLR BARRING,Comfone
+OMNGT,Vodafone Oman (Omantel),100,Bilateral
+OMNNT,Nawras Oman,HLR BARRING,Bilateral
+PAKMK,Pakistan Mobile Communications Limited ,100,Bilateral
+PAKPL,CMPak Limited,HLR BARRING,Bilateral
+PAKTP,Telenor,,
+PAKUF,Ufone,,
+PAKWA,Warid (Pakistan Mobile Communications ,100,Bilateral
+PANCL,Claro,,
+PANCW,Cable & Wireless Panama ,HLR BARRING,Orange Hub
+PANDC,Digicel (Panama) S.A.,HLR BARRING,Bilateral
+PANMS,Telefonica Moviles Panama ,100,Bilateral
+PERMO,Telefónica del Perú S.A.A.,100,Bilateral
+PERN3,Entel Perú S.A.,HLR BARRING,Comfone
+PERTM,Claro,,
+PERVG,Viettel Peru S.A.C.,HLR BARRING,Comfone
+PHLDG,Sun Cellular,,
+PHLGT,Globe,,
+PHLSR,SMART,,
+PNGDP,Digicel,,
+PNGPM,bmobile,,
+POL02,T Mobile Poland (ERA),0+,Bilateral
+POL03,PTK Centertel (Orange),85,Orange Hub
+POLKM,Polkomtel,10,Bilateral
+POLP4,P4 Sp. z o.o,5,Bilateral
+PRICL,Claro Puerto Rico,,
+PRTOP,"Optimus - Comunicações, S.A.",0+,Orange Hub
+PRTTL,vodafone Portugal,10,Orange Hub
+PRTTM,TMN MEO Portugal,90,Bilateral
+PRYHT,Claro,,
+PRYNP,Personal,,
+PRYTC,Tigo,,
+PRYVX,VOX,,
+PSEJE,Jawwal,,
+PYFVF,Pacific Mobile Telecom,100,Orange Hub
+QATB1,Vodafone Qatar,90,Bilateral
+QATQT,Qatar Telecom (Qtel) Q.S.C / Ooredoo,10,Bilateral
+ROM05,DIGI,0,Bilateral
+ROMCS,Cosmote Romanian Mobile Telecommunications S.A.,0+,Bilateral
+ROMMF,VF Romanie,10,Orange Hub
+ROMMR,Orange Romania S.A,90,Bilateral
+RUS01,MTS Russia,80,Bilateral
+RUS27,Tvoi Mobil'nye Tekhnologii LLC (TMT) Russia,HLR BARRING,Comfone
+RUSBD,Vimpelcom,0+,Bilateral
+RUSEC,MOTIV,,
+RUSNW,MegaFon,10,Bilateral
+RUST2,Tele2 Russia,10,Comfone
+RWAAR,Bharti Airtel Rwanda Holdings B.V.,HLR BARRING,Bilateral
+RWAMN,MTN RwandaCell PLC,100,Orange Hub
+RWATG,Bharti Airtel Rwanda Holdings B.V.,HLR BARRING,Bilateral
+SAUAJ,STC saudia,10,Bilateral
+SAUET,MOBILY,0+,Bilateral
+SAUZN,Zain KSA ,90,Bilateral
+SDNBT,MTN,,
+SENAZ,Orange Senegal,100,Orange Hub
+SENEX,Expresso,,
+SENSG,Sentel GSM S.A.,0+,Comfone
+SGPM1,M1,,
+SGPML,SingTel-G18,,
+SGPSH,StarHub,,
+SGPST,SingTel,,
+SLEAC,Africell Sierra Leone,0,Bilateral
+SLECT,Airtel Sierra Leone (Orange),100,Orange Hub
+SLVDC,Digicel,,
+SLVTM,Tigo,,
+SLVTP,Claro,,
+SLVTS,movistar,,
+SOM01,Telesom,,
+SRBNO,A1 Srbija d.o.o. Beograd ,90,Bilateral
+SSDMN,MTN,,
+SSDZS,Zain,,
+STPST,CSTmovel,,
+SUDMO,Zain SD,,
+SURDC,Digicel,,
+SURTG,Telesur,,
+SVKET,T mobile,0+,Bilateral
+SVKGT,Orange,90,Orange Hub
+SVKO2,Telefonica O2 ,10,Bilateral
+SVNMT,Telekom Slovenije (Mobitel) Slovenia ,40,Comfone
+SVNSM,A1 (SiMobil) Slovenia,60,Bilateral
+SVNVG,Telemach Tusmobil d.o.o.,HLR BARRING,Bilateral
+SWECN,Telenor Sweden,0+,Bilateral
+SWEEP,Telenor Sweden,0+,Bilateral
+SWEHU,Hi3G Sweden,90,Bilateral
+SWEIQ,Tele2 Sweden,10,Bilateral
+SWESM,Tele2 Sweden,10,Bilateral
+SWETG,Telenor Sweden,0+,Bilateral
+SWETR,TeliaSonera Sweden,0,Bilateral
+SWZMN,Swazi MTN,,
+SYCAT,Airtel,,
+SYCCW,Cable & Wireless,,
+SYRSP,MTN,,
+TCACW,FLOW,,
+TCDCT,Airtel,,
+TCDML,Tigo,,
+TGOTC,Togo Cell,,
+TGOTL,Moov,,
+THACA,awn,HLR BARRING,Bilateral
+THACO,True Move,HLR BARRING,Bilateral
+THACT,DTAC PLC,HLR BARRING,Bilateral
+THADT,Telenor,100,Comfone
+THAWN,True Move,HLR BARRING,Comfone
+THAWP,dtac,,
+TJK91,ZET-Mobile,,
+TLSVG,Telemor,,
+TONDP,Digicel,,
+TTODL,Digicel,,
+TUNOR,Orange,,
+TUNTA,OOREDOO TN,,
+TUNTT,Tunicell,,
+TURAC,Aycell,,
+TURIS,AVEA,10,Bilateral
+TURTC,TURKCELL lletisim Hizmetleri A.S.,50,Bilateral
+TURTS,VODAFONE TELEKOMUNIKASYON A.S.,40,Orange Hub
+TWNFE,FarEasTone,,
+TWNLD,Chunghwa,,
+TWNPC,Taiwan Mobile,,
+TWNTG,T Star,,
+TZACT,Airtel,,
+TZAMB,MIC (Mobitel) Tanzania ,0+,Comfone
+TZAVC,Vodacom Tanzania,100,Orange Hub
+TZAVG,Viettel Tanzania Limited,HLR BARRING,Comfone
+TZAYA,Smart,,
+TZAZN,Zanzibar Telecom (ZantTel),0+,Orange Hub
+UGACE,Airtel,,
+UGAMN,MTN,,
+UGAOR,Africell,,
+UGASU,Smart,,
+UGATL,Uganda Telecom,,
+UGAWT,Airtel,,
+UKRAS,lifecell,,
+UKRKS,Kyivstar,,
+UKRRS,Kyivstar,,
+UKRUM,Vodafone,,
+UKRUT,3Mob; Lycamobile,,
+URYAM,Claro,,
+URYTM,Movistar,,
+USACB,Cincinnati Bell,,
+USACD,"Commnet Wireless, LLC",HLR BARRING,Comfone
+USACG,AT&T Mobility USA,0+,Bilateral
+USACI,Viaero,,
+USACO,Choice Wireless,,
+USACW,Limitless Mobile,,
+USAGC,GCI Wireless,,
+USAGU,IT&E Wireless,,
+USAIN,Indigo Wireless,,
+USANW,NewCore Wireless ,HLR BARRING,Comfone
+USAPE,Tampnet,,
+USASC,T-Mobile USA,100,Bilateral
+USASP,Sprint,,
+USAUD,U.S. Cellular,,
+USAUN,Union Telephone Company USA,HLR BARRING,Comfone
+USAVZ,Verizon,,
+USAW6,T-Mobile,,
+UZB05,Ucell,,
+UZBDU,Beeline,,
+VCTCW,FLOW,,
+VENMS,movistar,,
+VGBCC,CCT Boatphone,,
+VGBCW,FLOW,,
+VGBDC,Digicel,,
+VNMBL,GTEL Mobile Joint Stock Company (GTEL Mobile),HLR BARRING,Bilateral
+VNMMO,VMS Mobifone,100,Bilateral
+VNMVI,Vinaphone (Vietnam Posts and Telecommunications Group,HLR BARRING,Comfone
+VNMVM,Vietnamobile Telecommunications Joint Stock Company,HLR BARRING,Comfone
+VNMVT,Viettel Group,HLR BARRING,Comfone
+VUTDP,Digicel,,
+YEMSA,SabaFon,,
+YUGMT,Yettel d.o.o. Belgrade,10,Bilateral
+YUGTS,Telekom Srbija a.d.,HLR BARRING,Bilateral
+ZAFCC,Cell C South Africa,HLR BARRING,Bilateral
+ZAFJT,Telkom,,
+ZAFMN,MTN,10,Orange Hub
+ZAFTM,Telkom South Africa ,0+,Comfone
+ZAFVC,Vodacom South Africa,90,Orange Hub
+ZMB02,MTN (Zambia) Ltd,100,Orange Hub
+ZMBCE,Airtel,,
+ZMBCZ,Zamtel Zambia,HLR BARRING,Bilateral
+ZWEET,Econet,,
+ZWEN3,Telecel,,
