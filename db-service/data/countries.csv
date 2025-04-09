@@ -1,0 +1,252 @@
+iso,name_en,name_fr,prefix,user
+AF,Afghanistan,Afghanistan,93,system
+AX,Åland Islands,Îles d’Åland,358,system
+AL,Albania,Albanie,355,system
+DZ,Algeria,Algérie,213,system
+AS,American Samoa,Samoa américaines,1-684,system
+AD,Andorra,Andorre,376,system
+AO,Angola,Angola,244,system
+AI,Anguilla,Anguilla,1-264,system
+AQ,Antarctica,Antarctique,672,system
+AG,Antigua and Barbuda,Antigua-et-Barbuda,1-268,system
+AR,Argentina,Argentine,54,system
+AM,Armenia,Arménie,374,system
+AW,Aruba,Aruba,297,system
+AU,Australia,Australie,61,system
+AT,Austria,Autriche,43,system
+AZ,Azerbaijan,Azerbaïdjan,994,system
+BS,Bahamas,Bahamas,1-242,system
+BH,Bahrain,Bahreïn,973,system
+BD,Bangladesh,Bangladesh,880,system
+BB,Barbados,Barbade,1-246,system
+BY,Belarus,Bélarus,375,system
+BE,Belgium,Belgique,32,system
+BZ,Belize,Belize,501,system
+BJ,Benin,Bénin,229,system
+BM,Bermuda,Bermudes,1-441,system
+BT,Bhutan,Bhoutan,975,system
+BO,Bolivia (Plurinational State of),Bolivie (État plurinational de),591,system
+BQ,"Bonaire, Sint Eustatius and Saba","Bonaire, Saint-Eustache et Saba",599,system
+BA,Bosnia and Herzegovina,Bosnie-Herzégovine,387,system
+BW,Botswana,Botswana,267,system
+BV,Bouvet Island,Île Bouvet,47,system
+BR,Brazil,Brésil,55,system
+IO,British Indian Ocean Territory,Territoire britannique de l'océan Indien,246,system
+VG,British Virgin Islands,Îles Vierges britanniques,1-284,system
+BN,Brunei Darussalam,Brunéi Darussalam,673,system
+BG,Bulgaria,Bulgarie,359,system
+BF,Burkina Faso,Burkina Faso,226,system
+BI,Burundi,Burundi,257,system
+CV,Cabo Verde,Cabo Verde,238,system
+KH,Cambodia,Cambodge,855,system
+CM,Cameroon,Cameroun,237,system
+CA,Canada,Canada,1,system
+KY,Cayman Islands,Îles Caïmanes,1-345,system
+CF,Central African Republic,République centrafricaine,236,system
+TD,Chad,Tchad,235,system
+CL,Chile,Chili,56,system
+CN,China,Chine,86,system
+HK,"China, Hong Kong Special Administrative Region","Chine, région administrative spéciale de Hong Kong",852,system
+MO,"China, Macao Special Administrative Region","Chine, région administrative spéciale de Macao",853,system
+CX,Christmas Island,Île Christmas,61,system
+CC,Cocos (Keeling) Islands,Îles des Cocos (Keeling),61,system
+CO,Colombia,Colombie,57,system
+KM,Comoros,Comores,269,system
+CG,Congo,Congo,242,system
+CK,Cook Islands,Îles Cook,682,system
+CR,Costa Rica,Costa Rica,506,system
+HR,Croatia,Croatie,385,system
+CU,Cuba,Cuba,53,system
+CW,Curaçao,Curaçao,599,system
+CY,Cyprus,Chypre,357,system
+CZ,Czechia,Tchéquie,420,system
+KP,Democratic People's Republic of Korea,République populaire démocratique de Corée,850,system
+CD,Democratic Republic of the Congo,République démocratique du Congo,243,system
+DK,Denmark,Danemark,45,system
+DJ,Djibouti,Djibouti,253,system
+DM,Dominica,Dominique,1-767,system
+DO,Dominican Republic,République dominicaine,"1-809,1-829,1-849",system
+EC,Ecuador,Équateur,593,system
+EG,Egypt,Égypte,20,system
+SV,El Salvador,El Salvador,503,system
+GQ,Equatorial Guinea,Guinée équatoriale,240,system
+ER,Eritrea,Érythrée,291,system
+EE,Estonia,Estonie,372,system
+SZ,Eswatini,Eswatini,268,system
+ET,Ethiopia,Éthiopie,251,system
+FK,Falkland Islands,Îles Falkland (Malvinas),500,system
+FO,Faroe Islands,Îles Féroé,298,system
+FJ,Fiji,Fidji,679,system
+FI,Finland,Finlande,358,system
+FR,France,France,33,system
+GF,French Guiana,Guyane française,594,system
+PF,French Polynesia,Polynésie française,689,system
+TF,French Southern Territories,Terres australes françaises,262,system
+GA,Gabon,Gabon,241,system
+GM,Gambia,Gambie,220,system
+GE,Georgia,Géorgie,995,system
+DE,Germany,Allemagne,49,system
+GH,Ghana,Ghana,233,system
+GI,Gibraltar,Gibraltar,350,system
+GR,Greece,Grèce,30,system
+GL,Greenland,Groenland,299,system
+GD,Grenada,Grenade,1-473,system
+GP,Guadeloupe,Guadeloupe,590,system
+GU,Guam,Guam,1-671,system
+GT,Guatemala,Guatemala,502,system
+GG,Guernsey,Guernesey,44,system
+GN,Guinea,Guinée,224,system
+GW,Guinea-Bissau,Guinée-Bissau,245,system
+GY,Guyana,Guyana,592,system
+HT,Haiti,Haïti,509,system
+HM,Heard Island and McDonald Islands,Île Heard-et-Îles MacDonald,672,system
+VA,Holy See,Saint-Siège,39-06,system
+HN,Honduras,Honduras,504,system
+HU,Hungary,Hongrie,36,system
+IS,Iceland,Islande,354,system
+IN,India,Inde,91,system
+ID,Indonesia,Indonésie,62,system
+IR,Iran (Islamic Republic of),Iran (République islamique d’),98,system
+IQ,Iraq,Iraq,964,system
+IE,Ireland,Irlande,353,system
+IM,Isle of Man,Île de Man,44,system
+IL,Israel,Israël,972,system
+IT,Italy,Italie,39,system
+CI,Ivory Coast,Côte d’Ivoire,225,system
+JM,Jamaica,Jamaïque,1-876,system
+JP,Japan,Japon,81,system
+JE,Jersey,Jersey,44,system
+JO,Jordan,Jordanie,962,system
+KZ,Kazakhstan,Kazakhstan,7,system
+KE,Kenya,Kenya,254,system
+KI,Kiribati,Kiribati,686,system
+KW,Kuwait,Koweït,965,system
+KG,Kyrgyzstan,Kirghizistan,996,system
+LA,Lao People's Democratic Republic,République démocratique populaire lao,856,system
+LV,Latvia,Lettonie,371,system
+LB,Lebanon,Liban,961,system
+LS,Lesotho,Lesotho,266,system
+LR,Liberia,Libéria,231,system
+LY,Libya,Libye,218,system
+LI,Liechtenstein,Liechtenstein,423,system
+LT,Lithuania,Lituanie,370,system
+LU,Luxembourg,Luxembourg,352,system
+MG,Madagascar,Madagascar,261,system
+MW,Malawi,Malawi,265,system
+MY,Malaysia,Malaisie,60,system
+MV,Maldives,Maldives,960,system
+ML,Mali,Mali,223,system
+MT,Malta,Malte,356,system
+MH,Marshall Islands,Îles Marshall,692,system
+MQ,Martinique,Martinique,596,system
+MR,Mauritania,Mauritanie,222,system
+MU,Mauritius,Maurice,230,system
+YT,Mayotte,Mayotte,262,system
+MX,Mexico,Mexique,52,system
+FM,Micronesia (Federated States of),Micronésie (États fédérés de),691,system
+MC,Monaco,Monaco,377,system
+MN,Mongolia,Mongolie,976,system
+ME,Montenegro,Monténégro,382,system
+MS,Montserrat,Montserrat,1-664,system
+MA,Morocco,Maroc,212,system
+MZ,Mozambique,Mozambique,258,system
+MM,Myanmar,Myanmar,95,system
+,Namibia,Namibie,264,system
+NR,Nauru,Nauru,674,system
+NP,Nepal,Népal,977,system
+NL,Netherlands,Pays-Bas (Royaume des),31,system
+NC,New Caledonia,Nouvelle-Calédonie,687,system
+NZ,New Zealand,Nouvelle-Zélande,64,system
+NI,Nicaragua,Nicaragua,505,system
+NE,Niger,Niger,227,system
+NG,Nigeria,Nigéria,234,system
+NU,Niue,Nioué,683,system
+NF,Norfolk Island,Île Norfolk,672,system
+MP,Northern Mariana Islands,Îles Mariannes du Nord,1-670,system
+MK,North Macedonia,Macédoine du Nord,389,system
+NO,Norway,Norvège,47,system
+OM,Oman,Oman,968,system
+PK,Pakistan,Pakistan,92,system
+PW,Palau,Palaos,680,system
+PA,Panama,Panama,507,system
+PG,Papua New Guinea,Papouasie-Nouvelle-Guinée,675,system
+PY,Paraguay,Paraguay,595,system
+PE,Peru,Pérou,51,system
+PH,Philippines,Philippines,63,system
+PN,Pitcairn,Pitcairn,870,system
+PL,Poland,Pologne,48,system
+PT,Portugal,Portugal,351,system
+PR,Puerto Rico,Porto Rico,1,system
+QA,Qatar,Qatar,974,system
+KR,Republic of Korea,République de Corée,82,system
+MD,Republic of Moldova,République de Moldova,373,system
+RE,Réunion,Réunion,262,system
+RO,Romania,Roumanie,40,system
+RU,Russian Federation,Fédération de Russie,7,system
+RW,Rwanda,Rwanda,250,system
+BL,Saint Barthélemy,Saint-Barthélemy,590,system
+SH,Saint Helena,Sainte-Hélène,290 n,system
+KN,Saint Kitts and Nevis,Saint-Kitts-et-Nevis,1-869,system
+LC,Saint Lucia,Sainte-Lucie,1-758,system
+MF,Saint Martin (French Part),Saint-Martin (partie française),590,system
+PM,Saint Pierre and Miquelon,Saint-Pierre-et-Miquelon,508,system
+VC,Saint Vincent and the Grenadines,Saint-Vincent-et-les Grenadines,1-784,system
+WS,Samoa,Samoa,685,system
+SM,San Marino,Saint-Marin,378,system
+ST,Sao Tome and Principe,Sao Tomé-et-Principe,239,system
+SA,Saudi Arabia,Arabie saoudite,966,system
+SN,Senegal,Sénégal,221,system
+RS,Serbia,Serbie,381 p,system
+SC,Seychelles,Seychelles,248,system
+SL,Sierra Leone,Sierra Leone,232,system
+SG,Singapore,Singapour,65,system
+SX,Sint Maarten (Dutch part),Saint-Martin (partie néerlandaise),1-721,system
+SK,Slovakia,Slovaquie,421,system
+SI,Slovenia,Slovénie,386,system
+SB,Solomon Islands,Îles Salomon,677,system
+SO,Somalia,Somalie,252,system
+ZA,South Africa,Afrique du Sud,27,system
+GS,South Georgia and the South Sandwich Islands,Géorgie du Sud-et-les Îles Sandwich du Sud,500,system
+SS,South Sudan,Soudan du Sud,211,system
+ES,Spain,Espagne,34,system
+LK,Sri Lanka,Sri Lanka,94,system
+PS,State of Palestine,État de Palestine,970,system
+SD,Sudan,Soudan,249,system
+SR,Suriname,Suriname,597,system
+SJ,Svalbard and Jan Mayen Islands,Îles Svalbard-et-Jan Mayen,47,system
+SE,Sweden,Suède,46,system
+CH,Switzerland,Suisse,41,system
+SY,Syrian Arab Republic,République arabe syrienne,963,system
+TW,Taiwan,Taïwan,886,system
+TJ,Tajikistan,Tadjikistan,992,system
+TH,Thailand,Thaïlande,66,system
+TL,Timor-Leste,Timor-Leste,670,system
+TG,Togo,Togo,228,system
+TK,Tokelau,Tokélaou,690,system
+TO,Tonga,Tonga,676,system
+TT,Trinidad and Tobago,Trinité-et-Tobago,1-868,system
+TN,Tunisia,Tunisie,216,system
+TR,Turkey,Türkiye,90,system
+TM,Turkmenistan,Turkménistan,993,system
+TC,Turks and Caicos Islands,Îles Turques-et-Caïques,1-649,system
+TV,Tuvalu,Tuvalu,688,system
+UG,Uganda,Ouganda,256,system
+UA,Ukraine,Ukraine,380,system
+AE,United Arab Emirates,Émirats arabes unis,971,system
+GB,United Kingdom of Great Britain and Northern Ireland,Royaume-Uni de Grande-Bretagne et d’Irlande du Nord,44,system
+TZ,United Republic of Tanzania,République-Unie de Tanzanie,255,system
+UM,United States Minor Outlying Islands,Îles mineures éloignées des États-Unis, ,system
+US,United States of America,États-Unis d’Amérique,1,system
+VI,United States Virgin Islands,Îles Vierges américaines,1-340,system
+UY,Uruguay,Uruguay,598,system
+UZ,Uzbekistan,Ouzbékistan,998,system
+VU,Vanuatu,Vanuatu,678,system
+VE,Venezuela (Bolivarian Republic of),Venezuela (République bolivarienne du),58,system
+VN,Viet Nam,Viet Nam,84,system
+WF,Wallis and Futuna Islands,Îles Wallis-et-Futuna,681,system
+EH,Western Sahara,Sahara occidental,212,system
+YE,Yemen,Yémen,967,system
+ZM,Zambia,Zambie,260,system
+ZW,Zimbabwe,Zimbabwe,263,system
+BL/GF/GP/MF/MQ,French Antilles,Antilles Francaises,,system
+XX,Worldwide,Monde,,system

@@ -1,0 +1,31 @@
+tadig,plmn,mcc,mnc,t2g,t3g,lte,operator,brand,country_iso
+FRAF1,20801,208,01,Yes,Yes,Yes,Orange,Orange S.A.,FR
+FRAF2,20810,208,10,Yes,Yes,Yes,SFR,Altice,FR
+FRAF3,20820,208,20,Yes,Yes,Yes,Bouygues,Bouygues Telecom,FR
+FRAF4,34020,340,20,Yes,Yes,Yes,Digicel,DIGICEL Antilles Française Guyane,BL/GF/GP/MF/MQ
+FRAFM,20815,208,15,Yes,Yes,Yes,Free,Iliad,FR
+FRATK,54720,547,20,Yes,Yes,Yes,Vini,Onati S.A.S.,PF
+GLP01,34001,340,01,Yes,Yes,Yes,Orange,Orange Caraïbe Mobiles,BL/GF/GP/MF/MQ
+NCLPT,54601,546,01,Yes,Yes,Yes,Mobilis,OPT New Caledonia,NC
+LBY01,60601,606,01,Yes,Yes,Yes,Madar,Al-Madar Al-Jadeed,LY
+LBYLM,60600,606,00,Yes,Yes,Yes,Libyana,Libyana,LY
+DZAA1,60301,603,01,Yes,Yes,Yes,Mobilis,Algérie Télécom,DZ
+DZAOT,60301,603,02,Yes,Yes,Yes,Djezzy,Optimum Telecom Algérie Spa,DZ
+DZAWT,60301,603,03,Yes,Yes,Yes,Ooredoo,Wataniya Telecom Algérie,DZ
+KWTKT,41904,419,04,Yes,Yes,Yes,STC,Saudi Telecom Company,SA
+SAUZN,42004,420,04,Yes,Yes,Yes,Zain,Zain SA,SA
+SAUET,42003,420,03,Yes,Yes,Yes,Mobily,Etihad Etisalat Company,SA
+ITASI,22201,222,01,Yes,Yes,Yes,TIM,Telecom Italia S.p.A,IT
+ITAWI,22288,222,88,Yes,Yes,Yes,WIND,WIND Tre,IT
+ITAFM,22250,222,50,Yes,Yes,Yes,Iliad,Iliad Italia,IT
+ITAOM,22210,222,10,Yes,Yes,Yes,Vodafone,Vodafone Italia S.p.A,IT
+CANTS,302220,302,220,Yes,Yes,Yes,Telus,Telus Mobility,CA
+CANST,302780,302,780,Yes,Yes,Yes,Sasktel,SaskTel Mobility,CA
+CANRW,302720,302,720,Yes,Yes,Yes,Rogers,Rogers Communications,CA
+CANMC,302370,302,370,Yes,Yes,Yes,Fido,Fido Solutions,CA
+CANBM,302610,302,610,Yes,Yes,Yes,Bell,Bell Mobility,CA
+QATB1,42702,427,02,Yes,Yes,Yes,Vodafone,Vodafone Qatar,QA
+QATQT,42701,427,01,Yes,Yes,Yes,Ooredoo,Ooredoo,QA
+AREDU,42403,424,03,Yes,Yes,Yes,DU,Emirates Integrated Telecommunications Company,AE
+ARETC,42402,424,02,Yes,Yes,Yes,Etisalat,Emirates Telecom Corp,AE
+ARETH,90105,901,05,,,,Thuraya,Thuraya RMSS Network,XX
