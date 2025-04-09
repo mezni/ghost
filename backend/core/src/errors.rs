@@ -33,4 +33,11 @@ pub enum AppError {
 
     #[error("Create pool error: {0}")]
     CreatePoolError(#[from] deadpool_postgres::CreatePoolError),
+
+    #[error("Missing config: {0}")]
+    MissingConfig(&'static str),
 }
+
+
+
+
