@@ -1,7 +1,10 @@
 use crate::errors::AppError;
-use serde::{Deserialize, Serialize};
 use dotenvy::dotenv;
+use serde::{Deserialize, Serialize};
+use serde_yaml;
 use std::env;
+use std::fs::File;
+use std::path::Path;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ServerConfig {
@@ -22,7 +25,6 @@ impl ServerConfig {
     }
 }
 
-
 pub fn read_srv_config() -> Result<ServerConfig, AppError> {
     // Load environment variables from the .env file.
     if let Err(err) = dotenv() {
@@ -41,4 +43,26 @@ pub fn read_srv_config() -> Result<ServerConfig, AppError> {
     cfg.host = Some(env::var("DB_HOST").map_err(|_| AppError::MissingEnvVar("DB_HOST".into()))?);
 
     Ok(cfg)
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct AppConfig {
+    pub work_dir: String,
+    pub sleep_duration_seconds: u64,
+    pub sources: Vec<Source>,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Source {
+    pub source_type: String,
+    pub source_directory: String,
+    pub file_pattern: String,
+    pub post_action: String,
+    pub archive_directory: Option<String>,
+}
+
+pub fn read_app_config(file_path: &str) -> Result<AppConfig, AppError> {
+    let file = File::open(Path::new(file_path))?;
+    let config = serde_yaml::from_reader(file).map_err(AppError::YamlError)?;
+    Ok(config)
 }

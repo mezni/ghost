@@ -37,7 +37,3 @@ pub enum AppError {
     #[error("Missing config: {0}")]
     MissingConfig(&'static str),
 }
-
-
-
-
