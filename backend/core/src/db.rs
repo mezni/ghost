@@ -20,7 +20,8 @@ pub struct DBManager {
     pub pool: Pool,
 }
 
-const SELECT_ALL_PREFIXES_QUERY: &str = "SELECT prefix, country_id, operator_id FROM dim_prefixes;";
+const SELECT_ALL_PREFIXES_QUERY: &str =
+    "SELECT prefix, country_id, operator_id FROM dim_prefixes WHERE prefix IS NOT NULL;";
 
 impl DBManager {
     pub fn new(config: ServerConfig) -> Result<Self, AppError> {

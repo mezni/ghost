@@ -1,3 +1,4 @@
+mod repo;
 mod service;
 
 use core::config::{read_app_config, read_srv_config};

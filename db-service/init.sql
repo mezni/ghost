@@ -96,6 +96,17 @@ ON dim_msisdn (msisdn);
 -- STAGING TABLES
 -- =========================
 
+CREATE TABLE IF NOT EXISTS stg_roam_out (
+    batch_id INT NOT NULL,
+    batch_date TEXT  NOT NULL,      
+    imsi TEXT NOT NULL,
+    msisdn TEXT NOT NULL,
+    vlr_number TEXT NOT NULL,
+    prefix TEXT,   
+    country_id INT,
+    operator_id INT 
+);
+
 CREATE TABLE IF NOT EXISTS load_operators (
     id           SERIAL PRIMARY KEY,
     tadig        TEXT,
@@ -177,6 +188,7 @@ JOIN dim_countries cnt ON cnt.name_en = ldr.country
 JOIN dim_operators opr ON opr.operator = ldr.operator
 WHERE opr.country_id = cnt.id;
 
+DELETE FROM dim_prefixes WHERE prefix IS NULL;
 
 DELETE FROM dim_prefixes
 WHERE prefix IN (
