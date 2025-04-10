@@ -28,6 +28,9 @@ pub enum AppError {
     #[error("Database error: {0}")]
     DatabaseError(#[from] PostgresError),
 
+    #[error("Database error: {0}")]
+    DatabaseErrorString(String),
+
     #[error("Pool error: {0}")]
     PoolError(#[from] deadpool_postgres::PoolError),
 
