@@ -40,7 +40,8 @@ async fn main() -> Result<(), AppError> {
         }
     };
 
-    let service = match LoadService::new(srv_config).await {
+    Logger::info(&format!("{} : Store - initialized", SERVICE_NAME));
+    let service = match LoadService::new(srv_config, app_config).await {
         Ok(s) => s,
         Err(e) => {
             Logger::error(&format!(
@@ -51,7 +52,7 @@ async fn main() -> Result<(), AppError> {
         }
     };
 
-    Logger::info(&format!("{} : Store - initialized", SERVICE_NAME));
+    Logger::info(&format!("{} : File - initialized", SERVICE_NAME));
 
     if let Err(e) = service.execute().await {
         Logger::warn(&format!(

@@ -1,4 +1,5 @@
 use crate::config::ServerConfig;
+use crate::entities::Prefixes;
 use crate::errors::AppError;
 use deadpool_postgres::{Client, Config, Pool};
 use serde::{Deserialize, Serialize};
@@ -18,6 +19,8 @@ pub struct LogRecord {
 pub struct DBManager {
     pub pool: Pool,
 }
+
+const SELECT_ALL_PREFIXES_QUERY: &str = "SELECT prefix, country_id, operator_id FROM dim_prefixes;";
 
 impl DBManager {
     pub fn new(config: ServerConfig) -> Result<Self, AppError> {
@@ -124,5 +127,24 @@ impl DBManager {
             .await
             .map(|_| ())
             .map_err(|e| AppError::DatabaseError(e))
+    }
+
+    pub async fn select_all_prefixes(&self) -> Result<Vec<Prefixes>, AppError> {
+        let client = self.get_client().await?;
+        let rows = client
+            .query(SELECT_ALL_PREFIXES_QUERY, &[])
+            .await
+            .map_err(AppError::from)?;
+
+        let prefixes = rows
+            .into_iter()
+            .map(|row| Prefixes {
+                prefix: row.get(0),
+                country_id: row.get(1),
+                operator_id: row.get(2),
+            })
+            .collect();
+
+        Ok(prefixes)
     }
 }
