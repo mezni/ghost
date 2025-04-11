@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 core = { path = "../core" }
 tokio = { version = "1.44.2", features = ["full"] }
+tokio-postgres = "0.7.13"

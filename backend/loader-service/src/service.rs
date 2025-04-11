@@ -1,6 +1,6 @@
 use crate::repo::{
     delete_stg_roam_out_records, insert_fct_roam_out_records, insert_imsi_records,
-    insert_msisdn_records, insert_stg_roam_out_records,
+    insert_msisdn_records, insert_stg_roam_out_records, insert_vlr_records,
 };
 use core::config::{AppConfig, ServerConfig};
 use core::db::{DBManager, LogRecord};
@@ -117,10 +117,6 @@ impl LoadService {
         let batch_id = self.db_manager.insert_batch(&log_record).await?;
         log_record.batch_id = Some(batch_id);
 
-        log_record.batch_status = Some(BATCH_STATUS_SUCCESS.to_string());
-
-        self.db_manager.update_batch(&log_record).await?;
-
         let (dir_name, file_name) = extract_dir_and_file_name(&path)?;
 
         let records = self
@@ -160,9 +156,13 @@ impl LoadService {
         // Insert MSISDN records
         insert_msisdn_records(&client).await?;
 
+        insert_vlr_records(&client).await?;
+
         insert_fct_roam_out_records(&client).await?;
 
-        delete_stg_roam_out_records(&client, batch_id).await?;
+        //        delete_stg_roam_out_records(&client, batch_id).await?;
+
+        log_record.batch_status = Some(BATCH_STATUS_SUCCESS.to_string());
 
         self.db_manager.update_batch(&log_record).await?;
 

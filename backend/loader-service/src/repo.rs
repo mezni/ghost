@@ -27,11 +27,24 @@ const INSERT_MSISDN_QUERY: &str = "
     FROM dim_msisdn
 ";
 
-const INSERT_ROAM_OUT_QUERY: &str = "INSERT INTO fct_roam_out (date_id , batch_id , country_id , operator_id , imsi_id , msisdn_id )
-SELECT tim.id , stg.batch_id , stg.country_id , stg.operator_id , ims.id , msi.id
+const INSERT_VLR_QUERY: &str = "
+    INSERT INTO dim_vlr_number (roam_type_id, vlr_number)
+    SELECT 
+        (SELECT id FROM dim_roam_type WHERE roam_type = 'OUT') AS roam_type_id,
+        vlr_number
+    FROM 
+        stg_roam_out stg
+    EXCEPT
+    SELECT roam_type_id, vlr_number
+    FROM dim_vlr_number
+";
+
+const INSERT_ROAM_OUT_QUERY: &str = "INSERT INTO fct_roam_out (date_id , batch_id , country_id , operator_id , imsi_id , msisdn_id, vlr_number_id )
+SELECT tim.id , stg.batch_id , stg.country_id , stg.operator_id , ims.id , msi.id, vlr.id
 FROM 
-    stg_roam_out stg RIGHT JOIN dim_imsi ims ON stg.imsi = ims.imsi
+    stg_roam_out stg LEFT JOIN dim_imsi ims ON stg.imsi = ims.imsi
     JOIN dim_msisdn msi ON stg.msisdn = msi.msisdn
+    JOIN dim_vlr_number vlr ON stg.vlr_number = vlr.vlr_number
     JOIN dim_time tim ON stg.batch_date = tim.date_text
     ";
 
@@ -52,6 +65,14 @@ pub async fn insert_imsi_records(client: &Client) -> Result<(), AppError> {
 pub async fn insert_msisdn_records(client: &Client) -> Result<(), AppError> {
     client
         .execute(INSERT_MSISDN_QUERY, &[])
+        .await
+        .map_err(AppError::DatabaseError)?;
+    Ok(())
+}
+
+pub async fn insert_vlr_records(client: &Client) -> Result<(), AppError> {
+    client
+        .execute(INSERT_VLR_QUERY, &[])
         .await
         .map_err(AppError::DatabaseError)?;
     Ok(())

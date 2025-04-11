@@ -59,28 +59,44 @@ impl DBManager {
         let mut query = String::from("INSERT INTO batch_execs (");
         let mut values = Vec::new();
         let mut params: Vec<&(dyn ToSql + Sync)> = Vec::new();
+        let mut fields = Vec::new();
 
-        query.push_str("batch_name");
-        values.push("$1");
+        let mut param_index = 1;
+
+        // batch_name
+        fields.push("batch_name");
+        values.push(format!("${}", param_index));
         params.push(batch_name);
+        param_index += 1;
 
+        // source_type
         if let Some(source_type) = &record.source_type {
-            query.push_str(", source_type");
-            values.push("$2");
+            fields.push("source_type");
+            values.push(format!("${}", param_index));
             params.push(source_type);
+            param_index += 1;
         }
 
+        // source_name
         if let Some(source_name) = &record.source_name {
-            query.push_str(", source_name");
-            values.push("$3");
+            fields.push("source_name");
+            values.push(format!("${}", param_index));
             params.push(source_name);
+            param_index += 1;
         }
 
-        query.push_str(", start_time, batch_status");
-        values.push("NOW()");
-        values.push("$4");
-        params.push(&batch_status);
+        // start_time
+        fields.push("start_time");
+        values.push("NOW()".to_string());
 
+        // batch_status
+        fields.push("batch_status");
+        values.push(format!("${}", param_index));
+        params.push(&batch_status);
+        param_index += 1;
+
+        // build query
+        query.push_str(&fields.join(", "));
         query.push_str(") VALUES (");
         query.push_str(&values.join(", "));
         query.push_str(") RETURNING id;");
@@ -89,7 +105,7 @@ impl DBManager {
             .query_one(&query, &params)
             .await
             .map(|row| row.get(0))
-            .map_err(|e| AppError::DatabaseError(e))
+            .map_err(AppError::DatabaseError)
     }
 
     pub async fn update_batch(&self, record: &LogRecord) -> Result<(), AppError> {

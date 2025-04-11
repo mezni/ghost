@@ -58,3 +58,38 @@ cargo run -p loader-service
 
 - DB
 
+
+
+CREATE TABLE policies (
+    policy_id VARCHAR(36) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    policy_type VARCHAR(50) NOT NULL, -- 'scaling', 'security', 'compliance', etc.
+    version VARCHAR(20) NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(255) NOT NULL,
+    updated_by VARCHAR(255),
+    metadata JSONB
+);
+
+
+CREATE TABLE policy_rules (
+    rule_id VARCHAR(36) PRIMARY KEY,
+    policy_id VARCHAR(36) REFERENCES policies(policy_id),
+    rule_name VARCHAR(255) NOT NULL,
+    rule_condition TEXT NOT NULL, -- Could be JSON or condition DSL
+    rule_action TEXT NOT NULL, -- Could be JSON or action DSL
+    priority INTEGER NOT NULL,
+    is_enabled BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+SELECT msisdn 
+FROM fct_roam_out fct
+JOIN dim_msisdn msi on fct.msisdn_id = msi.id

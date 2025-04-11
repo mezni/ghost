@@ -91,6 +91,15 @@ CREATE TABLE IF NOT EXISTS dim_msisdn (
 CREATE INDEX idx_dim_msisdn
 ON dim_msisdn (msisdn);
 
+CREATE TABLE IF NOT EXISTS dim_vlr_number (
+    id SERIAL PRIMARY KEY,
+    roam_type_id INT,      
+    vlr_number TEXT NOT NULL    
+);
+
+CREATE INDEX idx_dim_vlr_number
+ON dim_vlr_number (vlr_number);
+
 
 -- =========================
 -- STAGING TABLES
@@ -182,10 +191,10 @@ SELECT id, REPLACE(prefix, '-', ''),REPLACE(prefix, '-', ''),'system'
 FROM dim_countries;
 
 INSERT INTO dim_prefixes (country_id,operator_id, cc, ndc, prefix, created_by)
-SELECT opr.id, opr.id, ldr.cc, ldr.ndc, ldr.prefix, ldr.created_by
+SELECT cnt.id, opr.id, ldr.cc, ldr.ndc, ldr.prefix, ldr.created_by
 FROM load_prefixes ldr
-JOIN dim_countries cnt ON cnt.name_en = ldr.country
 JOIN dim_operators opr ON opr.operator = ldr.operator
+JOIN dim_countries cnt ON cnt.name_en = ldr.country
 WHERE opr.country_id = cnt.id;
 
 DELETE FROM dim_prefixes WHERE prefix IS NULL;
@@ -205,8 +214,8 @@ WHERE prefix IN (
 -- CLEANUP
 -- =========================
 
-DROP TABLE load_operators;
-DROP TABLE load_prefixes;
+-- DROP TABLE load_operators;
+-- DROP TABLE load_prefixes;
 
 -- =========================
 -- LOAD DIM_TIME
@@ -271,7 +280,8 @@ CREATE TABLE IF NOT EXISTS fct_roam_out (
     country_id  INT,
     operator_id INT,
     imsi_id     INT NOT NULL,
-    msisdn_id   INT NOT NULL
+    msisdn_id   INT NOT NULL,
+    vlr_number_id   INT NOT NULL
 );
 
 CREATE INDEX idx_fct_roam_out_date_id
@@ -308,4 +318,15 @@ ON fct_roam_in (country_id);
 
 CREATE INDEX idx_fct_roam_in_operator_id
 ON fct_roam_in (operator_id);
+
+
+CREATE TABLE IF NOT EXISTS fct_sor_out (
+    date_id          INT NOT NULL,
+    batch_id         INT NOT NULL,
+    country_id       INT,
+    operator_id      INT,
+    country_count INT NOT NULL,
+    operator_count INT NOT NULL,
+    percent REAL
+);
 
