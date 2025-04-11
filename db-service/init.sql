@@ -268,8 +268,8 @@ CREATE TABLE IF NOT EXISTS sor_plan (
 CREATE TABLE IF NOT EXISTS fct_roam_out (
     date_id     INT NOT NULL,
     batch_id    INT NOT NULL,
-    country_id  INT NOT NULL,
-    operator_id INT NOT NULL,
+    country_id  INT,
+    operator_id INT,
     imsi_id     INT NOT NULL,
     msisdn_id   INT NOT NULL
 );
@@ -293,8 +293,8 @@ ON fct_roam_out (msisdn_id);
 CREATE TABLE IF NOT EXISTS fct_roam_in (
     date_id          INT NOT NULL,
     batch_id         INT NOT NULL,
-    country_id       INT NOT NULL,
-    operator_id      INT NOT NULL,
+    country_id       INT,
+    operator_id      INT,
     subscriber_total INT NOT NULL,
     subscriber_active INT NOT NULL
 );

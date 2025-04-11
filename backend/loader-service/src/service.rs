@@ -1,6 +1,6 @@
 use crate::repo::{
-    insert_fct_roam_out_records, insert_imsi_records, insert_msisdn_records,
-    insert_stg_roam_out_records,
+    delete_stg_roam_out_records, insert_fct_roam_out_records, insert_imsi_records,
+    insert_msisdn_records, insert_stg_roam_out_records,
 };
 use core::config::{AppConfig, ServerConfig};
 use core::db::{DBManager, LogRecord};
@@ -8,6 +8,7 @@ use core::entities::{Prefixes, RoamOutDB, RoamOutDTO};
 use core::errors::AppError;
 use core::file::FileManager;
 use core::logger::Logger;
+use core::utils::{lookup, prefix_map};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 
@@ -54,7 +55,7 @@ impl LoadService {
             ));
 
             // Get the prefix map
-            let prefix_map = self.prefix_map().await?;
+            let prefix_map = prefix_map(&self.db_manager).await?;
 
             // Convert source_type to &str and match against constants
             match source_type.as_str() {
@@ -135,7 +136,7 @@ impl LoadService {
         let mut db_records = Vec::new();
         let batch_date = self.file_manager.extract_and_format_date(&file_name);
         for record in records {
-            let prefix = self.lookup(&prefix_map, record.vlr_number.clone());
+            let prefix = lookup(&prefix_map, record.vlr_number.clone());
 
             let db_record = RoamOutDB {
                 batch_id: batch_id,
@@ -161,47 +162,11 @@ impl LoadService {
 
         insert_fct_roam_out_records(&client).await?;
 
+        delete_stg_roam_out_records(&client, batch_id).await?;
+
         self.db_manager.update_batch(&log_record).await?;
 
         Ok(())
-    }
-
-    pub async fn prefix_map(
-        &self,
-    ) -> Result<HashMap<String, (Option<i32>, Option<i32>)>, AppError> {
-        let prefixes = self.db_manager.select_all_prefixes().await?;
-
-        // We no longer need to use `unwrap_or_default()` for prefix since it is no longer an Option.
-        let prefix_map: HashMap<String, (Option<i32>, Option<i32>)> = prefixes
-            .into_iter()
-            .map(|p| (p.prefix, (p.country_id, p.operator_id))) // Just use p.prefix directly
-            .collect();
-
-        Ok(prefix_map)
-    }
-
-    pub fn lookup(
-        &self,
-        prefix_map: &HashMap<String, (Option<i32>, Option<i32>)>,
-        mut s: String,
-    ) -> Prefixes {
-        while !s.is_empty() {
-            if let Some((country_id, operator_id)) = prefix_map.get(&s) {
-                return Prefixes {
-                    prefix: s.clone(), // Directly use the String, no need for Option
-                    country_id: country_id.clone(),
-                    operator_id: operator_id.clone(),
-                };
-            }
-            s.pop(); // Remove the last character for prefix matching
-        }
-
-        // Default case if no match is found
-        Prefixes {
-            prefix: "".to_string(), // Use empty string, no Option needed
-            country_id: None,
-            operator_id: None,
-        }
     }
 }
 

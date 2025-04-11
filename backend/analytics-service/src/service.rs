@@ -1,3 +1,4 @@
+use crate::repo::test;
 use core::config::ServerConfig;
 use core::db::{DBManager, LogRecord};
 use core::errors::AppError;
@@ -40,6 +41,8 @@ impl AnalyticsService {
                 return Err(e);
             }
         }
+        let client = self.db_manager.get_client().await?;
+        test(&client).await?;
 
         log_record.batch_status = Some("Success".to_string());
 
