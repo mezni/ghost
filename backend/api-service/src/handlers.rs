@@ -1,25 +1,45 @@
-use crate::service::test_service; // Import test_service function
-use actix_web::{HttpResponse, Responder, get, web};
+use actix_web::{get, web, HttpResponse, Responder};
 use core::db::DBManager;
+use crate::service::{health_service, overview_service};
+use serde::Serialize;
+use serde_json::json;
 use std::sync::Arc;
 
-// Health check endpoint that checks if the server is up
-#[get("/health")]
-async fn health_check() -> impl Responder {
-    // You could add a DB check here if needed
-    HttpResponse::Ok().body("Health check passed")
+#[derive(Serialize)]
+struct HealthResponse {
+    status: String,
 }
 
-// Test endpoint that returns a count of rows from the DB
-#[get("/test")]
-async fn test_endpoint(db: web::Data<Arc<DBManager>>) -> impl Responder {
-    match test_service(db.as_ref()).await {
-        Ok(count) => HttpResponse::Ok().body(format!("Count: {}", count)),
-        Err(e) => HttpResponse::InternalServerError().body(format!("Error: {:?}", e)),
+#[derive(Serialize)]
+struct ErrorResponse {
+    error: String,
+}
+
+
+// Health check endpoint
+#[get("/health")]
+async fn health_check() -> impl Responder {
+    // call your health_service (if you want to do more than a static string)
+    let resp = health_service().await;
+    let body = HealthResponse { status: resp.status.to_string() };
+    HttpResponse::Ok().json(body)
+}
+
+
+
+// Overview endpoint returning wrapped data
+#[get("/overview")]
+async fn overview_endpoint(db: web::Data<Arc<DBManager>>) -> impl Responder {
+    match overview_service(db.as_ref()).await {
+        Ok(data) => HttpResponse::Ok().json(json!({ "data": data })),
+        Err(e) => HttpResponse::InternalServerError().json(ErrorResponse {
+            error: format!("{:?}", e),
+        }),
     }
 }
 
-// Add the health check and test endpoints to the service config
 pub fn config(cfg: &mut web::ServiceConfig) {
-    cfg.service(health_check).service(test_endpoint); // Register the health check endpoint
+    cfg
+        .service(health_check)
+        .service(overview_endpoint);
 }
