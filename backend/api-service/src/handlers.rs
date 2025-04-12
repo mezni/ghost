@@ -1,6 +1,6 @@
-use actix_web::{get, web, HttpResponse, Responder};
-use core::db::DBManager;
 use crate::service::{health_service, overview_service};
+use actix_web::{HttpResponse, Responder, get, web};
+use core::db::DBManager;
 use serde::Serialize;
 use serde_json::json;
 use std::sync::Arc;
@@ -15,17 +15,16 @@ struct ErrorResponse {
     error: String,
 }
 
-
 // Health check endpoint
 #[get("/health")]
 async fn health_check() -> impl Responder {
     // call your health_service (if you want to do more than a static string)
     let resp = health_service().await;
-    let body = HealthResponse { status: resp.status.to_string() };
+    let body = HealthResponse {
+        status: resp.status.to_string(),
+    };
     HttpResponse::Ok().json(body)
 }
-
-
 
 // Overview endpoint returning wrapped data
 #[get("/overview")]
@@ -39,7 +38,5 @@ async fn overview_endpoint(db: web::Data<Arc<DBManager>>) -> impl Responder {
 }
 
 pub fn config(cfg: &mut web::ServiceConfig) {
-    cfg
-        .service(health_check)
-        .service(overview_endpoint);
+    cfg.service(health_check).service(overview_endpoint);
 }
