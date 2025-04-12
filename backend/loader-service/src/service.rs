@@ -134,7 +134,7 @@ impl LoadService {
             let prefix = lookup(&prefix_map, record.vlr_number.clone());
 
             let db_record = RoamOutDB {
-                batch_id: batch_id,
+                batch_id: batch_id.clone(),
                 batch_date: batch_date.clone(),
                 imsi: record.imsi,
                 msisdn: record.msisdn,
@@ -150,16 +150,16 @@ impl LoadService {
         let client = self.db_manager.get_client().await?;
         insert_stg_roam_out_records(&client, db_records).await?;
         // Insert IMSI records
-        insert_imsi_records(&client).await?;
+        insert_imsi_records(&client, batch_id.clone()).await?;
 
         // Insert MSISDN records
-        insert_msisdn_records(&client).await?;
+        insert_msisdn_records(&client, batch_id.clone()).await?;
 
-        insert_vlr_records(&client).await?;
+        insert_vlr_records(&client, batch_id.clone()).await?;
 
-        insert_fct_roam_out_records(&client).await?;
+        insert_fct_roam_out_records(&client, batch_id.clone()).await?;
 
-        //        delete_stg_roam_out_records(&client, batch_id).await?;
+        delete_stg_roam_out_records(&client, batch_id.clone()).await?;
 
         log_record.batch_status = Some(BATCH_STATUS_SUCCESS.to_string());
 

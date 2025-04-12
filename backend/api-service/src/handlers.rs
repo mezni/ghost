@@ -1,4 +1,4 @@
-use crate::service::{health_service, overview_service};
+use crate::service::{health_service, overview_service, roam_out_counts_service};
 use actix_web::{HttpResponse, Responder, get, web};
 use core::db::DBManager;
 use serde::Serialize;
@@ -13,6 +13,12 @@ struct HealthResponse {
 #[derive(Serialize)]
 struct ErrorResponse {
     error: String,
+}
+
+#[derive(serde::Serialize)]
+pub struct RoamOutCountResponse {
+    pub date: String,
+    pub count: i64,
 }
 
 // Health check endpoint
@@ -37,6 +43,21 @@ async fn overview_endpoint(db: web::Data<Arc<DBManager>>) -> impl Responder {
     }
 }
 
+#[get("/roam-out-counts")]
+async fn roam_out_counts_endpoint(db: web::Data<Arc<DBManager>>) -> impl Responder {
+    match roam_out_counts_service(db.as_ref()).await {
+        Ok(data) => {
+            // wraps the Vec<RoamOutCountResponse> under "data"
+            HttpResponse::Ok().json(json!({ "data": data }))
+        }
+        Err(e) => HttpResponse::InternalServerError().json(ErrorResponse {
+            error: format!("{:?}", e),
+        }),
+    }
+}
+
 pub fn config(cfg: &mut web::ServiceConfig) {
-    cfg.service(health_check).service(overview_endpoint);
+    cfg.service(health_check)
+        .service(overview_endpoint)
+        .service(roam_out_counts_endpoint);
 }

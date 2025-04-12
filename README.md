@@ -108,3 +108,17 @@ from fct_roam_out ;
       "avg_session_duration": 305.6,
       "count": 8923
     },
+
+
+
+
+Purpose	Current Name	Suggested RESTful Name	Notes
+Health check	/health	/health	👍 Already good – short and standard.
+Overview stats summary	/overview	/stats/overview	Makes it clear it’s a summary/statistical overview.
+Roam out counts by date	/roam-out-counts	/roaming/out/counts-by-date	Resource-oriented, organized under /roaming/out.
+Test DB connection	/test	/debug/db-connection	Descriptive and clearly for debugging or testing.    
+
+
+/stats/roamout-by-date
+/stats/roamout-by-country
+/stats/roamout-by-operator

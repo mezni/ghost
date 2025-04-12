@@ -10,6 +10,7 @@ const INSERT_IMSI_QUERY: &str = "
         imsi
     FROM 
         stg_roam_out stg
+    WHERE batch_id =$1
     EXCEPT
     SELECT roam_type_id, imsi
     FROM dim_imsi
@@ -22,6 +23,7 @@ const INSERT_MSISDN_QUERY: &str = "
         msisdn
     FROM 
         stg_roam_out stg
+    WHERE batch_id =$1    
     EXCEPT
     SELECT roam_type_id, msisdn
     FROM dim_msisdn
@@ -34,6 +36,7 @@ const INSERT_VLR_QUERY: &str = "
         vlr_number
     FROM 
         stg_roam_out stg
+    WHERE batch_id =$1
     EXCEPT
     SELECT roam_type_id, vlr_number
     FROM dim_vlr_number
@@ -46,6 +49,7 @@ FROM
     JOIN dim_msisdn msi ON stg.msisdn = msi.msisdn
     JOIN dim_vlr_number vlr ON stg.vlr_number = vlr.vlr_number
     JOIN dim_time tim ON stg.batch_date = tim.date_text
+    WHERE stg.batch_id =$1
     ";
 
 const DELETE_STG_ROAM_OUT_QUERY: &str = "
@@ -53,34 +57,34 @@ const DELETE_STG_ROAM_OUT_QUERY: &str = "
 ";
 
 // Function to insert IMSI records into the dim_imsi table
-pub async fn insert_imsi_records(client: &Client) -> Result<(), AppError> {
+pub async fn insert_imsi_records(client: &Client, batch_id: i32) -> Result<(), AppError> {
     client
-        .execute(INSERT_IMSI_QUERY, &[])
+        .execute(INSERT_IMSI_QUERY, &[&batch_id])
         .await
         .map_err(AppError::DatabaseError)?;
     Ok(())
 }
 
 // Function to insert MSISDN records into the dim_msisdn table
-pub async fn insert_msisdn_records(client: &Client) -> Result<(), AppError> {
+pub async fn insert_msisdn_records(client: &Client, batch_id: i32) -> Result<(), AppError> {
     client
-        .execute(INSERT_MSISDN_QUERY, &[])
+        .execute(INSERT_MSISDN_QUERY, &[&batch_id])
         .await
         .map_err(AppError::DatabaseError)?;
     Ok(())
 }
 
-pub async fn insert_vlr_records(client: &Client) -> Result<(), AppError> {
+pub async fn insert_vlr_records(client: &Client, batch_id: i32) -> Result<(), AppError> {
     client
-        .execute(INSERT_VLR_QUERY, &[])
+        .execute(INSERT_VLR_QUERY, &[&batch_id])
         .await
         .map_err(AppError::DatabaseError)?;
     Ok(())
 }
 
-pub async fn insert_fct_roam_out_records(client: &Client) -> Result<(), AppError> {
+pub async fn insert_fct_roam_out_records(client: &Client, batch_id: i32) -> Result<(), AppError> {
     client
-        .execute(INSERT_ROAM_OUT_QUERY, &[])
+        .execute(INSERT_ROAM_OUT_QUERY, &[&batch_id])
         .await
         .map_err(AppError::DatabaseError)?;
     Ok(())

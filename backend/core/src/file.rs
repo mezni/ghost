@@ -27,33 +27,28 @@ pub struct FileManager {
 
 impl FileManager {
     pub fn new(config: AppConfig) -> Result<Self, AppError> {
-        let work_base_dir_path = PathBuf::from(&config.work_dir);
+        let work_base_dir_path = PathBuf::from("WORK");
 
-        if !work_base_dir_path.exists() || !work_base_dir_path.is_dir() {
-            return Err(AppError::Unexpected(format!(
-                "Directory does not exist: {}",
-                work_base_dir_path.display()
-            )));
+        // Ensure base directory exists
+        if !work_base_dir_path.is_dir() {
+            fs::create_dir_all(&work_base_dir_path).map_err(AppError::IoError)?;
         }
 
-        let work_process_dir_path = work_base_dir_path.join(PROCESS_DIR_NAME);
-        let work_rejected_dir_path = work_base_dir_path.join(REJECTED_DIR_NAME);
-        let work_processed_dir_path = work_base_dir_path.join(PROCESSED_DIR_NAME);
+        // Subdirectories
+        let work_process_dir = work_base_dir_path.join(PROCESS_DIR_NAME);
+        let work_rejected_dir = work_base_dir_path.join(REJECTED_DIR_NAME);
+        let work_processed_dir = work_base_dir_path.join(PROCESSED_DIR_NAME);
 
-        for dir in [
-            &work_process_dir_path,
-            &work_rejected_dir_path,
-            &work_processed_dir_path,
-        ] {
+        for dir in [&work_process_dir, &work_rejected_dir, &work_processed_dir] {
             fs::create_dir_all(dir).map_err(AppError::IoError)?;
         }
 
         Ok(FileManager {
-            config: config,
+            config,
             work_base_dir: work_base_dir_path,
-            work_process_dir: work_process_dir_path,
-            work_rejected_dir: work_rejected_dir_path,
-            work_processed_dir: work_processed_dir_path,
+            work_process_dir,
+            work_rejected_dir,
+            work_processed_dir,
         })
     }
 

@@ -47,7 +47,6 @@ pub fn read_srv_config() -> Result<ServerConfig, AppError> {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct AppConfig {
-    pub work_dir: String,
     pub sleep_duration_seconds: u64,
     pub sources: Vec<Source>,
 }

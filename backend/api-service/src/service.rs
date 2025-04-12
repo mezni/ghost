@@ -4,6 +4,12 @@ use core::errors::AppError;
 use serde::Serialize;
 
 #[derive(Serialize)]
+pub struct RoamOutCountResponse {
+    pub date: String,
+    pub count: i64,
+}
+
+#[derive(Serialize)]
 pub struct OverviewResponse {
     pub last_date: String,
     pub count_roam_in: i64,
@@ -35,4 +41,22 @@ pub async fn health_service() -> HealthResponse {
     HealthResponse {
         status: "Health check passed",
     }
+}
+
+
+
+/// Fetches the raw `(String, i64)` pairs from repo and wraps them.
+pub async fn roam_out_counts_service(
+    db: &DBManager
+) -> Result<Vec<RoamOutCountResponse>, AppError> {
+    let client = db.get_client().await?;
+    let raw = repo::roam_out_counts(&client).await?;
+    let wrapped = raw
+        .into_iter()
+        .map(|(date, count)| RoamOutCountResponse {
+            date,
+            count: count,
+        })
+        .collect();
+    Ok(wrapped)
 }
