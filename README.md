@@ -93,3 +93,18 @@ CREATE TABLE policy_rules (
 SELECT msisdn 
 FROM fct_roam_out fct
 JOIN dim_msisdn msi on fct.msisdn_id = msi.id
+
+
+date_id | batch_id | country_id | operator_id | imsi_id | msisdn_id | vlr_number_id
+
+select * 
+from fct_roam_out ;
+
+
+    {
+      "country": "US",
+      "platform": "iOS",
+      "sum_revenue": 123456.78,
+      "avg_session_duration": 305.6,
+      "count": 8923
+    },
