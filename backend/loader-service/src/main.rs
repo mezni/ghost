@@ -6,13 +6,13 @@ use core::errors::AppError;
 use core::logger::Logger;
 use service::{LoadService, SERVICE_NAME};
 use std::process;
-
+use tokio::time::{Duration, sleep};
 #[tokio::main]
 async fn main() -> Result<(), AppError> {
     Logger::init();
 
     Logger::info(&format!("{} : Start", SERVICE_NAME));
-
+    let interval_secs: u64 = 60;
     let srv_config = match read_srv_config() {
         Ok(cfg) => {
             Logger::info(&format!("{} : Config Server - loaded", SERVICE_NAME));
@@ -54,14 +54,15 @@ async fn main() -> Result<(), AppError> {
     };
 
     Logger::info(&format!("{} : File - initialized", SERVICE_NAME));
-
-    if let Err(e) = service.execute().await {
-        Logger::warn(&format!(
-            "{} : Service execution failed: {:?}",
-            SERVICE_NAME, e
-        ));
+    loop {
+        if let Err(e) = service.execute().await {
+            Logger::warn(&format!(
+                "{} : Service execution failed: {:?}",
+                SERVICE_NAME, e
+            ));
+        }
+        sleep(Duration::from_secs(interval_secs)).await;
     }
-
     Logger::info(&format!("{} : Stop", SERVICE_NAME));
 
     Ok(())

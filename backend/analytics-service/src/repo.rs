@@ -57,5 +57,5 @@ pub async fn get_next_batch_id(client: &Client) -> Result<Option<i32>, AppError>
         .await
         .map_err(AppError::DatabaseError)?;
 
-    Ok(row.map(|r| r.get(0)))
+    Ok(row.and_then(|r| r.get(0)))
 }

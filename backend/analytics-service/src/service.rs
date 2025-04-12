@@ -25,18 +25,18 @@ impl AnalyticsService {
     }
 
     pub async fn execute(&self) -> Result<(), AppError> {
-        let mut log_record = LogRecord {
-            batch_id: None,
-            batch_name: Some(SERVICE_NAME.to_string()),
-            source_type: None,
-            source_name: None,
-            corr_id: None,
-            batch_status: None,
-        };
-
         let client = self.db_manager.get_client().await?;
 
-        if let Some(corr_id) = get_next_batch_id(&client).await? {
+        while let Some(corr_id) = get_next_batch_id(&client).await? {
+            let mut log_record = LogRecord {
+                batch_id: None,
+                batch_name: Some(SERVICE_NAME.to_string()),
+                source_type: None,
+                source_name: None,
+                corr_id: None,
+                batch_status: None,
+            };
+
             let batch_id = self.db_manager.insert_batch(&log_record).await?;
 
             log_record.batch_id = Some(batch_id);

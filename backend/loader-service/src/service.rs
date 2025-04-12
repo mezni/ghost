@@ -70,7 +70,6 @@ impl LoadService {
                 }
             }
         }
-
         Ok(())
     }
 
@@ -165,7 +164,7 @@ impl LoadService {
         log_record.batch_status = Some(BATCH_STATUS_SUCCESS.to_string());
 
         self.db_manager.update_batch(&log_record).await?;
-
+        self.file_manager.archive_file(&path)?;
         Ok(())
     }
 }

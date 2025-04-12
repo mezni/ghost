@@ -131,4 +131,19 @@ impl FileManager {
         let today = Local::now().format("%Y-%m-%d").to_string();
         today
     }
+
+    pub fn archive_file(&self, source: &Path) -> Result<PathBuf, AppError> {
+        let file_name = source
+            .file_name()
+            .ok_or_else(|| {
+                std::io::Error::new(std::io::ErrorKind::InvalidInput, "Invalid source file name")
+            })
+            .map_err(AppError::IoError)?;
+
+        let destination = self.work_processed_dir.join(file_name);
+
+        std::fs::rename(source, &destination).map_err(AppError::IoError)?;
+
+        Ok(destination)
+    }
 }
