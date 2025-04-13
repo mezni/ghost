@@ -1,30 +1,25 @@
-# === 1. Build Stage ===
-FROM rust:1.76 as builder
+# syntax=docker/dockerfile:1
 
-# Create app directory
+# Use nightly or stable depending on edition (2024 requires nightly)
+FROM rustlang/rust:nightly-bookworm as builder
+
 WORKDIR /app
 
-# Cache dependencies
-COPY Cargo.toml Cargo.lock ./
-RUN mkdir src && echo "fn main() {}" > src/main.rs
-RUN cargo build --release
-RUN rm -r src
-
-# Copy actual source code and build again
+# Copy full workspace (Cargo.toml includes [workspace] and member paths)
 COPY . .
-RUN cargo build --release
 
-# === 2. Runtime Stage ===
-FROM debian:bullseye-slim
+# Build only the api-service binary
+RUN cargo +nightly build --release -p api-service
 
-# Install required system dependencies
-RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+# Runtime stage
+FROM debian:bookworm-slim
 
-# Copy built binary from build stage
-COPY --from=builder /app/target/release/api-service /usr/local/bin/api-service
+# PostgreSQL client libs if needed at runtime
+RUN apt-get update && apt-get install -y libpq5 && rm -rf /var/lib/apt/lists/*
 
-# Expose the port your Rust server listens on
-EXPOSE 3000
+WORKDIR /app
 
-# Start the application
-CMD ["api-service"]
+# Copy the compiled binary
+COPY --from=builder /app/target/release/api-service /app/api-service
+
+ENTRYPOINT ["/app/api-service"]

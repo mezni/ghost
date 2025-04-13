@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AdminLTE | Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css" />
+  <!-- AdminLTE CSS -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css" />
+  <!-- Chart.js -->
+  <script src="plugins/chart.js/Chart.min.js"></script>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <span class="navbar-brand">AdminLTE</span>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="#" class="brand-link">
+      <span class="brand-text font-weight-light">Dashboard</span>
+    </a>
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column">
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <!-- Content Header -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <h1 class="m-0">Welcome to AdminLTE</h1>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+
+        <!-- Row 1: Info Box for Date -->
+        <div class="row">
+          <div class="col-12">
+            <div class="info-box bg-info">
+              <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Date Dernier Chargement</span>
+                <span class="info-box-number" id="last-load-date">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Info Cards -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3 id="roam-out">Loading...</h3>
+                <p>Roamers OUT</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-sign-out-alt"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 id="roam-in">Loading...</h3>
+                <p>Roamers IN</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-sign-in-alt"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3 id="anomalies">Loading...</h3>
+                <p>Anomalies</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3 id="notifications">Loading...</h3>
+                <p>Notifications</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-bell"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<!-- Row 3: Chart -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Roamers Out par date</h3>
+      </div>
+      <div class="card-body">
+        <canvas id="visitorsChart" style="min-height: 250px; height: 250px;"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <strong>&copy; 2025 AdminLTE Starter</strong>
+  </footer>
+
+</div>
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- Custom Script -->
+<script src="script.js"></script>
+
+</body>
+</html>

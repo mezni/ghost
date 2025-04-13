@@ -53,13 +53,14 @@ async fn main() -> Result<(), AppError> {
             .wrap(
                 Cors::default()
                     .allowed_origin("http://localhost:8080")
+                    .allowed_origin("http://frontend:8080")
                     .allow_any_method()
                     .allow_any_header(),
             )
             .app_data(db_data.clone())
             .configure(handlers::config)
     })
-    .bind(("127.0.0.1", 3000))?
+    .bind(("0.0.0.0", 3000))?
     .run()
     .await?;
 
