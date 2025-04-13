@@ -1,0 +1,20 @@
+sleep_duration_seconds: 60
+
+sources:
+  - source_type: xxx
+    source_directory: /home/dali/xxxx
+    file_pattern: ^HSS\d{4}_\d{4}_\d{14}\.txt$
+    post_action: delete
+    archive_directory: /home/dali/yyyy
+
+  - source_type: roam_out
+    source_directory: INPUT/ROUT/
+    file_pattern: ^HSS\d{4}_\d{4}_\d{14}\.txt$
+    post_action: archive
+    archive_directory: ARCHIVE/ROUT/
+
+  - source_type: roam_in
+    source_directory: INPUT/RIN/
+    file_pattern: ^HSS\d{4}_\d{4}_\d{14}\.txt$
+    post_action: archive
+    archive_directory: ARCHIVE/RIN/

@@ -30,6 +30,22 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
 
+  loader-service:
+    build:
+      context: ./source
+      dockerfile: loader-service/Dockerfile
+    image: alpha/loader-service:latest
+    container_name: loader-service
+    volumes:
+      - ./WORK:/app/WORK
+      - ./.env:/app/.env 
+      - ./config/config.yaml:/app/config.yaml 
+    working_dir: /app
+    environment:
+      - RUST_LOG=info
+    networks:
+      - postgres_network  
+
 volumes:
   postgres_data:
 
