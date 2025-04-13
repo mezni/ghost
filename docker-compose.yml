@@ -17,6 +17,19 @@ services:
     networks:
       - postgres_network
 
+  data-generator:
+    build:
+      context: ./source
+      dockerfile: tools/Dockerfile
+    image: alpha/data-generator:latest
+    container_name: data-generator
+    volumes:
+      - ./WORK:/app/WORK
+      - ./config/roam_out_ref.txt:/app/roam_out_ref.txt
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+
 volumes:
   postgres_data:
 
