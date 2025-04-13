@@ -2,18 +2,30 @@
 
 mkdir -p WORK/INPUT/ROUT WORK/ARCHIVE/ROUT WORK/REJECTED/ROUT
 
-docker compose build postgres
-docker compose up postgres -d
+echo "Build"
+docker compose build
+sleep 5
 
-docker compose build data-generator
-docker compose up data-generator
+echo "Start DB"
+docker compose up --no-build postgres -d
+sleep 5
 
-docker compose build loader-service
-docker compose up loader-service -d
+echo "Start data-generator"
+docker compose up --no-build data-generator -d
+sleep 5
 
-docker compose build analytics-service
-docker compose up analytics-service -d
+echo "Start loader"
+docker compose up --no-build loader-service -d
+sleep 5
 
+echo "Start analytics"
+docker compose up --no-build analytics-service -d
+sleep 5
 
-docker compose build api-service
-docker compose up api-service -d
+echo "Start api"
+docker compose up --no-build api-service -d
+sleep 5
+
+echo "Start frontend"
+docker compose up --no-build frontend -d
+sleep 5
