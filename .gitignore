@@ -1,3 +1,5 @@
+ARCHIVE/
+
 # Ignore Rust build output
 target/
 
