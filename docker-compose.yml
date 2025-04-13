@@ -1,0 +1,13 @@
+services:
+  data-generator:
+    build:
+      context: ./source/tools
+      dockerfile: Dockerfile
+    image: alpha/data-generator:latest
+    container_name: data-generator
+    volumes:
+      - ./WORK/INPUT:/app/INPUT
+      - ./init/roam_out_ref.txt:/app/roam_out_ref.txt
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
