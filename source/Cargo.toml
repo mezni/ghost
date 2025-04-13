@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "core",
+    "loader-service",
+    "analytics-service",
+    "api-service"
+]

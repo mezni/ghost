@@ -1,5 +1,6 @@
 #!/bin/bash
 
-mkdir -p WORK/INPUT WORK/ARCHIVE
+mkdir -p WORK/INPUT WORK/ARCHIVE WORK/REJECTED
 
-docker compose up
+docker compose build data-generator
+docker compose up data-generator
