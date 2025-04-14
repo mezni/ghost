@@ -165,6 +165,7 @@ impl LoadService {
 
         self.db_manager.update_batch(&log_record).await?;
         //        self.file_manager.archive_file(&path)?;
+        self.file_manager.delete_file(&path);
         Ok(())
     }
 }

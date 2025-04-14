@@ -32,10 +32,11 @@ impl FileManager {
         for source in &self.config.sources {
             let source_dir = self.work_base_dir.join(&source.source_directory);
             //            println!("{:#?}", source_dir);
-            let files_vec: Vec<_> = match fs::read_dir(&source_dir) {
+            let mut files_vec: Vec<_> = match fs::read_dir(&source_dir) {
                 Ok(files) => files.flatten().collect(),
                 Err(_) => continue,
             };
+            files_vec.sort_by_key(|entry| entry.file_name());
             /*
                         for file in &files_vec {
                             println!("File found: {:?}", file.path());
@@ -103,6 +104,13 @@ impl FileManager {
 
         // Return today's date if no match is found
         Local::now().format("%Y-%m-%d").to_string()
+    }
+
+    pub fn delete_file(&self, path: &Path) -> Result<(), AppError> {
+        if path.exists() {
+            fs::remove_file(path).map_err(AppError::IoError)?;
+        }
+        Ok(())
     }
 
     pub fn archive_file(&self, source: &Path) -> Result<PathBuf, AppError> {
