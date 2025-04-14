@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>AdminLTE | Dashboard</title>
+    <title>Alpha | Overview</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Font Awesome -->
@@ -23,15 +23,24 @@
       <!-- Sidebar -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="#" class="brand-link">
-          <span class="brand-text font-weight-light">Dashboard</span>
+          <span class="brand-text font-weight-light">Alpha</span>
         </a>
         <div class="sidebar">
           <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column">
+              <!-- Overview -->
               <li class="nav-item">
                 <a href="#" class="nav-link active">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>Dashboard</p>
+                  <p>Overview</p>
+                </a>
+              </li>
+
+              <!-- Roam Out -->
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-sign-out-alt"></i>
+                  <p>Roam Out</p>
                 </a>
               </li>
             </ul>
@@ -56,12 +65,10 @@
             <div class="row">
               <div class="col-12">
                 <div class="info-box bg-info">
-                  <span class="info-box-icon"><i
-                      class="far fa-calendar-alt"></i></span>
+                  <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
                   <div class="info-box-content">
                     <span class="info-box-text">Date Dernier Chargement</span>
-                    <span class="info-box-number"
-                      id="last-load-date">Loading...</span>
+                    <span class="info-box-number" id="last-load-date">Loading...</span>
                   </div>
                 </div>
               </div>
@@ -115,16 +122,28 @@
               </div>
             </div>
 
-            <!-- Row 3: Chart -->
+            <!-- Row 3: Charts side by side -->
             <div class="row">
-              <div class="col-md-12">
+              <!-- Roamers Out Chart -->
+              <div class="col-md-6">
                 <div class="card">
                   <div class="card-header">
                     <h3 class="card-title">Roamers Out par date</h3>
                   </div>
                   <div class="card-body">
-                    <canvas id="visitorsChart"
-                      style="min-height: 250px; height: 250px;"></canvas>
+                    <canvas id="visitorsChart" style="min-height: 250px; height: 250px;"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Roamers In Chart -->
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Roamers In par date</h3>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="roamersInChart" style="min-height: 250px; height: 250px;"></canvas>
                   </div>
                 </div>
               </div>

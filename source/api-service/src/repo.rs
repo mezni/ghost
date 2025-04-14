@@ -30,6 +30,20 @@ GROUP BY dt.date_text
 ORDER BY dt.date_text;
 ";
 
+const SELECT_ROAM_OUT_COUNTRY_COUNTS_QUERY: &str = "
+select   t.date_text AS date,
+c.name_en AS country,
+COUNT(*)       AS count
+from fct_roam_out fct 
+join dim_countries c on fct.country_id = c.id 
+join dim_time t on fct.date_id = t.id 
+GROUP BY t.date_text, c.name_en
+ORDER BY count desc;
+";
+
+// Query to get count of roam_in, anomalies, and notifications
+const SELECT_COUNT_ROAM_IN_QUERY: &str = "SELECT COUNT(*) FROM fct_roam_in";
+
 pub async fn last_date(client: &Client) -> Result<String, AppError> {
     let row = client
         .query_one(SELECT_LAST_DATE_QUERY, &[])
@@ -68,4 +82,34 @@ pub async fn roamout_by_date(client: &Client) -> Result<Vec<(String, i64)>, AppE
         .collect();
 
     Ok(results)
+}
+
+pub async fn roamout_by_country(client: &Client) -> Result<Vec<(String, String, i64)>, AppError> {
+    let rows = client
+        .query(SELECT_ROAM_OUT_COUNTRY_COUNTS_QUERY, &[])
+        .await
+        .map_err(AppError::DatabaseError)?;
+
+    let results = rows
+        .into_iter()
+        .map(|row| {
+            let date: String = row.get("date");
+            let country: String = row.get("country");
+            let count: i64 = row.get("count");
+            (date, country, count)
+        })
+        .collect();
+
+    Ok(results)
+}
+
+pub async fn count_roam_in(client: &Client) -> Result<i64, AppError> {
+    let row = client
+        .query_one(SELECT_COUNT_ROAM_IN_QUERY, &[])
+        .await
+        .map_err(AppError::DatabaseError)?;
+
+    let result: i64 = row.get(0);
+
+    Ok(result)
 }

@@ -24,50 +24,58 @@ fetch(`${API_BASE}/api/v1/overview`)
     document.getElementById('roam-in').textContent = stats.count_roam_in;
     document.getElementById('anomalies').textContent = stats.count_anomalies;
     document.getElementById('notifications').textContent = stats.count_notifications;
-
-    // Optionally populate chart with dummy or processed data
-    updateChart([120, 190, 300, 500, 200, 300, 400]); // Static data (can be removed if dynamic below is used)
   })
   .catch(error => {
-    console.error('Error fetching data:', error);
+    console.error('Error fetching overview data:', error);
     document.getElementById('last-load-date').textContent = 'Unavailable';
   });
 
-// Fetch time-series data for chart
 document.addEventListener('DOMContentLoaded', function () {
+  // Fetch Roamers OUT
   fetch(`${API_BASE}/api/v1/roamout-by-date`)
     .then(response => response.json())
     .then(data => {
       const dates = data.data.map(item => item.date);
       const counts = data.data.map(item => item.count);
 
-      // Update the Roamers Out card value
-      document.getElementById('roam-out').textContent = counts[counts.length - 1];
-
       // Update chart
-      updateChartWithLabels(dates, counts);
+      renderLineChart('visitorsChart', 'Roamers Out', dates, counts, '#00c0ef');
     })
     .catch(error => {
       console.error('Error fetching roamout data:', error);
     });
+
+  // Fetch Roamers IN
+  fetch(`${API_BASE}/api/v1/roamin-by-date`)
+    .then(response => response.json())
+    .then(data => {
+      const dates = data.data.map(item => item.date);
+      const counts = data.data.map(item => item.count);
+
+      // Update chart
+      renderLineChart('roamersInChart', 'Roamers In', dates, counts, '#28a745');
+    })
+    .catch(error => {
+      console.error('Error fetching roamin data:', error);
+    });
 });
 
-// Chart update (generic for dynamic data)
-function updateChartWithLabels(labels, dataPoints) {
-  const ctx = document.getElementById('visitorsChart').getContext('2d');
+// Reusable chart rendering function
+function renderLineChart(canvasId, label, labels, dataPoints, color) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
 
   new Chart(ctx, {
     type: 'line',
     data: {
       labels: labels,
       datasets: [{
-        label: 'Roamers Out',
+        label: label,
         data: dataPoints,
-        backgroundColor: 'rgba(0, 192, 239, 0.2)',
-        borderColor: '#00c0ef',
+        backgroundColor: color + '33',
+        borderColor: color,
         borderWidth: 2,
         tension: 0.4,
-        pointBackgroundColor: '#00c0ef'
+        pointBackgroundColor: color
       }]
     },
     options: {

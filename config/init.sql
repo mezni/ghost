@@ -20,6 +20,9 @@ CREATE TABLE IF NOT EXISTS dim_time (
     date_text      TEXT
 );
 
+CREATE INDEX idx_dim_time
+ON dim_time (date_text);
+
 CREATE TABLE IF NOT EXISTS dim_countries (
     id          SERIAL PRIMARY KEY,
     iso         TEXT,

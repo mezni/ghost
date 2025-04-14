@@ -61,6 +61,7 @@ async fn main() -> Result<(), AppError> {
             .configure(handlers::config)
     })
     .bind(("0.0.0.0", 3000))?
+    //    .bind(("127.0.0.1", 3000))?
     .run()
     .await?;
 
