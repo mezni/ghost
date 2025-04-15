@@ -35,6 +35,10 @@ CREATE TABLE IF NOT EXISTS dim_countries (
     updated_by  TEXT
 );
 
+CREATE INDEX idx_dim_countries
+ON dim_countries (name_en);
+
+
 CREATE TABLE IF NOT EXISTS dim_networks (
     id          SERIAL PRIMARY KEY,
     tadig       TEXT,
@@ -217,8 +221,8 @@ WHERE prefix IN (
 -- CLEANUP
 -- =========================
 
--- DROP TABLE load_operators;
--- DROP TABLE load_prefixes;
+DROP TABLE load_operators;
+DROP TABLE load_prefixes;
 
 -- =========================
 -- LOAD DIM_TIME
@@ -260,6 +264,31 @@ CREATE TABLE IF NOT EXISTS batch_execs (
     batch_status TEXT
 );
 
+CREATE INDEX idx_batch_execs
+ON batch_execs (batch_name);
+
+
+CREATE TABLE IF NOT EXISTS rules (
+    id          SERIAL PRIMARY KEY,
+    name TEXT,
+    description       TEXT,
+    is_active BOOLEAN,
+    created_at  TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    created_by  TEXT,
+    updated_at  TIMESTAMPTZ,
+    updated_by  TEXT
+);
+
+CREATE TABLE notifications (
+    id          SERIAL PRIMARY KEY,
+    date_id INT,
+    batch_id       INT,
+    rule_id  INT,
+    ref_id INT,
+    message TEXT
+);
+
+
 
 CREATE TABLE IF NOT EXISTS sor_plan (
     id SERIAL PRIMARY KEY,
@@ -272,6 +301,24 @@ CREATE TABLE IF NOT EXISTS sor_plan (
     updated_at  TIMESTAMPTZ,
     updated_by  TEXT
 );
+
+-- =========================
+-- LOAD CONFIG TABLES
+-- =========================
+
+INSERT INTO rules (name , description, is_active) VALUES ('imsi_is_not_local','IMSI non local',TRUE);
+INSERT INTO rules (name , description, is_active) VALUES ('local_vlr_number','vlr_number Local ',TRUE);
+INSERT INTO rules (name , description, is_active) VALUES ('sor_plan_bar','Barring operator',TRUE);
+INSERT INTO rules (name , description, is_active) VALUES ('sor_plan_deviation','Deviation SoR',TRUE);
+
+INSERT INTO sor_plan (country_id,operator_id,rate, routage)
+VALUES (80,9,15,NULL); -- free
+INSERT INTO sor_plan (country_id,operator_id,rate, routage)
+VALUES (80,10,0,NULL); -- Bouygues
+INSERT INTO sor_plan (country_id,operator_id,rate, routage)
+VALUES (80,11,0,NULL);  -- SFR
+INSERT INTO sor_plan (country_id,operator_id,rate, routage)
+VALUES (80,12,85,NULL);  -- Orange
 
 -- =========================
 -- FACT TABLES
@@ -287,14 +334,8 @@ CREATE TABLE IF NOT EXISTS fct_roam_out (
     vlr_number_id   INT NOT NULL
 );
 
-CREATE INDEX idx_fct_roam_out_date_id
-ON fct_roam_out (date_id);
-
-CREATE INDEX idx_fct_roam_out_country_id
-ON fct_roam_out (country_id);
-
-CREATE INDEX idx_fct_roam_out_operator_id
-ON fct_roam_out (operator_id);
+CREATE INDEX idx_fct_roam_out_1
+ON fct_roam_out (date_id),country_id,operator_id;
 
 CREATE INDEX idx_fct_roam_out_imsi_id
 ON fct_roam_out (imsi_id);
@@ -313,14 +354,8 @@ CREATE TABLE IF NOT EXISTS fct_roam_in (
 );
 
 
-CREATE INDEX idx_fct_roam_in_date_id
-ON fct_roam_in (date_id);
-
-CREATE INDEX idx_fct_roam_in_country_id
-ON fct_roam_in (country_id);
-
-CREATE INDEX idx_fct_roam_in_operator_id
-ON fct_roam_in (operator_id);
+CREATE INDEX idx_fct_roam_in_1
+ON fct_roam_in (date_id, country_id, operator_id);
 
 
 CREATE TABLE IF NOT EXISTS fct_sor_out (
@@ -333,3 +368,5 @@ CREATE TABLE IF NOT EXISTS fct_sor_out (
     percent REAL
 );
 
+CREATE INDEX idx_fct_sor_out_1
+ON fct_roam_in (date_id, country_id, operator_id);
