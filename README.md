@@ -32,14 +32,15 @@ INSERT INTO rules (name , description, is_active) VALUES ('sor_plan_deviation','
 
 
 INSERT INTO notifications (date_id, batch_id,rule_id,ref_id,message) 
-
+SELECT date_id, batch_id, rule_id, ref_id , 'operateur: '||operator||' config: '||rate||' reel: '||percent FROM (
 SELECT 
     agg.date_id, 
     agg.batch_id, 
     (SELECT id FROM rules WHERE name = 'imsi_is_not_local') AS rule_id, 
-    999999999, 
-    COALESCE(pln.rate::float, 0) AS rate,
-    agg.percent
+    999999999 AS ref_id,
+    pln.rate,
+    agg.percent,
+    ope.operator
 FROM 
 (
     SELECT *
@@ -49,8 +50,11 @@ FROM
 ) agg
 LEFT JOIN sor_plan pln 
     ON agg.country_id = pln.country_id 
+    JOIN dim_operators ope ON pln.operator_id = ope.id
     AND agg.operator_id = pln.operator_id
-    AND (agg.percent < COALESCE(pln.rate::float, 0) - 5 OR agg.percent > COALESCE(pln.rate::float, 0) + 5);
+WHERE agg.percent NOT BETWEEN COALESCE(pln.rate::float, 0) - 2 
+                   AND COALESCE(pln.rate::float, 0) + 2);
+
 
 
 
