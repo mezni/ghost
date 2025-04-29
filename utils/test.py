@@ -1,73 +1,40 @@
-import requests
-from bs4 import BeautifulSoup
 import pandas as pd
 
-# URL to scrape
-#url = 'https://en.wikipedia.org/wiki/List_of_mobile_network_operators_in_the_Middle_East_and_Africa'
-#url = 'https://en.wikipedia.org/wiki/List_of_mobile_network_operators_in_Europe'
-#url = 'https://en.wikipedia.org/wiki/List_of_mobile_network_operators_in_Asia_and_Oceania'
-url = 'https://en.wikipedia.org/wiki/List_of_mobile_network_operators_of_the_Americas'
+df_networks = pd.read_csv('mcc-mnc.csv', delimiter=';')
+df_operators = pd.read_csv('operators.csv')
+
+df_networks['PLMN'] = df_networks['PLMN'].astype(int).astype(str)
+#df_networks.loc[df_networks['Brand'].str.contains('zain BH', na=False), 'Brand'] = 'Zain'
+
+print (df_networks.head())
+print (df_operators.head())
+
+df_operators['operator_name_upper'] = df_operators['operator_name'].str.upper()
+df_operators['country_upper'] = df_operators['country'].str.upper()
+df_networks['Brand_upper'] = df_networks['Brand'].str.upper()
+df_networks['Country_upper'] = df_networks['Country'].str.upper()
 
 
-# Fetch page
-response = requests.get(url)
-response.raise_for_status()
 
-# Parse HTML
-soup = BeautifulSoup(response.text, 'html.parser')
-
-# Find all tables
-tables = soup.find_all('table', {'class': 'wikitable'})
-
-# List to collect all scraped data
-data = []
-
-# Loop through tables
-for table in tables:
-    # Get the country name from the previous heading
-    country_heading = table.find_previous(['h2', 'h3']).text.strip()
-    country = country_heading.replace('[edit]', '').strip()
-
-    # Loop through rows of the table
-    for row in table.find_all('tr')[1:]:  # Skip header
-        cols = row.find_all('td')
-        if len(cols) >= 5:
-            operator_id = cols[0].get_text(strip=True)
-            operator_name = cols[1].get_text(strip=True)
-            operator_tech = cols[2].get_text(strip=True)
-            operator_owner = cols[4].get_text(strip=True)
-
-            data.append({
-                'country': country,
-                'operator_id': operator_id,
-                'operator_name': operator_name,
-                'operator_tech': operator_tech,
-                'operator_owner': operator_owner
-            })
-
-# Create DataFrame
-df = pd.DataFrame(data)
+df_operators['operator_name_upper'] = df_operators.apply(
+    lambda row: str(row['operator_name_upper']).replace(str(row['country_upper']), '') if pd.notnull(row['country_upper']) and pd.notnull(row['operator_name_upper']) else row['operator_name_upper'],
+    axis=1
+)
 
 
-# Reorder columns if you want
-df = df[['country',  'operator_name', 'operator_tech', 'operator_owner']]
+df_networks['Brand_upper'] = df_networks.apply(
+    lambda row: str(row['Brand_upper']).replace(str(row['Country_upper']), '') if pd.notnull(row['Country_upper']) and pd.notnull(row['Brand_upper']) else row['Brand_upper'],
+    axis=1
+)
 
-print(df)
-
-# Save to CSV (optional)
-# df.to_csv('mobile_operators_mea.csv', index=False)
-df['operator_name'] = df['operator_name'].str.replace(r'\[.*?\]', '', regex=True).str.strip()
-df['operator_name'] = df['operator_name'].str.replace(r'\(.*?\)', '', regex=True).str.strip()
-#df['operator_name'] = df.apply(lambda row: "" if row['country'] in row['operator_name'] else row['operator_name'], axis=1)
-df['operator_tech'] = df['operator_tech'].str.replace(',', ';')
-df['operator_owner'] = df['operator_owner'].str.replace(',', ';')
-
-df['notes'] = ""
-df['Notes'] = df['operator_name'].str.extract(r'(Includes.*)')
-df['operator_name'] = df['operator_name'].str.replace(r'Includes.*', '', regex=True).str.strip()
-
-list_of_values = df['operator_name'].tolist()
-print (list_of_values)
+result = pd.merge(df_operators, df_networks, how='left',  left_on=['operator_name_upper', 'country_upper'], right_on=['Brand_upper', 'Country_upper'])
 
 
-df.to_csv('xxxx.csv', index=False)
+
+#merged = pd.merge(df_operators, df_networks, on='country_upper').drop('Country_upper', axis=1)
+#result = merged[merged.apply(lambda row: row['operator_name_upper'] in row['Brand_upper'], axis=1)]
+
+result=result[['country','operator_name','operator_owner','notes','2g_flag','3g_flag','lte_flag','MCC','MNC','PLMN','ISO','TADIG']]
+
+print (result.head())
+result.to_csv('xxxx.csv', index=False)

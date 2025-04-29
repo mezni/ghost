@@ -82,5 +82,8 @@ for url in urls:
     else:
         df_combined = pd.concat([df_combined, df], ignore_index=True)
     i=i+1
-#print (df_combined)
-df.to_csv('operators.csv', index=False)
+
+df_combined.to_csv('operators.csv', index=False)
+
+values = sorted(df_combined['operator_name'].unique())
+print(values)
