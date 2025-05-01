@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS global_config (
 
 CREATE TABLE directions (
     direction_id SERIAL PRIMARY KEY,
-    direction VARCHAR(3) NOT NULL,
+    name VARCHAR(3) NOT NULL,
     description TEXT
 );
 
@@ -21,8 +21,8 @@ CREATE TABLE technologies (
 
 INSERT INTO global_config (key, value) VALUES('home_country','Tunisia');
 INSERT INTO global_config (key, value) VALUES('home_operator','Orange');
-INSERT INTO direction (key, value) VALUES('IN','Inbound');
-INSERT INTO direction (key, value) VALUES('OUT','Outbound');
+INSERT INTO directions (name, description) VALUES('IN','Inbound');
+INSERT INTO directions (name, description) VALUES('OUT','Outbound');
 INSERT INTO technologies (name, description) VALUES('2G','2G');
 INSERT INTO technologies (name, description) VALUES('3G','3G');
 INSERT INTO technologies (name, description) VALUES('LTE','LTE');
@@ -88,8 +88,8 @@ CREATE TABLE network_technologies (
 CREATE TABLE prefixes (
     prefix_id SERIAL PRIMARY KEY,
     prefix VARCHAR(10) NOT NULL,
-    country_id INT NOT NULL,
-    operator_id INT NOT NULL,
+    country_id INT,
+    operator_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(100),
     updated_at TIMESTAMP,
@@ -102,6 +102,11 @@ CREATE TABLE prefixes (
 -- CREATE INDEX idx_prefixes_operator ON prefixes(operator_id);
 -- CREATE INDEX idx_networks_operator ON networks(operator_id);
 -- CREATE INDEX idx_operators_country ON operators(country_id);
+
+
+-----------------------------------------------------------------------
+-- Load config: countries
+-----------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS load_countries (
     iso TEXT,
@@ -137,4 +142,9 @@ WHERE
     ldr.prefix_flag = 'X'
     AND TRIM(REPLACE(COALESCE(prefix_item, ''), '-', '')) != '';
 
--- DROP TABLE load_countries;
+DROP TABLE load_countries;
+
+
+-----------------------------------------------------------------------
+-- XXXXX
+-----------------------------------------------------------------------
