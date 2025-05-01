@@ -34,8 +34,8 @@ INSERT INTO technologies (name, description) VALUES('LTE','LTE');
 CREATE TABLE countries (
     country_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    name_en VARCHAR(100) NOT NULL,
-    name_fr VARCHAR(100) NOT NULL,
+    name_en VARCHAR(100),
+    name_fr VARCHAR(100),
     iso VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(100),
