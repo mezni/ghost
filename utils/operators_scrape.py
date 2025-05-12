@@ -109,7 +109,7 @@ for url in urls:
 df_operators=df_combined
 #df_operators['country_upper'] = df_operators['Country'].str.upper()
 #df_operators['operator_upper'] = df_operators['Operator'].str.upper()
-df_operators=df_operators[['Country','Operator','PLMN','tech_2g','tech_3g','tech_lte']]
+df_operators=df_operators[['Country','Operator', 'Brand','PLMN']]
 df_operators = df_operators.sort_values(by=['Country', 'Operator'])
 df_operators.to_csv('operators.csv', index=False)
 

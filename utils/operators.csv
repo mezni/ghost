@@ -1,781 +1,748 @@
-Country,Operator,PLMN,tech_2g,tech_3g,tech_lte
-,ALTEL,,,,X
-,CelcomDigi,,,,X
-,Digital Nasional Berhad,,,,X
-,Dito Telecommunity,,,,X
-,GOMO,,,,
-,Globe Telecom,,X,X,X
-,HelloSIM,,,,
-,MY Evolution,,,,
-,Maxis,,,,X
-,Now Telecom,,,,
-,Pavo Communications,,,,
-,Redtone,,,,
-,Smart Communications,,X,X,X
-,TM,,,,X
-,TNT,,,,X
-,Telin Malaysia,,,,
-,Tune Talk,,,,
-,U Mobile,,,,X
-,Unifi Mobile,,,,X
-,XOX,,,,
-,Yes,,,,X
-,redONE,,,,
-Afghanistan,Afghan Wireless,,X,X,X
-Afghanistan,Etisalat Afghanistan,,X,X,X
-Afghanistan,MTN,,X,X,
-Afghanistan,Roshan,,X,X,
-Afghanistan,Salaam,,X,X,
-Albania,One Albania,27601 27603,X,X,X
-Albania,Vodafone Albania,27602,X,X,X
-Algeria,Djezzy,,X,X,X
-Algeria,Mobilis,,X,X,X
-Algeria,Ooredoo,,X,X,X
-American Samoa,American Samoa Telecommunications Authority,,,,X
-American Samoa,Blue Sky Communications,,X,X,X
-Andorra,Andorra Telecom,21303,,X,X
-Angola,Africell,,,,
-Angola,Movicel,,X,X,X
-Angola,Unitel,,X,X,X
-Anguilla,Digicel,,,X,X
-Anguilla,FLOW,,,X,X
-Antigua and Barbuda,APUA,,,,X
-Antigua and Barbuda,Digicel,,X,X,X
-Antigua and Barbuda,FLOW,,X,X,X
-Argentina,Claro,,X,X,X
-Argentina,Movistar,,X,X,X
-Argentina,Nuestro,,,,
-Argentina,Personal,,X,X,X
-Argentina,Tuenti,,,,
-Armenia,Team,28301,X,X,X
-Armenia,Ucom,28310,X,X,X
-Armenia,Viva Armenia,28305,X,X,X
-Aruba,Digicel,,X,X,
-Aruba,SetarNV,,X,X,X
-Australia,Optus,,,,X
-Australia,Telstra,,,,X
-Australia,Vodafone AU,,,,X
-Austria,A1,23201,X,X,X
-Austria,Drei,23205,X,X,X
-Austria,Magenta Telekom,23203,X,X,X
-Azerbaijan,Azercell,40001,X,X,X
-Azerbaijan,Bakcell,40002,X,X,X
-Azerbaijan,Nakhtel,40006,X,X,X
-Azerbaijan,Nar,40004,X,X,X
-Bahamas,Aliv,,,X,X
-Bahamas,BTC,,X,X,X
-Bahrain,Batelco,,X,X,X
-Bahrain,Zain,,X,X,X
-Bahrain,stc,,X,X,X
-Bangladesh,Banglalink,,X,,X
-Bangladesh,Citycell,,,,
-Bangladesh,Grameenphone,,X,,X
-Bangladesh,Robi,,X,,X
-Bangladesh,Teletalk,,X,X,X
-Barbados,Digicel,,X,X,X
-Barbados,FLOW,,X,X,X
-Belarus,A1,25701,X,X,X
-Belarus,Life,25704,X,X,X
-Belarus,MTS,25702,X,X,X
-Belgium,Base/Telenet,20620,X,X,X
-Belgium,DIGI,20612,,,X
-Belgium,Orange,20610,X,X,X
-Belgium,Proximus,20601,X,X,X
-Belize,Digi,,X,X,X
-Belize,Smart,,,,X
-Benin,BBcom,,X,,
-Benin,Glo,,X,,
-Benin,Libercom,,X,,
-Benin,MTN,,X,X,X
-Benin,Moov,,X,X,X
-Bermuda,Digicel,,X,X,X
-Bermuda,One,,X,X,X
-Bhutan,B-Mobile,,X,X,X
-Bhutan,TashiCell,,X,X,X
-Bolivia,Entel,,X,X,X
-Bolivia,Tigo,,X,X,X
-Bolivia,Viva,,X,X,
-Bonaire,Digicel,,X,X,X
-Bonaire,FLOW,,X,X,X
-Bosnia and Herzegovina,BH Mobile,21890,X,X,X
-Bosnia and Herzegovina,HT ERONET,21803,X,X,X
-Bosnia and Herzegovina,haloo,21803,X,X,X
-Bosnia and Herzegovina,m:tel,21805,X,X,X
-Botswana,Mascom,,X,X,X
-Botswana,Orange,,X,X,X
-Botswana,btc,,X,X,
-Bougainville,PNG dataco,,X,X,X
-Brazil,Algar Telecom,,X,X,X
-Brazil,Claro,,X,X,X
-Brazil,Surf,,,,X
-Brazil,TIM,,X,X,X
-Brazil,Vivo,,X,X,X
-British Virgin Islands,CCT,,X,X,X
-British Virgin Islands,Digicel,,X,X,X
-British Virgin Islands,FLOW,,X,X,X
-Brunei,Datastream Technology Sdn Bhd,,X,X,X
-Brunei,Progresif Cellular Sdn Bhd,,,X,
-Bulgaria,A1,28401,X,X,X
-Bulgaria,Vivacom,28403,X,X,X
-Bulgaria,Yettel,28405,X,X,X
-Burkina Faso,Orange,,X,X,
-Burkina Faso,Telecel Faso,,X,,
-Burkina Faso,Telmob,,X,X,
-Burundi,Econet Leo,,X,X,X
-Burundi,Lumitel,,X,X,X
-Burundi,ONAMOB,,X,,
-Burundi,Smart Mobile,,X,X,
-Cambodia,Cellcard,,X,X,X
-Cambodia,Metfone,,X,X,X
-Cambodia,Smart,,X,X,X
-Cameroon,Camtel,,X,,
-Cameroon,MTN,,X,,X
-Cameroon,Nexttel,,X,X,
-Cameroon,Orange,,X,,X
-Cameroon,YooMee,,,,
-Canada,Bell,,,X,X
-Canada,Rogers,,X,X,X
-Canada,SaskTel,,,X,X
-Canada,Telus,,,X,X
-Canada,Vidéotron,,,X,X
-Cape Verde,CV Móvel,,X,X,
-Cape Verde,T-MAIS,,X,,
-Cayman Islands,Digicel,,X,X,X
-Cayman Islands,FLOW Cayman,,X,X,X
-Central African Republic,Moov Africa,,X,,
-Central African Republic,Orange,,X,X,
-Central African Republic,azur,,X,,
-Central African Republic,telecel,,X,,
-Chad,Airtel,,X,X,X
-Chad,Moov,,X,X,X
-Chile,Claro,,X,X,X
-Chile,Entel,,X,X,X
-Chile,GTD/Telsur Móvil,,,,
-Chile,Movistar,,X,X,X
-Chile,Mundo Móvil,,,,
-Chile,VTR Móvil,,,,
-Chile,Virgin Mobile,,,,
-Chile,WOM,,,X,X
-China (mainland),China Broadnet,,,,X
-China (mainland),China Mobile,,X,,X
-China (mainland),China Telecom,,,,X
-China (mainland),China Unicom,,,X,X
-Colombia,Claro,,,X,X
-Colombia,ETB,,,X,X
-Colombia,Flash Móvil,,,X,X
-Colombia,Movistar,,,X,X
-Colombia,Móvil Éxito,,,X,X
-Colombia,Suma Móvil,,,X,X
-Colombia,Tigo,,,X,X
-Colombia,Virgin Mobile,,,X,X
-Colombia,WOM,,,X,X
-Comoros,HURI,,X,X,X
-Comoros,Telma,,X,,X
-Congo,Airtel,,X,X,X
-Congo,Azur,,X,,
-Congo,MTN,,X,X,X
-Cook Islands,Vodafone,,X,X,X
-Costa Rica,Claro,,X,X,X
-Costa Rica,Fullmóvil,,X,X,
-Costa Rica,Kölbi,,X,X,X
-Costa Rica,Liberty,,X,X,X
-Costa Rica,Tuyo Móvil,,X,X,
-Croatia,A1,21910,X,X,X
-Croatia,Hrvatski Telekom,21901,X,,X
-Croatia,Telemach,21902,X,X,X
-Cuba,Cubacel,,X,X,X
-Curaçao,Digicel,,X,X,X
-Curaçao,FLOW,,X,X,X
-Czech Republic,O 2,23002,X,,X
-Czech Republic,T-Mobile,23001,X,,X
-Czech Republic,Vodafone,23003,X,,X
-Democratic Republic of the Congo,Africell,,X,X,
-Democratic Republic of the Congo,Airtel,,X,X,
-Democratic Republic of the Congo,Orange,,X,X,
-Democratic Republic of the Congo,SemaTel,,X,,
-Democratic Republic of the Congo,Smile,,,,X
-Democratic Republic of the Congo,Supercell,,X,,
-Democratic Republic of the Congo,U-Com,,,,
-Democratic Republic of the Congo,Vodacom,,X,X,
-Denmark,3,23806,X,X,X
-Denmark,TDC,23801,X,X,X
-Denmark,Telenor,23802,X,X,X
-Denmark,Telia,23820,X,,X
-Djibouti,Evatis,,X,X,
-Dominica,Digicel,,X,X,X
-Dominica,FLOW,,X,X,X
-Dominican Republic,Claro,,X,X,X
-Dominican Republic,Viva,,X,,
-Dominican Republic,altice,,X,X,X
-Ecuador,Claro,,X,X,X
-Ecuador,Cnt,,X,X,X
-Ecuador,Movistar,,X,X,X
-Ecuador,Tuenti,,,,
-Egypt,Etisalat,,X,X,X
-Egypt,Orange,,X,X,X
-Egypt,Vodafone Egypt,,X,X,X
-Egypt,We,,X,X,X
-El Salvador,Claro,,X,X,
-El Salvador,Digicel,,X,X,
-El Salvador,Movistar,,X,X,X
-El Salvador,RED,,,,
-El Salvador,Tigo,,X,X,X
-Equatorial Guinea,Gecomsa,,,,
-Equatorial Guinea,Muni,,X,X,
-Equatorial Guinea,Orange,,X,,
-Eritrea,Eritel,,X,,
-Estonia,Elisa,24802,X,,X
-Estonia,Tele2,24803,X,X,X
-Estonia,Telia,24801,X,X,X
-Eswatini,Eswatini Mobile,,,,X
-Eswatini,MTN,,X,X,X
-Ethiopia,Ethiotelecom,,X,X,X
-Ethiopia,Safaricom Telecommunications Ethiopia,,,,
-Falkland Islands,Sure,,X,,
-Faroe Islands,Føroya Tele,28801,X,X,X
-Faroe Islands,Nema,28802,X,X,X
-Faroe Islands,Tosa,28803,X,X,X
-Fiji,Digicel,,X,X,X
-Fiji,Vodafone,,X,X,X
-Finland,DNA,24403 24404 24412 24413 24436 (SYV [2] ),X,X,X
-Finland,Elisa,24405 24406 24421,X,X,X
-Finland,Telia,24420 24436 (SYV [3] ) 24491,X,X,X
-Finland,Ålcom,24414,X,X,X
-France,Bouygues Telecom,20820,X,X,X
-France,Free Mobile,20815,X,X,X
-France,Orange,20801,X,X,X
-France,SFR,20810,X,X,X
-France (Saint-Pierre-et-Miquelon),Globatel,,,,
-France (Saint-Pierre-et-Miquelon),SPM Telecom,30801,X,,
-French Polynesia,VINI,,,X,X
-French Polynesia,VITI,,,,X
-French Polynesia,Vodafone,,,,X
-Gabon,Airtel,,X,X,X
-Gabon,Moov Africa Gabon Telecom,,X,,
-Gambia,Africell,,X,X,X
-Gambia,Comium,,X,,
-Gambia,Gamcel,,X,,
-Gambia,Qcell,,X,X,
-Georgia,A-Mobile,28988 (MCC is not listed by ITU),X,X,X
-Georgia,Aquafon,28967 (MCC is not listed by ITU),X,X,X
-Georgia,Cellfie,28204,X,X,X
-Georgia,Magticom,28202,X,X,X
-Georgia,MegaFon,25002,X,X,X
-Georgia,Silknet,28201,X,X,X
-Georgia,,,,,
-Georgia,,,,,
-Germany,1&1,26223,,,X
-Germany,O 2,26203,X,,X
-Germany,Telekom,26201,X,,X
-Germany,Vodafone Germany,26202,X,,X
-Ghana,AirtelTigo,,,,
-Ghana,Glo,,X,X,
-Ghana,MTN,,X,X,X
-Ghana,Vodafone Ghana,,X,X,X
-Gibraltar,Gibtelecom,26601,X,X,X
-Greece,COSMOTE,"20201, 20202",X,,X
-Greece,NOVA,"20209 (Q-TELECOM), 20210 (NOVA)",X,,X
-Greece,Vodafone,"20205 (Vodafone), 20214 (CYTA Hellas)",X,,X
-Greenland,tusass,29001,X,X,X
-Grenada,Digicel,,X,X,X
-Grenada,FLOW,,X,X,X
-"Guadeloupe, Martinique and French Guiana (Guyane)",Digicel,,X,X,X
-"Guadeloupe, Martinique and French Guiana (Guyane)",IEC Telecom,,X,X,X
-"Guadeloupe, Martinique and French Guiana (Guyane)",Orange Caraïbe,,X,X,X
-"Guadeloupe, Martinique and French Guiana (Guyane)",Outremer Telecom,,X,X,X
-"Guadeloupe, Martinique and French Guiana (Guyane)",SFR Caraïbe,,X,X,X
-Guam,Docomo Pacific,,X,X,X
-Guam,GTA,,X,X,X
-Guam,IT&E and Iconnect,,,X,X
-Guatemala,Claro,,X,X,
-Guatemala,Tigo,,X,X,X
-Guernsey,Airtel-Vodafone,23403,X,X,X
-Guernsey,JT,23450,X,X,X
-Guernsey,Sure,23455,X,X,X
-Guinea,Cellcom Guinée,,X,X,
-Guinea,Intercel,,X,,
-Guinea,MTN,,X,X,
-Guinea,Orange,,X,,
-Guinea,Sotelgui,,X,,
-Guinea-Bissau,Guinetel,,X,,
-Guinea-Bissau,MTN,,X,X,X
-Guinea-Bissau,Orange,,X,,X
-Guyana,Digicel,,X,X,X
-Guyana,gtt,,X,,
-Haiti,Digicel,,X,X,
-Haiti,NATCOM,,X,X,X
-Honduras,Claro,,X,X,X
-Honduras,HONDUTEL,,X,,
-Honduras,Tigo,,X,X,X
-Hong Kong,3,,,X,X
-Hong Kong,CMHK,,X,X,X
-Hong Kong,SmarTone,,,X,X
-Hong Kong,csl,,X,X,X
-Hungary,Magyar Telekom,21630,X,,X
-Hungary,One,21670,X,,X
-Hungary,Yettel,21601,X,,X
-Iceland,Nova,27411,,X,X
-Iceland,Síminn,27401,X,X,X
-Iceland,Vodafone,27402,X,X,X
-India,Airtel,,X,,X
-India,BSNL,,X,,X
-India,Jio,,,,X
-India,MTNL,,X,X,
-India,Vi,,X,,X
-Indonesia,Indosat Ooredoo Hutchison,"51001, 51021 and 51089",X,,X
-Indonesia,Telkomsel,51010,X,,X
-Indonesia,XLSmart,"51009, 51011 and 51028",X,,X
-Iran,Hamrahe Aval,,X,,X
-Iran,Irancell,,X,,X
-Iran,RighTel,,,,X
-Iraq,Asia Cell,,X,,
-Iraq,Itisaluna,,,,
-Iraq,Korek,,X,,
-Iraq,Omnnea,,,,
-Iraq,Zain,,X,,X
-Ireland,Three,"27205 (Three), 27202 (O 2 )",X,X,X
-Ireland,Vodafone,27201,X,X,X
-Ireland,eir,27203,X,X,X
-Isle of Man,Manx Telecom,23458,X,X,X
-Isle of Man,Sure,23436,X,X,X
-Italy,Fastweb,22208,,,X
-Italy,Iliad,22250,,X,X
-Italy,TIM,22201,X,,X
-Italy,Vodafone Italy,22210,X,,X
-Italy,Wind Tre,22288 and 22299,X,X,X
-Ivory Coast,GreenN,,X,,
-Ivory Coast,Koz,,X,,
-Ivory Coast,MTN,,X,X,X
-Ivory Coast,Mobile Cafe,,X,,
-Ivory Coast,Moov,,X,X,
-Ivory Coast,Orange,,X,X,X
-Ivory Coast,Warid,,X,,
-Ivory Coast,YooMee,,,,X
-Jamaica,Digicel,,X,X,X
-Jamaica,FLOW,,,X,X
-Japan,Disney Mobile,,,X,X
-Japan,IIJmio,,,,
-Japan,NTT Docomo,,,,X
-Japan,Rakuten Mobile,,,,X
-Japan,SoftBank Corp. & Ymobile,,,,X
-Japan,au,,,,X
-Japan,b-mobile,,,X,X
-Jersey,Airtel-Vodafone,23403,X,X,X
-Jersey,JT,23450,X,X,X
-Jersey,Sure,23455,X,X,X
-Jordan,Orange Jordan,,X,X,X
-Jordan,Umniah,,X,X,X
-Jordan,Zain Jordan,,X,X,X
-Kazakhstan,Beeline,40101,X,X,X
-Kazakhstan,Forte Mobile,,X,X,X
-Kazakhstan,Kcell,40102,X,X,X
-Kazakhstan,Tele2 Kazakhstan,40177,X,X,X
-Kenya,Airtel Kenya,,X,X,X
-Kenya,Jamii Telecommunications,,,,X
-Kenya,Safaricom,,X,X,X
-Kenya,Telkom Kenya,,X,X,X
-Kosovo,Ipko,22102,X,X,X
-Kosovo,Vala,22101,X,X,X
-Kuwait,Ooredoo,,X,X,X
-Kuwait,Saudi Telecom Company,,X,X,X
-Kuwait,Zain,,X,X,X
-Kyrgyzstan,Beeline,43701,X,X,
-Kyrgyzstan,Fonex,43703,,,
-Kyrgyzstan,Katel,,,,
-Kyrgyzstan,MegaCom,43705,X,X,X
-Kyrgyzstan,Nexi,,,,
-Kyrgyzstan,O!,43709,X,X,X
-Kyrgyzstan,Saima Telecom,43710,,,
-Kyrgyzstan,Sapat Mobile,,,,
-Kyrgyzstan,iTel,43711,,,
-Laos,ETL,,X,X,
-Laos,Lao Telecom,,X,X,X
-Laos,TPLUS,,X,X,
-Laos,Unitel,,X,X,X
-Latvia,Bitė,24705,X,X,X
-Latvia,LMT,24701,X,X,X
-Latvia,Tele2,24702,X,X,X
-Latvia,Triatel,24703,,,
-Latvia,Xomobile,24709,,,
-Lebanon,Alfa,,X,X,X
-Lebanon,touch,,X,X,X
-Lesotho,Econet Telecom Lesotho,,X,X,
-Lesotho,Vodacom,,X,X,X
-Liberia,LTC Mobile,,,,
-Liberia,Lonestar Cell MTN,,X,,
-Liberia,Novafone,,X,X,
-Liberia,Orange,,X,X,X
-Libya,Almadar Aljadid,,X,X,X
-Libya,Libyana,,X,X,X
-Liechtenstein,7acht,29502,X,X,X
-Liechtenstein,FL1,29505,X,X,X
-Liechtenstein,Swisscom FL,29501,X,X,X
-Lithuania,Bitė,24602 24608 • includes the previous Mezon network.,X,,X
-Lithuania,Tele2,24603,X,,X
-Lithuania,Telia Lietuva,24601,X,,X
-Luxembourg,Luxembourg Online,27005,,X,
-Luxembourg,Orange,27099,X,X,X
-Luxembourg,POST,27001,X,X,X
-Luxembourg,Tango,27077,X,X,X
-Macau,3 Macau,,,X,X
-Macau,CTM,,,X,X
-Macau,China Telecom,,,,X
-Madagascar,Airtel,,X,X,X
-Madagascar,Blueline,,,,X
-Madagascar,Orange,,X,,X
-Madagascar,Telma Mobile,,X,X,X
-Malawi,Access,,X,,X
-Malawi,Airtel,,X,X,X
-Malawi,G-Expresso,,X,,
-Malawi,G-Mobile,,X,,
-Malawi,Lacell,,X,,
-Malawi,MTL,,,,X
-Malawi,TNM,,X,X,X
-Maldives,Dhiraagu,,X,X,X
-Maldives,Ooredoo Maldives,,X,X,X
-Mali,Moov Africa Malitel,,X,X,
-Mali,Orange,,X,X,
-Mali,Planor,,X,,
-Malta,Epic,27801,X,X,X
-Malta,GO,27821,X,X,X
-Malta,Melita,27877,,X,X
-Marshall Islands,NTA,,X,X,X
-Mauritania,Chinguitel,,X,X,
-Mauritania,MATTEL,,X,X,X
-Mauritania,Moov Mauritel,,X,X,X
-Mauritius,CHiLi,,X,X,
-Mauritius,Emtel,,X,X,X
-Mauritius,Mauritius Telecom,,X,X,X
-Mexico,AT&T Mexico,,,X,X
-Mexico,Cierto,,X,X,
-Mexico,Flash Mobile,,X,X,X
-Mexico,Maz Tiempo,,X,X,
-Mexico,Movistar,,,X,X
-Mexico,Oui Móvil,,X,X,X
-Mexico,QBO Cel,,X,X,
-Mexico,Red Compartida,,,,X
-Mexico,Telcel,,X,X,X
-Mexico,Virgin Mobile,,X,X,X
-Mexico,weex,,X,X,X
-"Micronesia, Federated States of",FSM Telecom,,X,X,
-Moldova,Interdnestrcom operating in Transnistria region only,25906,,,X
-Moldova,Moldcell,25902,X,X,X
-Moldova,Moldtelecom,"25903,25905,25999",,X,X
-Moldova,Orange,25901,X,X,X
-Monaco,Monaco Telecom,21210,X,X,X
-Mongolia,G-Mobile,,,X,
-Mongolia,Mobicom,,X,X,X
-Mongolia,Skytel,,,X,
-Mongolia,Unitel,,X,X,X
-Montenegro,Crnogorski Telekom,29702,X,,X
-Montenegro,One Montenegro,29701,X,X,X
-Montenegro,m:tel,29703,X,X,X
-Montserrat,Digicel,,X,X,X
-Montserrat,FLOW,,X,X,
-Morocco,Maroc Telecom,,X,X,X
-Morocco,Orange Morocco,,X,X,X
-Morocco,inwi,,X,X,X
-Mozambique,Movitel,,X,,
-Mozambique,Tmcel,,X,X,
-Mozambique,Vodacom,,X,X,
-Myanmar,ATOM,,X,X,X
-Myanmar,MPT,,X,X,X
-Myanmar,Mytel,,X,,X
-Myanmar,Ooredoo,,X,X,X
-Namibia,MTC,,X,X,X
-Namibia,TN Mobile,,X,X,X
-Nauru,Digicel,,X,X,X
-Nepal,Ncell,,X,X,X
-Nepal,Nepal Telecom,,X,X,X
-Nepal,SmartCell,,X,,X
-Netherlands,KPN,20408,X,,X
-Netherlands,Odido,20416 and 20402,,X,X
-Netherlands,Vodafone,20404,X,,X
-New Caledonia,Mobilis,,X,X,X
-New Zealand,2degrees,,,X,X
-New Zealand,Compass Mobile,,,X,X
-New Zealand,Contact Mobile,,X,X,X
-New Zealand,Kiwi Mobile,,,X,X
-New Zealand,Kogan Mobile,,X,X,X
-New Zealand,Mighty Mobile,,X,X,X
-New Zealand,One NZ,,X,X,X
-New Zealand,Rocket Mobile,,X,X,X
-New Zealand,Skinny,,,X,X
-New Zealand,Slingshot Mobile,,,X,X
-New Zealand,Spark,,,X,X
-New Zealand,Warehouse Mobile,,,X,X
-Nicaragua,Claro,,X,X,X
-Nicaragua,Tigo,,X,X,X
-Niger,Airtel,,X,,
-Niger,Moov Africa Niger,,X,,
-Niger,Niger Telecoms,,X,,
-Niger,Zamani Telecom,,X,X,
-Nigeria,9mobile,,X,X,X
-Nigeria,Airtel,,X,X,X
-Nigeria,Glo Mobile,,X,X,X
-Nigeria,MTN,,X,X,X
-Niue,Telecom Niue,,X,,X
-Norfolk Island,Norfolk Telecom,,,X,X
-North Korea,Kangsong NET,,,X,X
-North Korea,Koryolink,,,X,
-North Macedonia,A1,29403,X,X,X
-North Macedonia,Telekom,29401,X,X,X
-Northern Mariana Islands,Docomo Pacific,,X,X,X
-Northern Mariana Islands,IT&E,,X,X,X
-Norway,Ice,"24214, 24206",,,X
-Norway,Telenor,24201,X,,X
-Norway,Telia,24202,X,,X
-Oman,Omantel,,X,X,X
-Oman,Ooredoo,,X,X,X
-Palau,PalauCel,552-01,,X,X
-Palestine,Jawwal,,X,X,
-Palestine,Ooredoo,,X,X,
-Panama,+móvil,,X,X,X
-Panama,Tigo,,X,X,X
-Papua New Guinea,BMobile,,X,X,
-Papua New Guinea,Digicel,,X,X,X
-Papua New Guinea,Telikom PNG,,X,,X
-Paraguay,Claro,,X,X,X
-Paraguay,Personal,,X,X,X
-Paraguay,Tigo,,X,X,X
-Paraguay,VOX,,X,X,X
-Peru,ASU MOBILE,,X,X,X
-Peru,Bitel,,,X,X
-Peru,Claro,,X,X,X
-Peru,Cuy Móvil,,,,
-Peru,Entel,,,X,X
-Peru,Movistar,,X,X,X
-Peru,UNION TELECOM,,X,X,X
-Poland,Orange,26003,X,X,X
-Poland,Play,26006,X,X,X
-Poland,Plus,26001,X,X,X
-Poland,T-Mobile,26002,X,,X
-Portugal,DIGI,26802,,,
-Portugal,MEO,26806,X,X,X
-Portugal,NOS,26803,X,X,X
-Portugal,Vodafone,26801,X,X,X
-Puerto Rico and United States Virgin Islands,Claro,,X,X,X
-Puerto Rico and United States Virgin Islands,Liberty,,,X,X
-Puerto Rico and United States Virgin Islands,T-Mobile,,,,
-Puerto Rico and United States Virgin Islands,TracFone Wireless,,X,,
-Qatar,Ooredoo,,X,X,X
-Qatar,Vodafone,,X,X,X
-Romania,Digi,22605,X,,X
-Romania,Orange,22610,X,X,X
-Romania,Telekom,22603,X,,X
-Romania,Vodafone,22601,X,X,X
-Rwanda,Airtel,,X,X,X
-Rwanda,MTN Rwanda,,X,X,X
-Rwanda,Rwandatel,,X,X,
-Réunion,FREE,,X,X,
-Réunion,Orange,,X,X,X
-Réunion,SFR,,X,X,X
-Saint Helena,Sure,,X,,X
-Saint Kitts and Nevis,Digicel,,X,X,
-Saint Kitts and Nevis,FLOW,,X,X,X
-Saint Lucia,Digicel,,X,X,
-Saint Lucia,FLOW,,X,X,X
-Saint Lucia,NTRC,,X,X,X
-Saint Lucia,SLICTA,,X,X,X
-Saint Vincent and the Grenadines,Bouygues,,X,X,
-Saint Vincent and the Grenadines,Digicel,,X,X,
-Saint Vincent and the Grenadines,FLOW,,X,X,
-Samoa,Digicel,,X,X,X
-Samoa,Vodafone Samoa,,X,,X
-San Marino,Prima,29201,X,X,
-San Marino,TIM San Marino,22201,X,X,X
-San Marino,Telefonia Mobile Sammarinese,22201,X,X,X
-Saudi Arabia,Lebara Mobile KSA,,X,X,X
-Saudi Arabia,Mobily,,X,X,X
-Saudi Arabia,Virgin mobile KSA,,X,X,X
-Saudi Arabia,Zain,,X,X,X
-Saudi Arabia,stc,,X,X,X
-Senegal,Expresso,,X,X,
-Senegal,Free,,X,X,X
-Senegal,Hayo Telecom,,X,X,
-Senegal,Orange,,X,X,X
-Serbia,A1,22005,X,X,X
-Serbia,MTS,22003,X,X,X
-Serbia,Yettel,22001,X,X,X
-Seychelles,Airtel,,X,X,X
-Seychelles,Cable & Wireless,,X,,
-Sierra Leone,Africell,,X,X,
-Sierra Leone,Comium,,X,,
-Sierra Leone,GreenN,,X,,
-Sierra Leone,Orange,,X,X,X
-Sierra Leone,Qcell,,X,X,
-Sierra Leone,Sierratel,,,,
-Singapore,Changi Mobile,,,,X
-Singapore,China Mobile CMLink SG,,,,X
-Singapore,China Unicom CUniq SG,,,,X
-Singapore,Circles.Life,,,,X
-Singapore,GRID Communications,,,,
-Singapore,Geenet Mobile,,,,X
-Singapore,M1 with a digital sub-brand Maxx,,,,X
-Singapore,MyRepublic,,,,X
-Singapore,SIMBA,,,,X
-Singapore,Singtel Mobile with digital sub-brands GOMO and heya,,,,X
-Singapore,StarHub with digital sub-brands giga! and eight telecom,,,,X
-Singapore,VIVIFI,,,,X
-Singapore,ZYM Mobile,,,,X
-Singapore,Zero1,,,,X
-Singapore,redONE,,,,X
-Slovakia,4ka,23103,X,,X
-Slovakia,O 2,23106,X,X,X
-Slovakia,Orange,"23101, 23105",X,,X
-Slovakia,Telekom,"23102, 23104",X,,X
-Slovenia,A1,29340,X,,X
-Slovenia,T-2,29364,,X,X
-Slovenia,Telekom Slovenije,29341,X,,X
-Slovenia,Telemach,29370,X,X,X
-Solomon Islands,Our Telekom,,X,X,X
-Somalia,Golis Telecom Somalia,,X,,
-Somalia,Hormuud,,X,X,X
-Somalia,Nationlink,,X,,
-Somalia,Netco,,X,,
-Somalia,SomNet,,X,,X
-Somalia,Somafone,,X,,
-Somalia,Somtel,,X,X,X
-Somalia,Telcom Somalia,,X,X,X
-Somalia,Telesom Mobile,,X,X,
-South Africa,Cell C,,X,X,X
-South Africa,MTN,,X,X,X
-South Africa,Rain,,,,X
-South Africa,Telkom,,X,X,X
-South Africa,Vodacom,,X,X,X
-South Korea,KT,,,X,X
-South Korea,LG U +,,,,X
-South Korea,SK Telecom,,,X,X
-South Sudan,Gemtel,,X,,
-South Sudan,MTN,,X,X,
-South Sudan,Sudani,,X,X,
-South Sudan,Vivacell,,X,,
-South Sudan,Zain,,X,X,
-Spain,DIGI,21422,,,X
-Spain,Movistar,21407,X,X,X
-Spain,MásOrange,21403 21404,X,X,X
-Spain,Vodafone,21401,X,X,X
-Sri Lanka,Dialog,413-02,X,,X
-Sri Lanka,Hutch,413-08,X,X,X
-Sri Lanka,SLTMobitel,413-01,X,X,X
-Sudan,Canar,,,,
-Sudan,MTN,,X,X,X
-Sudan,Sudani,,X,X,
-Sudan,Zain,,X,X,X
-Suriname,Digicel,,X,X,
-Suriname,Telesur,,X,X,X
-Sweden,Tele2,24007,X,X,X
-Sweden,Telenor,24008,X,X,X
-Sweden,Telia,24001,X,X,X
-Sweden,Tre,24002,,X,X
-Switzerland,Salt,22803,,X,X
-Switzerland,Sunrise,22802,,X,X
-Switzerland,Swisscom,22801,,X,X
-Syria,MTN,,X,X,X
-Syria,Rcell,,,,X
-Syria,Syriatel,,X,X,X
-São Tomé and Príncipe,CST,,X,X,
-Taiwan,Chunghwa Telecom 中華電信,,,,X
-Taiwan,Far EasTone 遠傳電信,,,,X
-Taiwan,Ibon Mobile,,,,X
-Taiwan,Line Mobile,,,,X
-Taiwan,Taiwan Mobile 台灣大哥大,,,,X
-Tajikistan,Babilon-Mobile,,X,X,X
-Tajikistan,MegaFon,,X,X,
-Tajikistan,Tcell,,X,X,X
-Tajikistan,ZET Mobile,,X,X,
-Tanzania,Airtel,,X,X,X
-Tanzania,Halotel,,X,X,X
-Tanzania,Tigo,,X,X,X
-Tanzania,Vodacom,,X,X,X
-Tanzania,Zantel,,X,X,
-Thailand,168,,,X,
-Thailand,AIS or Advanced Info Service,,X,X,X
-Thailand,AJ SIM,,,X,X
-Thailand,Feels,,,X,X
-Thailand,IEC3G Buzzme,,,X,
-Thailand,Mojo 3G,,,X,
-Thailand,MyWorld 3G,,,X,
-Thailand,NT Mobile,,,X,X
-Thailand,OPEN SIM i-mobile,,,X,
-Thailand,Penguin,,,X,
-Thailand,Redone  ),,,X,X
-Thailand,Tune Talk,,,X,
-Thailand,i-Kool 3G,,,X,
-Thailand,imobile-3GX,,,X,
-Thailand,my by NT,,,X,X
-Timor-Leste,Telemor,,X,X,X
-Timor-Leste,Telkomcel,,X,X,X
-Timor-Leste,Timor Telecom,,X,X,X
-Togo,Moov Africa Togo,,X,,
-Togo,Togocel,,X,X,
-Tonga,Digicel,,X,,X
-Tonga,TCC,,X,X,
-Tonga,Wantok,,X,X,
-Trinidad and Tobago,Digicel,,X,X,X
-Trinidad and Tobago,bmobile,,X,X,X
-Tunisia,Ooredoo,,X,X,X
-Tunisia,Orange,,X,X,X
-Tunisia,Tunisie Telecom,,X,X,X
-Turkey,Turkcell,,X,X,X
-Turkey,Turkcell,,X,X,X
-Turkey,Türk Telekom,,X,X,X
-Turkey,Türk Telekom,,X,X,X
-Turkey,Vodafone,,X,X,X
-Turkey,Vodafone Turkey,,X,X,X
-Turkmenistan,AȘTU,,,,
-Turkmenistan,TM CELL,,X,X,X
-Turks and Caicos Islands,Digicel,,X,X,X
-Turks and Caicos Islands,FLOW,,X,X,X
-Tuvalu,TTC,,X,,X
-Uganda,Airtel Uganda,,X,X,
-Uganda,Lycamobile,,,,
-Uganda,MTN Uganda,,X,X,X
-Uganda,Smile Telecom,,,,
-Uganda,UTel,,X,X,
-Ukraine,Intertelecom,25504,,,
-Ukraine,Kyivstar,25503,X,X,X
-Ukraine,PEOPLEnet,25521,,,
-Ukraine,TriMob,25507,,X,
-Ukraine,Vodafone,25501,X,X,X
-Ukraine,lifecell,25506,X,X,X
-United Arab Emirates,Etisalat,,X,X,X
-United Arab Emirates,du,,X,X,X
-United Kingdom,EE,23430 and 23433,X,,X
-United Kingdom,O2,23410,X,X,X
-United Kingdom,Three,23420,,X,X
-United Kingdom,Vodafone,23415,X,,X
-United States,AT&T,,,,X
-United States,Boost Mobile,,,,
-United States,T-Mobile,,X,,X
-United States,U.S. Cellular,,,,X
-United States,Verizon,,,,X
-Uruguay,Antel,,X,X,X
-Uruguay,Claro,,X,X,X
-Uruguay,Movistar,,X,X,X
-Uzbekistan,Beeline,,X,X,X
-Uzbekistan,Mobi.UZ,,X,X,X
-Uzbekistan,Perfectum,,,,
-Uzbekistan,UCell,,X,X,X
-Uzbekistan,Uzmobile,,,,
-Vanuatu,AIL,,X,,
-Vanuatu,Digicel,,X,X,X
-Vanuatu,Vodafone Vanuatu,,X,,
-Vanuatu,WanTok,,,,X
-Venezuela,Digitel GSM,,X,X,X
-Venezuela,Movilnet,,X,X,X
-Venezuela,Movistar,,X,X,X
-Vietnam,MobiFone,,,X,X
-Vietnam,Vietnamobile,,,X,
-Vietnam,Viettel,,,X,X
-Vietnam,Vinaphone,,,X,X
-Yemen,Sabafon,,X,,
-Yemen,Y Telecom,,X,,
-Yemen,YOU,,X,,
-Yemen,Yemen Mobile,,,,X
-Zambia,Airtel,,X,X,X
-Zambia,MTN,,X,X,X
-Zambia,Zamtel,,X,X,
-Zimbabwe,Econet,,X,X,X
-Zimbabwe,NetOne,,X,X,X
-Zimbabwe,telecel,,X,X,
+Country,Operator,Brand,PLMN
+Afghanistan,AWCC,,
+Afghanistan,Etisalat,,
+Afghanistan,MTN,,
+Afghanistan,Roshan,,
+Afghanistan,Salaam,,
+Albania,One,,27601 27603
+Albania,Vodafone,,27602
+Albania,Albtelecom,,
+Algeria,Djezzy,,
+Algeria,Mobilis,,
+Algeria,Ooredoo,,
+American Samoa,American Samoa Telecommunications Authority,,
+American Samoa,Blue Sky Communications,,
+Andorra,Andorra Telecom,,21303
+Angola,Africell,,
+Angola,Movicel,,
+Angola,Unitel,,
+Anguilla,Digicel,,
+Anguilla,FLOW,,
+Antigua and Barbuda,APUA,,
+Antigua and Barbuda,Digicel,,
+Antigua and Barbuda,FLOW,,
+Argentina,Claro,,
+Argentina,Movistar,,
+Argentina,Nuestro,,
+Argentina,Personal,,
+Argentina,Tuenti,,
+Armenia,Beeline,,28301
+Armenia,Ucom,,28310
+Armenia,Viva,,28305
+Aruba,Digicel,,
+Aruba,SetarNV,,
+Australia,Optus,,
+Australia,Telstra,,
+Australia,Vodafone,,
+Austria,A1,,23201
+Austria,Drei,,23205
+Austria,Magenta,,23203
+Azerbaijan,Azercell,,40001
+Azerbaijan,Bakcell,,40002
+Azerbaijan,Nakhtel,,40006
+Azerbaijan,Nar,,40004
+Bahamas,Aliv,,
+Bahamas,BTC,,
+Bahrain,Batelco,,
+Bahrain,Zain,,
+Bahrain,STC,,
+Bangladesh,Banglalink,,
+Bangladesh,Grameenphone,,
+Bangladesh,Robi,,
+Bangladesh,Teletalk,,
+Barbados,Digicel,,
+Barbados,FLOW,,
+Belarus,A1,,25701
+Belarus,Life,,25704
+Belarus,MTS,,25702
+Belgium,Telenet,,20620
+Belgium,Digi,,20612
+Belgium,Orange,,20610
+Belgium,Proximus,,20601
+Belize,Digi,,
+Belize,Smart,,
+Benin,BBcom,,
+Benin,MTN,,
+Benin,Moov,,
+Bermuda,Digicel,,
+Bermuda,One,,
+Bhutan,B-Mobile,,
+Bhutan,TashiCell,,
+Bolivia,Entel,,
+Bolivia,Tigo,,
+Bolivia,Viva,,
+Bonaire,Digicel,,
+Bonaire,FLOW,,
+Bosnia and Herzegovina,BH Mobile,,21890
+Bosnia and Herzegovina,HT ERONET,,21803
+Bosnia and Herzegovina,haloo,,21803
+Bosnia and Herzegovina,m:tel,,21805
+Botswana,Mascom,,
+Botswana,Orange,,
+Botswana,BTC,,
+Brazil,Algar Telecom,,
+Brazil,Claro,,
+Brazil,Surf,,
+Brazil,TIM,,
+Brazil,Vivo,,
+British Virgin Islands,CCT,,
+British Virgin Islands,Digicel,,
+British Virgin Islands,FLOW,,
+Brunei,Datastream Technology Sdn Bhd,,
+Brunei,Progresif Cellular Sdn Bhd,,
+Bulgaria,A1,,28401
+Bulgaria,Vivacom,,28403
+Bulgaria,Yettel,,28405
+Burkina Faso,Orange,,
+Burkina Faso,Telecel,,
+Burkina Faso,Telmob,,
+Burundi,Econet Leo,,
+Burundi,Lumitel,,
+Burundi,Onamob,,
+Burundi,Smart Mobile,,
+Cambodia,Cellcard,,
+Cambodia,Metfone,,
+Cambodia,Smart,,
+Cameroon,Camtel,,
+Cameroon,MTN,,
+Cameroon,Nexttel,,
+Cameroon,Orange,,
+Canada,Bell,,
+Canada,Rogers,,
+Canada,SaskTel,,
+Canada,Telus,,
+Cape Verde,CV Móvel,,
+Cape Verde,T-MAIS,,
+Cayman Islands,Digicel,,
+Cayman Islands,FLOW Cayman,,
+Central African Republic,Moov,,
+Central African Republic,Orange,,
+Central African Republic,Azur,,
+Central African Republic,Telecel,,
+Chad,Airtel,,
+Chad,Tigo,,
+Chad,Salam,,
+Chile,Claro,,
+Chile,Entel,,
+Chile,GTD/Telsur Móvil,,
+Chile,Movistar,,
+Chile,Mundo Móvil,,
+Chile,VTR Móvil,,
+Chile,Virgin Mobile,,
+Chile,WOM,,
+China,China Broadnet,,
+China,China Mobile,,
+China,China Telecom,,
+China,China Unicom,,
+Colombia,Claro,,
+Colombia,ETB,,
+Colombia,Flash Móvil,,
+Colombia,Movistar,,
+Colombia,Móvil Éxito,,
+Colombia,Suma Móvil,,
+Colombia,Tigo,,
+Colombia,Virgin Mobile,,
+Colombia,WOM,,
+Comoros,HURI,,
+Comoros,Telma,,
+Congo,Airtel,,
+Congo,Azur,,
+Congo,MTN,,
+Cook Islands,Vodafone,,
+Costa Rica,Claro,,
+Costa Rica,Fullmóvil,,
+Costa Rica,Kölbi,,
+Costa Rica,Liberty,,
+Costa Rica,Tuyo Móvil,,
+Croatia,A1,,21910
+Croatia,T-Mobile,,21901
+Croatia,Tele2,,21902
+Cuba,Cubacel,,
+Curaçao,Digicel,,
+Curaçao,FLOW,,
+Czechia,O2,,23002
+Czechia,T-Mobile,,23001
+Czechia,Vodafone,,23003
+Congo RDC,Africell,,
+Congo RDC,Airtel,,
+Congo RDC,Orange,,
+Congo RDC,SemaTel,,
+Congo RDC,Smile,,
+Congo RDC,Supercell,,
+Congo RDC,U-Com,,
+Congo RDC,Vodacom,,
+Denmark,3,,23806
+Denmark,Telia,,23820
+Denmark,TDC,,23801
+Denmark,Telenor,,23802
+Djibouti,Evatis,,
+Dominica,Digicel,,
+Dominica,FLOW,,
+Dominican Republic,Claro,,
+Dominican Republic,Viva,,
+Dominican Republic,altice,,
+Ecuador,Claro,,
+Ecuador,Cnt,,
+Ecuador,Movistar,,
+Ecuador,Tuenti,,
+Egypt,Etisalat,,
+Egypt,Orange,,
+Egypt,Vodafone,,
+Egypt,WE,,
+El Salvador,Claro,,
+El Salvador,Digicel,,
+El Salvador,Movistar,,
+El Salvador,RED,,
+El Salvador,Tigo,,
+Equatorial Guinea,Gecomsa,,
+Equatorial Guinea,Muni,,
+Equatorial Guinea,Orange,,
+Eritrea,Eritel,,
+Estonia,Elisa,,24802
+Estonia,Tele2,,24803
+Estonia,Telia,,24801
+Eswatini,Eswatini Mobile,,
+Eswatini,MTN,,
+Ethiopia,Ethiotelecom,,
+Ethiopia,Safaricom Telecommunications Ethiopia,,
+Falkland Islands,Sure,,
+Faroe Islands,Føroya Tele,,28801
+Faroe Islands,Nema,,28802
+Faroe Islands,Tosa,,28803
+Fiji,Digicel,,
+Fiji,Vodafone,,
+Finland,DNA,,24403 24404 24412 24413 24436 (SYV [2] )
+Finland,Elisa,,24405 24406 24421
+Finland,Telia,,24420 24436 (SYV [3] ) 24491
+Finland,Ålcom,,24414
+France,Bouygues,,20820
+France,Free,,20815
+France,Orange,,20801
+France,SFR,,20810
+France (Saint-Pierre-et-Miquelon),Globatel,,
+France (Saint-Pierre-et-Miquelon),SPM Telecom,,30801
+French Polynesia,VINI,,
+French Polynesia,VITI,,
+French Polynesia,Vodafone,,
+Gabon,Airtel,,
+Gabon,Moov,,
+Gambia,Africell,,
+Gambia,Comium,,
+Gambia,Gamcel,,
+Gambia,Qcell,,
+Georgia,A-Mobile,,28988 (MCC is not listed by ITU)
+Georgia,Aquafon,,28967 (MCC is not listed by ITU)
+Georgia,Cellfie,,28204
+Georgia,Magticom,,28202
+Georgia,MegaFon,,25002
+Georgia,Silknet,,28201
+Germany,1&1,,26223
+Germany,O 2,,26203
+Germany,Telekom,,26201
+Germany,Vodafone Germany,,26202
+Ghana,AirtelTigo,,
+Ghana,Glo,,
+Ghana,MTN,,
+Ghana,Vodafone Ghana,,
+Gibraltar,Gibtelecom,,26601
+Greece,COSMOTE,,"20201, 20202"
+Greece,NOVA,,"20209 (Q-TELECOM), 20210 (NOVA)"
+Greece,Vodafone,,"20205 (Vodafone), 20214 (CYTA Hellas)"
+Greenland,tusass,,29001
+Grenada,Digicel,,
+Grenada,FLOW,,
+"Guadeloupe, Martinique and French Guiana (Guyane)",Digicel,,
+"Guadeloupe, Martinique and French Guiana (Guyane)",IEC Telecom,,
+"Guadeloupe, Martinique and French Guiana (Guyane)",Orange Caraïbe,,
+"Guadeloupe, Martinique and French Guiana (Guyane)",Outremer Telecom,,
+"Guadeloupe, Martinique and French Guiana (Guyane)",SFR Caraïbe,,
+Guam,Docomo Pacific,,
+Guam,GTA,,
+Guam,IT&E and Iconnect,,
+Guatemala,Claro,,
+Guatemala,Tigo,,
+Guernsey,Airtel-Vodafone,,23403
+Guernsey,JT,,23450
+Guernsey,Sure,,23455
+Guinea,Cellcom Guinée,,
+Guinea,Intercel,,
+Guinea,MTN,,
+Guinea,Orange,,
+Guinea,Sotelgui,,
+Guinea-Bissau,Guinetel,,
+Guinea-Bissau,MTN,,
+Guinea-Bissau,Orange,,
+Guyana,Digicel,,
+Guyana,gtt,,
+Haiti,Digicel,,
+Haiti,NATCOM,,
+Honduras,Claro,,
+Honduras,HONDUTEL,,
+Honduras,Tigo,,
+Hong Kong,3,,
+Hong Kong,CMHK,,
+Hong Kong,SmarTone,,
+Hong Kong,csl,,
+Hungary,Magyar Telekom,,21630
+Hungary,One,,21670
+Hungary,Yettel,,21601
+Iceland,Nova,,27411
+Iceland,Síminn,,27401
+Iceland,Vodafone,,27402
+India,Airtel,,
+India,BSNL,,
+India,Jio,,
+India,MTNL,,
+India,Vi,,
+Indonesia,Indosat Ooredoo Hutchison,,"51001, 51021 and 51089"
+Indonesia,Telkomsel,,51010
+Indonesia,XLSmart,,"51009, 51011 and 51028"
+Iran,Hamrahe Aval,,
+Iran,Irancell,,
+Iran,RighTel,,
+Iraq,Asia Cell,,
+Iraq,Itisaluna,,
+Iraq,Korek,,
+Iraq,Omnnea,,
+Iraq,Zain,,
+Ireland,3,,"27205 (Three), 27202 (O 2 )"
+Ireland,Vodafone,,27201
+Ireland,Eir,,27203
+Isle of Man,Manx Telecom,,23458
+Isle of Man,Sure,,23436
+Italy,Iliad,,22250
+Italy,TIM,,22201
+Italy,Vodafone,,22210
+Italy,Wind Tre,,22288 and 22299
+Côte d’Ivoire,GreenN,,
+Côte d’Ivoire,Koz,,
+Côte d’Ivoire,MTN,,
+Côte d’Ivoire,Mobile Cafe,,
+Côte d’Ivoire,Moov,,
+Côte d’Ivoire,Orange,,
+Côte d’Ivoire,Warid,,
+Côte d’Ivoire,YooMee,,
+Jamaica,Digicel,,
+Jamaica,FLOW,,
+Japan,Disney Mobile,,
+Japan,IIJmio,,
+Japan,NTT Docomo,,
+Japan,Rakuten Mobile,,
+Japan,SoftBank Corp. & Ymobile,,
+Japan,au,,
+Japan,b-mobile,,
+Jersey,Airtel-Vodafone,,23403
+Jersey,JT,,23450
+Jersey,Sure,,23455
+Jordan,Orange,,
+Jordan,Umniah,,
+Jordan,Zain,,
+Kazakhstan,Beeline,,40101
+Kazakhstan,Kcell,,40102
+Kazakhstan,Tele2,,40177
+Kenya,Airtel,,
+Kenya,Safaricom,,
+Kenya,Telkom,,
+Kosovo,Ipko,,22102
+Kosovo,Vala,,22101
+Kuwait,Ooredoo,,
+Kuwait,STC,,
+Kuwait,Zain,,
+Kyrgyzstan,Beeline,,43701
+Kyrgyzstan,Fonex,,43703
+Kyrgyzstan,Katel,,
+Kyrgyzstan,MegaCom,,43705
+Kyrgyzstan,Nexi,,
+Kyrgyzstan,O!,,43709
+Kyrgyzstan,Saima Telecom,,43710
+Kyrgyzstan,Sapat Mobile,,
+Kyrgyzstan,iTel,,43711
+Laos,ETL,,
+Laos,Lao Telecom,,
+Laos,TPLUS,,
+Laos,Unitel,,
+Latvia,Bitė,,24705
+Latvia,LMT,,24701
+Latvia,Tele2,,24702
+Latvia,Triatel,,24703
+Latvia,Xomobile,,24709
+Lebanon,Alfa,,
+Lebanon,Touch,,
+Lesotho,Econet Telecom Lesotho,,
+Lesotho,Vodacom,,
+Liberia,LTC Mobile,,
+Liberia,Lonestar Cell MTN,,
+Liberia,Novafone,,
+Liberia,Orange,,
+Libya,Madar,,
+Libya,Libyana,,
+Liechtenstein,7acht,,29502
+Liechtenstein,FL1,,29505
+Liechtenstein,Swisscom FL,,29501
+Lithuania,Bitė,,24602 24608 • includes the previous Mezon network.
+Lithuania,Tele2,,24603
+Lithuania,Telia,,24601
+Luxembourg,Orange,,27099
+Luxembourg,POST,,27001
+Luxembourg,Tango,,27077
+Macau,3,,
+Macau,CTM,,
+Macau,China Telecom,,
+Madagascar,Airtel,,
+Madagascar,Blueline,,
+Madagascar,Orange,,
+Madagascar,Telma,,
+Malawi,Access,,
+Malawi,Airtel,,
+Malawi,G-Expresso,,
+Malawi,G-Mobile,,
+Malawi,Lacell,,
+Malawi,MTL,,
+Malawi,TNM,,
+Maldives,Dhiraagu,,
+Maldives,Ooredoo,,
+Mali,Malitel,,
+Mali,Orange,,
+Mali,Planor,,
+Malta,Vodafone,,27801
+Malta,GO,,27821
+Malta,Melita,,27877
+Marshall Islands,NTA,,
+Mauritania,Chinguitel,,
+Mauritania,Mattel,,
+Mauritania,Mauritel,,
+Mauritius,CHiLi,,
+Mauritius,Emtel,,
+Mauritius,Mauritius Telecom,,
+Mexico,AT&T Mexico,,
+Mexico,Cierto,,
+Mexico,Flash Mobile,,
+Mexico,Maz Tiempo,,
+Mexico,Movistar,,
+Mexico,Oui Móvil,,
+Mexico,QBO Cel,,
+Mexico,Red Compartida,,
+Mexico,Telcel,,
+Mexico,Virgin Mobile,,
+Mexico,weex,,
+Moldova,Interdnestrcom operating in Transnistria region only,,25906
+Moldova,Moldcell,,25902
+Moldova,Moldtelecom,,"25903,25905,25999"
+Moldova,Orange,,25901
+Monaco,Monaco Telecom,,21210
+Mongolia,G-Mobile,,
+Mongolia,Mobicom,,
+Mongolia,Skytel,,
+Mongolia,Unitel,,
+Montenegro,Crnogorski Telekom,,29702
+Montenegro,One Montenegro,,29701
+Montenegro,m:tel,,29703
+Montserrat,Digicel,,
+Montserrat,FLOW,,
+Morocco,IAM,,
+Morocco,Orange,,
+Morocco,INWI,,
+Mozambique,Movitel,,
+Mozambique,Tmcel,,
+Mozambique,Vodacom,,
+Myanmar,ATOM,,
+Myanmar,MPT,,
+Myanmar,Mytel,,
+Myanmar,Ooredoo,,
+Namibia,MTC,,
+Namibia,TN Mobile,,
+Nauru,Digicel,,
+Nepal,Ncell,,
+Nepal,Nepal Telecom,,
+Nepal,SmartCell,,
+Netherlands,KPN,,20408
+Netherlands,Odido,,20416 and 20402
+Netherlands,Vodafone,,20404
+New Caledonia,Mobilis,,
+New Zealand,2degrees,,
+New Zealand,Compass Mobile,,
+New Zealand,Contact Mobile,,
+New Zealand,Kiwi Mobile,,
+New Zealand,Kogan Mobile,,
+New Zealand,Mighty Mobile,,
+New Zealand,One NZ,,
+New Zealand,Rocket Mobile,,
+New Zealand,Skinny,,
+New Zealand,Slingshot Mobile,,
+New Zealand,Spark,,
+New Zealand,Warehouse Mobile,,
+Nicaragua,Claro,,
+Nicaragua,Tigo,,
+Niger,Airtel,,
+Niger,Moov Africa Niger,,
+Niger,Niger Telecoms,,
+Niger,Zamani Telecom,,
+Nigeria,9mobile,,
+Nigeria,Airtel,,
+Nigeria,Glo Mobile,,
+Nigeria,MTN,,
+Niue,Telecom Niue,,
+Norfolk Island,Norfolk Telecom,,
+North Korea,Kangsong NET,,
+North Korea,Koryolink,,
+North Macedonia,A1,,29403
+North Macedonia,Telekom,,29401
+Northern Mariana Islands,Docomo Pacific,,
+Northern Mariana Islands,IT&E,,
+Norway,Ice,,"24214, 24206"
+Norway,Telenor,,24201
+Norway,Telia,,24202
+Oman,Omantel,,
+Oman,Ooredoo,,
+Palau,PalauCel,,552-01
+Palestine,Jawwal,,
+Palestine,Ooredoo,,
+Panama,+móvil,,
+Panama,Tigo,,
+Papua New Guinea,BMobile,,
+Papua New Guinea,Digicel,,
+Papua New Guinea,Telikom PNG,,
+Paraguay,Claro,,
+Paraguay,Personal,,
+Paraguay,Tigo,,
+Paraguay,VOX,,
+Peru,ASU MOBILE,,
+Peru,Bitel,,
+Peru,Claro,,
+Peru,Cuy Móvil,,
+Peru,Entel,,
+Peru,Movistar,,
+Peru,UNION TELECOM,,
+Poland,Orange,,26003
+Poland,Play,,26006
+Poland,Plus,,26001
+Poland,T-Mobile,,26002
+Portugal,DIGI,,26802
+Portugal,MEO,,26806
+Portugal,NOS,,26803
+Portugal,Vodafone,,26801
+Puerto Rico and United States Virgin Islands,Claro,,
+Puerto Rico and United States Virgin Islands,Liberty,,
+Puerto Rico and United States Virgin Islands,T-Mobile,,
+Puerto Rico and United States Virgin Islands,TracFone Wireless,,
+Qatar,Ooredoo,,
+Qatar,Vodafone,,
+Romania,Digi,,22605
+Romania,Orange,,22610
+Romania,Telekom,,22603
+Romania,Vodafone,,22601
+Rwanda,Airtel,,
+Rwanda,MTN Rwanda,,
+Rwanda,Rwandatel,,
+Réunion,FREE,,
+Réunion,Orange,,
+Réunion,SFR,,
+Saint Helena,Sure,,
+Saint Kitts and Nevis,Digicel,,
+Saint Kitts and Nevis,FLOW,,
+Saint Lucia,Digicel,,
+Saint Lucia,FLOW,,
+Saint Lucia,NTRC,,
+Saint Lucia,SLICTA,,
+Saint Vincent and the Grenadines,Bouygues,,
+Saint Vincent and the Grenadines,Digicel,,
+Saint Vincent and the Grenadines,FLOW,,
+Samoa,Digicel,,
+Samoa,Vodafone Samoa,,
+San Marino,Prima,,29201
+San Marino,TIM San Marino,,22201
+San Marino,Telefonia Mobile Sammarinese,,22201
+Saudi Arabia,Lebara Mobile KSA,,
+Saudi Arabia,Mobily,,
+Saudi Arabia,Virgin mobile KSA,,
+Saudi Arabia,Zain,,
+Saudi Arabia,stc,,
+Senegal,Expresso,,
+Senegal,Free,,
+Senegal,Hayo Telecom,,
+Senegal,Orange,,
+Serbia,A1,,22005
+Serbia,MTS,,22003
+Serbia,Yettel,,22001
+Seychelles,Airtel,,
+Seychelles,Cable & Wireless,,
+Sierra Leone,Africell,,
+Sierra Leone,Comium,,
+Sierra Leone,GreenN,,
+Sierra Leone,Orange,,
+Sierra Leone,Qcell,,
+Sierra Leone,Sierratel,,
+Singapore,Changi Mobile,,
+Singapore,China Mobile CMLink SG,,
+Singapore,China Unicom CUniq SG,,
+Singapore,Circles.Life,,
+Singapore,GRID Communications,,
+Singapore,Geenet Mobile,,
+Singapore,M1 with a digital sub-brand Maxx,,
+Singapore,MyRepublic,,
+Singapore,SIMBA,,
+Singapore,Singtel Mobile with digital sub-brands GOMO and heya,,
+Singapore,StarHub with digital sub-brands giga! and eight telecom,,
+Singapore,VIVIFI,,
+Singapore,ZYM Mobile,,
+Singapore,Zero1,,
+Singapore,redONE,,
+Slovakia,4ka,,23103
+Slovakia,O 2,,23106
+Slovakia,Orange,,"23101, 23105"
+Slovakia,Telekom,,"23102, 23104"
+Slovenia,A1,,29340
+Slovenia,T-2,,29364
+Slovenia,Telekom Slovenije,,29341
+Slovenia,Telemach,,29370
+Solomon Islands,Our Telekom,,
+Somalia,Golis Telecom Somalia,,
+Somalia,Hormuud,,
+Somalia,Nationlink,,
+Somalia,Netco,,
+Somalia,SomNet,,
+Somalia,Somafone,,
+Somalia,Somtel,,
+Somalia,Telcom Somalia,,
+Somalia,Telesom Mobile,,
+South Africa,Cell C,,
+South Africa,MTN,,
+South Africa,Rain,,
+South Africa,Telkom,,
+South Africa,Vodacom,,
+South Korea,KT,,
+South Korea,LG U +,,
+South Korea,SK Telecom,,
+South Sudan,Gemtel,,
+South Sudan,MTN,,
+South Sudan,Sudani,,
+South Sudan,Vivacell,,
+South Sudan,Zain,,
+Spain,DIGI,,21422
+Spain,Movistar,,21407
+Spain,MásOrange,,21403 21404
+Spain,Vodafone,,21401
+Sri Lanka,Dialog,,413-02
+Sri Lanka,Hutch,,413-08
+Sri Lanka,SLTMobitel,,413-01
+Sudan,Canar,,
+Sudan,MTN,,
+Sudan,Sudani,,
+Sudan,Zain,,
+Suriname,Digicel,,
+Suriname,Telesur,,
+Sweden,Tele2,,24007
+Sweden,Telenor,,24008
+Sweden,Telia,,24001
+Sweden,Tre,,24002
+Switzerland,Salt,,22803
+Switzerland,Sunrise,,22802
+Switzerland,Swisscom,,22801
+Syria,MTN,,
+Syria,Rcell,,
+Syria,Syriatel,,
+São Tomé and Príncipe,CST,,
+Taiwan,Chunghwa Telecom 中華電信,,
+Taiwan,Far EasTone 遠傳電信,,
+Taiwan,Ibon Mobile,,
+Taiwan,Line Mobile,,
+Taiwan,Taiwan Mobile 台灣大哥大,,
+Tajikistan,Babilon-Mobile,,
+Tajikistan,MegaFon,,
+Tajikistan,Tcell,,
+Tajikistan,ZET Mobile,,
+Tanzania,Airtel,,
+Tanzania,Halotel,,
+Tanzania,Tigo,,
+Tanzania,Vodacom,,
+Tanzania,Zantel,,
+Thailand,168,,
+Thailand,AIS or Advanced Info Service,,
+Thailand,AJ SIM,,
+Thailand,Feels,,
+Thailand,IEC3G Buzzme,,
+Thailand,Mojo 3G,,
+Thailand,MyWorld 3G,,
+Thailand,NT Mobile,,
+Thailand,OPEN SIM i-mobile,,
+Thailand,Penguin,,
+Thailand,Redone  ),,
+Thailand,Tune Talk,,
+Thailand,i-Kool 3G,,
+Thailand,imobile-3GX,,
+Thailand,my by NT,,
+Timor-Leste,Telemor,,
+Timor-Leste,Telkomcel,,
+Timor-Leste,Timor Telecom,,
+Togo,Moov Africa Togo,,
+Togo,Togocel,,
+Tonga,Digicel,,
+Tonga,TCC,,
+Tonga,Wantok,,
+Trinidad and Tobago,Digicel,,
+Trinidad and Tobago,bmobile,,
+Tunisia,Ooredoo,,
+Tunisia,Orange,,
+Tunisia,Tunisie Telecom,,
+Turkey,Turkcell,,
+Turkey,Turkcell,,
+Turkey,Türk Telekom,,
+Turkey,Türk Telekom,,
+Turkey,Vodafone,,
+Turkey,Vodafone Turkey,,
+Turkmenistan,AȘTU,,
+Turkmenistan,TM CELL,,
+Turks and Caicos Islands,Digicel,,
+Turks and Caicos Islands,FLOW,,
+Tuvalu,TTC,,
+Uganda,Airtel Uganda,,
+Uganda,Lycamobile,,
+Uganda,MTN Uganda,,
+Uganda,Smile Telecom,,
+Uganda,UTel,,
+Ukraine,Intertelecom,,25504
+Ukraine,Kyivstar,,25503
+Ukraine,PEOPLEnet,,25521
+Ukraine,TriMob,,25507
+Ukraine,Vodafone,,25501
+Ukraine,lifecell,,25506
+United Arab Emirates,Etisalat,,
+United Arab Emirates,du,,
+United Kingdom,EE,,23430 and 23433
+United Kingdom,O2,,23410
+United Kingdom,Three,,23420
+United Kingdom,Vodafone,,23415
+United States,AT&T,,
+United States,Boost Mobile,,
+United States,T-Mobile,,
+United States,U.S. Cellular,,
+United States,Verizon,,
+Uruguay,Antel,,
+Uruguay,Claro,,
+Uruguay,Movistar,,
+Uzbekistan,Beeline,,
+Uzbekistan,Mobi.UZ,,
+Uzbekistan,Perfectum,,
+Uzbekistan,UCell,,
+Uzbekistan,Uzmobile,,
+Vanuatu,AIL,,
+Vanuatu,Digicel,,
+Vanuatu,Vodafone Vanuatu,,
+Vanuatu,WanTok,,
+Venezuela,Digitel GSM,,
+Venezuela,Movilnet,,
+Venezuela,Movistar,,
+Vietnam,MobiFone,,
+Vietnam,Vietnamobile,,
+Vietnam,Viettel,,
+Vietnam,Vinaphone,,
+Yemen,Sabafon,,
+Yemen,Y Telecom,,
+Yemen,YOU,,
+Yemen,Yemen Mobile,,
+Zambia,Airtel,,
+Zambia,MTN,,
+Zambia,Zamtel,,
+Zimbabwe,Econet,,
+Zimbabwe,NetOne,,
+Zimbabwe,telecel,,
