@@ -1,18 +1,18 @@
-use Serde::{Serialize, Deserialize}
+use Serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
 pub struct LoginInfo {
-    pub username String,
-    pub password String,
+    pub username: String,
+    pub password: String,
 }
 
 #[derive(Serialize)]
 pub struct LoginResponse {
-    pub token String,
+    pub token: String,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct LoginResponse {
-    pub sub String,
-    pub exp usize,
+    pub sub: String,
+    pub exp: usize,
 }
