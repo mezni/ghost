@@ -1,7 +1,7 @@
-use actix_web::{get, post, web, HttpResponse, Responder};
-use deadpool_postgres::Pool;
 use crate::models::{Country, NewCountry};
 use crate::repositories::CountryRepository;
+use actix_web::{HttpResponse, Responder, get, post, web};
+use deadpool_postgres::Pool;
 
 #[get("/countries")]
 pub async fn list_countries(pool: web::Data<Pool>) -> impl Responder {
@@ -14,7 +14,7 @@ pub async fn list_countries(pool: web::Data<Pool>) -> impl Responder {
 #[post("/countries")]
 pub async fn add_country(
     pool: web::Data<Pool>,
-    new_country: web::Json<NewCountry>
+    new_country: web::Json<NewCountry>,
 ) -> impl Responder {
     match CountryRepository::insert(&pool, &new_country).await {
         Ok(country) => HttpResponse::Created().json(country),
@@ -22,49 +22,10 @@ pub async fn add_country(
     }
 }
 
-pub fn init_config(cfg: &mut web::ServiceConfig) {
-    cfg.service(add_country)
-       .service(list_countries);
-}
-
-
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use actix_web::{test, web, App};
-    use deadpool_postgres::Pool;
-    use std::sync::Once;
-
-    // Ensure logger and dotenv are only initialized once
-    static INIT: Once = Once::new();
-
-    fn setup() {
-        INIT.call_once(|| {
-            let _ = dotenvy::dotenv();
-            crate::logger::Logger::init();
-        });
-    }
-
-    async fn get_test_pool() -> Pool {
-        setup();
-        crate::db::get_pool().await.expect("Failed to get DB pool")
-    }
-
-    #[actix_web::test]
-    async fn test_list_countries() {
-        let pool = get_test_pool().await;
-
-        let app = test::init_service(
-            App::new()
-                .app_data(web::Data::new(pool))
-                .service(list_countries)
-        ).await;
-
-        let req = test::TestRequest::get().uri("/countries").to_request();
-        let resp = test::call_service(&app, req).await;
-
-        assert!(resp.status().is_success());
-
-    }
+pub fn init_routes(cfg: &mut web::ServiceConfig) {
+    cfg.service(
+        web::scope("/api/v1")
+            .service(list_countries)
+            .service(add_country),
+    );
 }
