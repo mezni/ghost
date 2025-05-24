@@ -23,6 +23,8 @@ services:
       dockerfile: Dockerfile
     image: beta/auth-service:latest
     container_name: auth-service
+    ports:
+      - "3000:3000"
     volumes:
       - ./.env:/app/.env 
     working_dir: /app
