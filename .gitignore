@@ -1,4 +1,4 @@
-ARCHIVE/
+_archive/
 
 # Ignore Rust build output
 target/
