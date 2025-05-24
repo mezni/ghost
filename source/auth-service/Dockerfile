@@ -1,29 +1,27 @@
 # syntax=docker/dockerfile:1
 
-# === Build Stage ===
+# Use nightly or stable depending on edition (2024 requires nightly)
 FROM rustlang/rust:nightly-bookworm as builder
 
-ARG SERVICE_NAME=auth-service
-
 WORKDIR /app
 
+# Copy full workspace (Cargo.toml includes [workspace] and member paths)
 COPY . .
 
-# Build only the specified service
-RUN cargo +nightly build --release -p ${SERVICE_NAME}
+# Build only the auth-service binary
+RUN cargo +nightly build --release -p auth-service
 
-# === Runtime Stage ===
+# Runtime stage
 FROM debian:bookworm-slim
 
+# PostgreSQL client libs if needed at runtime
 RUN apt-get update && apt-get install -y libpq5 && rm -rf /var/lib/apt/lists/*
-
-ARG SERVICE_NAME=auth-service
 
 WORKDIR /app
 
-# Copy the built binary
-COPY --from=builder /app/target/release/${SERVICE_NAME} /app/${SERVICE_NAME}
+# Copy the compiled binary
+COPY --from=builder /app/target/release/auth-service /app/auth-service
 
 EXPOSE 3000
 
-ENTRYPOINT ["/app/${SERVICE_NAME}"]
+ENTRYPOINT ["/app/auth-service"]
