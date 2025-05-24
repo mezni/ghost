@@ -3,7 +3,7 @@ services:
     build:
       context: ./infra/auth-db
       dockerfile: Dockerfile
-    container_name: auth_db
+    container_name: auth-db
     restart: always
     environment:
       POSTGRES_USER: ${AUTH_DB_USER}
@@ -13,6 +13,7 @@ services:
       - "${AUTH_DB_PORT}:5432"
     volumes:
       - auth_db_data:/var/lib/postgresql/data
+      - ./config/init_auth.sql:/docker-entrypoint-initdb.d/init.sql  
     networks:
       - delta_network
     healthcheck:
@@ -27,7 +28,7 @@ services:
     build:
       context: ./infra/roam-db
       dockerfile: Dockerfile
-    container_name: roam_db
+    container_name: roam-db
     restart: always
     environment:
       POSTGRES_USER: ${ROAM_DB_USER}
@@ -37,6 +38,8 @@ services:
       - "${ROAM_DB_PORT}:5432"
     volumes:
       - roam_db_data:/var/lib/postgresql/data
+      - ./config/init_roam.sql:/docker-entrypoint-initdb.d/init.sql  
+      - ./config/countries.csv:/countries.csv
     networks:
       - delta_network
     healthcheck:
