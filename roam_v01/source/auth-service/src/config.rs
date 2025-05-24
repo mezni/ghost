@@ -1,7 +1,6 @@
 use config::Config;
 use dotenvy::dotenv;
 use serde::Deserialize;
-use std::env;
 
 #[derive(Debug, Deserialize)]
 pub struct ServerConfig {
@@ -12,18 +11,23 @@ pub struct ServerConfig {
 pub struct DatabaseConfig {
     pub host: String,
     pub port: u16,
-    pub name: String,
     pub user: String,
     pub password: String,
+    pub name: String,
 }
 
 pub fn load_config() -> ServerConfig {
-    dotenv().ok();
+    dotenv().ok(); // Load from .env into env vars
 
-    Config::builder()
-        .add_source(config::Environment::default().separator("_"))
+    // Load just the database config from AUTH_DB_* env vars
+    let db_config: DatabaseConfig = Config::builder()
+        .add_source(config::Environment::with_prefix("AUTH_DB").separator("_"))
         .build()
         .unwrap()
         .try_deserialize()
-        .unwrap()
+        .unwrap();
+
+    ServerConfig {
+        database: db_config,
+    }
 }
