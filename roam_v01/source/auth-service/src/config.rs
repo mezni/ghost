@@ -1,3 +1,4 @@
+use crate::errors::AppError;
 use config::Config;
 use dotenvy::dotenv;
 use serde::Deserialize;
@@ -16,18 +17,17 @@ pub struct DatabaseConfig {
     pub name: String,
 }
 
-pub fn load_config() -> ServerConfig {
-    dotenv().ok(); // Load from .env into env vars
+pub fn load_config() -> Result<ServerConfig, AppError> {
+    dotenv().ok();
 
-    // Load just the database config from AUTH_DB_* env vars
     let db_config: DatabaseConfig = Config::builder()
         .add_source(config::Environment::with_prefix("AUTH_DB").separator("_"))
         .build()
-        .unwrap()
+        .map_err(|e| AppError::ConfigError(format!("Config build failed: {}", e)))?
         .try_deserialize()
-        .unwrap();
+        .map_err(|e| AppError::ConfigError(format!("Deserialization failed: {}", e)))?;
 
-    ServerConfig {
+    Ok(ServerConfig {
         database: db_config,
-    }
+    })
 }
