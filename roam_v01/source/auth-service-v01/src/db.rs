@@ -4,6 +4,8 @@ use crate::logger::Logger;
 use deadpool_postgres::{ManagerConfig, Pool, RecyclingMethod, Runtime};
 use tokio_postgres::NoTls;
 
+pub type DbPool = deadpool_postgres::Pool;
+
 pub fn create_pg_pool(cfg: &DatabaseConfig) -> Result<Pool, AppError> {
     Logger::info("Creating PostgreSQL connection pool...");
 
