@@ -1,24 +1,38 @@
 services:
-  database:
+  auth-db:
     build:
-      context: ./source
-      dockerfile: database/Dockerfile
-    image: delta/database:latest
-    container_name: database
+      context: ./source/auth-db
+      dockerfile: Dockerfile
+    image: delta/auth-db:latest
+    container_name: auth-db
     ports:
-      - "5432:5432"
+      - "${AUTH_DB_PORT}:5432"
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${AUTH_DB_USER}
+      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
+      POSTGRES_DB: ${AUTH_DB_NAME}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql  
+      - auth_db_data:/var/lib/postgresql/data
+      - ./config/auth_db_init.sql:/docker-entrypoint-initdb.d/init.sql  
     networks:
       - delta_network
 
+  auth-service:
+    build:
+      context: ./source/auth-service
+      dockerfile: Dockerfile
+    image: beta/auth-service:latest
+    container_name: auth-service
+    volumes:
+      - ./.env:/app/.env 
+    working_dir: /app
+    environment:
+      - RUST_LOG=info
+    networks:
+      - delta_network  
+
 volumes:
-  postgres_data:
+  auth_db_data:
 
 networks:
   delta_network:
