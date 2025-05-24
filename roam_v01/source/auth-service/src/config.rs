@@ -5,7 +5,15 @@ use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 pub struct ServerConfig {
+    pub service: ServiceConfig,
     pub database: DatabaseConfig,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ServiceConfig {
+    pub hostname: String,
+    pub host: String,
+    pub port: u16,
 }
 
 #[derive(Debug, Deserialize)]
@@ -20,6 +28,13 @@ pub struct DatabaseConfig {
 pub fn load_config() -> Result<ServerConfig, AppError> {
     dotenv().ok();
 
+    let service_config: ServiceConfig = Config::builder()
+        .add_source(config::Environment::with_prefix("AUTH_SRV").separator("_"))
+        .build()
+        .map_err(|e| AppError::ConfigError(format!("Config build failed: {}", e)))?
+        .try_deserialize()
+        .map_err(|e| AppError::ConfigError(format!("Deserialization failed: {}", e)))?;
+
     let db_config: DatabaseConfig = Config::builder()
         .add_source(config::Environment::with_prefix("AUTH_DB").separator("_"))
         .build()
@@ -28,6 +43,7 @@ pub fn load_config() -> Result<ServerConfig, AppError> {
         .map_err(|e| AppError::ConfigError(format!("Deserialization failed: {}", e)))?;
 
     Ok(ServerConfig {
+        service: service_config,
         database: db_config,
     })
 }

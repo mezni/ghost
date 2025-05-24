@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+actix-cors = "0.7.1"
 actix-web = "4.11.0"
 config = "0.15.11"
 deadpool-postgres = "0.14.1"

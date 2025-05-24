@@ -34,6 +34,6 @@ pub fn create_pg_pool(cfg: &DatabaseConfig) -> Result<Pool, AppError> {
             AppError::PoolError(msg)
         })?;
 
-    Logger::info("✅ PostgreSQL pool created successfully.");
+    Logger::info("PostgreSQL pool created successfully.");
     Ok(pool)
 }
