@@ -1,0 +1,56 @@
+services:
+  auth-db:
+    build:
+      context: ./infra/auth-db
+      dockerfile: Dockerfile
+    container_name: auth_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${AUTH_DB_USER}
+      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
+      POSTGRES_DB: ${AUTH_DB_NAME}
+    ports:
+      - "${AUTH_DB_PORT}:5432"
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data
+    networks:
+      - delta_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${AUTH_DB_USER} -d ${AUTH_DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+
+  roam-db:
+    build:
+      context: ./infra/roam-db
+      dockerfile: Dockerfile
+    container_name: roam_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${ROAM_DB_USER}
+      POSTGRES_PASSWORD: ${ROAM_DB_PASSWORD}
+      POSTGRES_DB: ${ROAM_DB_NAME}
+    ports:
+      - "${ROAM_DB_PORT}:5432"
+    volumes:
+      - roam_db_data:/var/lib/postgresql/data
+    networks:
+      - delta_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${AUTH_DB_USER} -d ${AUTH_DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+
+volumes:
+  auth_db_data:
+  roam_db_data:
+
+networks:
+  delta_network:
+    driver: bridge
