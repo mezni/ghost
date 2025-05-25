@@ -1,7 +1,7 @@
-use thiserror::Error;
-use actix_web::{HttpResponse, http::StatusCode, error::ResponseError};
+use actix_web::{HttpResponse, error::ResponseError, http::StatusCode};
 use serde_json::json;
 use std::io;
+use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum AppError {
@@ -40,17 +40,15 @@ impl ResponseError for AppError {
             AppError::UserNotFound | AppError::SessionNotFound => StatusCode::NOT_FOUND,
 
             // Treat these environment/config related errors as 500 internal errors
-            AppError::IoError(_) 
-            | AppError::MissingEnvVar(_) 
-            | AppError::InvalidEnvVarFormat(_) 
-            | AppError::DotenvError(_) 
+            AppError::IoError(_)
+            | AppError::MissingEnvVar(_)
+            | AppError::InvalidEnvVarFormat(_)
+            | AppError::DotenvError(_)
             | AppError::InternalServerError => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }
 
     fn error_response(&self) -> HttpResponse {
-        HttpResponse::build(self.status_code())
-            .json(json!({ "error": self.to_string() }))
+        HttpResponse::build(self.status_code()).json(json!({ "error": self.to_string() }))
     }
 }
-

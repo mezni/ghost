@@ -1,7 +1,7 @@
+use crate::errors::AppError;
 use dotenvy::dotenv;
-use std::env;
 use serde::{Deserialize, Serialize};
-use crate::errors::AppError; 
+use std::env;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Config {

@@ -1,7 +1,7 @@
-use actix_web::{web, App, HttpServer, HttpResponse, Responder};
 use crate::config::Config;
 use crate::errors::AppError;
 use crate::logger::Logger;
+use actix_web::{App, HttpResponse, HttpServer, Responder, web};
 
 mod config;
 mod errors;
@@ -23,8 +23,7 @@ async fn main() -> Result<(), AppError> {
     Logger::info(&format!("Listening on http://{}", &bind_addr));
 
     HttpServer::new(|| {
-        App::new()
-            .route("/health", web::get().to(health_check))
+        App::new().route("/health", web::get().to(health_check))
         // Add your routes, middleware, etc.
     })
     .bind(bind_addr)
