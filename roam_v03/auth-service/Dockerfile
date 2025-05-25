@@ -24,7 +24,7 @@ COPY --from=builder /app/target/release/auth-service /app/auth-service
 
 ENV RUST_LOG=info
 ENV APP_ENVIRONMENT=production
-ENV PORT=8080
+ENV PORT=3000
 
 EXPOSE ${PORT}
 CMD ["/app/auth-service"]

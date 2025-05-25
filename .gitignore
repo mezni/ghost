@@ -28,3 +28,4 @@ target/
 
 # Ignore the cache files
 *.rs.bk
+.env
