@@ -1,25 +1,41 @@
-// main.rs
-use actix_cors::Cors;
-use actix_web::{web, App, HttpServer};
-use crate::handlers::{login, register, logout};
+use actix_web::{web, App, HttpServer, HttpResponse, Responder};
+use crate::config::Config;
+use crate::errors::AppError;
+use crate::logger::Logger;
+
+mod config;
+mod errors;
+mod logger;
+
+async fn health_check() -> impl Responder {
+    HttpResponse::Ok().json(serde_json::json!({ "status": "ok" }))
+}
 
 #[actix_web::main]
-async fn main() -> std::io::Result<()> {
+async fn main() -> Result<(), AppError> {
+    Logger::init();
+
+    Logger::info("Starting authentication service...");
+
+    let config = Config::from_env()?;
+
+    let bind_addr = format!("{}:{}", config.server.host, config.server.port);
+    Logger::info(&format!("Listening on http://{}", &bind_addr));
+
     HttpServer::new(|| {
         App::new()
-            .wrap(
-                Cors::new()
-                    .allowed_origin("http://localhost:3000")
-                    .allowed_methods(vec!["GET", "POST"])
-                    .allowed_headers(vec![actix_web::http::header::AUTHORIZATION, actix_web::http::header::ACCEPT])
-                    .supports_credentials()
-                    .max_age(3600),
-            )
-            .service(web::resource("/register").route(web::post().to(register)))
-            .service(web::resource("/login").route(web::post().to(login)))
-            .service(web::resource("/logout").route(web::post().to(logout)))
+            .route("/health", web::get().to(health_check))
+        // Add your routes, middleware, etc.
     })
-    .bind("127.0.0.1:8080")?
+    .bind(bind_addr)
+    .map_err(|e| {
+        Logger::error(&format!("Failed to bind server: {}", e));
+        AppError::IoError(e)
+    })?
     .run()
     .await
+    .map_err(|e| {
+        Logger::error(&format!("Server error: {}", e));
+        AppError::InternalServerError
+    })
 }
