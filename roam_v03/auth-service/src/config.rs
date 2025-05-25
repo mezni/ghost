@@ -8,6 +8,7 @@ pub struct Config {
     pub server: ServerConfig,
     pub database: DatabaseConfig,
     pub jwt: JwtConfig,
+    pub cors_allowed_origins: Vec<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -65,6 +66,14 @@ impl Config {
         let jwt_expires_str = get_var("JWT_EXPIRES_IN")?;
         let jwt_expires_in = parse_i64("JWT_EXPIRES_IN", jwt_expires_str)?;
 
+        let cors_origins_str = env::var("AUTH_CORS_ALLOWED_ORIGIN").unwrap_or_else(|_| "".into());
+
+        let cors_allowed_origins = cors_origins_str
+            .split(',')
+            .map(|s| s.trim().to_string())
+            .filter(|s| !s.is_empty())
+            .collect();
+
         Ok(Config {
             server: ServerConfig {
                 host: server_host,
@@ -81,6 +90,7 @@ impl Config {
                 secret: jwt_secret,
                 expires_in: jwt_expires_in,
             },
+            cors_allowed_origins,
         })
     }
 }
