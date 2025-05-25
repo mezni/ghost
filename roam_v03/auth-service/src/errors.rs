@@ -1,7 +1,10 @@
+// src/errors.rs
 use actix_web::{HttpResponse, error::ResponseError, http::StatusCode};
+use dotenvy::Error as DotenvError;
 use serde_json::json;
 use std::io;
 use thiserror::Error;
+use tokio_postgres::Error as PgError;
 
 #[derive(Error, Debug)]
 pub enum AppError {
@@ -14,8 +17,14 @@ pub enum AppError {
     #[error("Invalid environment variable format for {0}")]
     InvalidEnvVarFormat(String),
 
-    #[error(transparent)]
-    DotenvError(#[from] dotenvy::Error),
+    #[error("Dotenv error: {0}")]
+    DotenvError(#[from] DotenvError),
+
+    #[error("Database error: {0}")]
+    DatabaseError(#[from] PgError),
+
+    #[error("Configuration error: {0}")]
+    ConfigError(String),
 
     #[error("Invalid credentials")]
     InvalidCredentials,
@@ -29,6 +38,9 @@ pub enum AppError {
     #[error("Token expired")]
     TokenExpired,
 
+    #[error("Database pool creation error: {0}")]
+    DbPoolCreateError(String),  // or use appropriate error type
+
     #[error("Internal server error")]
     InternalServerError,
 }
@@ -38,13 +50,10 @@ impl ResponseError for AppError {
         match self {
             AppError::InvalidCredentials | AppError::TokenExpired => StatusCode::UNAUTHORIZED,
             AppError::UserNotFound | AppError::SessionNotFound => StatusCode::NOT_FOUND,
-
-            // Treat these environment/config related errors as 500 internal errors
-            AppError::IoError(_)
-            | AppError::MissingEnvVar(_)
-            | AppError::InvalidEnvVarFormat(_)
-            | AppError::DotenvError(_)
-            | AppError::InternalServerError => StatusCode::INTERNAL_SERVER_ERROR,
+            AppError::DatabaseError(_)
+            | AppError::DbPoolCreateError(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            AppError::InternalServerError => StatusCode::INTERNAL_SERVER_ERROR,
+            _ => StatusCode::BAD_REQUEST,
         }
     }
 

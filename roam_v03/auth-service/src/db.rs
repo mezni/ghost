@@ -1,42 +1,44 @@
-// db.rs
-use tokio_postgres::{NoTls, Client, Config};
-use tokio_postgres::error::Error;
+use crate::config::DatabaseConfig;
+use crate::errors::AppError;
+use crate::logger::Logger;
+use deadpool_postgres::{Manager, ManagerConfig, Pool, RecyclingMethod, Runtime};
+use tokio_postgres::NoTls;
 
-pub struct PgConn {
-    client: Client,
-}
+pub fn create_pg_pool(cfg: &DatabaseConfig) -> Result<Pool, AppError> {
+    Logger::info("Creating PostgreSQL connection pool...");
 
-impl PgConn {
-    pub async fn new(config: Config) -> Result<Self, Error> {
-        let (client, connection) = config.connect(NoTls).await?;
-        tokio::spawn(connection);
-        Ok(PgConn { client })
-    }
+    // Build connection string
+    let pg_config_str = format!(
+        "host={} port={} user={} password={} dbname={}",
+        cfg.host, cfg.port, cfg.username, cfg.password, cfg.database
+    );
 
-    pub async fn query(&self, query: &str, params: &[&(dyn tokio_postgres::types::ToSql + Sync)]) -> Result<tokio_postgres::RowStream, Error> {
-        self.client.query(query, params).await
-    }
+    // Parse connection string into tokio_postgres::Config
+    let pg_config = pg_config_str.parse::<tokio_postgres::Config>().map_err(|e| {
+        let msg = format!("Invalid DB config: {}", e);
+        Logger::error(&msg);
+        AppError::InternalServerError // or a custom ConfigError variant if you want
+    })?;
 
-    pub async fn execute(&self, query: &str, params: &[&(dyn tokio_postgres::types::ToSql + Sync)]) -> Result<u64, Error> {
-        self.client.execute(query, params).await
-    }
+    // Manager config for recycling connections
+    let mgr_config = ManagerConfig {
+        recycling_method: RecyclingMethod::Fast,
+    };
 
-    pub async fn query_one(&self, query: &str, params: &[&(dyn tokio_postgres::types::ToSql + Sync)]) -> Result<tokio_postgres::Row, Error> {
-        self.client.query_one(query, params).await
-    }
-}
+    // Create manager
+    let mgr = Manager::from_config(pg_config, NoTls, mgr_config);
 
-pub fn get_config() -> Config {
-    let mut config = Config::new();
-    config.host("localhost");
-    config.port(5432);
-    config.user("username");
-    config.password("password");
-    config.dbname("database");
-    config
-}
+    // Build the pool with max size and runtime
+    let pool = Pool::builder(mgr)
+        .max_size(16)
+        .runtime(Runtime::Tokio1)
+        .build()
+        .map_err(|e| {
+            let msg = format!("Failed to build DB pool: {}", e);
+            Logger::error(&msg);
+            AppError::InternalServerError
+        })?;
 
-pub async fn establish_connection() -> Result<PgConn, Error> {
-    let config = get_config();
-    PgConn::new(config).await
+    Logger::info("PostgreSQL pool created successfully.");
+    Ok(pool)
 }
