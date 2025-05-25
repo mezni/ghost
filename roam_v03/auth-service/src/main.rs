@@ -19,7 +19,7 @@ async fn main() -> Result<(), AppError> {
     dotenv().ok();
     let config = Config::from_env()?;
 
-    let db_config = config.database.clone(); 
+    let db_config = config.database.clone();
 
     let db_pool = create_pg_pool(&db_config)?;
 
@@ -27,12 +27,10 @@ async fn main() -> Result<(), AppError> {
     Logger::info(&format!("Starting server at http://{}", bind_addr));
 
     HttpServer::new(move || {
-        App::new()
-            .app_data(web::Data::new(db_pool.clone())) 
-            .route(
-                "/",
-                web::get().to(|| async { HttpResponse::Ok().body("Auth server up") }),
-            )
+        App::new().app_data(web::Data::new(db_pool.clone())).route(
+            "/",
+            web::get().to(|| async { HttpResponse::Ok().body("Auth server up") }),
+        )
     })
     .bind(&bind_addr)?
     .run()

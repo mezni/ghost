@@ -14,11 +14,13 @@ pub fn create_pg_pool(cfg: &DatabaseConfig) -> Result<Pool, AppError> {
     );
 
     // Parse connection string into tokio_postgres::Config
-    let pg_config = pg_config_str.parse::<tokio_postgres::Config>().map_err(|e| {
-        let msg = format!("Invalid DB config: {}", e);
-        Logger::error(&msg);
-        AppError::InternalServerError // or a custom ConfigError variant if you want
-    })?;
+    let pg_config = pg_config_str
+        .parse::<tokio_postgres::Config>()
+        .map_err(|e| {
+            let msg = format!("Invalid DB config: {}", e);
+            Logger::error(&msg);
+            AppError::InternalServerError // or a custom ConfigError variant if you want
+        })?;
 
     // Manager config for recycling connections
     let mgr_config = ManagerConfig {

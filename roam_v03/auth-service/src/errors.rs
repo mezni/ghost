@@ -39,7 +39,7 @@ pub enum AppError {
     TokenExpired,
 
     #[error("Database pool creation error: {0}")]
-    DbPoolCreateError(String),  // or use appropriate error type
+    DbPoolCreateError(String), // or use appropriate error type
 
     #[error("Internal server error")]
     InternalServerError,
@@ -50,8 +50,9 @@ impl ResponseError for AppError {
         match self {
             AppError::InvalidCredentials | AppError::TokenExpired => StatusCode::UNAUTHORIZED,
             AppError::UserNotFound | AppError::SessionNotFound => StatusCode::NOT_FOUND,
-            AppError::DatabaseError(_)
-            | AppError::DbPoolCreateError(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            AppError::DatabaseError(_) | AppError::DbPoolCreateError(_) => {
+                StatusCode::INTERNAL_SERVER_ERROR
+            }
             AppError::InternalServerError => StatusCode::INTERNAL_SERVER_ERROR,
             _ => StatusCode::BAD_REQUEST,
         }
