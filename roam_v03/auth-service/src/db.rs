@@ -19,7 +19,7 @@ pub fn create_pg_pool(cfg: &DatabaseConfig) -> Result<Pool, AppError> {
         .map_err(|e| {
             let msg = format!("Invalid DB config: {}", e);
             Logger::error(&msg);
-            AppError::InternalServerError // or a custom ConfigError variant if you want
+            AppError::InternalServerError(msg) // or a custom ConfigError variant if you want
         })?;
 
     // Manager config for recycling connections
@@ -38,7 +38,7 @@ pub fn create_pg_pool(cfg: &DatabaseConfig) -> Result<Pool, AppError> {
         .map_err(|e| {
             let msg = format!("Failed to build DB pool: {}", e);
             Logger::error(&msg);
-            AppError::InternalServerError
+            AppError::InternalServerError(msg)
         })?;
 
     Logger::info("PostgreSQL pool created successfully.");

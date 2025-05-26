@@ -1,5 +1,6 @@
-// src/errors.rs
 use actix_web::{HttpResponse, error::ResponseError, http::StatusCode};
+use argon2::password_hash;
+use deadpool::managed::PoolError;
 use dotenvy::Error as DotenvError;
 use serde_json::json;
 use std::io;
@@ -38,11 +39,17 @@ pub enum AppError {
     #[error("Token expired")]
     TokenExpired,
 
-    #[error("Database pool creation error: {0}")]
-    DbPoolCreateError(String), // or use appropriate error type
+    #[error("Database pool error: {0}")]
+    DbPoolError(String),
 
-    #[error("Internal server error")]
-    InternalServerError,
+    #[error("Internal server error: {0}")]
+    InternalServerError(String),
+
+    #[error("Password hashing error: {0}")]
+    HashError(String),
+
+    #[error("JWT error: {0}")]
+    JwtError(String),
 }
 
 impl ResponseError for AppError {
@@ -50,15 +57,32 @@ impl ResponseError for AppError {
         match self {
             AppError::InvalidCredentials | AppError::TokenExpired => StatusCode::UNAUTHORIZED,
             AppError::UserNotFound | AppError::SessionNotFound => StatusCode::NOT_FOUND,
-            AppError::DatabaseError(_) | AppError::DbPoolCreateError(_) => {
-                StatusCode::INTERNAL_SERVER_ERROR
-            }
-            AppError::InternalServerError => StatusCode::INTERNAL_SERVER_ERROR,
+            AppError::HashError(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            AppError::JwtError(_) => StatusCode::UNAUTHORIZED,
+            AppError::DatabaseError(_)
+            | AppError::DbPoolError(_)
+            | AppError::InternalServerError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             _ => StatusCode::BAD_REQUEST,
         }
     }
 
     fn error_response(&self) -> HttpResponse {
+        if let AppError::InternalServerError(msg) = self {
+            eprintln!("Internal error: {}", msg);
+        }
+
         HttpResponse::build(self.status_code()).json(json!({ "error": self.to_string() }))
+    }
+}
+
+impl From<PoolError<tokio_postgres::Error>> for AppError {
+    fn from(err: PoolError<tokio_postgres::Error>) -> Self {
+        AppError::DbPoolError(err.to_string())
+    }
+}
+
+impl From<argon2::password_hash::Error> for AppError {
+    fn from(err: password_hash::Error) -> Self {
+        AppError::InternalServerError(format!("Password hash error: {}", err))
     }
 }

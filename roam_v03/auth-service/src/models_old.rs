@@ -1,5 +1,7 @@
+// models.rs
+use serde::{Serialize, Deserialize};
 use chrono::NaiveDateTime;
-use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct User {
@@ -21,10 +23,9 @@ pub struct Session {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Role {
-    pub id: i32,
-    pub name: String,
-    pub description: Option<String>,
+pub enum Role {
+    Admin,
+    User,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -52,7 +53,7 @@ pub struct AuthResponse {
     pub expires_at: NaiveDateTime,
 }
 
-// DTO (Data Transfer Object) to expose user info without password hash
+// DTOs (Data Transfer Objects)
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserDTO {
     pub id: i32,

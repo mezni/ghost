@@ -26,7 +26,7 @@ pub struct DatabaseConfig {
     pub database: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct JwtConfig {
     pub secret: String,
     pub expires_in: i64,

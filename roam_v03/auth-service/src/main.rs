@@ -8,6 +8,9 @@ mod db;
 mod errors;
 mod handlers;
 mod logger;
+mod models;
+mod repositories;
+mod utils;
 
 use crate::config::Config;
 use crate::db::create_pg_pool;
@@ -43,6 +46,7 @@ async fn main() -> Result<(), AppError> {
         App::new()
             .wrap(cors)
             .app_data(web::Data::new(db_pool.clone()))
+            .app_data(web::Data::new(config.jwt.clone()))
             .configure(handlers::init_routes)
     })
     .bind(&bind_addr)?
