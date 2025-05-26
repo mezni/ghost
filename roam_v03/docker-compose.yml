@@ -27,8 +27,11 @@ services:
     build:
       context: ./auth-service
       dockerfile: Dockerfile
+    container_name: auth-service
     ports:
       - "3100:${AUTH_SERVER_PORT}"
+    volumes:
+      - .env:/app/.env
     environment:
       - RUST_LOG=info
       - APP_ENVIRONMENT=${APP_ENVIRONMENT:-development}

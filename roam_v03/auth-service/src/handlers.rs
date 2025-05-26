@@ -8,15 +8,19 @@ use serde_json::json;
 
 use crate::config::{Config, JwtConfig};
 use crate::errors::AppError;
+use crate::metrics::LOGIN_COUNTER;
 use crate::models::{AuthResponse, LoginRequest, RegisterRequest, UserDTO};
 use crate::repositories::{SessionRepository, UserRepository};
 use crate::utils::{generate_jwt, verify_password};
 
 pub fn init_routes(cfg: &mut web::ServiceConfig) {
-    cfg.route("/health", web::get().to(health))
-        .route("/register", web::post().to(register))
-        .route("/login", web::post().to(login))
-        .route("/logout", web::post().to(logout));
+    cfg.service(
+        web::scope("/api/v1")
+            .route("/health", web::get().to(health))
+            .route("/register", web::post().to(register))
+            .route("/login", web::post().to(login))
+            .route("/logout", web::post().to(logout)),
+    );
 }
 
 async fn health() -> impl Responder {
@@ -48,6 +52,7 @@ async fn login(
     jwt_config: web::Data<JwtConfig>,
     req: web::Json<LoginRequest>,
 ) -> Result<HttpResponse, AppError> {
+    LOGIN_COUNTER.inc();
     let client = db_pool.get().await?;
     let user_repo = UserRepository::new(&client);
     let user = user_repo.get_by_username(&req.username).await?;
