@@ -1,28 +1,8 @@
 services:
-  auth-db:
-    image: postgres:17-alpine
-    container_name: auth-db
-    restart: always
-    environment:
-      POSTGRES_USER: ${AUTH_DB_USER}
-      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
-      POSTGRES_DB: ${AUTH_DB_NAME}
-    ports:
-      - "${AUTH_DB_PORT}:5432"
-    volumes:
-      - auth_db_data:/var/lib/postgresql/data
-      - ./auth-db/init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - delta_network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${AUTH_DB_USER} -d ${AUTH_DB_NAME}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-
   roam-db:
-    image: postgres:17-alpine
+    build:
+      context: ./roam-db
+      dockerfile: Dockerfile
     container_name: roam-db
     restart: always
     environment:
@@ -37,14 +17,13 @@ services:
     networks:
       - delta_network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${AUTH_DB_USER} -d ${AUTH_DB_NAME}"]
+      test: ["CMD-SHELL", "pg_isready -U ${ROAM_DB_USER} -d ${ROAM_DB_NAME}"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 10s
 
 volumes:
-  auth_db_data:
   roam_db_data:
 
 networks:
