@@ -26,7 +26,7 @@ WORKDIR /app
 COPY --from=builder /app/target/release/auth-service .
 
 # Expose the port
-EXPOSE 3100
+EXPOSE 3200
 
 # Run the command to start the service
 CMD ["./auth-service"]

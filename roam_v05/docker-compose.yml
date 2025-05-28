@@ -1,8 +1,6 @@
 services:
   auth-db:
-    build:
-      context: ./auth-db
-      dockerfile: Dockerfile
+    image: postgres:17-alpine
     container_name: auth-db
     restart: always
     environment:
@@ -24,9 +22,7 @@ services:
       start_period: 10s
 
   roam-db:
-    build:
-      context: ./roam-db
-      dockerfile: Dockerfile
+    image: postgres:17-alpine
     container_name: roam-db
     restart: always
     environment:
@@ -46,46 +42,6 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
-
-
-  auth-service:
-    build:
-      context: ./auth-service
-      dockerfile: Dockerfile
-    container_name: auth-service
-    ports:
-      - "3100:${AUTH_SERVER_PORT}"
-    volumes:
-      - .env:/app/.env
-    environment:
-      - RUST_LOG=info
-      - APP_ENVIRONMENT=${APP_ENVIRONMENT:-development}
-    depends_on:
-      auth-db:
-        condition: service_healthy
-    restart: unless-stopped
-    networks:
-      - delta_network
-
-
-  api-service:
-    build:
-      context: ./api-service
-      dockerfile: Dockerfile
-    container_name: api-service
-    ports:
-      - "3200:${API_SERVER_PORT}"
-    volumes:
-      - .env:/app/.env
-    environment:
-      - RUST_LOG=info
-      - APP_ENVIRONMENT=${APP_ENVIRONMENT:-development}
-    depends_on:
-      roam-db:
-        condition: service_healthy
-    restart: unless-stopped
-    networks:
-      - delta_network
 
 volumes:
   auth_db_data:

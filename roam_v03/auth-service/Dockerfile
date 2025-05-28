@@ -1,28 +1,32 @@
-# syntax=docker/dockerfile:1
+# Use the official Rust image with the specified edition
+FROM rust:alpine AS builder
 
-# Use nightly or stable depending on edition (2024 requires nightly)
-FROM rustlang/rust:nightly-bookworm as builder
-
+# Set the working directory
 WORKDIR /app
 
-# Copy full workspace (Cargo.toml includes [workspace] and member paths)
-COPY . .
+# Copy the Cargo.toml and Cargo.lock files
+COPY Cargo.toml Cargo.lock ./
 
-# Build only the auth-service binary
-RUN cargo +nightly build --release -p auth-service
+# Create an empty src directory to avoid copying src files yet
+RUN mkdir src
 
-# Runtime stage
-FROM debian:bookworm-slim
+# Copy the source code
+COPY src/ ./src/
 
-# PostgreSQL client libs if needed at runtime
-RUN apt-get update && apt-get install -y libpq5 && rm -rf /var/lib/apt/lists/*
+# Build the application
+RUN cargo build --release
 
+# Use a smaller base image for the final image
+FROM alpine:latest
+
+# Set the working directory
 WORKDIR /app
 
-# Copy the compiled binary
-COPY --from=builder /app/target/release/auth-service /app/auth-service
+# Copy the binary from the builder stage
+COPY --from=builder /app/target/release/your_app_name .
 
-ENV RUST_LOG=info
-ENV APP_ENVIRONMENT=production
+# Expose the port
+EXPOSE 8080
 
-CMD ["/app/auth-service"]
+# Run the command to start the service
+CMD ["./your_app_name"]
