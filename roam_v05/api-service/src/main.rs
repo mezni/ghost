@@ -4,10 +4,7 @@ mod errors; // This line makes the errors.rs module available
 
 fn main() -> Result<(), errors::AppError> { // Now uses errors::AppError as the return type
 
-    println!(
-        "DEBUG: API_SRV_CORS_ALLOWED_ORIGIN = {:?}",
-        std::env::var("API_SRV_CORS_ALLOWED_ORIGIN")
-    );
+
 
     let server_config = config::load_config()?; // The `?` operator will now convert config::ConfigError to errors::AppError
     println!("Server Config: {:?}", server_config.service);

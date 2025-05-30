@@ -49,6 +49,11 @@ pub fn load_config() -> Result<ServerConfig, config::ConfigError> {
     // Load environment variables from a .env file if it exists.
     dotenv().ok();
 
+    println!(
+        "DEBUG: API_SRV_CORS_ALLOWED_ORIGIN = {:?}",
+        std::env::var("API_SRV_CORS_ALLOWED_ORIGIN")
+    );
+
     // Build and deserialize ServiceConfig from environment variables
     let service_config: ServiceConfig = Config::builder()
         // Changed prefix to "API_SRV"
