@@ -1,6 +1,10 @@
+use super::logger::Logger;
 use config::{Config, Environment};
 use dotenvy::dotenv;
 use serde::{Deserialize, Deserializer};
+
+const SRV_PREFIX: &str = "API_SRV";
+const DB_PREFIX: &str = "ROAM_DB";
 
 #[derive(Debug, Deserialize)]
 pub struct ServerConfig {
@@ -40,24 +44,21 @@ pub struct DatabaseConfig {
 pub fn load_config() -> Result<ServerConfig, config::ConfigError> {
     dotenv().ok();
 
-    println!(
-        "DEBUG: Raw env var API_SRV_CORS: {:?}",
-        std::env::var("API_SRV_CORS")
-    );
-
     let service = Config::builder()
         .add_source(
-            Environment::with_prefix("API_SRV")
+            Environment::with_prefix(SRV_PREFIX)
                 .separator("_")
                 .list_separator(","),
         )
         .build()?
         .try_deserialize::<ServiceConfig>()?;
-
+    Logger::debug(&format!("Loaded service config: {:?}", service));
     let database = Config::builder()
-        .add_source(Environment::with_prefix("ROAM_DB").separator("_"))
+        .add_source(Environment::with_prefix(DB_PREFIX).separator("_"))
         .build()?
         .try_deserialize::<DatabaseConfig>()?;
+    Logger::debug(&format!("Loaded database config: {:?}", database));
 
+    Logger::info("Configuration loaded successfully");
     Ok(ServerConfig { service, database })
 }
