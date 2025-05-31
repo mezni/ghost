@@ -1,34 +1,60 @@
 mod errors;
 mod infra;
 
-use actix_web::{App, HttpResponse, HttpServer, Responder, web};
-use errors::AppError;
-use infra::config::load_config;
-use infra::logger::Logger;
+use actix_cors::Cors;
+use actix_web::{App, HttpServer, http::header};
+use infra::{config::load_config, logger::Logger};
+use std::sync::Arc;
 
-async fn health_check() -> impl Responder {
-    HttpResponse::Ok().body("OK")
-}
-
-#[tokio::main]
-async fn main() -> Result<(), AppError> {
-    // Initialize logger
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
     Logger::init();
-    Logger::info("Starting service...");
 
-    // Load configuration
-    let config = load_config()?;
-    Logger::info("Configuration loaded successfully.");
-    Logger::debug(&format!("Loaded config: {:?}", config));
+    let config = load_config().unwrap_or_else(|e| {
+        Logger::error(&format!("Failed to load config: {}", e));
+        std::process::exit(1);
+    });
 
-    let host = config.service.host.clone();
-    let port = config.service.port;
+    let host = config.service.host;
+    let port = config.service.port as u16;
+    let allowed_origins = Arc::new(config.service.cors);
 
-    Logger::info(&format!("Starting HTTP server at http://{}:{}", host, port));
+    Logger::info(&format!(
+        "Starting server at http://{}:{} with CORS origins: {:?}",
+        host, port, allowed_origins
+    ));
 
-    HttpServer::new(|| App::new().route("/health", web::get().to(health_check)))
-        .bind((host.as_str(), port as u16))?
-        .run()
-        .await
-        .map_err(Into::into) // convert Actix error to AppError if needed
+    HttpServer::new(move || {
+        let cors = {
+            let allowed_origins = allowed_origins.clone();
+
+            Cors::default()
+                .allowed_origin_fn(move |origin, _req_head| {
+                    if let Ok(origin_str) = origin.to_str() {
+                        allowed_origins.iter().any(|allowed| allowed == origin_str)
+                    } else {
+                        false
+                    }
+                })
+                .allowed_methods(vec![
+                    "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD",
+                ])
+                .allowed_headers(vec![
+                    header::AUTHORIZATION,
+                    header::CONTENT_TYPE,
+                    header::ACCEPT,
+                    header::ORIGIN,
+                    header::USER_AGENT,
+                    header::REFERER,
+                    header::HeaderName::from_static("x-requested-with"),
+                ])
+                .supports_credentials()
+        };
+
+        App::new().wrap(cors)
+        // add routes here
+    })
+    .bind((host.as_str(), port))?
+    .run()
+    .await
 }
