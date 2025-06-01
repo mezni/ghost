@@ -6,13 +6,13 @@ use serde::{Deserialize, Deserializer};
 const SRV_PREFIX: &str = "API_SRV";
 const DB_PREFIX: &str = "ROAM_DB";
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct ServerConfig {
     pub service: ServiceConfig,
     pub database: DatabaseConfig,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct ServiceConfig {
     pub host: String,
     pub port: i32,
@@ -32,7 +32,7 @@ where
         .collect())
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct DatabaseConfig {
     pub host: String,
     pub port: u16,

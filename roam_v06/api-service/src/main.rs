@@ -2,59 +2,61 @@ mod errors;
 mod infra;
 
 use actix_cors::Cors;
-use actix_web::{App, HttpServer, http::header};
-use infra::{config::load_config, logger::Logger};
+use actix_web::{App, HttpServer, middleware::Logger as ActixLogger};
+use infra::{config::load_config, db::DBManager, logger::Logger};
 use std::sync::Arc;
 
-#[actix_web::main]
+#[tokio::main]
 async fn main() -> std::io::Result<()> {
+    // Initialize tracing subscriber logger (your Logger wrapper)
     Logger::init();
+    Logger::info("Starting API server...");
 
-    let config = load_config().unwrap_or_else(|e| {
-        Logger::error(&format!("Failed to load config: {}", e));
-        std::process::exit(1);
-    });
+    // Load config
+    let config = match load_config() {
+        Ok(cfg) => {
+            Logger::info("Configuration loaded successfully.");
+            cfg
+        }
+        Err(e) => {
+            Logger::error(&format!("Failed to load configuration: {}", e));
+            std::process::exit(1);
+        }
+    };
 
-    let host = config.service.host;
-    let port = config.service.port as u16;
-    let allowed_origins = Arc::new(config.service.cors);
+    // Initialize database manager with the loaded config
+    let db_manager = match DBManager::new(config.database.clone()) {
+        Ok(manager) => {
+            Logger::info("Database pool created.");
+            Arc::new(manager)
+        }
+        Err(e) => {
+            Logger::error(&format!("Failed to initialize DB pool: {}", e));
+            std::process::exit(1);
+        }
+    };
 
-    Logger::info(&format!(
-        "Starting server at http://{}:{} with CORS origins: {:?}",
-        host, port, allowed_origins
-    ));
+    let bind_addr = format!("{}:{}", config.service.host, config.service.port);
+    Logger::info(&format!("Listening on http://{}", bind_addr));
 
     HttpServer::new(move || {
-        let cors = {
-            let allowed_origins = allowed_origins.clone();
+        // Build CORS inside the closure to avoid Send/Clone errors
+        let cors = Cors::default()
+            .allowed_methods(vec!["GET", "POST", "PUT", "DELETE", "OPTIONS"])
+            .allowed_headers(vec![
+                actix_web::http::header::AUTHORIZATION,
+                actix_web::http::header::ACCEPT,
+                actix_web::http::header::CONTENT_TYPE,
+            ])
+            .supports_credentials();
 
-            Cors::default()
-                .allowed_origin_fn(move |origin, _req_head| {
-                    if let Ok(origin_str) = origin.to_str() {
-                        allowed_origins.iter().any(|allowed| allowed == origin_str)
-                    } else {
-                        false
-                    }
-                })
-                .allowed_methods(vec![
-                    "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD",
-                ])
-                .allowed_headers(vec![
-                    header::AUTHORIZATION,
-                    header::CONTENT_TYPE,
-                    header::ACCEPT,
-                    header::ORIGIN,
-                    header::USER_AGENT,
-                    header::REFERER,
-                    header::HeaderName::from_static("x-requested-with"),
-                ])
-                .supports_credentials()
-        };
-
-        App::new().wrap(cors)
-        // add routes here
+        App::new()
+            .wrap(ActixLogger::default())
+            .wrap(cors)
+            .app_data(actix_web::web::Data::from(db_manager.clone()))
+        // configure your routes here
     })
-    .bind((host.as_str(), port))?
+    .bind(bind_addr)?
     .run()
     .await
 }
