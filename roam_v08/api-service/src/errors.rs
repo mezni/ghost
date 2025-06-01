@@ -1,15 +1,17 @@
-// src/infra/errors.rs
+// src/errors.rs
 
 use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum AppError {
-    // Renamed from InfraError
     #[error("Configuration error: {0}")]
     ConfigError(#[from] config::ConfigError),
 
-    #[error("Database error: {0}")]
-    DatabaseError(String),
+    #[error("Database connection error: {0}")] // New variant for connection issues
+    DatabaseConnectionError(String),
+
+    #[error("Database error: {0}")] // General database operation errors
+    DatabaseError(String), // You could also use #[from] sqlx::Error here for more detail
 
     #[error("Service initialization error: {0}")]
     ServiceError(String),
@@ -20,6 +22,6 @@ pub enum AppError {
     #[error("I/O error: {0}")]
     IoError(#[from] std::io::Error),
 
-    #[error("An unknown application error occurred.")] // Updated message
+    #[error("An unknown application error occurred.")]
     Unknown,
 }

@@ -1,11 +1,13 @@
 // src/main.rs
 
 mod errors;
-mod infra; // Declares the 'infra' module // Declares the top-level 'errors' module
+mod infra;
 use errors::AppError;
-use infra::logger::Logger; // Import AppError directly from the top-level errors module
+use infra::logger::Logger;
+use sqlx::PgPool;
 
-fn main() {
+#[tokio::main]
+async fn main() {
     Logger::init();
 
     Logger::info("Application starting up...");
@@ -26,6 +28,19 @@ fn main() {
                 }
                 _ => { /* Handle other AppError variants if needed */ }
             }
+            std::process::exit(1);
+        }
+    };
+
+    // Initialize the database pool
+    let _db_pool: PgPool = match infra::postgres::db::init_db_pool(&server_config.database).await {
+        // Await the async function
+        Ok(pool) => {
+            Logger::info("Database connection pool initialized successfully.");
+            pool
+        }
+        Err(e) => {
+            Logger::error(&format!("Failed to initialize database pool: {}", e));
             std::process::exit(1);
         }
     };
