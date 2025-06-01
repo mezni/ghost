@@ -1,0 +1,12 @@
+[package]
+name = "api-service"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+config = "0.15.11"
+dotenvy = "0.15.7"
+serde = { version = "1.0.219", features = ["derive"] }
+thiserror = "2.0.12"
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
