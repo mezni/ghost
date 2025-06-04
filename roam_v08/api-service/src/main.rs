@@ -1,5 +1,6 @@
 // src/main.rs
 
+mod domain;
 mod errors;
 mod infra;
 use errors::AppError;
