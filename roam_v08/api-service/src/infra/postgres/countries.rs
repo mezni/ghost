@@ -3,13 +3,14 @@ use crate::errors::AppError;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 use sqlx::{PgPool, Row};
+use std::sync::Arc;
 
 pub struct PostgresCountryRepository {
-    pub pool: PgPool,
+    pool: Arc<PgPool>,
 }
 
 impl PostgresCountryRepository {
-    pub fn new(pool: PgPool) -> Self {
+    pub fn new(pool: Arc<PgPool>) -> Self {
         Self { pool }
     }
 }
@@ -24,7 +25,7 @@ impl CountryRepository for PostgresCountryRepository {
             ORDER BY name
             "#,
         )
-        .fetch_all(&self.pool)
+        .fetch_all(&*self.pool)
         .await
         .map_err(AppError::from)?;
 
@@ -53,7 +54,7 @@ impl CountryRepository for PostgresCountryRepository {
             "#,
         )
         .bind(id)
-        .fetch_optional(&self.pool)
+        .fetch_optional(&*self.pool)
         .await
         .map_err(AppError::from)?;
 
@@ -80,7 +81,7 @@ impl CountryRepository for PostgresCountryRepository {
         .bind(&country.code)
         .bind(country.created_at)
         .bind(&country.created_by)
-        .fetch_one(&self.pool)
+        .fetch_one(&*self.pool)
         .await
         .map_err(AppError::from)?;
 
@@ -100,7 +101,7 @@ impl CountryRepository for PostgresCountryRepository {
         .bind(&country.updated_at)
         .bind(&country.updated_by)
         .bind(country.id)
-        .execute(&self.pool)
+        .execute(&*self.pool)
         .await
         .map_err(AppError::from)?;
 
@@ -115,7 +116,7 @@ impl CountryRepository for PostgresCountryRepository {
             "#,
         )
         .bind(id)
-        .execute(&self.pool)
+        .execute(&*self.pool)
         .await
         .map_err(AppError::from)?;
 

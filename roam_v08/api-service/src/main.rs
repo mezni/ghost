@@ -1,45 +1,40 @@
 // src/main.rs
 
-mod domain;
+mod app;
+mod domain; // Contains Country, CountryRepository, CountryService
 mod errors;
-mod infra;
-use errors::AppError; // Ensure AppError is imported
+mod infra; // Now contains all app-specific modules, including countries
+
+use errors::AppError;
 use infra::logger::Logger;
 use sqlx::PgPool;
 
 // Actix Web imports
 use actix_web::dev::Server;
-use actix_web::{App, HttpResponse, HttpServer, Responder, web};
+use actix_web::{App, HttpServer, web};
 
-// Handler for a simple "hello world" route
-async fn hello_world_handler() -> impl Responder {
-    Logger::info("Received request for /hello");
-    HttpResponse::Ok().body("Hello, World!")
-}
+// Use types from your domain module
+use crate::domain::countries::{CountryRepository, CountryService};
+// Import the consolidated countries module
+use crate::app::countries::configure_routes; // Import the new countries module
 
-// Handler that demonstrates access to the database pool
-async fn db_test_handler(db_pool: web::Data<PgPool>) -> Result<HttpResponse, AppError> {
-    Logger::info("Received request for /db_test");
-
-    // Ping the database. If it fails, sqlx::Error will be converted to AppError::DatabaseError
-    // No need for match statement or format! - the `?` operator handles the conversion now.
-    sqlx::query("SELECT 1").execute(db_pool.get_ref()).await?; // This will convert sqlx::Error to AppError::DatabaseError automatically
-
-    Logger::info("Database ping successful from handler.");
-    Ok(HttpResponse::Ok().body("Database connection test successful!"))
-}
+use crate::infra::postgres::countries::PostgresCountryRepository;
+use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<(), AppError> {
     Logger::init();
-
     Logger::info("Application starting up...");
 
     let server_config = infra::config::load_config()?;
-
     let db_pool: PgPool = infra::postgres::db::init_db_pool(&server_config.database).await?;
-
     Logger::info("Application configuration and database pool initialized.");
+
+    // Create the concrete repository instance
+    let country_repo = Arc::new(PostgresCountryRepository::new(Arc::new(db_pool.clone())));
+
+    // Create the service instance, injecting the repository
+    let country_service = web::Data::new(CountryService::new(country_repo));
 
     let app_data_db_pool = web::Data::new(db_pool);
 
@@ -52,9 +47,10 @@ async fn main() -> Result<(), AppError> {
     let server: Server = HttpServer::new(move || {
         App::new()
             .app_data(app_data_db_pool.clone())
+            .app_data(country_service.clone())
             .wrap(tracing_actix_web::TracingLogger::default())
-            .service(web::resource("/hello").to(hello_world_handler))
-            .service(web::resource("/db_test").to(db_test_handler))
+            // Use the configure_routes function from the new countries module
+            .configure(configure_routes)
     })
     .bind(&server_address)
     .map_err(|e| {
