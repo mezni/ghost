@@ -1,3 +1,4 @@
+use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
@@ -15,6 +16,19 @@ pub struct Country {
 impl Country {
     pub fn builder(name: impl Into<String>, code: impl Into<String>) -> CountryBuilder {
         CountryBuilder::new(name.into(), code.into())
+    }
+
+    pub fn update(&mut self, name: Option<String>, code: Option<String>, updated_by: String) {
+        if let Some(name) = name {
+            self.name = capitalize_first_letter(&name);
+        }
+
+        if let Some(code) = code {
+            self.code = code.trim().to_uppercase();
+        }
+
+        self.updated_by = Some(updated_by);
+        self.updated_at = Some(Utc::now());
     }
 }
 
@@ -83,4 +97,13 @@ fn capitalize_first_letter(input: &str) -> String {
         None => String::new(),
         Some(f) => f.to_uppercase().collect::<String>() + &c.as_str().to_lowercase(),
     }
+}
+
+#[async_trait]
+pub trait CountryRepository: Send + Sync {
+    async fn insert(&self, country: Country) -> Result<Country, String>;
+    async fn get_by_id(&self, id: i32) -> Result<Option<Country>, String>;
+    async fn update(&self, country: Country) -> Result<(), String>;
+    async fn delete(&self, id: i32) -> Result<(), String>;
+    async fn list(&self) -> Result<Vec<Country>, String>;
 }
