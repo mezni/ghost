@@ -1,43 +1,41 @@
-use std::sync::Arc;
-
-use chrono::Utc;
-use sqlx::postgres::PgPoolOptions;
-
+mod app;
 mod domain;
-
 mod infra;
 
-use domain::countries::{Country, CountryRepository};
+use actix_web::{App, HttpResponse, HttpServer, Responder, web};
+use std::sync::Arc;
+
+use app::countries::CountryService;
+use dotenvy::dotenv;
 use infra::store::countries::PgCountryRepository;
+use sqlx::postgres::PgPoolOptions;
+use std::env;
 
-const DATABASE_URL: &str = "postgres://user:pass@localhost:5432/roam";
+async fn health() -> impl Responder {
+    HttpResponse::Ok().body("OK")
+}
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("Connecting to database at {}", DATABASE_URL);
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    dotenv().ok();
 
+    let db_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     let pool = PgPoolOptions::new()
         .max_connections(5)
-        .connect(DATABASE_URL)
-        .await?;
+        .connect(&db_url)
+        .await
+        .expect("Failed to connect to database");
 
-    let pool = Arc::new(pool);
+    let repo = Arc::new(PgCountryRepository::new(Arc::new(pool)));
+    let service = web::Data::new(CountryService::new(repo.clone()));
 
-    let repo = PgCountryRepository::new(pool);
-
-    // Build a new Country entity
-    let country = Country::builder("canada", "ca").created_by("admin").build();
-
-    // Insert country into DB
-    let inserted = repo.insert(country).await?;
-    println!("Inserted country: {:?}", inserted);
-
-    // Fetch by ID
-    if let Some(fetched) = repo.get_by_id(inserted.id.unwrap()).await? {
-        println!("Fetched country by ID: {:?}", fetched);
-    } else {
-        println!("Country not found");
-    }
-
-    Ok(())
+    HttpServer::new(move || {
+        App::new()
+            .app_data(service.clone())
+            .route("/health", web::get().to(health))
+        // TODO: add country endpoints
+    })
+    .bind(("127.0.0.1", 8080))?
+    .run()
+    .await
 }

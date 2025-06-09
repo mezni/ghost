@@ -1,10 +1,10 @@
 CREATE TABLE countries (
-    country_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    iso TEXT NOT NULL,
-    created_at   TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at   TIMESTAMP WITH TIME ZONE,
-    created_by   TEXT,
-    updated_by   TEXT,
-    CONSTRAINT iso_unique UNIQUE (iso)
+    code TEXT NOT NULL,
+    created_at TIMESTAMPTZ,
+    created_by TEXT,
+    updated_at TIMESTAMPTZ,
+    updated_by TEXT,
+    CONSTRAINT code_unique UNIQUE (code)
 );
