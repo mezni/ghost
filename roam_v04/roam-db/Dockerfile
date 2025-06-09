@@ -1,1 +1,0 @@
-FROM postgres:17-alpine AS roam-db
