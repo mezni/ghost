@@ -1,4 +1,5 @@
 mod core;
+mod users;
 
 use actix_cors::Cors;
 use actix_web::{App, HttpServer, web};
@@ -35,7 +36,12 @@ async fn main() -> Result<(), AppError> {
         App::new()
             .wrap(cors)
             .app_data(web::Data::new(pool.clone()))
-            .service(web::scope("/api/v1").service(core::health::health))
+            .service(
+                web::scope("/api/v1")
+                    .service(core::health::health)
+                    .service(users::handlers::register)
+                    .service(users::handlers::login),
+            )
     })
     .bind((SERVER_IP, SERVER_PORT))?
     .run()
