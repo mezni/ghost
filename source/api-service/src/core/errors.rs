@@ -13,9 +13,8 @@ pub enum AppError {
     #[error("Connection pool error: {0}")]
     Pool(#[from] deadpool_postgres::PoolError),
 
-
     #[error("Not found: {0}")]
-    NotFound(String), 
+    NotFound(String),
 
     #[error("Other error: {0}")]
     Other(String),
@@ -33,9 +32,7 @@ impl ResponseError for AppError {
             AppError::Pool(err) => {
                 HttpResponse::ServiceUnavailable().json(format!("Pool error: {}", err))
             }
-            AppError::NotFound(msg) => {
-                HttpResponse::NotFound().json(format!("Not found: {}", msg))
-            }            
+            AppError::NotFound(msg) => HttpResponse::NotFound().json(format!("Not found: {}", msg)),
             AppError::Other(msg) => {
                 HttpResponse::InternalServerError().json(format!("Error: {}", msg))
             }

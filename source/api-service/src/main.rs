@@ -36,11 +36,11 @@ async fn main() -> Result<(), AppError> {
         App::new()
             .wrap(cors)
             .app_data(web::Data::new(pool.clone()))
-            .service(web::scope("/api/v1")
-            .service(core::health::health)
-            .service(settings::country_handler::create_country)
-            .service(settings::country_handler::get_all_countries)
-        )
+            .service(
+                web::scope("/api/v1")
+                    .service(core::health::health)
+                    .service(settings::country_handler::scope()),
+            )
     })
     .bind((SERVER_IP, SERVER_PORT))?
     .run()

@@ -26,4 +26,3 @@ pub struct UpdateCountry {
     pub country_name: Option<String>,
     pub updated_by: String,
 }
-

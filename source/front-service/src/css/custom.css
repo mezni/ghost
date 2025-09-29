@@ -1,52 +1,196 @@
-/* Custom Styles for AdminLTE */
+/* ===== PROFESSIONAL ROAMADMIN CUSTOM STYLES ===== */
+
+/* === Base Layout & Structure === */
 .content-wrapper {
-    background-color: #f4f6f9;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 100vh;
 }
 
+/* === Card Enhancements === */
 .card {
-    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
-    margin-bottom: 1rem;
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.05),
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        0 0 0 1px rgba(0, 0, 0, 0.03);
+    border: none;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #ffffff;
 }
 
+.card:hover {
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.08),
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+.card-title {
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+/* === Small Box Widgets === */
 .small-box {
-    border-radius: 0.25rem;
+    border-radius: 12px;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
+.small-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.15),
+        0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.small-box .icon {
+    transition: all 0.3s ease;
+}
+
+.small-box:hover .icon {
+    transform: scale(1.1);
+}
+
+/* === Info Box Styles === */
+.info-box {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.info-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.info-box-icon {
+    border-radius: 8px 0 0 8px;
+}
+
+.info-box-content {
+    padding: 10px;
+}
+
+/* === Loading & Error States === */
 .loading {
     text-align: center;
-    padding: 20px;
-    color: #6c757d;
+    padding: 3rem 2rem;
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+.loading .fa-spinner {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #3b82f6;
 }
 
 .error {
     text-align: center;
-    padding: 20px;
-    color: #dc3545;
+    padding: 3rem 2rem;
+    color: #ef4444;
+    font-size: 1.1rem;
+    background: #fef2f2;
+    border-radius: 8px;
+    border: 1px solid #fecaca;
 }
 
-/* Preloader styles */
+.error .fa-exclamation-triangle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #dc2626;
+}
+
+/* === Preloader === */
 .preloader {
-    background-color: #f4f6f9;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Products list customization */
+.preloader img {
+    animation: pulse 2s infinite, float 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* === Products List === */
 .products-list .product-info {
     margin-left: 0;
+    padding: 1rem 0;
 }
 
 .products-list > .item {
-    border-radius: 0.25rem;
-    background: #fff;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.products-list > .item:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
 }
 
 .products-list > .item:last-child {
-    border-bottom: none;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 0;
 }
+
+/* === Table Styles === */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-bordered {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-bordered thead th {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-bottom: 2px solid #cbd5e0;
+    font-weight: 600;
+    color: #2d3748;
+    padding: 1rem 0.75rem;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
+}
+
+.table

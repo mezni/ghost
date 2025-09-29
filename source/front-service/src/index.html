@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 4 Dashboard</title>
+    <title>RoamAdmin Dashboard</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,7 +15,7 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+        <img class="animation__shake" src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="RoamAdminLogo" height="60" width="60">
     </div>
 
     <!-- Navbar -->
@@ -49,8 +49,8 @@
     <!-- Main Sidebar -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="index.html" class="brand-link">
-            <img src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 4</span>
+            <img src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="RoamAdmin Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">RoamAdmin</span>
         </a>
 
         <div class="sidebar">
@@ -80,7 +80,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="pages/countries.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-globe nav-icon"></i>
                                     <p>Countries</p>
                                 </a>
                             </li>
@@ -141,23 +141,112 @@
                             </a>
                         </div>
                     </div>
+                    
+                    <div class="col-lg-3 col-6">
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3 id="users-count">0</h3>
+                                <p>Users</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">
+                                More info <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-6">
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3 id="revenue-count">$0</h3>
+                                <p>Revenue</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">
+                                More info <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Recent Countries</h3>
+                            <div class="card-header border-0">
+                                <h3 class="card-title">System Overview</h3>
                                 <div class="card-tools">
-                                    <span class="badge badge-primary" id="countries-badge">0</span>
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="card-body p-0">
-                                <ul class="products-list product-list-in-card pl-2 pr-2" id="recent-countries">
-                                    <li class="item">
-                                        <div class="loading">
-                                            <i class="fas fa-spinner fa-spin"></i> Loading countries...
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="info-box bg-gradient-info">
+                                            <span class="info-box-icon"><i class="fas fa-server"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">System Uptime</span>
+                                                <span class="info-box-number">99.8%</span>
+                                                <div class="progress">
+                                                    <div class="progress-bar" style="width: 99.8%"></div>
+                                                </div>
+                                                <span class="progress-description">
+                                                    Last 30 days
+                                                </span>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="info-box bg-gradient-success">
+                                            <span class="info-box-icon"><i class="fas fa-database"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Database Size</span>
+                                                <span class="info-box-number">2.4 GB</span>
+                                                <div class="progress">
+                                                    <div class="progress-bar" style="width: 65%"></div>
+                                                </div>
+                                                <span class="progress-description">
+                                                    65% of capacity
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Quick Actions</h3>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="nav nav-pills flex-column">
+                                    <li class="nav-item">
+                                        <a href="pages/countries.html" class="nav-link">
+                                            <i class="fas fa-globe mr-2"></i> Manage Countries
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-users mr-2"></i> Manage Operators
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-cog mr-2"></i> System Settings
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-chart-bar mr-2"></i> View Reports
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -169,7 +258,7 @@
     </div>
 
     <footer class="main-footer">
-        <strong>Copyright &copy; 2024 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+        <strong>Copyright &copy; 2024 <a href="#">RoamAdmin</a>.</strong>
         All rights reserved.
     </footer>
 </div>
