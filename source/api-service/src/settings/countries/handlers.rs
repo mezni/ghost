@@ -1,4 +1,4 @@
-use actix_web::{web, HttpResponse, Scope};
+use actix_web::{HttpResponse, Scope, web};
 use deadpool_postgres::Pool;
 
 use crate::core::errors::AppError;
@@ -12,7 +12,10 @@ pub async fn get_all(pool: web::Data<Pool>) -> Result<HttpResponse, AppError> {
 }
 
 /// GET /countries/{id}
-pub async fn get_by_id(pool: web::Data<Pool>, id: web::Path<i32>) -> Result<HttpResponse, AppError> {
+pub async fn get_by_id(
+    pool: web::Data<Pool>,
+    id: web::Path<i32>,
+) -> Result<HttpResponse, AppError> {
     match CountryService::get_by_id(&pool, id.into_inner()).await? {
         Some(country) => Ok(HttpResponse::Ok().json(country)),
         None => Ok(HttpResponse::NotFound().body("Country not found")),
@@ -20,7 +23,10 @@ pub async fn get_by_id(pool: web::Data<Pool>, id: web::Path<i32>) -> Result<Http
 }
 
 /// POST /countries
-pub async fn create(pool: web::Data<Pool>, payload: web::Json<NewCountry>) -> Result<HttpResponse, AppError> {
+pub async fn create(
+    pool: web::Data<Pool>,
+    payload: web::Json<NewCountry>,
+) -> Result<HttpResponse, AppError> {
     let new_country = payload.into_inner();
     let country = CountryService::create(&pool, new_country).await?;
     Ok(HttpResponse::Created().json(country))

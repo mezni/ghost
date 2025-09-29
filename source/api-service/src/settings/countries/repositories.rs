@@ -18,7 +18,15 @@ impl CountryRepository {
         ";
 
         let row = client
-            .query_one(stmt, &[&country.iso_code, &country.country_name, &country.created_by, &now])
+            .query_one(
+                stmt,
+                &[
+                    &country.iso_code,
+                    &country.country_name,
+                    &country.created_by,
+                    &now,
+                ],
+            )
             .await
             .map_err(AppError::Db)?;
 

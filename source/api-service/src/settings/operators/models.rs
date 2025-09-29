@@ -6,8 +6,8 @@ pub struct Operator {
     pub operator_id: i32,
     pub operator_name: String,
     pub brand_name: Option<String>,
-    pub country_id: i32,       
-    pub country_name: String,   
+    pub country_id: i32,
+    pub country_name: String,
     pub created_at: NaiveDateTime,
     pub created_by: String,
     pub updated_at: Option<NaiveDateTime>,
@@ -18,7 +18,7 @@ pub struct Operator {
 pub struct NewOperator {
     pub operator_name: String,
     pub brand_name: Option<String>,
-    pub country_name: String, 
+    pub country_name: String,
     pub created_by: String,
 }
 
@@ -26,10 +26,9 @@ pub struct NewOperator {
 pub struct UpdateOperator {
     pub operator_name: Option<String>,
     pub brand_name: Option<String>,
-    pub country_name: Option<String>, 
+    pub country_name: Option<String>,
     pub updated_by: String,
 }
-
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct OperatorResponse {

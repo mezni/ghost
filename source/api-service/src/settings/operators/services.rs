@@ -1,6 +1,6 @@
 // src/settings/operators/services.rs
 use crate::core::errors::AppError;
-use crate::settings::operators::models::{Operator, NewOperator, UpdateOperator};
+use crate::settings::operators::models::{NewOperator, Operator, UpdateOperator};
 use crate::settings::operators::repositories::OperatorRepository;
 use deadpool_postgres::Pool;
 
@@ -32,7 +32,11 @@ impl OperatorService {
     }
 
     /// Update operator
-    pub async fn update(pool: &Pool, id: i32, update: UpdateOperator) -> Result<Operator, AppError> {
+    pub async fn update(
+        pool: &Pool,
+        id: i32,
+        update: UpdateOperator,
+    ) -> Result<Operator, AppError> {
         // Validate input
         if let Some(ref name) = update.operator_name {
             if name.trim().is_empty() {

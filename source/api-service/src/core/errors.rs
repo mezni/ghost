@@ -52,7 +52,9 @@ impl ResponseError for AppError {
                 HttpResponse::ServiceUnavailable().json(format!("Pool error: {}", err))
             }
             AppError::NotFound(msg) => HttpResponse::NotFound().json(format!("Not found: {}", msg)),
-            AppError::BadRequest(msg) => HttpResponse::BadRequest().json(format!("Bad request: {}", msg)),
+            AppError::BadRequest(msg) => {
+                HttpResponse::BadRequest().json(format!("Bad request: {}", msg))
+            }
             AppError::Other(msg) => {
                 HttpResponse::InternalServerError().json(format!("Error: {}", msg))
             }

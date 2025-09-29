@@ -1,5 +1,5 @@
 use crate::core::errors::AppError;
-use crate::settings::operators::models::{Operator, NewOperator, UpdateOperator};
+use crate::settings::operators::models::{NewOperator, Operator, UpdateOperator};
 use chrono::Utc;
 use deadpool_postgres::Pool;
 
@@ -11,10 +11,17 @@ impl OperatorRepository {
         let client = pool.get().await.map_err(AppError::Pool)?;
         let stmt = "SELECT country_id FROM dim_countries WHERE country_name = $1";
 
-        if let Some(row) = client.query_opt(stmt, &[&country_name]).await.map_err(AppError::Db)? {
+        if let Some(row) = client
+            .query_opt(stmt, &[&country_name])
+            .await
+            .map_err(AppError::Db)?
+        {
             Ok(row.get("country_id"))
         } else {
-            Err(AppError::BadRequest(format!("Country '{}' not found", country_name)))
+            Err(AppError::BadRequest(format!(
+                "Country '{}' not found",
+                country_name
+            )))
         }
     }
 
@@ -23,10 +30,17 @@ impl OperatorRepository {
         let client = pool.get().await.map_err(AppError::Pool)?;
         let stmt = "SELECT country_name FROM dim_countries WHERE country_id = $1";
 
-        if let Some(row) = client.query_opt(stmt, &[&country_id]).await.map_err(AppError::Db)? {
+        if let Some(row) = client
+            .query_opt(stmt, &[&country_id])
+            .await
+            .map_err(AppError::Db)?
+        {
             Ok(row.get("country_name"))
         } else {
-            Err(AppError::BadRequest(format!("Country with ID '{}' not found", country_id)))
+            Err(AppError::BadRequest(format!(
+                "Country with ID '{}' not found",
+                country_id
+            )))
         }
     }
 
@@ -43,7 +57,16 @@ impl OperatorRepository {
         ";
 
         let row = client
-            .query_one(stmt, &[&new_op.operator_name, &new_op.brand_name, &country_id, &new_op.created_by, &now])
+            .query_one(
+                stmt,
+                &[
+                    &new_op.operator_name,
+                    &new_op.brand_name,
+                    &country_id,
+                    &new_op.created_by,
+                    &now,
+                ],
+            )
             .await
             .map_err(AppError::Db)?;
 
@@ -146,7 +169,14 @@ impl OperatorRepository {
         let row = client
             .query_one(
                 stmt,
-                &[&data.operator_name, &data.brand_name, &country_id, &data.updated_by, &now, &id],
+                &[
+                    &data.operator_name,
+                    &data.brand_name,
+                    &country_id,
+                    &data.updated_by,
+                    &now,
+                    &id,
+                ],
             )
             .await
             .map_err(AppError::Db)?;

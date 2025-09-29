@@ -1,8 +1,8 @@
-use actix_web::{web, HttpResponse, Scope};
+use actix_web::{HttpResponse, Scope, web};
 use deadpool_postgres::Pool;
 
 use crate::core::errors::AppError;
-use crate::settings::operators::models::{NewOperator, UpdateOperator, OperatorResponse};
+use crate::settings::operators::models::{NewOperator, OperatorResponse, UpdateOperator};
 use crate::settings::operators::services::OperatorService;
 
 /// GET /operators
@@ -14,7 +14,10 @@ pub async fn get_all(pool: web::Data<Pool>) -> Result<HttpResponse, AppError> {
 }
 
 /// GET /operators/{id}
-pub async fn get_by_id(pool: web::Data<Pool>, id: web::Path<i32>) -> Result<HttpResponse, AppError> {
+pub async fn get_by_id(
+    pool: web::Data<Pool>,
+    id: web::Path<i32>,
+) -> Result<HttpResponse, AppError> {
     if let Some(op) = OperatorService::get_by_id(&pool, id.into_inner()).await? {
         let resp: OperatorResponse = op.into();
         Ok(HttpResponse::Ok().json(resp))
@@ -24,7 +27,10 @@ pub async fn get_by_id(pool: web::Data<Pool>, id: web::Path<i32>) -> Result<Http
 }
 
 /// POST /operators
-pub async fn create(pool: web::Data<Pool>, payload: web::Json<NewOperator>) -> Result<HttpResponse, AppError> {
+pub async fn create(
+    pool: web::Data<Pool>,
+    payload: web::Json<NewOperator>,
+) -> Result<HttpResponse, AppError> {
     let new_op = payload.into_inner();
     let op = OperatorService::create(&pool, new_op).await?;
     let resp: OperatorResponse = op.into();

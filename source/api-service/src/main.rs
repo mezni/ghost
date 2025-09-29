@@ -12,7 +12,10 @@ const SERVER_PORT: u16 = 3000;
 #[actix_web::main]
 async fn main() -> Result<(), AppError> {
     Logger::init();
-    Logger::info(&format!("Starting API server on {}:{}", SERVER_IP, SERVER_PORT));
+    Logger::info(&format!(
+        "Starting API server on {}:{}",
+        SERVER_IP, SERVER_PORT
+    ));
 
     let pool = core::db::Db::create_pool();
 
