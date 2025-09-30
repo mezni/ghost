@@ -1,3 +1,4 @@
+mod baseline;
 mod catalog;
 mod core;
 
@@ -39,6 +40,7 @@ async fn main() -> Result<(), AppError> {
             .service(
                 web::scope("/api/v1")
                     .service(core::health::health)
+                    .service(baseline::routage_type::scope())
                     .service(catalog::sor::handlers::scope())
                     .service(catalog::countries::handlers::scope())
                     .service(catalog::operators::handlers::scope()),

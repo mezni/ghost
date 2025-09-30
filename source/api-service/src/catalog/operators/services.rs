@@ -1,6 +1,6 @@
-use crate::core::errors::AppError;
 use crate::catalog::operators::models::{NewOperator, Operator, UpdateOperator};
 use crate::catalog::operators::repositories::OperatorRepository;
+use crate::core::errors::AppError;
 use deadpool_postgres::Pool;
 
 pub struct OperatorService;

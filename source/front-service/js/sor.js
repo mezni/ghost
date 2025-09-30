@@ -2,6 +2,8 @@ const API_URL = "http://127.0.0.1:3000/api/v1/sor";
 const COUNTRIES_API = "http://127.0.0.1:3000/api/v1/countries";
 const OPERATORS_API = "http://127.0.0.1:3000/api/v1/operators/by-country";
 
+let editingSORId = null; // track SOR being edited
+
 // Load SOR list
 async function loadSOR() {
     const res = await fetch(API_URL);
@@ -36,7 +38,7 @@ async function loadCountries() {
     select.innerHTML = `<option value="" disabled selected>Select a country</option>`;
     countries.forEach(c => {
         const option = document.createElement("option");
-        option.value = c.country_id; // store ID for API
+        option.value = c.country_id;
         option.textContent = c.country_name;
         select.appendChild(option);
     });
@@ -44,6 +46,7 @@ async function loadCountries() {
 
 // Load operators when country changes
 document.getElementById("countrySelect").addEventListener("change", async function() {
+    if (editingSORId) return; // don't reload operators when editing
     const countryId = this.value;
     const res = await fetch(`${OPERATORS_API}/${countryId}`);
     const operators = await res.json();
@@ -58,7 +61,43 @@ document.getElementById("countrySelect").addEventListener("change", async functi
     });
 });
 
-// Create SOR
+// Open modal for creating new SOR
+function openCreateModal() {
+    editingSORId = null;
+    const form = document.getElementById("sorForm");
+    form.reset();
+    document.getElementById("countrySelect").disabled = false;
+    document.getElementById("operatorSelect").disabled = false;
+    $("#sorModal").modal("show");
+}
+
+// Edit SOR: fill modal with existing data
+async function editSOR(id) {
+    const res = await fetch(`${API_URL}/${id}`);
+    if (!res.ok) {
+        alert("Error fetching SOR");
+        return;
+    }
+    const sor = await res.json();
+    editingSORId = id;
+
+    // Fill modal
+    const countrySelect = document.getElementById("countrySelect");
+    countrySelect.innerHTML = `<option value="${sor.country_id}" selected>${sor.country_name}</option>`;
+    countrySelect.disabled = true;
+
+    const operatorSelect = document.getElementById("operatorSelect");
+    operatorSelect.innerHTML = `<option value="${sor.operator_name}" selected>${sor.operator_name}</option>`;
+    operatorSelect.disabled = true;
+
+    document.getElementById("routageTypeInput").value = sor.routage_type_name;
+    document.getElementById("barringCheck").checked = sor.barring;
+    document.getElementById("rateInput").value = sor.rate;
+
+    $("#sorModal").modal("show");
+}
+
+// Create/Update SOR
 document.getElementById("sorForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -69,22 +108,47 @@ document.getElementById("sorForm").addEventListener("submit", async (e) => {
         routage_type_name: form.routage_type_name.value,
         barring: document.getElementById("barringCheck").checked,
         rate: form.rate.value,
-        created_by: "system"
+        created_by: "system",
+        updated_by: "system"
     };
 
-    const res = await fetch(API_URL, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(payload)
-    });
+    if (editingSORId) {
+        // Update existing SOR
+        const res = await fetch(`${API_URL}/${editingSORId}`, {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(payload)
+        });
 
-    if (res.ok) {
-        form.reset();
-        loadSOR();
-        alert("SOR created successfully!");
+        if (res.ok) {
+            $("#sorModal").modal("hide");
+            loadSOR();
+            alert("SOR updated successfully!");
+            editingSORId = null;
+            form.reset();
+            document.getElementById("countrySelect").disabled = false;
+            document.getElementById("operatorSelect").disabled = false;
+        } else {
+            const err = await res.text();
+            alert("Error: " + err);
+        }
+
     } else {
-        const err = await res.text();
-        alert("Error: " + err);
+        // Create new SOR
+        const res = await fetch(API_URL, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+            form.reset();
+            loadSOR();
+            alert("SOR created successfully!");
+        } else {
+            const err = await res.text();
+            alert("Error: " + err);
+        }
     }
 });
 
@@ -95,28 +159,6 @@ async function deleteSOR(id) {
     if (res.ok || res.status === 204) {
         loadSOR();
         alert("SOR deleted successfully!");
-    } else {
-        const err = await res.text();
-        alert("Error: " + err);
-    }
-}
-
-// Edit SOR (simple prompt)
-async function editSOR(id) {
-    const rate = prompt("Enter new rate:");
-    if (!rate) return;
-
-    const payload = { updated_by: "system", rate };
-
-    const res = await fetch(`${API_URL}/${id}`, {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(payload)
-    });
-
-    if (res.ok) {
-        loadSOR();
-        alert("SOR updated successfully!");
     } else {
         const err = await res.text();
         alert("Error: " + err);

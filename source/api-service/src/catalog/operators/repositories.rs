@@ -1,5 +1,5 @@
-use crate::core::errors::AppError;
 use crate::catalog::operators::models::{NewOperator, Operator, UpdateOperator};
+use crate::core::errors::AppError;
 use chrono::Utc;
 use deadpool_postgres::Pool;
 

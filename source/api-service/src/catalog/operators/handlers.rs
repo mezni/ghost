@@ -1,9 +1,9 @@
 use actix_web::{HttpResponse, Scope, web};
 use deadpool_postgres::Pool;
 
-use crate::core::errors::AppError;
 use crate::catalog::operators::models::{NewOperator, OperatorResponse, UpdateOperator};
 use crate::catalog::operators::services::OperatorService;
+use crate::core::errors::AppError;
 
 /// GET /operators
 pub async fn get_all(pool: web::Data<Pool>) -> Result<HttpResponse, AppError> {
