@@ -1,5 +1,6 @@
 const API_URL = "http://127.0.0.1:3000/api/v1/sor";
 const COUNTRIES_API = "http://127.0.0.1:3000/api/v1/countries";
+const OPERATORS_API = "http://127.0.0.1:3000/api/v1/operators/by-country";
 
 // Load SOR list
 async function loadSOR() {
@@ -35,11 +36,34 @@ async function loadCountries() {
     select.innerHTML = `<option value="" disabled selected>Select a country</option>`;
     countries.forEach(c => {
         const option = document.createElement("option");
-        option.value = c.country_name;
+        option.value = c.country_id;
         option.textContent = c.country_name;
         select.appendChild(option);
     });
 }
+
+// Load operators when country changes
+document.getElementById("countrySelect").addEventListener("change", async function() {
+    const countryId = this.value;
+    const operatorSelect = document.getElementById("operatorSelect");
+    operatorSelect.innerHTML = `<option value="" disabled selected>Loading...</option>`;
+
+    try {
+        const res = await fetch(`${OPERATORS_API}/${countryId}`);
+        const operators = await res.json();
+
+        operatorSelect.innerHTML = `<option value="" disabled selected>Select an operator</option>`;
+        operators.forEach(op => {
+            const option = document.createElement("option");
+            option.value = op.operator_id;
+            option.textContent = op.operator_name;
+            operatorSelect.appendChild(option);
+        });
+    } catch (err) {
+        console.error("Error fetching operators:", err);
+        operatorSelect.innerHTML = `<option value="" disabled selected>Error loading operators</option>`;
+    }
+});
 
 // Create SOR
 document.getElementById("sorForm").addEventListener("submit", async (e) => {
