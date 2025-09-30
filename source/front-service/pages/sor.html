@@ -1,127 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOR Management</title>
-    <!-- AdminLTE CSS -->
-    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="../assets/plugins/adminlte/css/adminlte.min.css">
-    <link rel="stylesheet" href="../css/custom.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOR Management</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
+
+  <!-- AdminLTE CSS -->
+  <link rel="stylesheet" href="../assets/plugins/adminlte/css/adminlte.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/custom.css">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="../index.html"><i class="fas fa-home"></i> Home</a>
-            </li>
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="../index.html"><i class="fas fa-home"></i> Home</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="../index.html" class="brand-link">
+      <span class="brand-text font-weight-light">Admin Dashboard</span>
+    </a>
+
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+          <li class="nav-item">
+            <a href="../index.html" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>
+                Settings
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/sor.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SOR</p>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
-    </nav>
+      </nav>
+    </div>
+  </aside>
 
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="../index.html" class="brand-link">
-            <span class="brand-text font-weight-bold">AdminLTE Dashboard</span>
-        </a>
-
-        <div class="sidebar">
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                SOR
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="sor.html" class="nav-link active">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Manage SOR</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- Add more menus here -->
-                </ul>
-            </nav>
-        </div>
-    </aside>
-
-    <!-- Content Wrapper -->
-    <div class="content-wrapper">
-        <div class="content-header">
-            <h1>SOR Management</h1>
-        </div>
-
-        <div class="content">
-            <div class="container-fluid">
-
-                <!-- Create SOR Form -->
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h3 class="card-title">Create New SOR</h3>
-                    </div>
-                    <div class="card-body">
-                        <form id="sorForm">
-                            <div class="row">
-                                <div class="col-md-3 mb-2">
-                                    <input type="text" class="form-control" name="country_name" placeholder="Country Name" required>
-                                </div>
-                                <div class="col-md-3 mb-2">
-                                    <input type="text" class="form-control" name="operator_name" placeholder="Operator Name" required>
-                                </div>
-                                <div class="col-md-2 mb-2">
-                                    <input type="text" class="form-control" name="routage_type_name" placeholder="Routage Type" required>
-                                </div>
-                                <div class="col-md-2 mb-2">
-                                    <input type="text" class="form-control" name="barring" placeholder="Barring" required>
-                                </div>
-                                <div class="col-md-2 mb-2">
-                                    <input type="text" class="form-control" name="rate" placeholder="Rate" required>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Create SOR</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- SOR Table -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">SOR List</h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-bordered table-hover" id="sorTable">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Country</th>
-                                    <th>Operator</th>
-                                    <th>Routage Type</th>
-                                    <th>Barring</th>
-                                    <th>Rate</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <h1 class="m-0">SOR Management</h1>
+        <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#sorModal">
+          <i class="fas fa-plus"></i> Create New SOR
+        </button>
+      </div>
     </div>
 
-    <footer class="main-footer">
-        <strong>AdminLTE Dashboard &copy; 2025</strong>
-    </footer>
+    <div class="content">
+      <div class="container-fluid">
 
+        <!-- SOR Table -->
+        <div class="card mt-3">
+          <div class="card-header">
+            <h3 class="card-title">SOR List</h3>
+          </div>
+          <div class="card-body table-responsive p-0">
+            <table class="table table-bordered table-hover" id="sorTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Country</th>
+                  <th>Operator</th>
+                  <th>Routage Type</th>
+                  <th>Barring</th>
+                  <th>Rate</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <strong>AdminLTE Dashboard &copy; 2025</strong>
+  </footer>
+
+</div>
+
+<!-- Create SOR Modal -->
+<div class="modal fade" id="sorModal" tabindex="-1" role="dialog" aria-labelledby="sorModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="sorForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="sorModalLabel">Create New SOR</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="countrySelect">Country</label>
+            <select class="form-control" name="country_name" id="countrySelect" required>
+              <option value="" disabled selected>Select a country</option>
+              <option value="Algeria">Algeria</option>
+              <option value="Tunisia">Tunisia</option>
+              <option value="Morocco">Morocco</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="operator_name" placeholder="Operator Name" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="routage_type_name" placeholder="Routage Type" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="barring" placeholder="Barring" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="rate" placeholder="Rate" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Create SOR</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <!-- Scripts -->

@@ -39,7 +39,9 @@ async fn main() -> Result<(), AppError> {
             .service(
                 web::scope("/api/v1")
                     .service(core::health::health)
-                    .service(catalog::sor::handlers::scope()),
+                    .service(catalog::sor::handlers::scope())
+                    .service(catalog::countries::handlers::scope())
+                    .service(catalog::operators::handlers::scope()),
             )
     })
     .bind((SERVER_IP, SERVER_PORT))?

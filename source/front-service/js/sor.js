@@ -1,4 +1,5 @@
 const API_URL = "http://127.0.0.1:3000/api/v1/sor";
+const COUNTRIES_API = "http://127.0.0.1:3000/api/v1/countries";
 
 // Load SOR list
 async function loadSOR() {
@@ -23,6 +24,20 @@ async function loadSOR() {
             </td>
         `;
         tbody.appendChild(tr);
+    });
+}
+
+// Load countries into select
+async function loadCountries() {
+    const res = await fetch(COUNTRIES_API);
+    const countries = await res.json();
+    const select = document.getElementById("countrySelect");
+    select.innerHTML = `<option value="" disabled selected>Select a country</option>`;
+    countries.forEach(c => {
+        const option = document.createElement("option");
+        option.value = c.country_name;
+        option.textContent = c.country_name;
+        select.appendChild(option);
     });
 }
 
@@ -91,4 +106,5 @@ async function editSOR(id) {
 }
 
 // Initial load
+loadCountries();
 loadSOR();
