@@ -7,8 +7,14 @@
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
+
+  <!-- AdminLTE CSS -->
   <link rel="stylesheet" href="../assets/plugins/adminlte/css/adminlte.min.css">
+
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="../css/custom.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -28,6 +34,7 @@
     <a href="../index.html" class="brand-link">
       <span class="brand-text font-weight-light">Admin Dashboard</span>
     </a>
+
     <div class="sidebar">
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
@@ -47,7 +54,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="sor.html" class="nav-link active">
+                <a href="pages/sor.html" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>SOR</p>
                 </a>
@@ -72,6 +79,8 @@
 
     <div class="content">
       <div class="container-fluid">
+
+        <!-- SOR Table -->
         <div class="card mt-3">
           <div class="card-header">
             <h3 class="card-title">SOR List</h3>
@@ -93,6 +102,7 @@
             </table>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -101,6 +111,7 @@
   <footer class="main-footer">
     <strong>AdminLTE Dashboard &copy; 2025</strong>
   </footer>
+
 </div>
 
 <!-- Create SOR Modal -->
@@ -115,24 +126,34 @@
           </button>
         </div>
         <div class="modal-body">
+          <!-- Country -->
           <div class="form-group">
             <label for="countrySelect">Country</label>
             <select class="form-control" name="country_name" id="countrySelect" required>
               <option value="" disabled selected>Select a country</option>
             </select>
           </div>
+
+          <!-- Operator -->
           <div class="form-group">
             <label for="operatorSelect">Operator</label>
             <select class="form-control" name="operator_name" id="operatorSelect" required>
               <option value="" disabled selected>Select an operator</option>
             </select>
           </div>
+
+          <!-- Routage Type -->
           <div class="form-group">
             <input type="text" class="form-control" name="routage_type_name" placeholder="Routage Type" required>
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="barring" placeholder="Barring" required>
+
+          <!-- Barring as checkbox -->
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" name="barring" id="barringCheck">
+            <label class="form-check-label" for="barringCheck">Barring</label>
           </div>
+
+          <!-- Rate -->
           <div class="form-group">
             <input type="text" class="form-control" name="rate" placeholder="Rate" required>
           </div>
@@ -146,6 +167,7 @@
   </div>
 </div>
 
+<!-- Scripts -->
 <script src="../assets/plugins/jquery/jquery.min.js"></script>
 <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/plugins/adminlte/js/adminlte.min.js"></script>

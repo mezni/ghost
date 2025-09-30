@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS sor_plan (
     sor_plan_id SERIAL PRIMARY KEY,
     operator_id INTEGER REFERENCES dim_operators(operator_id), 
     routage_type_id INTEGER REFERENCES dim_routage_types(routage_type_id),
-    barring VARCHAR(1),    
+    barring BOOLEAN DEFAULT FALSE,    
     rate VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(100) NOT NULL,

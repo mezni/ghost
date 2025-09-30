@@ -17,7 +17,7 @@ async function loadSOR() {
             <td>${sor.country_name}</td>
             <td>${sor.operator_name}</td>
             <td>${sor.routage_type_name}</td>
-            <td>${sor.barring}</td>
+            <td>${sor.barring ? "Yes" : "No"}</td>
             <td>${sor.rate}</td>
             <td>
                 <button class="btn btn-sm btn-info" onclick="editSOR(${sor.sor_plan_id})">Edit</button>
@@ -36,7 +36,7 @@ async function loadCountries() {
     select.innerHTML = `<option value="" disabled selected>Select a country</option>`;
     countries.forEach(c => {
         const option = document.createElement("option");
-        option.value = c.country_id;
+        option.value = c.country_id; // store ID for API
         option.textContent = c.country_name;
         select.appendChild(option);
     });
@@ -45,35 +45,29 @@ async function loadCountries() {
 // Load operators when country changes
 document.getElementById("countrySelect").addEventListener("change", async function() {
     const countryId = this.value;
+    const res = await fetch(`${OPERATORS_API}/${countryId}`);
+    const operators = await res.json();
+
     const operatorSelect = document.getElementById("operatorSelect");
-    operatorSelect.innerHTML = `<option value="" disabled selected>Loading...</option>`;
-
-    try {
-        const res = await fetch(`${OPERATORS_API}/${countryId}`);
-        const operators = await res.json();
-
-        operatorSelect.innerHTML = `<option value="" disabled selected>Select an operator</option>`;
-        operators.forEach(op => {
-            const option = document.createElement("option");
-            option.value = op.operator_id;
-            option.textContent = op.operator_name;
-            operatorSelect.appendChild(option);
-        });
-    } catch (err) {
-        console.error("Error fetching operators:", err);
-        operatorSelect.innerHTML = `<option value="" disabled selected>Error loading operators</option>`;
-    }
+    operatorSelect.innerHTML = `<option value="" disabled selected>Select an operator</option>`;
+    operators.forEach(op => {
+        const option = document.createElement("option");
+        option.value = op.operator_name;
+        option.textContent = op.operator_name;
+        operatorSelect.appendChild(option);
+    });
 });
 
 // Create SOR
 document.getElementById("sorForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const form = e.target;
+
     const payload = {
-        country_name: form.country_name.value,
+        country_name: form.country_name.options[form.country_name.selectedIndex].text,
         operator_name: form.operator_name.value,
         routage_type_name: form.routage_type_name.value,
-        barring: form.barring.value,
+        barring: document.getElementById("barringCheck").checked,
         rate: form.rate.value,
         created_by: "system"
     };
@@ -112,9 +106,9 @@ async function editSOR(id) {
     const rate = prompt("Enter new rate:");
     if (!rate) return;
 
-    const payload = { updated_by: "system", rate, country_name: "", operator_name: "", routage_type_name: "" };
+    const payload = { updated_by: "system", rate };
 
-    const res = await fetch(`${API_URL}/${id}?routage_type_id=1`, {
+    const res = await fetch(`${API_URL}/${id}`, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(payload)

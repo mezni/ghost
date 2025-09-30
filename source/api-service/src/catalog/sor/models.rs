@@ -11,7 +11,7 @@ pub struct SorPlan {
     pub operator_name: String,
     pub routage_type_id: i32,
     pub routage_type_name: String,
-    pub barring: Option<String>,
+    pub barring: Option<bool>, // changed to boolean
     pub rate: Option<String>,
     pub created_at: NaiveDateTime,
     pub created_by: String,
@@ -27,7 +27,7 @@ pub struct NewSorPlan {
     pub country_name: String,
     pub operator_name: String,
     pub routage_type_name: String,
-    pub barring: Option<String>,
+    pub barring: Option<bool>, // changed to boolean
     pub rate: Option<String>,
     pub created_by: String,
 }
@@ -38,7 +38,7 @@ pub struct UpdateSorPlan {
     pub country_name: String,
     pub operator_name: String,
     pub routage_type_name: String,
-    pub barring: Option<String>,
+    pub barring: Option<bool>, // changed to boolean
     pub rate: Option<String>,
     pub updated_by: String,
 }
@@ -50,7 +50,7 @@ pub struct SorPlanResponse {
     pub country_name: String,
     pub operator_name: String,
     pub routage_type_name: String,
-    pub barring: Option<String>,
+    pub barring: Option<bool>, // changed to boolean
     pub rate: Option<String>,
 }
 

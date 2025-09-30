@@ -23,6 +23,7 @@ impl SorPlanService {
 
     /// Update a SOR plan (soft-delete old, insert new with incremented version)
     pub async fn update(pool: &Pool, id: i32, data: UpdateSorPlan) -> Result<SorPlan, AppError> {
+        // routage_type_id is None, repository will handle it
         SorPlanRepository::update(pool, id, data, None).await
     }
 
