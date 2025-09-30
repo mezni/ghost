@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PLMN Operators - AdminLTE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+
+  <!-- AdminLTE + DataTables -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs4@1.13.6/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-responsive-bs4@2.5.0/css/responsive.bootstrap4.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <div class="content-wrapper p-4">
+    <section class="content-header">
+      <div class="container-fluid">
+        <h1>PLMN Operators</h1>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Operator List</h3>
+        </div>
+        <div class="card-body">
+          <table id="plmnTable" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>PLMN Code</th>
+                <th>Country</th>
+                <th>Operator</th>
+                <th>Barring</th>
+                <th>Rate</th>
+                <th>MCC</th>
+                <th>MNC</th>
+                <th>Routage</th>
+                <th>2G</th>
+                <th>3G</th>
+                <th>LTE</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>DZAA1</td>
+                <td>Algeria</td>
+                <td>Mobilis</td>
+                <td></td>
+                <td>90</td>
+                <td>603</td>
+                <td>1</td>
+                <td>Bilateral</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>
+                  <button class="btn btn-sm btn-primary edit-btn"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-sm btn-success"><i class="fas fa-save"></i></button>
+                  <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>DZAOT</td>
+                <td>Algeria</td>
+                <td>Djezzy</td>
+                <td></td>
+                <td>10</td>
+                <td>603</td>
+                <td>2</td>
+                <td>Bilateral</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>
+                  <button class="btn btn-sm btn-primary edit-btn"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-sm btn-success"><i class="fas fa-save"></i></button>
+                  <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>DZAWT</td>
+                <td>Algeria</td>
+                <td>Ooredoo</td>
+                <td></td>
+                <td>0+</td>
+                <td>603</td>
+                <td>3</td>
+                <td>Bilateral</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>
+                  <button class="btn btn-sm btn-primary edit-btn"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-sm btn-success"><i class="fas fa-save"></i></button>
+                  <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Modal for Editing -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form id="editForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit PLMN Entry</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>PLMN Code</label>
+              <input type="text" class="form-control" id="plmn_code">
+            </div>
+            <div class="form-group col-md-4">
+              <label>Country</label>
+              <input type="text" class="form-control" id="country_name">
+            </div>
+            <div class="form-group col-md-4">
+              <label>Operator</label>
+              <input type="text" class="form-control" id="operator_name">
+            </div>
+            <div class="form-group col-md-3">
+              <label>Rate</label>
+              <input type="text" class="form-control" id="rate">
+            </div>
+            <div class="form-group col-md-3">
+              <label>MCC</label>
+              <input type="text" class="form-control" id="mcc">
+            </div>
+            <div class="form-group col-md-3">
+              <label>MNC</label>
+              <input type="text" class="form-control" id="mnc">
+            </div>
+            <div class="form-group col-md-3">
+              <label>Routage Type</label>
+              <input type="text" class="form-control" id="routage_type_name">
+            </div>
+            <div class="form-group col-md-4">
+              <label>2G</label>
+              <input type="text" class="form-control" id="tech_2g">
+            </div>
+            <div class="form-group col-md-4">
+              <label>3G</label>
+              <input type="text" class="form-control" id="tech_3g">
+            </div>
+            <div class="form-group col-md-4">
+              <label>LTE</label>
+              <input type="text" class="form-control" id="tech_lte">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/datatables.net-bs4@1.13.6/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/datatables.net-responsive@2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/datatables.net-responsive-bs4@2.5.0/js/responsive.bootstrap4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+
+<script>
+  $(function () {
+    const table = $("#plmnTable").DataTable({
+      responsive: true,
+      autoWidth: false
+    });
+
+    let currentRow;
+
+    // Open modal and fill with row data
+    $('#plmnTable').on('click', '.edit-btn', function () {
+      currentRow = $(this).closest('tr');
+      const rowData = table.row(currentRow).data();
+
+      // Fill modal fields with row data
+      $('#plmn_code').val(rowData[0]);
+      $('#country_name').val(rowData[1]);
+      $('#operator_name').val(rowData[2]);
+      $('#rate').val(rowData[4]);
+      $('#mcc').val(rowData[5]);
+      $('#mnc').val(rowData[6]);
+      $('#routage_type_name').val(rowData[7]);
+      $('#tech_2g').val(rowData[8]);
+      $('#tech_3g').val(rowData[9]);
+      $('#tech_lte').val(rowData[10]);
+
+      $('#editModal').modal('show');
+    });
+
+    // Handle form submission (Save Changes)
+    $('#editForm').on('submit', function (e) {
+      e.preventDefault();
+
+      // Get updated values
+      const updatedData = [
+        $('#plmn_code').val(),
+        $('#country_name').val(),
+        $('#operator_name').val(),
+        '', // Barring is not editable for now
+        $('#rate').val(),
+        $('#mcc').val(),
+        $('#mnc').val(),
+        $('#routage_type_name').val(),
+        $('#tech_2g').val(),
+        $('#tech_3g').val(),
+        $('#tech_lte').val(),
+        currentRow.find('td:last').html() // Keep existing action buttons
+      ];
+
+      // Update the DataTable row
+      table.row(currentRow).data(updatedData).draw(false);
+
+      // Close the modal
+      $('#editModal').modal('hide');
+    });
+  });
+</script>

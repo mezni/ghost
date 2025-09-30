@@ -233,6 +233,28 @@ WHERE
 
 
 
+CREATE TABLE IF NOT EXISTS sor_plan (
+    sor_plan_id SERIAL PRIMARY KEY,
+    operator_id INTEGER REFERENCES dim_operators(operator_id), 
+    routage_type_id INTEGER REFERENCES dim_routage_types(routage_type_id),
+    barring VARCHAR(1),    
+    rate VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(100) NOT NULL,
+    updated_at TIMESTAMP NULL,
+    updated_by VARCHAR(100) NULL,
+    is_current BOOLEAN DEFAULT TRUE,
+    version INT NOT NULL
+);
+
+INSERT INTO sor_plan (operator_id, routage_type_id, rate, created_by, version)
+VALUES (112,1,'90','system',1);
+INSERT INTO sor_plan (operator_id, routage_type_id, rate, created_by, version)
+VALUES (113,1,'10','system',1);
+INSERT INTO sor_plan (operator_id, routage_type_id, rate, created_by, version)
+VALUES (114,1,'0+','system',1);
+
+
 
 
 

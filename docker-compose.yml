@@ -16,6 +16,7 @@ services:
       - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./config/countries.csv:/countries.csv
       - ./config/operators.csv:/operators.csv
+      - ./config/prefixes.csv:/prefixes.csv
     networks:
       - gamma_network
 
