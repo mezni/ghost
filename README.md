@@ -9,7 +9,9 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
 
 
-curl -X GET http://0.0.0.0:3000/api/v1/countries
+curl -X GET http://127.0.0.1:3000/api/v1/routagetypes
+
+curl -X GET http://127.0.0.1:3000/api/v1/countries
 
 curl -X POST http://0.0.0.0:3000/api/v1/countries   -H "Content-Type: application/json"   -d '{
     "iso_code": "TN",
