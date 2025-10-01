@@ -68,3 +68,14 @@ curl -X PUT http://127.0.0.1:3000/api/v1/sor/9 \
 
 
 curl -X DELETE http://127.0.0.1:3000/api/v1/sor/1
+
+
+
+INSERT INTO batch_execs (batch_id, batch_name) VALUES (1,'TEST');
+
+
+INSERT INTO metrics_global (metric_definition_id,batch_id,date_id, value) VALUES 
+(1,1,620, 12000),
+(1,1,621, 12010),
+(1,1,622, 12020),
+(1,1,623, 12030);

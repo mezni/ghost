@@ -1,33 +1,7 @@
 -------------------------------------------
--- GLOBAL
--------------------------------------------
-CREATE TABLE IF NOT EXISTS global_config (
-    global_config_id SERIAL PRIMARY KEY,
-    key VARCHAR(100) UNIQUE NOT NULL,
-    value VARCHAR(100)
-);
-
-CREATE TABLE dim_roam_directions (
-    roam_direction_id SERIAL PRIMARY KEY,
-    direction VARCHAR(3) NOT NULL,
-    description VARCHAR(100)
-);
-
-
-CREATE TABLE dim_metric_definition (
-    metric_definition_id SERIAL PRIMARY KEY,
-    roam_direction_id INTEGER NOT NULL REFERENCES dim_roam_directions(roam_direction_id), 
-    name VARCHAR(100) NOT NULL,
-    description VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by VARCHAR(100) NOT NULL,
-    updated_at TIMESTAMP NULL,
-    updated_by VARCHAR(100) NULL,
-    is_current BOOLEAN DEFAULT TRUE 
-);
--------------------------------------------
 -- DIMENSIONS
 -------------------------------------------
+
 CREATE TABLE dim_routage_types (
     routage_type_id   SERIAL PRIMARY KEY,
     routage_type_name VARCHAR(100) NOT NULL UNIQUE,
@@ -74,9 +48,9 @@ CREATE TABLE IF NOT EXISTS dim_networks (
     mcc         VARCHAR(100) NOT NULL,
     mnc         VARCHAR(100) NOT NULL,
     operator_id INTEGER REFERENCES dim_operators(operator_id), 
-    tech_2g     BOOLEAN DEFAULT FALSE,
-    tech_3g     BOOLEAN DEFAULT FALSE,
-    tech_lte    BOOLEAN DEFAULT FALSE,
+    tech_2g     VARCHAR(3),
+    tech_3g     VARCHAR(3),
+    tech_lte    VARCHAR(3),
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by  VARCHAR(100) NOT NULL,
     updated_at  TIMESTAMP NULL,
@@ -94,15 +68,6 @@ CREATE TABLE IF NOT EXISTS dim_prefixes (
     updated_by VARCHAR(100) NULL
 );
 
-CREATE TABLE dim_subscribers (
-    subscriber_id SERIAL PRIMARY KEY,
-    imsi VARCHAR(20) NOT NULL,
-    msisdn VARCHAR(20) NOT NULL,
-    roam_direction_id INTEGER NOT NULL REFERENCES dim_roam_directions(roam_direction_id),
-    first_seen TIMESTAMP,
-    last_seen TIMESTAMP    
-);
-
 CREATE TABLE IF NOT EXISTS sor_plan (
     sor_plan_id SERIAL PRIMARY KEY,
     operator_id INTEGER REFERENCES dim_operators(operator_id), 
@@ -116,107 +81,6 @@ CREATE TABLE IF NOT EXISTS sor_plan (
     is_current BOOLEAN DEFAULT TRUE,
     version INT NOT NULL
 );
-
-CREATE TABLE IF NOT EXISTS dim_dates (
-    date_id SERIAL PRIMARY KEY,
-    date DATE NOT NULL,
-    year INT NOT NULL,
-    quarter INT NOT NULL,
-    month INT NOT NULL,
-    day INT NOT NULL,
-    day_of_week INT NOT NULL,
-    day_name TEXT NOT NULL,
-    week_of_year INT NOT NULL,
-    is_weekend BOOLEAN NOT NULL,
-    date_str VARCHAR(100)
-);
-
--------------------------------------------
--- STAGING 
--------------------------------------------
-CREATE TABLE IF NOT EXISTS stg_roam_out (
-    batch_id INT NOT NULL,
-    batch_date VARCHAR(100) NOT NULL,
-    imsi VARCHAR(100) NOT NULL,
-    msisdn VARCHAR(100) NOT NULL,
-    vlr_number VARCHAR(100) NOT NULL,
-    prefix VARCHAR(100),
-    country_id INT,
-    operator_id INT
-);
-
-CREATE TABLE IF NOT EXISTS stg_roam_in (
-    batch_id INT NOT NULL,
-    batch_date VARCHAR(100) NOT NULL,
-    hlraddr VARCHAR(100),
-    nsub VARCHAR(100),
-    nsuba VARCHAR(100),
-    prefix VARCHAR(100),
-    country_id INT,
-    operator_id INT
-);
-
--------------------------------------------
--- METRICS 
--------------------------------------------
-
-CREATE TABLE IF NOT EXISTS batch_execs (
-    batch_id SERIAL PRIMARY KEY,
-    batch_name TEXT NOT NULL,
-    source_type VARCHAR(100),
-    source_name VARCHAR(100),
-    start_time TIMESTAMP,
-    end_time TIMESTAMP,        
-    corr_id INT,
-    batch_status VARCHAR(100)
-);
-
-
-CREATE TABLE IF NOT EXISTS metrics_global (
-    metric_id SERIAL PRIMARY KEY,
-    metric_definition_id VARCHAR(100) NOT NULL,
-    batch_id INTEGER NOT NULL REFERENCES batch_execs(batch_id), 
-    date_id INTEGER NOT NULL REFERENCES dim_dates(date_id),
-    value INT
-);
-
-CREATE INDEX idx_metrics_global_date_id ON metrics_global (date_id);
-
-CREATE TABLE IF NOT EXISTS metrics_country (
-    metric_id SERIAL PRIMARY KEY,
-    metric_definition_id VARCHAR(100) NOT NULL,
-    batch_id INTEGER NOT NULL REFERENCES batch_execs(batch_id), 
-    date_id INTEGER NOT NULL REFERENCES dim_dates(date_id),
-    country_id INTEGER REFERENCES dim_countries(country_id),
-    value INT
-);
-CREATE INDEX idx_metrics_country_date_id ON metrics_country (date_id);
-
-
-CREATE TABLE IF NOT EXISTS metrics_operator (
-    metric_id SERIAL PRIMARY KEY,
-    metric_definition_id VARCHAR(100) NOT NULL,
-    batch_id INTEGER NOT NULL REFERENCES batch_execs(batch_id), 
-    date_id INTEGER NOT NULL REFERENCES dim_dates(date_id),
-    country_id INTEGER REFERENCES dim_countries(country_id),
-    operator_id INTEGER REFERENCES dim_operators(operator_id),
-    value INT
-);
-CREATE INDEX idx_metrics_operator_date_id ON metrics_operator (date_id);
-
-
-CREATE TABLE IF NOT EXISTS metrics_subscriber (
-    metric_id SERIAL PRIMARY KEY,
-    metric_definition_id VARCHAR(100) NOT NULL,
-    batch_id INTEGER NOT NULL REFERENCES batch_execs(batch_id), 
-    date_id INTEGER NOT NULL REFERENCES dim_dates(date_id),
-    country_id INTEGER REFERENCES dim_countries(country_id),
-    operator_id INTEGER REFERENCES dim_operators(operator_id),
-    subscriber_id INTEGER REFERENCES dim_subscribers(subscriber_id), 
-    value INT
-);
-
-CREATE INDEX idx_metrics_subscriber_date_id ON metrics_subscriber (date_id);
 
 -------------------------------------------
 -- VIEWS 
@@ -248,23 +112,6 @@ WHERE sor.is_current = TRUE;
 -------------------------------------------
 -- CONFIGURATIONS 
 -------------------------------------------
-INSERT INTO global_config (key,value) VALUES 
-    ('HOME_COUNTRY','Tunisia'),
-    ('HOME_OPERATOR','Orange');
-
-INSERT INTO dim_roam_directions (direction, description) 
-VALUES 
-    ('IN', 'ROAM IN'),
-    ('OUT', 'ROAM OUT');
-
-INSERT INTO dim_metric_definition (roam_direction_id, name, description, created_by)
-SELECT 
-    roam_direction_id,
-    'number_subscribers_in',
-    'Number of subscribers IN',
-    'system'
-FROM dim_roam_directions
-WHERE direction = 'IN';
 
 INSERT INTO dim_routage_types (routage_type_name, created_by) VALUES
     ('Bilateral', 'system'),
@@ -278,27 +125,6 @@ INSERT INTO dim_technology_statuses (technology_status_name, created_by) VALUES
     ('Stopped', 'system'),
     ('Planned', 'system'),
     ('N/A', 'system');
-
-INSERT INTO dim_dates (
-    date, year, quarter, month, day, day_of_week, day_name,
-    week_of_year, is_weekend, date_str
-)
-SELECT
-    d::date AS date,
-    EXTRACT(YEAR FROM d) AS year,
-    EXTRACT(QUARTER FROM d) AS quarter,
-    EXTRACT(MONTH FROM d) AS month,
-    EXTRACT(DAY FROM d) AS day,
-    EXTRACT(ISODOW FROM d) AS day_of_week,
-    TO_CHAR(d, 'FMDay') AS day_name,
-    EXTRACT(WEEK FROM d) AS week_of_year,
-    CASE WHEN EXTRACT(ISODOW FROM d) IN (6, 7) THEN TRUE ELSE FALSE END AS is_weekend,
-    TO_CHAR(d, 'YYYY-MM-DD') AS date_str
-FROM GENERATE_SERIES(
-    (DATE_TRUNC('year', NOW()) - INTERVAL '1 year')::DATE,
-    (DATE_TRUNC('year', NOW()) + INTERVAL '5 years - 1 day')::DATE,
-    '1 day'::INTERVAL
-) AS d;
 
 -------------------------------------------
 -- INITIAL LOAD 
@@ -371,17 +197,8 @@ JOIN (
     ON t.country_iso = lope.country_iso
     AND t.operator = lope.operator;
 
-INSERT INTO dim_networks (plmn_code, plmn, mcc, mnc, operator_id, tech_2g, tech_3g, tech_lte, created_by)
-SELECT 
-    lope.tadig,
-    lope.plmn,
-    lope.mcc,
-    lope.mnc,
-    dope.operator_id,
-    CASE WHEN lope.t2g = 'Yes' THEN TRUE ELSE FALSE END,
-    CASE WHEN lope.t3g = 'Yes' THEN TRUE ELSE FALSE END,
-    CASE WHEN lope.lte = 'Yes' THEN TRUE ELSE FALSE END,
-    lope.created_by
+INSERT INTO dim_networks (plmn_code, plmn, mcc, mnc, operator_id, tech_2g, tech_3g, tech_lte, created_by) 
+SELECT lope.tadig, lope.plmn, lope.mcc, lope.mnc, dope.operator_id, lope.t2g, lope.t3g, lope.lte, lope.created_by
 FROM ldr_operators lope
 JOIN dim_countries dcou 
     ON dcou.iso_code = lope.country_iso
@@ -431,7 +248,7 @@ WHERE prefix IN (
 );    
 
 -- Cleanup staging tables
--- DROP TABLE ldr_countries;
--- DROP TABLE ldr_operators;
--- DROP TABLE ldr_prefixes;
+DROP TABLE ldr_countries;
+DROP TABLE ldr_operators;
+DROP TABLE ldr_prefixes;
 
