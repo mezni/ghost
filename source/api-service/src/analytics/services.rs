@@ -1,35 +1,53 @@
-use deadpool_postgres::Pool;
-use serde_json::Value;
-
 use crate::analytics::models::{CountryMetric, GlobalMetric, MetricRequest};
-use crate::analytics::repositories::MetricRepository;
+use crate::analytics::repositories::MetricsRepository;
 use crate::core::errors::AppError;
+use deadpool_postgres::Pool;
+use serde_json::json;
 
 pub struct MetricsService;
 
 impl MetricsService {
-    /// Handle POST /metrics request dynamically
-    pub async fn handle_metric_request(pool: &Pool, req: MetricRequest) -> Result<Value, AppError> {
-        match req.aggregation.as_str() {
-            "GLOBAL" => {
-                let metrics: Vec<GlobalMetric> = match req.direction.as_str() {
-                    "IN" => MetricRepository::fetch_global_in_metrics(pool).await?,
-                    "OUT" => MetricRepository::fetch_global_out_metrics(pool).await?,
-                    _ => return Err(AppError::BadRequest("Invalid direction".into())),
-                };
-                Ok(serde_json::to_value(metrics)
-                    .map_err(|e| AppError::Other(format!("JSON serialization error: {}", e)))?)
+    pub async fn handle_metric_request(
+        pool: &Pool,
+        req: MetricRequest,
+    ) -> Result<serde_json::Value, AppError> {
+        match req.dataset.direction.as_str() {
+            "Global" => {
+                let metrics = MetricsRepository::get_global_metrics(
+                    pool,
+                    req.dataset.aggregation,
+                    req.dataset.granularity,
+                    req.timePeriod.window,
+                    req.timePeriod.from,
+                    req.timePeriod.to,
+                )
+                .await?;
+
+                Ok(json!({
+                    "direction": "Global",
+                    "metrics": metrics
+                }))
             }
-            "COUNTRY" => {
-                let metrics: Vec<CountryMetric> = match req.direction.as_str() {
-                    "IN" => MetricRepository::fetch_country_in_metrics(pool).await?,
-                    "OUT" => MetricRepository::fetch_country_out_metrics(pool).await?,
-                    _ => return Err(AppError::BadRequest("Invalid direction".into())),
-                };
-                Ok(serde_json::to_value(metrics)
-                    .map_err(|e| AppError::Other(format!("JSON serialization error: {}", e)))?)
+            "Country" => {
+                let metrics = MetricsRepository::get_country_metrics(
+                    pool,
+                    req.dataset.aggregation,
+                    req.dataset.granularity,
+                    req.timePeriod.window,
+                    req.timePeriod.from,
+                    req.timePeriod.to,
+                    req.filter.country, // ✅ fixed field name
+                    req.filter.operator,
+                    req.filter.subscriber,
+                )
+                .await?;
+
+                Ok(json!({
+                    "direction": "Country",
+                    "metrics": metrics
+                }))
             }
-            _ => return Err(AppError::BadRequest("Invalid aggregation type".into())),
+            _ => Err(AppError::bad_request("Invalid direction")),
         }
     }
 }

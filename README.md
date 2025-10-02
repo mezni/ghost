@@ -38,3 +38,43 @@ JOIN cfg_roam_directions crd ON cmd.roam_direction_id = crd.roam_direction_id
 WHERE crd.direction = 'IN'
 AND cmt.name = 'GLOBAL'
 ORDER BY mg.date_id;
+
+
+
+
+
+curl -X POST http://localhost:3000/api/v1/metrics \
+     -H "Content-Type: application/json" \
+     -d '{
+           "type": "Metric",
+           "dataset": {
+             "granularity": "Monthly",
+             "aggregation": "IN",
+             "direction": "Global"
+           },
+           "timePeriod": {
+             "window": 5,
+             "from": "2025-09-01",
+             "to": "2025-09-30"
+           },
+           "filter": {
+             "country": "Tunisia",
+             "operator": "Orange",
+             "subscriber": ""
+           }
+         }'
+
+
+curl -X POST http://localhost:3000/api/v1/metrics \
+     -H "Content-Type: application/json" \
+     -d '{
+           "type": "Metric",
+           "dataset": {
+             "aggregation": "IN",
+             "direction": "Global"
+           },
+           "timePeriod": {},
+           "filter": {}
+         }'
+
+
