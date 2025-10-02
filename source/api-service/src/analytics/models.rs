@@ -7,7 +7,6 @@ pub struct MetricRequest {
 
     pub dataset: Dataset,
 
-    #[serde(default)]
     pub timePeriod: TimePeriod,
 
     #[serde(default)]
@@ -31,10 +30,8 @@ fn default_granularity() -> String {
 pub struct TimePeriod {
     #[serde(default)]
     pub window: i32,
-    #[serde(default)]
-    pub from: Option<String>, // default null
-    #[serde(default)]
-    pub to: Option<String>, // default null
+    pub from: Option<String>,
+    pub to: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Default)]
@@ -46,8 +43,6 @@ pub struct Filter {
     #[serde(default)]
     pub subscriber: Option<String>,
 }
-
-// Metrics returned by the API
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct GlobalMetric {
