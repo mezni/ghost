@@ -39,24 +39,11 @@ impl MetricsService {
                 let metrics = MetricsRepository::get_global_metrics(pool, &req).await?;
                 json!(metrics)
             }
-            "Country" => {
-                let metrics = MetricsRepository::get_country_metrics(pool, &req).await?;
-                json!(metrics)
-            }
-            "Operator" => {
-                let metrics = MetricsRepository::get_operator_metrics(pool, &req).await?;
-                json!(metrics)
-            }
-            "Subscriber" => {
-                let metrics = MetricsRepository::get_subscriber_metrics(pool, &req).await?;
-                json!(metrics)
-            }
+
             _ => unreachable!(),
         };
 
         Ok(json!({
-            "aggregation": aggregation,
-            "direction": direction,
             "data": result_json,
             "status": "success"
         }))
