@@ -49,8 +49,8 @@ curl -X POST http://localhost:3000/api/v1/metrics \
            "type": "Metric",
            "dataset": {
              "granularity": "Monthly",
-             "aggregation": "IN",
-             "direction": "Global"
+             "aggregation": "Global",
+             "direction": "IN"
            },
            "timePeriod": {
              "window": 5,
@@ -70,8 +70,8 @@ curl -X POST http://localhost:3000/api/v1/metrics \
      -d '{
            "type": "Metric",
            "dataset": {
-             "aggregation": "IN",
-             "direction": "Global"
+             "aggregation": "Global",
+             "direction": "IN"
            },
            "timePeriod": {},
            "filter": {}
