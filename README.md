@@ -3,20 +3,21 @@ docker volume rm $(docker volume ls -qf dangling=true)
 
 docker exec -it roamdb-service psql -U myuser -d roamdb
 
+python3 -m http.server 8080
 
 INSERT INTO batch_execs (batch_id, batch_name) VALUES (1,'TEST');
 
 INSERT INTO metrics_global (metric_definition_id,batch_id,date_id, value) VALUES 
-(1,1,620, 12000),
-(1,1,621, 12010),
-(1,1,622, 12020),
-(1,1,623, 12030);
+(1,1,640, 12000),
+(1,1,639, 12010),
+(1,1,638, 12020),
+(1,1,637, 12030);
 
 INSERT INTO metrics_global (metric_definition_id,batch_id,date_id, value) VALUES 
-(5,1,620, 13000),
-(5,1,621, 13010),
-(5,1,622, 13020),
-(5,1,623, 13030);
+(5,1,640, 13000),
+(5,1,639, 13010),
+(5,1,638, 13020),
+(5,1,637, 13030);
 
 
 SELECT dd.date_str, mg.value, cmt.name, crd.direction
@@ -74,6 +75,19 @@ curl -X POST http://localhost:3000/api/v1/metrics \
              "direction": "IN"
            },
            "timePeriod": {},
+           "filter": {}
+         }'
+
+
+curl -X POST http://localhost:3000/api/v1/metrics \
+     -H "Content-Type: application/json" \
+     -d '{
+           "type": "Metric",
+           "dataset": {
+             "aggregation": "Global",
+             "direction": "IN"
+           },
+           "timePeriod": {"window":10},
            "filter": {}
          }'
 

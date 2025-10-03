@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOR Management</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
+
+  <!-- AdminLTE CSS -->
+  <link rel="stylesheet" href="../assets/plugins/adminlte/css/adminlte.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/custom.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="../index.html"><i class="fas fa-home"></i> Home</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="../index.html" class="brand-link">
+      <span class="brand-text font-weight-light">Admin Dashboard</span>
+    </a>
+
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+          <li class="nav-item">
+            <a href="../index.html" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>
+                Settings
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="sor.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SOR</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <h1 class="m-0">SOR Management</h1>
+        <button class="btn btn-primary" onclick="openCreateModal()">
+          <i class="fas fa-plus"></i> Create New SOR
+        </button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="container-fluid">
+
+        <!-- Search box -->
+        <div class="card mt-3">
+          <div class="card-body">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by country, operator, routage type...">
+          </div>
+        </div>
+
+        <!-- SOR Table -->
+        <div class="card mt-3">
+          <div class="card-header">
+            <h3 class="card-title">SOR List</h3>
+          </div>
+          <div class="card-body table-responsive p-0">
+            <table class="table table-bordered table-hover" id="sorTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Country</th>
+                  <th>Operator</th>
+                  <th>Routage Type</th>
+                  <th>Barring</th>
+                  <th>Rate</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="card-footer">
+            <!-- Pagination -->
+            <nav>
+              <ul class="pagination justify-content-center" id="pagination"></ul>
+            </nav>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <strong>AdminLTE Dashboard &copy; 2025</strong>
+  </footer>
+
+</div>
+
+<!-- Create/Edit SOR Modal -->
+<div class="modal fade" id="sorModal" tabindex="-1" aria-labelledby="sorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="sorForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="sorModalLabel">Create/Edit SOR</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="countrySelect">Country</label>
+            <select class="form-control" id="countrySelect" name="country_name" required>
+              <option value="" disabled selected>Select a country</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="operatorSelect">Operator</label>
+            <select class="form-control" id="operatorSelect" name="operator_name" required>
+              <option value="" disabled selected>Select an operator</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="routageTypeSelect">Routage Type</label>
+            <select class="form-control" id="routageTypeSelect" name="routage_type_id" required>
+              <option value="" disabled selected>Select a routage type</option>
+            </select>
+          </div>
+
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="barringCheck" name="barring">
+            <label class="form-check-label" for="barringCheck">Barring</label>
+          </div>
+
+          <div class="form-group">
+            <label for="rateInput">Rate</label>
+            <input type="text" class="form-control" id="rateInput" name="rate" placeholder="Rate" required>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="saveSORButton">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="../assets/plugins/jquery/jquery.min.js"></script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/plugins/adminlte/js/adminlte.min.js"></script>
+<script src="../js/sor.js"></script>
+</body>
+</html>

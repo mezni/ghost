@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoamAdmin - Roam IN</title>
+    <link rel="stylesheet" href="../assets/plugins/adminlte/css/adminlte.min.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+
+<!-- Include Date Adapter for Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@1.0.0"></script>
+
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <!-- Load Header -->
+        <div id="header-placeholder"></div>
+
+        <!-- Load Sidebar -->
+        <div id="sidebar-placeholder"></div>
+
+        <!-- Main Content Here -->
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Roam IN</h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content">
+                <!-- Stat boxes for Roam IN and Roam OUT -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Roam IN Line Chart</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="lineChart" style="height:250px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Pie Chart - Roam IN</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="pieChart" style="height:250px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Load Footer -->
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script src="../js/roamin.js"></script>
+</body>
+</html>
