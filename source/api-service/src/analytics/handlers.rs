@@ -1,4 +1,4 @@
-use crate::analytics::models::MetricRequest;
+use crate::analytics::models::MetricsRequest;
 use crate::analytics::services::MetricsService;
 use crate::core::errors::AppError;
 use actix_web::{HttpResponse, Scope, post, web};
@@ -11,7 +11,7 @@ pub fn scope() -> Scope {
 #[post("/metrics")]
 async fn handle_metrics(
     pool: web::Data<Pool>,
-    req: web::Json<MetricRequest>,
+    req: web::Json<MetricsRequest>,
 ) -> Result<HttpResponse, AppError> {
     let result = MetricsService::handle_metric_request(&pool, req.into_inner()).await?;
 

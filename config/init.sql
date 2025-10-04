@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS metrics_global (
     metric_definition_id INTEGER NOT NULL  REFERENCES cfg_metric_definitions(metric_definition_id), 
     batch_id INTEGER NOT NULL REFERENCES batch_execs(batch_id), 
     date_id INTEGER NOT NULL REFERENCES dim_dates(date_id),
-    value INT
+    value BIGINT
 );
 
 CREATE INDEX idx_metrics_global_date_id ON metrics_global (date_id);
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS metrics_country (
     batch_id INTEGER NOT NULL REFERENCES batch_execs(batch_id), 
     date_id INTEGER NOT NULL REFERENCES dim_dates(date_id),
     country_id INTEGER REFERENCES dim_countries(country_id),
-    value INT
+    value BIGINT
 );
 CREATE INDEX idx_metrics_country_date_id ON metrics_country (date_id);
 
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS metrics_operator (
     date_id INTEGER NOT NULL REFERENCES dim_dates(date_id),
     country_id INTEGER REFERENCES dim_countries(country_id),
     operator_id INTEGER REFERENCES dim_operators(operator_id),
-    value INT
+    value BIGINT
 );
 CREATE INDEX idx_metrics_operator_date_id ON metrics_operator (date_id);
 
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS metrics_subscriber (
     country_id INTEGER REFERENCES dim_countries(country_id),
     operator_id INTEGER REFERENCES dim_operators(operator_id),
     subscriber_id INTEGER REFERENCES dim_subscribers(subscriber_id), 
-    value INT
+    value BIGINT
 );
 
 CREATE INDEX idx_metrics_subscriber_date_id ON metrics_subscriber (date_id);

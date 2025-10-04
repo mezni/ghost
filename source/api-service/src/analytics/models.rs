@@ -1,58 +1,43 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct MetricRequest {
-    #[serde(rename = "type")]
-    pub request_type: String,
-
-    pub dataset: Dataset,
-
-    pub timePeriod: TimePeriod,
-
-    #[serde(default)]
-    pub filter: Filter,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Dataset {
-    #[serde(default = "default_granularity")]
-    pub granularity: String,
-
-    pub aggregation: String,
-    pub direction: String,
-}
-
-fn default_granularity() -> String {
-    "Daily".to_string()
-}
-
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct TimePeriod {
-    #[serde(default)]
-    pub window: i32,
-    pub from: Option<String>,
-    pub to: Option<String>,
+    pub start: Option<String>, // start as string
+    pub end: Option<String>,   // end as string
 }
 
-#[derive(Debug, Serialize, Deserialize, Default)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Filter {
-    #[serde(default)]
-    pub country: Option<String>,
-    #[serde(default)]
-    pub operator: Option<String>,
-    #[serde(default)]
-    pub subscriber: Option<String>,
+    pub key: String,
+    pub value: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Aggregation {
+    pub mesure: Option<String>,
+    pub size: Option<u32>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct MetricsRequest {
+    pub metric: String,    // Mandatory
+    pub dimension: String, // Mandatory
+    pub direction: String, // Mandatory
+    pub timeWindow: Option<u32>,
+    pub timePeriod: Option<TimePeriod>,   // Optional
+    pub filter: Option<Vec<Filter>>,      // Optional, can be an empty list
+    pub aggregation: Option<Aggregation>, // Optional
+}
+
+#[derive(Serialize, Deserialize, Debug)]
 pub struct GlobalMetric {
     pub date: String,
-    pub value: i32,
+    pub value: i64,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct CountryMetric {
     pub date: String,
     pub country: String,
-    pub value: i32,
+    pub value: i64,
 }

@@ -1,4 +1,4 @@
-use crate::analytics::models::MetricRequest;
+use crate::analytics::models::MetricsRequest;
 use crate::analytics::repositories::MetricsRepository;
 use crate::core::errors::AppError;
 use deadpool_postgres::Pool;
@@ -9,24 +9,25 @@ pub struct MetricsService;
 impl MetricsService {
     pub async fn handle_metric_request(
         pool: &Pool,
-        req: MetricRequest,
+        req: MetricsRequest, // Use MetricsRequest here
     ) -> Result<serde_json::Value, AppError> {
         // Validate request type
-        if req.request_type != "Metric" {
-            return Err(AppError::bad_request("Invalid type"));
+        let metric = req.metric.to_lowercase();
+        if !matches!(metric.as_str(), "metric" | "definition") {
+            return Err(AppError::bad_request("Invalid metric"));
         }
 
-        // Validate aggregation
-        let aggregation = req.dataset.aggregation.as_str();
+        // Validate dimension
+        let dimension = req.dimension.to_lowercase();
         if !matches!(
-            aggregation,
-            "Global" | "Country" | "Operator" | "Subscriber"
+            dimension.as_str(),
+            "global" | "country" | "operator" | "subscriber"
         ) {
-            return Err(AppError::bad_request("Invalid aggregation"));
+            return Err(AppError::bad_request("Invalid dimension"));
         }
 
         // Validate direction
-        let direction = req.dataset.direction.to_uppercase();
+        let direction = req.direction.to_uppercase();
         if !matches!(direction.as_str(), "IN" | "OUT") {
             return Err(AppError::bad_request(
                 "Invalid direction: must be IN or OUT",
@@ -34,18 +35,31 @@ impl MetricsService {
         }
 
         // Call repository and wrap immediately in JSON
-        let result_json = match aggregation {
-            "Global" => {
+        let result_json = match dimension.as_str() {
+            "global" => {
                 let metrics = MetricsRepository::get_global_metrics(pool, &req).await?;
                 json!(metrics)
             }
 
-            "Country" => {
+            "country" => {
                 let metrics = MetricsRepository::get_country_metrics(pool, &req).await?;
                 json!(metrics)
             }
 
-            _ => unreachable!(),
+            //            "operator" => {
+            //                // Handle operator dimension if necessary
+            //                let metrics = MetricsRepository::get_operator_metrics(pool, &req).await?;
+            //                json!(metrics)
+            //            }
+
+            //            "subscriber" => {
+            //                // Handle subscriber dimension if necessary
+            //                let metrics = MetricsRepository::get_subscriber_metrics(pool, &req).await?;
+            //                json!(metrics)
+            //            }
+            _ => {
+                return Err(AppError::bad_request("Unsupported dimension"));
+            }
         };
 
         Ok(json!({
