@@ -54,6 +54,5 @@ pub struct GlobalMetric {
 pub struct CountryMetric {
     pub date: String,
     pub country: String,
-    pub operator: String,
     pub value: i32,
 }

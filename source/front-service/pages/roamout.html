@@ -1,75 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RoamAdmin - Roam OUT</title>
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="../assets/plugins/adminlte/css/adminlte.min.css">
-    <link rel="stylesheet" href="../css/custom.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-</head>
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-        <!-- Load Header -->
-        <div id="header-placeholder"></div>
-
-        <!-- Load Sidebar -->
-        <div id="sidebar-placeholder"></div>
-
-        <!-- Main Content -->
-        <div class="content-wrapper">
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Roam OUT</h1>
-                        </div>
-                    </div>
+<div class="row">
+    <!-- Flex container for both charts to ensure equal height -->
+    <div class="col-lg-8 col-12 mb-4">
+        <!-- Line Chart for Roamers OUT -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Roamers OUT Trend</h3>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="roamersOutLineChart"></canvas>
                 </div>
-            </section>
-
-            <section class="content">
-                <div class="row">
-                    <!-- Line Chart Card for Roam OUT -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Roam OUT Line Chart</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart-container">
-                                    <canvas id="lineChartRoamOut"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pie Chart Card for Roam OUT -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Pie Chart - Roam OUT</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart-container">
-                                    <canvas id="pieChartRoamOut"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
-
-        <!-- Load Footer -->
-        <div id="footer-placeholder"></div>
     </div>
 
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-    <script src="../js/roamout.js"></script>
-</body>
-</html>
+    <div class="col-lg-4 col-12 mb-4">
+        <!-- Pie Chart for Roamers OUT by Country -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Roamers OUT by Country</h3>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="roamersOutPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -194,8 +194,8 @@ VALUES
 
 INSERT INTO cfg_metric_types (name, description) 
 VALUES 
-    ('GLOBAL', 'ROAM IN'),
-    ('COUNTRY', 'ROAM OUT'),
+    ('GLOBAL', 'GLOBAL'),
+    ('COUNTRY', 'COUNTRY'),
     ('OPERATOR', 'OPERATOR'),
     ('SUBSCRIBER', 'SUBSCRIBER');
 

@@ -1,144 +1,161 @@
-/* ===============================
-   Custom AdminLTE Styles
-   =============================== */
+/* Custom CSS for AdminLTE Dashboard Cards */
 
-/* Body font and background */
-body {
-    font-family: 'Source Sans Pro', sans-serif;
-    background-color: #f4f6f9;
-}
-
-/* Sidebar customizations */
-.main-sidebar {
-    background-color: #343a40;
-}
-
-.main-sidebar .nav-link {
-    color: #c2c7d0;
-}
-
-.main-sidebar .nav-link:hover {
-    background-color: #495057;
-    color: #ffffff;
-}
-
-.main-sidebar .nav-item .nav-treeview .nav-link {
-    padding-left: 30px;
-}
-
-/* Active menu highlight */
-.main-sidebar .nav-link.active {
-    background-color: #007bff !important;
-    color: #ffffff !important;
-}
-
-/* Brand logo */
-.brand-link {
-    font-weight: bold;
-    font-size: 1.2rem;
-    background-color: #007bff;
-    color: #ffffff;
-}
-
-/* Content wrapper padding */
-.content-wrapper {
-    padding: 20px;
-}
-
-/* Header */
-.content-header h1 {
-    font-size: 2rem;
-    font-weight: 600;
-}
-
-/* Cards */
-.card {
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-/* Buttons */
-.btn {
+/* Small Box Component */
+.small-box {
     border-radius: 0.25rem;
+    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+    display: block;
+    margin-bottom: 20px;
+    position: relative;
+    background: #fff;
 }
 
-/* Table */
-.table th, .table td {
-    vertical-align: middle;
-}
-
-.table thead th {
-    background-color: #007bff;
-    color: #ffffff;
-}
-
-.table tbody tr:hover {
-    background-color: #e9ecef;
-}
-
-/* Footer */
-.main-footer {
-    background-color: #343a40;
-    color: #c2c7d0;
-    text-align: center;
-}
-
-/* Alerts */
-.alert {
-    border-radius: 0.25rem;
-}
-
-/* Forms */
-.form-control {
-    border-radius: 0.25rem;
-}
-
-/* Force white text for all small boxes */
-.small-box .inner {
-    color: #fff !important; /* Force text to white */
-}
-
-/* Small Box Footer (More info) */
-.small-box-footer {
-    color: #fff !important;  /* Ensure the text color is white */
-    background-color: transparent; /* Remove default background */
-    border-top: 1px solid #ddd; /* Light border for separation */
-    text-align: center;
+.small-box > .inner {
     padding: 10px;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-/* Hover effect for 'More info' */
+.small-box h3 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    white-space: nowrap;
+    padding: 0;
+}
+
+.small-box p {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.small-box small {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.8);
+    display: block;
+    margin-top: 5px;
+}
+
+.small-box .icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 0;
+    font-size: 70px;
+    color: rgba(0,0,0,0.15);
+    transition: transform .3s linear;
+}
+
+.small-box:hover .icon {
+    transform: scale(1.1);
+}
+
+.small-box-footer {
+    position: relative;
+    text-align: center;
+    padding: 8px 0;
+    color: rgba(255,255,255,0.8);
+    background: rgba(0,0,0,0.1);
+    font-size: 0.9rem;
+}
+
 .small-box-footer:hover {
-    color: #f1f1f1 !important;  /* Lighter white color when hovered */
-    background-color: rgba(0, 0, 0, 0.1); /* Slight background change on hover */
+    color: #fff;
+    background: rgba(0,0,0,0.15);
 }
 
-/* Ensure the icon color is white */
-.small-box-footer i {
-    color: #fff !important;
+/* Background Colors */
+.bg-info {
+    background-color: #17a2b8 !important;
+    color: white;
 }
 
-/* Specific styles for Roamers IN and OUT cards */
-.small-box.bg-info #roamers-in-value, .small-box.bg-warning #roamers-out-value {
-    color: #fff !important;  /* Ensure the number is white */
+.bg-success {
+    background-color: #28a745 !important;
+    color: white;
 }
 
-/* Ensure consistency in hover and text styles for both Roamers IN and OUT */
-.small-box.bg-info:hover .small-box-footer,
-.small-box.bg-warning:hover .small-box-footer {
-    color: #f1f1f1 !important; /* White on hover */
+.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529;
 }
 
-/* Specifically target the More info link and ensure white text and hover state */
-.small-box.bg-info .small-box-footer,
-.small-box.bg-warning .small-box-footer {
-    color: #fff !important;
+.bg-danger {
+    background-color: #dc3545 !important;
+    color: white;
 }
 
-.small-box.bg-info .small-box-footer:hover,
-.small-box.bg-warning .small-box-footer:hover {
-    color: #f1f1f1 !important;
-    background-color: rgba(0, 0, 0, 0.1) !important;
+/* Responsive Layout */
+.col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
+/* Flexbox to ensure equal height for both charts */
+.row {
+    display: flex;
+    align-items: stretch; /* Ensure columns fill the row height */
+}
+
+/* Ensure both charts have the same height */
+.chart-container {
+    position: relative;
+    height: 300px; /* Set fixed height for charts */
+}
+
+.card-body {
+    padding: 0;
+    height: 300px; /* Fixed height for card body */
+}
+
+.card {
+    height: 100%; /* Keep card filling its parent container */
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+    .col-lg-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .col-6, .col-lg-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .small-box h3 {
+        font-size: 1.8rem;
+    }
+
+    .small-box .icon {
+        font-size: 50px;
+    }
+}
+
+/* Animation for value updates */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.value-updated {
+    animation: pulse 0.5s ease-in-out;
+}
+
+/* Hover effects */
+.small-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}

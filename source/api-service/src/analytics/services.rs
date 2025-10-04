@@ -40,6 +40,11 @@ impl MetricsService {
                 json!(metrics)
             }
 
+            "Country" => {
+                let metrics = MetricsRepository::get_country_metrics(pool, &req).await?;
+                json!(metrics)
+            }
+
             _ => unreachable!(),
         };
 
