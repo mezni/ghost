@@ -251,17 +251,10 @@ ORDER BY dc.country_name;
 
 
 
-SELECT  dd.date_str AS date, dc.country_name AS country, mc.value AS value
+SELECT  DISTINCT dc.country_name AS country
 FROM metrics_country mc
-JOIN dim_dates dd ON mc.date_id = dd.date_id
-JOIN cfg_metric_definitions cmd ON mc.metric_definition_id = cmd.metric_definition_id
-JOIN cfg_metric_types cmt ON cmd.metric_type_id = cmt.metric_type_id
-JOIN cfg_roam_directions crd ON cmd.roam_direction_id = crd.roam_direction_id
 JOIN dim_countries dc ON dc.country_id = mc.country_id
-WHERE crd.direction = 'IN'
-AND cmt.name = 'COUNTRY'
-AND dd.date_id = (SELECT max(date_id) FROM metrics_country)
-ORDER BY mc.date_id;
+ORDER BY dc.country_name;
 
 
 
@@ -285,6 +278,12 @@ ORDER BY mc.date_id;
     "size":5
 }
 
+
+curl -X POST http://localhost:3000/api/v1/metrics   -H "Content-Type: application/json"   -d '{
+    "metric": "definition",
+    "dimension": "country",
+    "direction": "IN"
+  }'
 
 curl -X POST http://localhost:3000/api/v1/metrics   -H "Content-Type: application/json"   -d '{
     "metric": "metric",
@@ -331,35 +330,50 @@ curl -X POST http://localhost:3000/api/v1/metrics   -H "Content-Type: applicatio
     "mesure": "Top",
     "size":1
 }
+  }'
+
+curl -X POST http://localhost:3000/api/v1/metrics \
+  -H "Content-Type: application/json" \
+  -d '{
+    "metric": "metric",
+    "dimension": "country", 
+    "direction": "IN",
+    "filter": [
+      {
+        "key": "country",
+        "value": "Algeria"
+      }
+    ]
   }'  
 
 
-        WITH RankedCountries AS (
-            SELECT 
-                dd.date_str AS date, 
-                dc.country_name, 
-                mc.value, 
-                ROW_NUMBER() OVER (PARTITION BY dd.date_str ORDER BY mc.value DESC) AS rn
-            FROM metrics_country mc
-            JOIN dim_dates dd ON mc.date_id = dd.date_id
-            JOIN cfg_metric_definitions cmd ON mc.metric_definition_id = cmd.metric_definition_id
-            JOIN cfg_metric_types cmt ON cmd.metric_type_id = cmt.metric_type_id
-            JOIN cfg_roam_directions crd ON cmd.roam_direction_id = crd.roam_direction_id
-            JOIN dim_countries dc ON dc.country_id = mc.country_id
-            WHERE crd.direction = 'IN'
-            AND cmt.name = 'COUNTRY'
-            AND dd.date_id = (SELECT max(date_id) FROM metrics_global)
-        )
-        SELECT 
-            date,CASE
-                WHEN rn <= 1 THEN country_name
-                ELSE 'Others'
-            END AS country_name,
-            SUM(value) AS value
-        FROM RankedCountries
-        GROUP BY 
-            date, CASE
-                WHEN rn <= 1 THEN country_name
-                ELSE 'Others'
-            END
-        ORDER BY value DESC
+"metric": "Metric",
+"dimension": "Global",
+"direction": "IN",
+"timeWindow": 0,
+"timePeriod": {
+  "start":"2025-10-01",
+  "end":"2025-10-01",  
+},
+"filter": {
+    "key": "Tunisia",
+    "value": "Orange",
+},
+"aggregation": {
+    "mesure": "Top",
+    "size":5
+}
+
+
+    SELECT dd.date_str AS date, dc.country_name AS country, mc.value AS value
+    FROM metrics_country mc
+    JOIN dim_dates dd ON mc.date_id = dd.date_id
+    JOIN cfg_metric_definitions cmd ON mc.metric_definition_id = cmd.metric_definition_id
+    JOIN cfg_metric_types cmt ON cmd.metric_type_id = cmt.metric_type_id
+    JOIN cfg_roam_directions crd ON cmd.roam_direction_id = crd.roam_direction_id
+    JOIN dim_countries dc ON dc.country_id = mc.country_id
+    WHERE crd.direction = 'IN'
+    AND cmt.name = 'COUNTRY'
+    AND dd.date >= CURRENT_DATE - make_interval(days => 5)
+    AND  dc.country_name = 'Algeria'  
+    ORDER BY mc.date_id, dc.country_name;

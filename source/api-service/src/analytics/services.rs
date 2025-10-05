@@ -34,34 +34,10 @@ impl MetricsService {
             ));
         }
 
-        // Call repository and wrap immediately in JSON
-        let result_json = match dimension.as_str() {
-            "global" => {
-                let metrics = MetricsRepository::get_global_metrics(pool, &req).await?;
-                json!(metrics)
-            }
+        // Call the get_metrics repository method
+        let result_json = MetricsRepository::get_metrics(pool, &req).await?;
 
-            "country" => {
-                let metrics = MetricsRepository::get_country_metrics(pool, &req).await?;
-                json!(metrics)
-            }
-
-            //            "operator" => {
-            //                // Handle operator dimension if necessary
-            //                let metrics = MetricsRepository::get_operator_metrics(pool, &req).await?;
-            //                json!(metrics)
-            //            }
-
-            //            "subscriber" => {
-            //                // Handle subscriber dimension if necessary
-            //                let metrics = MetricsRepository::get_subscriber_metrics(pool, &req).await?;
-            //                json!(metrics)
-            //            }
-            _ => {
-                return Err(AppError::bad_request("Unsupported dimension"));
-            }
-        };
-
+        // Return the wrapped response with status
         Ok(json!({
             "data": result_json,
             "status": "success"
