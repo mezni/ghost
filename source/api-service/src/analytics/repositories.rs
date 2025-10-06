@@ -84,7 +84,7 @@ impl MetricsRepository {
         JOIN dim_countries dc ON dc.country_id = mc.country_id
         WHERE crd.direction = $1::text
         AND cmt.name = 'COUNTRY'
-        AND dd.date_id = (SELECT max(date_id) FROM metrics_global)
+        AND dd.date_id = (SELECT max(date_id) FROM metrics_country)
     ) AS ranked
     GROUP BY date, country
     ORDER BY value DESC

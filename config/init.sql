@@ -22,6 +22,23 @@ CREATE TABLE cfg_metric_definitions (
     is_valid BOOLEAN DEFAULT TRUE 
 );
 
+CREATE TABLE cfg_routage_types (
+    routage_type_id SERIAL PRIMARY KEY,
+    routage_type_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE cfg_technology_statuses (
+    technology_status_id SERIAL PRIMARY KEY,
+    technology_status_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE cfg_rules (
+    rule_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(100),
+    is_active BOOLEAN
+);
+
 CREATE TABLE IF NOT EXISTS batch_execs (
     batch_id SERIAL PRIMARY KEY,
     batch_name TEXT NOT NULL,
@@ -109,6 +126,28 @@ CREATE TABLE dim_subscribers (
     last_seen TIMESTAMP    
 );
 
+CREATE TABLE IF NOT EXISTS notifications (
+    notification_id SERIAL PRIMARY KEY,
+    batch_id INTEGER NOT NULL REFERENCES batch_execs(batch_id), 
+    date_id INTEGER NOT NULL REFERENCES dim_dates(date_id),
+    rule_id INTEGER NOT NULL REFERENCES cfg_rules(rule_id),
+    ref_id INT,
+    message TEXT
+);
+
+CREATE TABLE IF NOT EXISTS sor_plan (
+    sor_plan_id SERIAL PRIMARY KEY,
+    operator_id INTEGER REFERENCES dim_operators(operator_id), 
+    routage_type_id INTEGER REFERENCES cfg_routage_types(routage_type_id),
+    barring BOOLEAN DEFAULT FALSE,    
+    rate VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by VARCHAR(100) NOT NULL,
+    updated_at TIMESTAMP NULL,
+    updated_by VARCHAR(100) NULL,
+    is_current BOOLEAN DEFAULT TRUE
+);
+
 -------------------------------------------
 -- METRICS 
 -------------------------------------------
@@ -187,10 +226,29 @@ CREATE TABLE IF NOT EXISTS stg_roam_in (
 -- CONFIGURATIONS 
 -------------------------------------------
 
+INSERT INTO cfg_routage_types (routage_type_name) VALUES
+    ('Bilateral'),
+    ('Orange Hub'),
+    ('Comfone'),
+    ('N/A');
+
+INSERT INTO cfg_technology_statuses (technology_status_name) VALUES
+    ('Yes'),
+    ('No'),
+    ('Stopped'),
+    ('Planned'),
+    ('N/A');
+
 INSERT INTO cfg_roam_directions (direction, description) 
 VALUES 
     ('IN', 'ROAM IN'),
     ('OUT', 'ROAM OUT');
+
+INSERT INTO cfg_rules (name , description, is_active) VALUES ('imsi_is_not_local','IMSI non local',TRUE);
+INSERT INTO cfg_rules (name , description, is_active) VALUES ('local_vlr_number','vlr_number Local ',TRUE);
+INSERT INTO cfg_rules (name , description, is_active) VALUES ('sor_plan_bar','Barring operator',TRUE);
+INSERT INTO cfg_rules (name , description, is_active) VALUES ('sor_plan_deviation','Deviation SoR',TRUE);
+
 
 INSERT INTO cfg_metric_types (name, description) 
 VALUES 
@@ -430,3 +488,8 @@ WHERE prefix IN (
 -- DROP TABLE ldr_countries;
 -- DROP TABLE ldr_operators;
 -- DROP TABLE ldr_prefixes;
+
+
+
+
+

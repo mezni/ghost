@@ -1,0 +1,251 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Countries Management</h3>
+                <div class="card-tools">
+                    <button class="btn btn-primary btn-sm" id="add-country-btn">
+                        <i class="fas fa-plus"></i> Add New Country
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Search and Filter Section -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search countries..." id="search-countries">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="search-btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" id="status-filter">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" id="region-filter">
+                            <option value="">All Regions</option>
+                            <option value="europe">Europe</option>
+                            <option value="asia">Asia</option>
+                            <option value="north america">North America</option>
+                            <option value="south america">South America</option>
+                            <option value="africa">Africa</option>
+                            <option value="middle east">Middle East</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Countries Table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover" id="countries-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Country Code</th>
+                                <th>Country Name</th>
+                                <th>Region</th>
+                                <th>Operators</th>
+                                <th>Status</th>
+                                <th>Last Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="countries-tbody">
+                            <!-- Countries data will be loaded here -->
+                            <tr>
+                                <td colspan="8" class="text-center text-muted">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading countries...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="dataTables_info" id="table-info">
+                            Showing 0 to 0 of 0 entries
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <nav class="float-right">
+                            <ul class="pagination pagination-sm" id="pagination">
+                                <!-- Pagination will be generated here -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Country Modal -->
+<div class="modal fade" id="countryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-title">Add New Country</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="country-form">
+                    <input type="hidden" id="country-id">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="country-code" class="form-label">Country Code *</label>
+                                <input type="text" class="form-control" id="country-code" required 
+                                       maxlength="3" placeholder="e.g., USA">
+                                <small class="form-text text-muted">3-letter country code (ISO 3166-1 alpha-3)</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="country-name" class="form-label">Country Name *</label>
+                                <input type="text" class="form-control" id="country-name" required 
+                                       placeholder="e.g., United States">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="country-region" class="form-label">Region *</label>
+                                <select class="form-control" id="country-region" required>
+                                    <option value="">Select Region</option>
+                                    <option value="europe">Europe</option>
+                                    <option value="asia">Asia</option>
+                                    <option value="north america">North America</option>
+                                    <option value="south america">South America</option>
+                                    <option value="africa">Africa</option>
+                                    <option value="middle east">Middle East</option>
+                                    <option value="oceania">Oceania</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="country-timezone" class="form-label">Timezone</label>
+                                <input type="text" class="form-control" id="country-timezone" 
+                                       placeholder="e.g., UTC+1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="country-currency" class="form-label">Currency</label>
+                                <input type="text" class="form-control" id="country-currency" 
+                                       placeholder="e.g., USD" maxlength="3">
+                                <small class="form-text text-muted">3-letter currency code</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="country-status" class="form-label">Status *</label>
+                                <select class="form-control" id="country-status" required>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country-notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="country-notes" rows="3" 
+                                  placeholder="Additional notes about this country..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="country-roaming-enabled">
+                            <label class="form-check-label" for="country-roaming-enabled">
+                                Roaming Enabled
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-country-btn">
+                    <i class="fas fa-save"></i> Save Country
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm Delete</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="delete-country-name"></strong>?</p>
+                <p class="text-danger"><small>This action cannot be undone. All associated operators and roaming data will be affected.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-btn">
+                    <i class="fas fa-trash"></i> Delete Country
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bulk Actions Section -->
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <select class="form-control" id="bulk-action">
+                            <option value="">Bulk Actions</option>
+                            <option value="activate">Activate Selected</option>
+                            <option value="deactivate">Deactivate Selected</option>
+                            <option value="delete">Delete Selected</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-outline-primary" id="apply-bulk-action">
+                            Apply
+                        </button>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-secondary" id="export-csv">
+                                <i class="fas fa-download"></i> Export CSV
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="refresh-countries">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

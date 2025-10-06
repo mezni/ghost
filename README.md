@@ -87,6 +87,24 @@ roamdb=# update metrics_country set metric_definition_id =4 where metric_definit
 UPDATE 20
 
 
+INSERT INTO metrics_country (metric_definition_id,batch_id,date_id, country_id, value) VALUES 
+(2,1,642,76, 6012),
+(2,1,641,76, 6012),
+(2,1,640,63,6000),
+(2,1,639,76, 6010),
+(2,1,638,76, 6012),
+(2,1,637,76, 6014),
+(2,1,636,76, 6016),
+(2,1,635,76, 6018),
+(2,1,634,76, 6020),
+(2,1,633,76, 6018),
+(2,1,632,76, 6016),
+(2,1,631,76, 6014)
+;
+
+
+
+
 SELECT  dd.date_str AS date, dc.country_name, mc.value AS value
 FROM metrics_country mc
 JOIN dim_dates dd ON mc.date_id = dd.date_id

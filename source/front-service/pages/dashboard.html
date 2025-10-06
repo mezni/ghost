@@ -1,69 +1,294 @@
-<!-- Dashboard Section -->
 <div class="row">
-    <div class="container-fluid p-4">
-        <div class="row">
+    <!-- Roam IN Card -->
+    <div class="col-xl-3 col-md-6 col-12">
+        <div class="card card-gradient-primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="card-info">
+                        <h5 class="card-title">Roam IN</h5>
+                        <h2 class="card-value" id="roam-in-count">0</h2>
+                        <span class="card-change text-success">
+                            <i class="fas fa-arrow-up"></i> <span id="roam-in-change">0%</span> increase
+                        </span>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </div>
+                </div>
+                <div class="card-footer-link">
+                    <a href="#" data-page="roamin" class="text-white">
+                        View details <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- Roamers IN Card -->
-<div class="col-lg-3 col-6 mb-4">
-    <div class="small-box bg-info text-white" id="roamers-in-box">
-        <div class="inner">
-            <h3 id="roamers-in-value">30,000</h3>
-            <p>Roamers IN</p>
-            <small id="roamers-in-date">Last refresh: 2025-09-10</small>
+    <!-- Roam OUT Card -->
+    <div class="col-xl-3 col-md-6 col-12">
+        <div class="card card-gradient-success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="card-info">
+                        <h5 class="card-title">Roam OUT</h5>
+                        <h2 class="card-value" id="roam-out-count">0</h2>
+                        <span class="card-change text-warning">
+                            <i class="fas fa-arrow-down"></i> <span id="roam-out-change">0%</span> decrease
+                        </span>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                </div>
+                <div class="card-footer-link">
+                    <a href="#" data-page="roamout" class="text-white">
+                        View details <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="icon">
-            <i class="fas fa-sign-in-alt"></i>
+    </div>
+
+    <!-- Alerts Card -->
+    <div class="col-xl-3 col-md-6 col-12">
+        <div class="card card-gradient-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="card-info">
+                        <h5 class="card-title">Alerts</h5>
+                        <h2 class="card-value" id="alerts-count">0</h2>
+                        <span class="card-change text-danger">
+                            <i class="fas fa-exclamation-circle"></i> <span id="critical-alerts">0</span> critical
+                        </span>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                </div>
+                <div class="card-footer-link">
+                    <a href="#" class="text-white" id="view-alerts-btn">
+                        View alerts <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+
+    <!-- Notifications Card -->
+    <div class="col-xl-3 col-md-6 col-12">
+        <div class="card card-gradient-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="card-info">
+                        <h5 class="card-title">Notifications</h5>
+                        <h2 class="card-value" id="notifications-count">0</h2>
+                        <span class="card-change text-success">
+                            <i class="fas fa-bell"></i> <span id="new-notifications">0</span> new
+                        </span>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                </div>
+                <div class="card-footer-link">
+                    <a href="#" class="text-white" id="view-notifications-btn">
+                        View all <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- Roam OUT Card -->
-<div class="col-lg-3 col-6 mb-4">
-    <div class="small-box bg-success text-white" id="roamers-out-box">
-        <div class="inner">
-            <h3 id="roamers-out-value">25,000</h3>
-            <p>Roamers OUT</p>
-            <small id="roamers-out-date">Last refresh: 2025-09-10</small>
+<!-- Additional Stats Row -->
+<div class="row mt-4">
+    <div class="col-md-3 col-6">
+        <div class="card card-stat">
+            <div class="card-body text-center">
+                <i class="fas fa-globe-americas text-primary"></i>
+                <h4 id="countries-count">0</h4>
+                <p class="text-muted">Countries</p>
+            </div>
         </div>
-        <div class="icon">
-            <i class="fas fa-sign-out-alt"></i>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card card-stat">
+            <div class="card-body text-center">
+                <i class="fas fa-tower-cell text-success"></i>
+                <h4 id="operators-count">0</h4>
+                <p class="text-muted">Operators</p>
+            </div>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card card-stat">
+            <div class="card-body text-center">
+                <i class="fas fa-chart-line text-warning"></i>
+                <h4 id="plans-count">0</h4>
+                <p class="text-muted">SOR Plans</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card card-stat">
+            <div class="card-body text-center">
+                <i class="fas fa-users text-info"></i>
+                <h4 id="users-count">0</h4>
+                <p class="text-muted">Active Users</p>
+            </div>
+        </div>
     </div>
 </div>
 
-
-            <!-- Alerts Card -->
-            <div class="col-lg-3 col-6 mb-4">
-                <div class="small-box bg-danger text-white" id="alerts-box">
-                    <div class="inner">
-                        <h3 id="alerts-value">3</h3>
-                        <p>Alerts</p>
-                        <small id="alerts-date">Last refresh: 2025-09-10</small>
+<!-- Charts and Additional Content -->
+<div class="row mt-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Roaming Performance Overview</h3>
+                <div class="card-tools">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <a class="dropdown-item time-filter active" href="#" data-period="7">Last 7 Days</a>
+                            <a class="dropdown-item time-filter" href="#" data-period="30">Last 30 Days</a>
+                            <a class="dropdown-item time-filter" href="#" data-period="90">Last 90 Days</a>
+                        </div>
                     </div>
-                    <div class="icon">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-
-            <!-- Notifications Card -->
-            <div class="col-lg-3 col-6 mb-4">
-                <div class="small-box bg-warning text-dark" id="notifications-box">
-                    <div class="inner">
-                        <h3 id="notifications-value">15</h3>
-                        <p>Notifications</p>
-                        <small id="notifications-date">Last refresh: 2025-09-10</small>
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="performanceChart" height="250"></canvas>
                 </div>
             </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <!-- Quick Actions Card -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Quick Actions</h3>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="#" data-page="countries" class="list-group-item list-group-item-action">
+                        <i class="fas fa-plus-circle text-primary me-2"></i>
+                        Add New Country
+                    </a>
+                    <a href="#" data-page="operators" class="list-group-item list-group-item-action">
+                        <i class="fas fa-tower-cell text-success me-2"></i>
+                        Manage Operators
+                    </a>
+                    <a href="#" data-page="plans" class="list-group-item list-group-item-action">
+                        <i class="fas fa-chart-line text-warning me-2"></i>
+                        Update SOR Plans
+                    </a>
+                    <a href="#" data-page="roamin" class="list-group-item list-group-item-action">
+                        <i class="fas fa-chart-bar text-info me-2"></i>
+                        View Analytics
+                    </a>
+                </div>
+            </div>
+        </div>
 
+        <!-- System Status Card -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3 class="card-title">System Status</h3>
+            </div>
+            <div class="card-body">
+                <div class="system-status-list">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <i class="fas fa-server text-success mr-2"></i>
+                            <span>API Server</span>
+                        </div>
+                        <span class="badge badge-success" id="api-status">Online</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <i class="fas fa-database text-success mr-2"></i>
+                            <span>Database</span>
+                        </div>
+                        <span class="badge badge-success" id="db-status">Online</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <i class="fas fa-network-wired text-info mr-2"></i>
+                            <span>Roaming Partners</span>
+                        </div>
+                        <span class="badge badge-info" id="partners-status">24/25</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-sync-alt text-warning mr-2"></i>
+                            <span>Last Sync</span>
+                        </div>
+                        <small class="text-muted" id="last-sync">Just now</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity Section -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Recent Activity</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" id="refresh-activity">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>User</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-activity">
+                            <!-- Activity data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="#" class="btn btn-sm btn-outline-primary">View All Activity</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alerts Modal -->
+<div class="modal fade" id="alertsModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">System Alerts</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="alerts-list">
+                    <!-- Alerts will be populated here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
