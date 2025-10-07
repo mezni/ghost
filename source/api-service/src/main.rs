@@ -1,5 +1,6 @@
 mod analytics;
 mod core;
+mod settings;
 
 use actix_cors::Cors;
 use actix_web::{App, HttpServer, web};
@@ -39,6 +40,7 @@ async fn main() -> Result<(), AppError> {
             .service(
                 web::scope("/api/v1")
                     .service(core::health::health)
+                    .service(settings::handlers::scope())
                     .service(analytics::handlers::scope()),
             )
     })
