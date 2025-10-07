@@ -2,7 +2,7 @@
 // Custom JavaScript for RoamAdmin Dashboard
 // ==============================
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Load shared components
     loadComponents();
 
@@ -21,14 +21,20 @@ $(document).ready(function() {
 // ------------------------------
 function loadComponents() {
     $('#header').load('pages/header.html');
-    $('#sidebar').load('pages/sidebar.html', function() {
-        // Re-init AdminLTE treeview after sidebar load
-        $('.has-treeview').each(function() {
+    $('#sidebar').load('pages/sidebar.html', function () {
+        // Initialize AdminLTE treeview
+        $('.nav-sidebar .has-treeview').each(function () {
             const $tree = $(this);
-            $tree.find('> a').on('click', function(e) {
+            $tree.find('> a').off('click').on('click', function (e) {
                 e.preventDefault();
-                $tree.toggleClass('menu-open');
-                $tree.find('> .nav-treeview').slideToggle(200);
+                const $submenu = $tree.find('> .nav-treeview');
+                if ($tree.hasClass('menu-open')) {
+                    $submenu.slideUp(200);
+                    $tree.removeClass('menu-open');
+                } else {
+                    $submenu.slideDown(200);
+                    $tree.addClass('menu-open');
+                }
             });
         });
 
@@ -36,6 +42,11 @@ function loadComponents() {
         highlightActiveSidebarLink();
     });
     $('#footer').load('pages/footer.html');
+
+$('#content-area').load('pages/dashboard.html', function () {
+    highlightActiveSidebarLink(); // Highlight Dashboard link
+});
+
 }
 
 // ------------------------------
@@ -46,7 +57,7 @@ function initCustomFeatures() {
     $('.card').addClass('fade-in');
 
     // Sidebar toggle
-    $(document).on('click', '[data-widget="pushmenu"]', function() {
+    $(document).on('click', '[data-widget="pushmenu"]', function () {
         setTimeout(() => $(document).trigger('sidebarToggled'), 300);
     });
 
@@ -57,7 +68,7 @@ function initCustomFeatures() {
 // Demo button functionality
 // ------------------------------
 function initDemoButton() {
-    $(document).on('click', '#demoButton', function() {
+    $(document).on('click', '#demoButton', function () {
         const $btn = $(this);
         const $msg = $('#demoMessage');
 
@@ -79,13 +90,15 @@ function initDemoButton() {
 // Dynamic Page Loader
 // ------------------------------
 function initPageLoader() {
-    $(document).on('click', '.nav-sidebar a', function(e) {
+    $(document).on('click', '.nav-sidebar a', function (e) {
         const url = $(this).attr('href');
         if (url && url.startsWith('pages/')) {
             e.preventDefault();
 
-            // Highlight the active item
+            // Remove active class from all links
             $('.nav-link').removeClass('active');
+
+            // Add active to clicked link
             $(this).addClass('active');
 
             // Open parent treeview if submenu
@@ -96,8 +109,8 @@ function initPageLoader() {
                 parent.children('a').addClass('active');
             }
 
-            // Load the page into content area
-            $('#content-area').load(url, function(response, status) {
+            // Load content dynamically
+            $('#content-area').load(url, function (response, status) {
                 if (status === "error") {
                     $('#content-area').html(`
                         <div class="alert alert-danger mt-3">
@@ -107,6 +120,9 @@ function initPageLoader() {
                     `);
                 } else {
                     console.log(`✅ Loaded ${url}`);
+                    // Update page title and breadcrumb dynamically
+                    const pageTitle = $(response).filter('h1').text() || $(response).filter('h3.card-title').first().text();
+                    $('#page-title').text(pageTitle || 'Dashboard');
                 }
             });
         }
@@ -120,7 +136,7 @@ function highlightActiveSidebarLink() {
     const path = window.location.pathname.split("/").pop();
     $('#sidebar a.nav-link').removeClass('active');
 
-    $('#sidebar a.nav-link').each(function() {
+    $('#sidebar a.nav-link').each(function () {
         const href = $(this).attr('href');
         if (href === path) {
             $(this).addClass('active');
@@ -128,7 +144,7 @@ function highlightActiveSidebarLink() {
             if (parent.length) {
                 parent.addClass('menu-open');
                 parent.children('a.nav-link').addClass('active');
-                parent.find('> .nav-treeview').show();
+                parent.find('> .nav-treeview').slideDown(200);
             }
         }
     });
@@ -138,7 +154,7 @@ function highlightActiveSidebarLink() {
 // Utility functions
 // ------------------------------
 const AppUtils = {
-    showNotification: function(title, message, type = 'info') {
+    showNotification: function (title, message, type = 'info') {
         const icons = {
             info: 'fas fa-info-circle',
             success: 'fas fa-check-circle',
@@ -153,10 +169,7 @@ const AppUtils = {
             icon
         }, {
             type,
-            animate: {
-                enter: 'animated fadeInDown',
-                exit: 'animated fadeOutUp'
-            },
+            animate: { enter: 'animated fadeInDown', exit: 'animated fadeOutUp' },
             placement: { from: "top", align: "right" },
             offset: 20,
             delay: 3000
