@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS notifications (
     date_id INTEGER NOT NULL REFERENCES dim_dates(date_id),
     rule_id INTEGER NOT NULL REFERENCES cfg_rules(rule_id),
     ref_id INT,
-    message TEXT
+    message VARCHAR(255) NULL
 );
 
 CREATE TABLE IF NOT EXISTS sor_plan (
