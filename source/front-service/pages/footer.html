@@ -1,6 +1,15 @@
-<footer class="main-footer">
-    <div class="float-right d-none d-sm-inline">
-        <strong>Version</strong> 1.0.0
-    </div>
-    <strong>Copyright &copy; 2025 QRT</a>.</strong> All rights reserved.
+<!-- Main Footer -->
+<footer class="main-footer text-center py-3">
+  <div class="container">
+    <strong>Copyright &copy; 
+      <span id="current-year"></span> 
+      <a href="#" class="text-primary text-decoration-none">RoamAdmin</a>.
+    </strong>
+    All rights reserved.
+  </div>
 </footer>
+
+<script>
+  // Dynamically update year
+  document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
