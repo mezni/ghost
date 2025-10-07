@@ -1,224 +1,323 @@
-/* Custom Styles for AdminLTE Starter */
+/* =========================================================
+   Custom CSS for AdminLTE v4 — Optimized Edition
+   ========================================================= */
 
-:root {
-  --primary-color: #007bff;
+/* -----------------------------
+   Sidebar
+----------------------------- */
+.sidebar-custom {
+    border-right: 3px solid #007bff;
 }
-
-body {
-  background-color: #f4f6f9;
-  font-family: 'Roboto', sans-serif;
-}
-
-.content-wrapper {
-  min-height: calc(100vh - 120px);
-  padding: 20px;
-}
-
-.card {
-  border-radius: 0.75rem;
+@media (max-width: 768px) {
+    .sidebar-custom {
+        border-right: none;
+        border-bottom: 3px solid #007bff;
+    }
 }
 
-#content-area {
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-
-
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-        .card {
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            border: 1px solid rgba(0, 0, 0, 0.125);
-            margin-bottom: 20px;
-        }
-        .card-header {
-            background-color: #fff;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-        }
-        .card-title {
-            color: #495057;
-            font-weight: 600;
-            margin: 0;
-        }
-        .link-primary {
-            color: #0d6efd;
-            text-decoration: none;
-        }
-        .link-primary:hover {
-            text-decoration: underline;
-        }
-        .fw-bold {
-            font-weight: 700 !important;
-        }
-        .fs-5 {
-            font-size: 1.25rem !important;
-        }
-        .text-success {
-            color: #198754 !important;
-        }
-        .text-secondary {
-            color: #6c757d !important;
-        }
-        .position-relative {
-            position: relative !important;
-        }
-        .mb-4 {
-            margin-bottom: 1.5rem !important;
-        }
-        #visitors-chart {
-            background-color: #fff;
-            border-radius: 0.375rem;
-        }
-        .apexcharts-canvas {
-            border-radius: 0.375rem;
-        }
-        
-        /* Table styling */
-        .table-card .table {
-            margin-bottom: 0;
-        }
-        .table-card .table thead th {
-            border-top: none;
-            background-color: #f8f9fa;
-            font-weight: 600;
-            color: #495057;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .table-card .table tbody tr:hover {
-            background-color: rgba(13, 110, 253, 0.05);
-        }
-        .badge-success {
-            background-color: #198754;
-        }
-        .badge-warning {
-            background-color: #ffc107;
-            color: #212529;
-        }
-        .badge-danger {
-            background-color: #dc3545;
-        }
-        
-        /* Action buttons */
-        .btn-action {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
-            border-radius: 0.2rem;
-        }
-        .btn-edit {
-            color: #0d6efd;
-            border: 1px solid #0d6efd;
-        }
-        .btn-edit:hover {
-            background-color: #0d6efd;
-            color: white;
-        }
-        .btn-delete {
-            color: #dc3545;
-            border: 1px solid #dc3545;
-        }
-        .btn-delete:hover {
-            background-color: #dc3545;
-            color: white;
-        }
-        
-        /* Chart placeholder styling */
-        .chart-placeholder {
-            background: linear-gradient(135deg, #f8f9fa 25%, #e9ecef 25%, #e9ecef 50%, #f8f9fa 50%, #f8f9fa 75%, #e9ecef 75%, #e9ecef);
-            background-size: 20px 20px;
-            height: 200px;
-            border-radius: 0.375rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6c757d;
-        }
-    
-
- body {
-    background-color: #f8f9fa;
-    padding: 20px;
-}
-.card {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    margin-bottom: 20px;
-}
-.card-header {
-    background-color: #fff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-}
-.card-title {
-    color: #495057;
-    font-weight: 600;
-    margin: 0;
-}
-.link-primary {
-    color: #0d6efd;
-    text-decoration: none;
-}
-.link-primary:hover {
-    text-decoration: underline;
-}
-
-/* Table styling */
-.table-card .table {
-    margin-bottom: 0;
-}
-.table-card .table thead th {
-    border-top: none;
-    background-color: #f8f9fa;
-    font-weight: 600;
-    color: #495057;
+/* -----------------------------
+   Header / Navbar
+----------------------------- */
+.navbar-white {
+    background-color: #ffffff;
     border-bottom: 1px solid #dee2e6;
 }
-.table-card .table tbody tr:hover {
-    background-color: rgba(13, 110, 253, 0.05);
+
+.navbar-white .navbar-nav .nav-link {
+    color: #495057;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease-in-out;
 }
 
-/* Action buttons */
-.btn-action {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
-    border-radius: 0.2rem;
-}
-.btn-edit {
-    color: #0d6efd;
-    border: 1px solid #0d6efd;
-}
-.btn-edit:hover {
-    background-color: #0d6efd;
-    color: white;
-}
-.btn-delete {
-    color: #dc3545;
-    border: 1px solid #dc3545;
-}
-.btn-delete:hover {
-    background-color: #dc3545;
-    color: white;
-}       
-
-
-/* Pagination styling */
-.pagination .page-link {
-    color: #0d6efd;
-    border: 1px solid #dee2e6;
+.navbar-white .navbar-nav .nav-link:hover,
+.navbar-white .navbar-nav .nav-link:focus {
+    color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+    transform: translateY(-1px);
 }
 
-.pagination .page-item.active .page-link {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-    color: white;
-}
-
-.pagination .page-link:hover {
-    background-color: #e9ecef;
+.navbar-white .navbar-toggler {
     border-color: #dee2e6;
+}
+
+.navbar-white .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Navbar spacing */
+.navbar-nav .nav-item {
+    margin: 0 0.25rem;
+    position: relative;
+}
+.navbar-nav.ms-auto .nav-item:not(:last-child) {
+    margin-right: 0.5rem;
+}
+.navbar-nav .nav-link[data-widget="navbar-search"],
+.navbar-nav .nav-link[data-lte-toggle="fullscreen"],
+.user-menu .dropdown-toggle {
+    padding: 0.375rem 0.75rem;
+}
+
+/* Navbar badge */
+.navbar-badge {
+    font-size: 0.6rem;
+    font-weight: 600;
+    position: absolute;
+    right: 0.25rem;
+    top: 0.25rem;
+    padding: 0.15rem 0.35rem;
+}
+
+/* Mobile navbar adjustments */
+@media (max-width: 767.98px) {
+    .navbar-nav .nav-item {
+        margin: 0 0.125rem;
+    }
+    .navbar-nav.ms-auto .nav-item:not(:last-child) {
+        margin-right: 0.25rem;
+    }
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+    .user-menu .dropdown-toggle span {
+        display: none !important;
+    }
+}
+
+/* -----------------------------
+   Cards
+----------------------------- */
+.card-custom {
+    border-top: 3px solid #007bff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.card-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* -----------------------------
+   Buttons
+----------------------------- */
+.btn-custom {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    border: none;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+/* -----------------------------
+   Badges
+----------------------------- */
+.badge-custom {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    border-radius: 15px;
+    padding: 5px 12px;
+    font-size: 0.8em;
+}
+
+/* -----------------------------
+   Tables
+----------------------------- */
+.table-custom thead th {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-bottom: 2px solid #007bff;
+    font-weight: 600;
+    color: #495057;
+}
+
+/* -----------------------------
+   Forms
+----------------------------- */
+.form-control-custom {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.form-control-custom:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* -----------------------------
+   Alerts
+----------------------------- */
+.alert-custom {
+    border: none;
+    border-radius: 10px;
+    border-left: 4px solid;
+}
+
+/* -----------------------------
+   User Menu
+----------------------------- */
+.user-image {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+.user-header {
+    padding: 10px;
+    text-align: center;
+}
+.user-header img {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 10px;
+}
+.user-header p {
+    margin: 0;
+    color: white;
+}
+.user-header small {
+    display: block;
+    margin-top: 5px;
+}
+
+.user-body {
+    padding: 15px;
+}
+.user-body .row > div {
+    border-right: 1px solid #dee2e6;
+}
+.user-body .row > div:last-child {
+    border-right: none;
+}
+
+.user-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* -----------------------------
+   Dropdowns
+----------------------------- */
+.dropdown-menu-lg {
+    min-width: 300px;
+}
+.dropdown-item-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* -----------------------------
+   Utilities
+----------------------------- */
+.fs-7 { font-size: 0.875rem; }
+.img-size-50 { width: 50px; height: 50px; }
+.shadow { box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important; }
+[data-lte-icon="minimize"] { display: none; }
+.bi::before { vertical-align: middle; }
+
+/* -----------------------------
+   Animations
+----------------------------- */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* -----------------------------
+   Scrollbar
+----------------------------- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #007bff;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
+}
+
+
+
+/* Add to your existing custom.css */
+
+/* Improved navbar spacing */
+.navbar-nav .nav-item {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+.navbar-nav .nav-link {
+    border-radius: 0.375rem;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Better spacing for right-aligned items */
+.navbar-nav.ms-auto .nav-item:not(:last-child) {
+    margin-right: 0.5rem;
+}
+
+/* Search icon specific styling */
+.navbar-nav .nav-link[data-widget="navbar-search"] {
+    padding: 0.375rem 0.75rem;
+}
+
+/* User menu specific spacing */
+.user-menu .dropdown-toggle {
+    padding: 0.375rem 0.75rem;
+}
+
+/* Fullscreen toggle spacing */
+.navbar-nav .nav-link[data-lte-toggle="fullscreen"] {
+    padding: 0.375rem 0.75rem;
+}
+
+/* Badge positioning adjustments */
+.navbar-nav .nav-item.dropdown .nav-link {
+    position: relative;
+    padding-right: 1.5rem;
+}
+
+.navbar-badge {
+    font-size: 0.6rem;
+    font-weight: 600;
+    position: absolute;
+    right: 0.25rem;
+    top: 0.25rem;
+    padding: 0.15rem 0.35rem;
+}
+
+/* Hover effects for better UX */
+.navbar-white .navbar-nav .nav-link:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Mobile responsiveness improvements */
+@media (max-width: 767.98px) {
+    .navbar-nav .nav-item {
+        margin-left: 0.125rem;
+        margin-right: 0.125rem;
+    }
+    
+    .navbar-nav.ms-auto .nav-item:not(:last-child) {
+        margin-right: 0.25rem;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
 }
