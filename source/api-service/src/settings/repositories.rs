@@ -1,0 +1,98 @@
+use crate::core::errors::AppError;
+use crate::settings::models::{Country, CreateCountry, UpdateCountry};
+use deadpool_postgres::Pool;
+use tokio_postgres::Row;
+
+pub struct CountryRepository;
+
+impl CountryRepository {
+    fn map_row(row: Row) -> Country {
+        Country {
+            country_id: row.get("country_id"),
+            iso_code: row.get("iso_code"),
+            country_name: row.get("country_name"),
+            created_at: row.get("created_at"),
+            created_by: row.get("created_by"),
+            updated_at: row.get("updated_at"),
+            updated_by: row.get("updated_by"),
+        }
+    }
+
+    pub async fn get_all(pool: &Pool) -> Result<Vec<Country>, AppError> {
+        let client = pool.get().await?;
+        let stmt = client
+            .prepare("SELECT * FROM dim_countries ORDER BY country_name ASC")
+            .await?;
+        let rows = client.query(&stmt, &[]).await?;
+
+        Ok(rows.into_iter().map(Self::map_row).collect())
+    }
+
+    pub async fn get_by_id(pool: &Pool, id: i32) -> Result<Option<Country>, AppError> {
+        let client = pool.get().await?;
+        let stmt = client
+            .prepare("SELECT * FROM dim_countries WHERE country_id = $1")
+            .await?;
+        let rows = client.query(&stmt, &[&id]).await?;
+
+        Ok(rows.into_iter().next().map(Self::map_row))
+    }
+
+    pub async fn get_by_iso_code(pool: &Pool, iso_code: &str) -> Result<Option<Country>, AppError> {
+        let client = pool.get().await?;
+        let stmt = client
+            .prepare("SELECT * FROM dim_countries WHERE iso_code = $1")
+            .await?;
+        let rows = client.query(&stmt, &[&iso_code]).await?;
+
+        Ok(rows.into_iter().next().map(Self::map_row))
+    }
+
+    pub async fn create(pool: &Pool, input: CreateCountry) -> Result<Country, AppError> {
+        let client = pool.get().await?;
+        let stmt = client
+            .prepare(
+                "INSERT INTO dim_countries (iso_code, country_name, created_by)
+                 VALUES ($1, $2, $3)
+                 RETURNING *",
+            )
+            .await?;
+        let row = client
+            .query_one(&stmt, &[&input.iso_code, &input.country_name, &input.created_by])
+            .await?;
+
+        Ok(Self::map_row(row))
+    }
+
+    pub async fn update(pool: &Pool, id: i32, input: UpdateCountry) -> Result<Country, AppError> {
+        let client = pool.get().await?;
+        let stmt = client
+            .prepare(
+                "UPDATE dim_countries
+                 SET iso_code = COALESCE($1, iso_code),
+                     country_name = COALESCE($2, country_name),
+                     updated_at = NOW(),
+                     updated_by = $3
+                 WHERE country_id = $4
+                 RETURNING *",
+            )
+            .await?;
+        let row = client
+            .query_one(
+                &stmt,
+                &[&input.iso_code, &input.country_name, &input.updated_by, &id],
+            )
+            .await?;
+
+        Ok(Self::map_row(row))
+    }
+
+    pub async fn delete(pool: &Pool, id: i32) -> Result<(), AppError> {
+        let client = pool.get().await?;
+        let stmt = client
+            .prepare("DELETE FROM dim_countries WHERE country_id = $1")
+            .await?;
+        client.execute(&stmt, &[&id]).await?;
+        Ok(())
+    }
+}
