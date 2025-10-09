@@ -112,7 +112,7 @@ impl MetricsRepository {
             (query, params)
         } else {
             let query = format!(
-                "{} AND rd.date_str >= CURRENT_DATE - INTERVAL '{} days' ORDER BY rd.date_str",
+                "{} AND rd.date >= CURRENT_DATE - INTERVAL '{} days' ORDER BY rd.date_str",
                 Self::GET_GLOBAL_METRICS_QUERY,
                 req.window
             );
@@ -145,20 +145,65 @@ impl MetricsRepository {
                 (query, params)
             }
             _ => {
-                let base_query = if req.window == 0 {
-                    format!(
-                        "{} AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country) ORDER BY rd.date_str, fct.value DESC",
-                        Self::GET_COUNTRY_METRICS_QUERY
-                    )
+                if let Some(filter) = &req.filter {
+                    match (
+                        filter.key.to_lowercase().as_str(),
+                        filter.operator.to_lowercase().as_str(),
+                    ) {
+                        ("country", "equal") => {
+                            let base_query = if req.window == 0 {
+                                format!(
+                                    "{} AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_global) AND UPPER(cc.country_name) = UPPER($2) ORDER BY rd.date_str, fct.value DESC",
+                                    Self::GET_COUNTRY_METRICS_QUERY
+                                )
+                            } else {
+                                format!(
+                                    "{} AND rd.date >= CURRENT_DATE - INTERVAL '{} days' AND UPPER(cc.country_name) = UPPER($2) ORDER BY rd.date_str, fct.value DESC",
+                                    Self::GET_COUNTRY_METRICS_QUERY,
+                                    req.window
+                                )
+                            };
+                            let params: Vec<Box<dyn ToSql + Sync>> = vec![
+                                Box::new(req.direction.clone()),
+                                Box::new(filter.value.clone()),
+                            ];
+                            // println!("Query: {}\nParams: {:?}", base_query, params);
+                            (base_query, params)
+                        }
+                        _ => {
+                            let base_query = if req.window == 0 {
+                                format!(
+                                    "{} AND fct.date() = (SELECT MAX(date_id) FROM trx_metrics_country) ORDER BY rd.date_str, fct.value DESC",
+                                    Self::GET_COUNTRY_METRICS_QUERY
+                                )
+                            } else {
+                                format!(
+                                    "{} AND rd.date >= CURRENT_DATE - INTERVAL '{} days' ORDER BY rd.date_str, fct.value DESC",
+                                    Self::GET_COUNTRY_METRICS_QUERY,
+                                    req.window
+                                )
+                            };
+                            let params: Vec<Box<dyn ToSql + Sync>> =
+                                vec![Box::new(req.direction.clone())];
+                            (base_query, params)
+                        }
+                    }
                 } else {
-                    format!(
-                        "{} AND rd.date_str >= CURRENT_DATE - INTERVAL '{} days' ORDER BY rd.date_str, fct.value DESC",
-                        Self::GET_COUNTRY_METRICS_QUERY,
-                        req.window
-                    )
-                };
-                let params: Vec<Box<dyn ToSql + Sync>> = vec![Box::new(req.direction.clone())];
-                (base_query, params)
+                    let base_query = if req.window == 0 {
+                        format!(
+                            "{} AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country) ORDER BY rd.date_str, fct.value DESC",
+                            Self::GET_COUNTRY_METRICS_QUERY
+                        )
+                    } else {
+                        format!(
+                            "{} AND rd.date >= CURRENT_DATE - INTERVAL '{} days' ORDER BY rd.date_str, fct.value DESC",
+                            Self::GET_COUNTRY_METRICS_QUERY,
+                            req.window
+                        )
+                    };
+                    let params: Vec<Box<dyn ToSql + Sync>> = vec![Box::new(req.direction.clone())];
+                    (base_query, params)
+                }
             }
         };
 
