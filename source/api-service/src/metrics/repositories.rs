@@ -33,6 +33,51 @@ impl MetricsRepository {
                                                                             GROUP BY date_id)
                                         AND UPPER(rrd.direction) = UPPER($1)";
 
+    const GET_COUNTRY_METRICS_TOP_QUERY: &str = "SELECT date, country, SUM(value)::bigint AS value
+                                        FROM (
+                                            SELECT 
+                                                rd.date_str AS date, 
+                                                CASE 
+                                                    WHEN ROW_NUMBER() OVER (PARTITION BY rd.date_str ORDER BY fct.value DESC) <= CAST ($2 AS INT)
+                                                    THEN cc.country_name 
+                                                    ELSE 'Others' 
+                                                END AS country,
+                                                fct.value
+                                            FROM 
+                                                trx_metrics_country fct
+                                            JOIN 
+                                                ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+                                            JOIN 
+                                                ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+                                            JOIN 
+                                                ref_dates rd ON rd.date_id = fct.date_id
+                                            JOIN 
+                                                cfg_countries cc ON cc.country_id = fct.country_id
+                                            WHERE 
+                                                1 = 1
+                                                AND (fct.date_id, fct.batch_id) IN (
+                                                    SELECT 
+                                                        date_id, 
+                                                        MAX(batch_id) AS max_batch_id
+                                                    FROM 
+                                                        trx_metrics_country
+                                                    GROUP BY 
+                                                        date_id
+                                                )
+                                                AND UPPER(rrd.direction) = UPPER($1)
+                                                AND fct.date_id = (
+                                                    SELECT 
+                                                        MAX(date_id) 
+                                                    FROM 
+                                                        trx_metrics_country
+                                                )
+                                        ) AS ranked
+                                        GROUP BY 
+                                            date, 
+                                            country
+                                        ORDER BY 
+                                            value DESC";
+
     pub async fn get_metrics(
         pool: &Pool,
         req: &ValidatedMetricsRequest,
@@ -110,45 +155,70 @@ impl MetricsRepository {
         let size = get_size_for_aggregation(aggregation, req.size)?;
         let country = get_country_from_filters(req.filter.as_ref());
 
-        let mut query = Self::GET_COUNTRY_METRICS_QUERY.to_string();
-        let mut params: Vec<&(dyn ToSql + Sync)> = vec![&direction];
-
-        if !country.is_empty() {
-            query.push_str(" AND UPPER(cc.country_name) = UPPER($2)");
-            params.push(&country);
-        }
-
         match aggregation.as_str() {
-            "latest" => {
-                query.push_str(" AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country)");
+            "latest" | "history" => {
+                let mut query = Self::GET_COUNTRY_METRICS_QUERY.to_string();
+                let mut params: Vec<&(dyn ToSql + Sync)> = vec![&direction];
+
+                if !country.is_empty() {
+                    query.push_str(" AND UPPER(cc.country_name) = UPPER($2)");
+                    params.push(&country);
+                }
+
+                match aggregation.as_str() {
+                    "latest" => {
+                        query.push_str(
+                            " AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country)",
+                        );
+                    }
+                    "history" => {
+                        query.push_str(&format!(
+                            " AND rd.date >= CURRENT_DATE - INTERVAL '{} days'",
+                            size
+                        ));
+                    }
+                    _ => unreachable!(),
+                }
+
+                query.push_str(" ORDER BY rd.date_str");
+
+                let rows = client
+                    .query(&query, &params)
+                    .await
+                    .map_err(|e| AppError::db_error(&e.to_string()))?;
+
+                let metrics: Vec<CountryMetric> =
+                    rows.iter().map(Self::map_country_metric).collect();
+
+                Ok(json!({
+                    "data": metrics,
+                    "status": "success",
+                }))
             }
-            "history" => {
-                query.push_str(&format!(
-                    " AND rd.date >= CURRENT_DATE - INTERVAL '{} days'",
-                    size
-                ));
+            "top" => {
+                let query = format!("{}", Self::GET_COUNTRY_METRICS_TOP_QUERY);
+
+                let params: Vec<&(dyn ToSql + Sync)> = vec![&direction, &size];
+
+                let rows = client
+                    .query(&query, &params)
+                    .await
+                    .map_err(|e| AppError::db_error(&e.to_string()))?;
+
+                let metrics: Vec<CountryMetric> =
+                    rows.iter().map(Self::map_country_metric).collect();
+
+                Ok(json!({
+                    "data": metrics,
+                    "status": "success",
+                }))
             }
-            _ => {
-                return Err(AppError::bad_request(
-                    "Aggregation 'latest' or 'history' is required",
-                ));
-            }
+            _ => Err(AppError::bad_request(
+                "Aggregation 'latest', 'history' or 'top' is required",
+            )),
         }
-
-        query.push_str(" ORDER BY rd.date_str");
-
-        let rows = client
-            .query(&query, &params)
-            .await
-            .map_err(|e| AppError::db_error(&e.to_string()))?;
-
-        let metrics: Vec<CountryMetric> = rows.iter().map(Self::map_country_metric).collect();
-
-        Ok(json!({
-            "data": metrics,
-            "status": "success",
-        }))
     }
+
     fn map_global_metric(row: &Row) -> GlobalMetric {
         GlobalMetric {
             date: row.get("date"),
@@ -196,9 +266,10 @@ fn get_direction_from_filters(filters: Option<&Vec<Filter>>) -> Result<String, A
     }
 }
 
-fn get_size_for_aggregation(aggregation: &str, size: Option<u32>) -> Result<u32, AppError> {
+fn get_size_for_aggregation(aggregation: &str, size: Option<u32>) -> Result<i32, AppError> {
     match aggregation {
-        "history" => Ok(size.unwrap_or(30)),
+        "history" => Ok(size.map(|s| s as i32).unwrap_or(30)),
+        "top" => Ok(size.map(|s| s as i32).unwrap_or(5)),
         _ => Ok(5),
     }
 }
