@@ -4,7 +4,6 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 const DEFAULT_WINDOW: u32 = 0;
-const DEFAULT_SIZE: u32 = 30;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct MetricsRequest {
@@ -52,6 +51,12 @@ pub struct CountryMetric {
     pub date: String,
     pub country: String,
     pub value: i64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct NotifMetric {
+    pub date: String,
+    pub value: String,
 }
 
 impl MetricsRequest {
