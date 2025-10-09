@@ -21,6 +21,18 @@ impl MetricsRepository {
                                                                             GROUP BY date_id)
                                         AND UPPER(rrd.direction) = UPPER($1)";
 
+    const GET_COUNTRY_METRICS_QUERY: &str = "SELECT rd.date_str AS date, cc.country_name AS country,fct.value
+                                        FROM trx_metrics_country fct
+                                        JOIN ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+                                        JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+                                        JOIN ref_dates rd ON rd.date_id = fct.date_id
+                                        JOIN cfg_countries cc ON cc.country_id = fct.country_id
+                                        WHERE 1=1
+                                        AND (fct.date_id, fct.batch_id) IN (SELECT date_id, MAX(batch_id) AS max_batch_id
+                                                                            FROM trx_metrics_country
+                                                                            GROUP BY date_id)
+                                        AND UPPER(rrd.direction) = UPPER($1)";
+
     pub async fn get_metrics(
         pool: &Pool,
         req: &ValidatedMetricsRequest,
@@ -35,7 +47,7 @@ impl MetricsRepository {
         let dimension = req.dimension.to_lowercase();
         let result_json = match dimension.as_str() {
             "global" => MetricsRepository::get_global_metrics(&client, req).await?,
-            //            "country" => MetricsRepository::get_country_metrics(&client, req).await?,
+            "country" => MetricsRepository::get_country_metrics(&client, req).await?,
             //            "notification" => MetricsRepository::get_notif_metrics(&client, req).await?,
             _ => return Err(AppError::bad_request("Unsupported dimension")),
         };
@@ -89,6 +101,54 @@ impl MetricsRepository {
         }))
     }
 
+    pub async fn get_country_metrics(
+        client: &deadpool_postgres::Client,
+        req: &ValidatedMetricsRequest,
+    ) -> Result<serde_json::Value, AppError> {
+        let direction = get_direction_from_filters(req.filter.as_ref())?;
+        let aggregation = &req.aggregation;
+        let size = get_size_for_aggregation(aggregation, req.size)?;
+        let country = get_country_from_filters(req.filter.as_ref());
+
+        let mut query = Self::GET_COUNTRY_METRICS_QUERY.to_string();
+        let mut params: Vec<&(dyn ToSql + Sync)> = vec![&direction];
+
+        if !country.is_empty() {
+            query.push_str(" AND UPPER(cc.country_name) = UPPER($2)");
+            params.push(&country);
+        }
+
+        match aggregation.as_str() {
+            "latest" => {
+                query.push_str(" AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country)");
+            }
+            "history" => {
+                query.push_str(&format!(
+                    " AND rd.date >= CURRENT_DATE - INTERVAL '{} days'",
+                    size
+                ));
+            }
+            _ => {
+                return Err(AppError::bad_request(
+                    "Aggregation 'latest' or 'history' is required",
+                ));
+            }
+        }
+
+        query.push_str(" ORDER BY rd.date_str");
+
+        let rows = client
+            .query(&query, &params)
+            .await
+            .map_err(|e| AppError::db_error(&e.to_string()))?;
+
+        let metrics: Vec<CountryMetric> = rows.iter().map(Self::map_country_metric).collect();
+
+        Ok(json!({
+            "data": metrics,
+            "status": "success",
+        }))
+    }
     fn map_global_metric(row: &Row) -> GlobalMetric {
         GlobalMetric {
             date: row.get("date"),
@@ -140,5 +200,22 @@ fn get_size_for_aggregation(aggregation: &str, size: Option<u32>) -> Result<u32,
     match aggregation {
         "history" => Ok(size.unwrap_or(30)),
         _ => Ok(5),
+    }
+}
+
+fn get_country_from_filters(filters: Option<&Vec<Filter>>) -> String {
+    if let Some(filters) = filters {
+        filters
+            .iter()
+            .find_map(|filter| {
+                if filter.key.to_lowercase() == "country" {
+                    Some(filter.value.clone())
+                } else {
+                    None
+                }
+            })
+            .unwrap_or_default()
+    } else {
+        "".to_string()
     }
 }
