@@ -35,7 +35,7 @@ pub struct ValidatedMetricsRequest {
     pub dimension: String,
     pub direction: String,
     pub window: u32,
-    pub size: u32,
+    pub size: Option<u32>,
     pub aggregation: Option<String>,
     pub period: Option<Period>,
     pub filter: Option<Filter>,
@@ -102,16 +102,11 @@ impl MetricsRequest {
             }
         };
 
-        let size = self.size.unwrap_or(DEFAULT_SIZE);
-        if size <= 0 {
-            return Err(AppError::bad_request("Size must be greater than 0"));
-        }
-
         Ok(ValidatedMetricsRequest {
             dimension,
             direction,
             window,
-            size,
+            size: self.size,
             aggregation: self.aggregation,
             period: self.period,
             filter: self.filter,
