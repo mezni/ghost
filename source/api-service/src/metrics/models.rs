@@ -1,43 +1,38 @@
 use crate::core::errors::AppError;
-use chrono::NaiveDate;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
-const DEFAULT_WINDOW: u32 = 0;
+const DEFAULT_SIZE: u32 = 30;
+const DEFAULT_SIZE_TOP: u32 = 5;
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct MetricsRequest {
     pub dimension: String,
-    pub direction: Option<String>,
-    pub window: Option<u32>,
-    pub size: Option<u32>,
     pub aggregation: Option<String>,
+    pub filter: Option<Vec<Filter>>,
+    pub size: Option<u32>,
     pub period: Option<Period>,
-    pub filter: Option<Filter>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct Period {
-    pub start: NaiveDate,
-    pub end: NaiveDate,
-}
-
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Filter {
-    pub operator: String,
     pub key: String,
     pub value: String,
+    pub operator: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Period {
+    pub start: String,
+    pub end: String,
 }
 
 #[derive(Debug)]
 pub struct ValidatedMetricsRequest {
     pub dimension: String,
-    pub direction: String,
-    pub window: u32,
+    pub aggregation: String,
+    pub filter: Option<Vec<Filter>>,
     pub size: Option<u32>,
-    pub aggregation: Option<String>,
     pub period: Option<Period>,
-    pub filter: Option<Filter>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -75,46 +70,27 @@ impl MetricsRequest {
             return Err(AppError::bad_request("Invalid dimension"));
         }
 
-        let direction = match dimension.as_str() {
-            "global" | "country" | "operator" | "subscriber" => {
-                let dir = self
-                    .direction
-                    .ok_or_else(|| AppError::bad_request("Direction is required"))?
-                    .to_lowercase();
-                if !matches!(dir.as_str(), "in" | "out") {
-                    return Err(AppError::bad_request(
-                        "Invalid direction: must be IN or OUT",
-                    ));
-                }
-                dir
+        let aggregation = if let Some(agg) = &self.aggregation {
+            match agg.to_lowercase().as_str() {
+                "top" | "latest" | "history" => agg.to_lowercase(),
+                _ => "history".to_string(),
             }
-            _ => self.direction.unwrap_or_default().to_lowercase(),
+        } else {
+            "history".to_string()
         };
 
-        let window = match self.window {
-            Some(w) => {
-                if w <= 0 {
-                    return Err(AppError::bad_request("Window must be greater than 0"));
-                }
-                w
-            }
-            None => {
-                if let Some(p) = self.period.as_ref() {
-                    if p.start == p.end { 0 } else { DEFAULT_WINDOW }
-                } else {
-                    DEFAULT_WINDOW
-                }
-            }
-        };
-
+        let size = self.size.or_else(|| {
+            Some(match aggregation.as_str() {
+                "top" => DEFAULT_SIZE_TOP,
+                _ => DEFAULT_SIZE,
+            })
+        });
         Ok(ValidatedMetricsRequest {
             dimension,
-            direction,
-            window,
-            size: self.size,
-            aggregation: self.aggregation,
-            period: self.period,
+            aggregation,
             filter: self.filter,
+            size: size,
+            period: self.period,
         })
     }
 }
