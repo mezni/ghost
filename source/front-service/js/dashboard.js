@@ -8,6 +8,7 @@
 
 // Format date from YYYY-MM-DD → DD/MM/YYYY
 function formatDate(dateStr) {
+  if (!dateStr) return "N/A";
   const [year, month, day] = dateStr.split("-");
   return `${day}/${month}/${year}`;
 }
@@ -49,6 +50,58 @@ async function fetchMetric(body, valueId, dateId) {
     const elDate = document.getElementById(dateId);
     if (elValue) elValue.innerText = "0";
     if (elDate) elDate.innerText = "Updated at: Error";
+  }
+}
+
+// --------------------------
+// Load Notifications / Messages
+// --------------------------
+async function loadMessages() {
+  const container = document.getElementById("messagesContainer");
+  const badge = document.getElementById("messagesBadge");
+
+  if (!container || !badge) return;
+
+  try {
+    const res = await fetch(`${BASE_API}/metrics`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        dimension: "notification",
+        aggregation: "detail"
+      })
+    });
+
+    const data = await res.json();
+    container.innerHTML = "";
+
+    if (data?.status === "success" && data?.data?.length) {
+      const total = data.data.length;
+      badge.textContent = total;
+
+      data.data.forEach((item, idx) => {
+        const msg = document.createElement("div");
+        msg.className = "direct-chat-msg";
+        msg.innerHTML = `
+          <div class="direct-chat-infos clearfix">
+            <span class="direct-chat-name float-start">System</span>
+            <span class="direct-chat-timestamp float-end">${formatDate(item.date || new Date().toISOString().split("T")[0])}</span>
+          </div>
+          <img class="direct-chat-img" src="https://ui-avatars.com/api/?name=SY" alt="user image">
+          <div class="direct-chat-text">
+            ${item.message || `#${idx + 1}: ${item.value || "No message text"}`}
+          </div>
+        `;
+        container.appendChild(msg);
+      });
+    } else {
+      badge.textContent = "0";
+      container.innerHTML = `<p class="text-muted text-center">No notifications</p>`;
+    }
+  } catch (err) {
+    console.error("Error loading messages:", err);
+    badge.textContent = "0";
+    container.innerHTML = `<p class="text-danger text-center">Error loading notifications</p>`;
   }
 }
 
@@ -154,12 +207,16 @@ async function dashboardInit() {
     { body: { dimension: "notification", aggregation: "summary" }, valueId: "notificationsValue", dateId: "notificationsDate" }
   ];
 
+  // Update metric cards
   for (const m of metrics) {
     await fetchMetric(m.body, m.valueId, m.dateId);
   }
 
   // Load Global Trend chart
   await loadGlobalTrendChart();
+
+  // Load messages (notifications)
+  await loadMessages();
 }
 
 // Note: app.js will call dashboardInit(), do not call it here
