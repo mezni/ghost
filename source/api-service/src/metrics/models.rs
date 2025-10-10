@@ -72,7 +72,7 @@ impl MetricsRequest {
 
         let aggregation = if let Some(agg) = &self.aggregation {
             match agg.to_lowercase().as_str() {
-                "top" | "latest" | "history" => agg.to_lowercase(),
+                "top" | "latest" | "history" | "summary" | "detail" => agg.to_lowercase(),
                 _ => "history".to_string(),
             }
         } else {

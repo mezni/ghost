@@ -1,0 +1,118 @@
+<!--begin::Container-->
+<div class="container-fluid">
+
+  <!--begin::Row 1-->
+  <div class="row">
+    <!-- Left: Roam IN Line Chart -->
+    <div class="col-md-8">
+      <div class="card mb-4 card-custom">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="card-title">Global Trend</h5>
+          <div class="card-tools d-flex align-items-center">
+            <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+              <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+              <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+            </button>
+
+            <div class="btn-group ms-1">
+              <button type="button" class="btn btn-tool dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="bi bi-wrench"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end">
+                <a href="#" class="dropdown-item">Action</a>
+                <a href="#" class="dropdown-item">Another action</a>
+                <a href="#" class="dropdown-item">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">Separated link</a>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-tool ms-1" data-lte-toggle="card-remove">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height: 300px;">
+            <canvas id="global-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Top 5 Countries Pie Chart -->
+    <div class="col-md-4">
+      <div class="card mb-4 card-custom">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="card-title">Top 5 Countries</h5>
+          <div class="card-tools d-flex align-items-center">
+            <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+              <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+              <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height: 300px;">
+            <canvas id="country-pie-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row 1 -->
+
+  <!--begin::Row 2-->
+  <div class="row">
+    <!-- Left: Country Trend Chart with Country Filter -->
+    <div class="col-md-8">
+      <div class="card mb-4 card-custom">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="card-title mb-0">Country Trend</h5>
+
+          <!-- Country Filter -->
+          <div class="d-flex align-items-center">
+            <label for="countryFilter" class="me-2 fw-semibold mb-0">Country:</label>
+            <select id="countryFilter" class="form-select form-select-sm" style="width: 160px;">
+              <option value="all" selected>All</option>
+              <option value="Canada">Canada</option>
+              <option value="France">France</option>
+              <option value="Germany">Germany</option>
+              <option value="Spain">Spain</option>
+              <option value="USA">USA</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="chart-container" style="height: 300px;">
+            <canvas id="country-line-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Placeholder Card -->
+    <div class="col-md-4">
+      <div class="card mb-4 card-custom">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="card-title">New Pie Chart / Metric</h5>
+          <div class="card-tools d-flex align-items-center">
+            <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+              <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+              <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height: 300px;">
+            <canvas id="new-pie-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row 2 -->
+
+</div>
+<!--end::Container-->

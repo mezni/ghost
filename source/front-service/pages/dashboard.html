@@ -1,0 +1,105 @@
+<div class="row">
+  <!-- Roam IN Card -->
+  <div class="col-xl-3 col-md-6 col-12">
+    <div class="info-box shadow-sm">
+      <span class="info-box-icon bg-primary"><i class="bi bi-arrow-down-circle"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">Roam IN</span>
+        <span class="info-box-number" id="roamInValue">0</span>
+        <span class="info-box-text text-muted fs-7" id="roamInDate">N/A</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Roam OUT Card -->
+  <div class="col-xl-3 col-md-6 col-12">
+    <div class="info-box shadow-sm">
+      <span class="info-box-icon bg-success"><i class="bi bi-arrow-up-circle"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">Roam OUT</span>
+        <span class="info-box-number" id="roamOutValue">0</span>
+        <span class="info-box-text text-muted fs-7" id="roamOutDate">N/A</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alerts Card -->
+  <div class="col-xl-3 col-md-6 col-12">
+    <div class="info-box shadow-sm">
+      <span class="info-box-icon bg-danger"><i class="bi bi-exclamation-triangle"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">Alerts</span>
+        <span class="info-box-number" id="alertsValue">0</span>
+        <span class="info-box-text text-muted fs-7" id="alertsDate">N/A</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notifications Card -->
+  <div class="col-xl-3 col-md-6 col-12">
+    <div class="info-box shadow-sm">
+      <span class="info-box-icon bg-warning"><i class="bi bi-bell"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">Notifications</span>
+        <span class="info-box-number" id="notificationsValue">0</span>
+        <span class="info-box-text text-muted fs-7" id="notificationsDate">N/A</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard Chart -->
+<div class="row mt-4">
+  <!-- Global Trend Chart Card -->
+  <div class="col-md-8">
+    <div class="card mb-4 card-custom">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title">Global Trend</h5>
+        <div class="card-tools d-flex align-items-center">
+          <!-- Collapse Button -->
+          <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+            <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+            <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+          </button>
+
+          <!-- Dropdown Actions -->
+          <div class="btn-group ms-1">
+            <button type="button" class="btn btn-tool dropdown-toggle" data-bs-toggle="dropdown">
+              <i class="bi bi-wrench"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+          </div>
+
+          <!-- Remove Button -->
+          <button type="button" class="btn btn-tool ms-1" data-lte-toggle="card-remove">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="chart-container" style="height: 300px;">
+          <canvas id="global-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional: add another card in the remaining 4 columns -->
+  <div class="col-md-4">
+    <div class="card mb-4 card-custom">
+      <div class="card-header">
+        <h5 class="card-title">Notifications</h5>
+      </div>
+      <div class="card-body">
+<div class="direct-chat-messages" style="height: 100%; overflow-y: auto;" id="messagesContainer">
+      </div>
+    </div>
+  </div>
+</div>
+

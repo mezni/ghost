@@ -78,6 +78,17 @@ impl MetricsRepository {
                                         ORDER BY 
                                             value DESC";
 
+    const GET_NOTIF_DET_METRICS_QUERY: &str = "SELECT rd.date_str AS date, fct.message AS value FROM trx_notifications fct
+                                            JOIN ref_dates rd ON rd.date_id = fct.date_id 
+                                            WHERE 1=1
+                                            AND fct.date_id = (SELECT MAX(date_id) FROM trx_notifications)";
+
+    const GET_NOTIF_SUM_METRICS_QUERY: &str = "SELECT rd.date_str AS date, COUNT(*)::text AS value FROM trx_notifications fct
+                                            JOIN ref_dates rd ON rd.date_id = fct.date_id 
+                                            WHERE 1=1
+                                            AND fct.date_id = (SELECT MAX(date_id) FROM trx_notifications)
+                                            GROUP BY rd.date_str";
+
     pub async fn get_metrics(
         pool: &Pool,
         req: &ValidatedMetricsRequest,
@@ -93,7 +104,7 @@ impl MetricsRepository {
         let result_json = match dimension.as_str() {
             "global" => MetricsRepository::get_global_metrics(&client, req).await?,
             "country" => MetricsRepository::get_country_metrics(&client, req).await?,
-            //            "notification" => MetricsRepository::get_notif_metrics(&client, req).await?,
+            "notification" => MetricsRepository::get_notif_metrics(&client, req).await?,
             _ => return Err(AppError::bad_request("Unsupported dimension")),
         };
 
@@ -217,6 +228,43 @@ impl MetricsRepository {
                 "Aggregation 'latest', 'history' or 'top' is required",
             )),
         }
+    }
+
+    pub async fn get_notif_metrics(
+        client: &deadpool_postgres::Client,
+        req: &ValidatedMetricsRequest,
+    ) -> Result<serde_json::Value, AppError> {
+        let aggregation = &req.aggregation;
+
+        let (query, params) = match aggregation.as_str() {
+            "summary" => {
+                let query = Self::GET_NOTIF_SUM_METRICS_QUERY.to_string();
+                let params: Vec<&(dyn ToSql + Sync)> = vec![];
+                (query, params)
+            }
+            "detail" => {
+                let query = Self::GET_NOTIF_DET_METRICS_QUERY.to_string();
+                let params: Vec<&(dyn ToSql + Sync)> = vec![];
+                (query, params)
+            }
+            _ => {
+                return Err(AppError::bad_request(
+                    "Aggregation 'latest' or 'history' is required",
+                ));
+            }
+        };
+
+        let rows = client
+            .query(&query, &params)
+            .await
+            .map_err(|e| AppError::db_error(&e.to_string()))?;
+
+        let metrics: Vec<NotifMetric> = rows.iter().map(Self::map_notif_metric).collect();
+
+        Ok(json!({
+            "data": metrics,
+            "status": "success",
+        }))
     }
 
     fn map_global_metric(row: &Row) -> GlobalMetric {

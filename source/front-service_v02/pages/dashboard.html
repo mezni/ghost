@@ -1,0 +1,126 @@
+<!--begin::Container-->
+<div class="container-fluid">
+
+  <!-- ======================== -->
+  <!-- Row 1: Info Boxes -->
+  <!-- ======================== -->
+  <div class="row">
+
+    <div class="col-xl-3 col-md-6 col-12">
+      <div class="info-box mb-3 shadow-sm" id="roamInBox">
+        <span class="info-box-icon bg-primary">
+          <i class="bi bi-arrow-down-circle"></i>
+        </span>
+        <div class="info-box-content">
+          <span class="info-box-text">Roam IN</span>
+          <span class="info-box-number">--</span>
+          <span class="info-box-text text-muted fs-7">Updated: --/--/----</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 col-12">
+      <div class="info-box mb-3 shadow-sm" id="roamOutBox">
+        <span class="info-box-icon bg-success">
+          <i class="bi bi-arrow-up-circle"></i>
+        </span>
+        <div class="info-box-content">
+          <span class="info-box-text">Roam OUT</span>
+          <span class="info-box-number">--</span>
+          <span class="info-box-text text-muted fs-7">Updated: --/--/----</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 col-12">
+      <div class="info-box mb-3 shadow-sm">
+        <span class="info-box-icon bg-danger">
+          <i class="bi bi-exclamation-triangle"></i>
+        </span>
+        <div class="info-box-content">
+          <span class="info-box-text">Alerts</span>
+          <span class="info-box-number">--</span>
+          <span class="info-box-text text-muted fs-7">Updated: --/--/----</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 col-12">
+      <div id="notificationsBox" class="info-box mb-3 shadow-sm">
+        <span class="info-box-icon bg-warning">
+          <i class="bi bi-bell"></i>
+        </span>
+        <div class="info-box-content">
+          <span class="info-box-text">Notifications</span>
+          <span class="info-box-number">0</span>
+          <span class="info-box-text text-muted fs-7">Updated: --/--/----</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+  <!-- ======================== -->
+  <!-- Row 2: Direct Chat -->
+  <!-- ======================== -->
+<div class="row mt-3">
+  <!-- Notifications Card -->
+  <div class="col-12 col-lg-6 col-xl-6">
+    <div class="card direct-chat direct-chat-warning shadow-sm">
+      <div class="card-header">
+        <h3 class="card-title">Notifications</h3>
+        <div class="card-tools">
+          <span title="3 New Messages" class="badge text-bg-warning" id="notificationsBadge">3</span>
+          <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+            <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+            <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+          </button>
+          <button type="button" class="btn btn-tool" title="Contacts" data-lte-toggle="chat-pane">
+            <i class="bi bi-chat-text-fill"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="direct-chat-messages" style="height: 300px; overflow-y: auto;" id="notificationsMessages">
+          <!-- Messages injected dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Messages Card (NEW) -->
+  <div class="col-12 col-lg-6 col-xl-6">
+    <div class="card direct-chat direct-chat-primary shadow-sm">
+      <div class="card-header">
+        <h3 class="card-title">Notifications</h3>
+        <div class="card-tools">
+          <span title="0 New Messages" class="badge text-bg-primary" id="messagesBadge">0</span>
+          <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+            <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+            <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+          </button>
+          <button type="button" class="btn btn-tool" title="Chat Pane" data-lte-toggle="chat-pane">
+            <i class="bi bi-chat-text-fill"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="direct-chat-messages" style="height: 300px; overflow-y: auto;" id="messagesContainer">
+          <!-- Messages will be injected here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- /.row -->
+
+</div>
+<!--end::Container-->
