@@ -13,7 +13,6 @@ const AppUtils = {
   },
 
   notify: (title, message, type = "info") => {
-    // Simple alert placeholder
     alert(`${title}: ${message}`);
   },
 
@@ -29,40 +28,77 @@ const AppUtils = {
   }
 };
 
-// Initialize common layout (header, footer, sidebar)
+// ==========================
+// Initialize common layout
+// ==========================
 async function loadLayout() {
   await AppUtils.loadHTML("pages/header.html", "header");
   await AppUtils.loadHTML("pages/footer.html", "footer");
   await AppUtils.loadHTML("pages/sidebar.html", "sidebar");
 }
 
-// Load page content into #content-area and call its init function
+// ==========================
+// Load page content
+// ==========================
 async function loadPage(page) {
   const container = document.getElementById("content-area");
   try {
     const res = await fetch(`pages/${page}.html`);
     container.innerHTML = await res.text();
 
-    // Call page-specific init if exists
+    // --------------------------
+    // Update page title
+    // --------------------------
+    const titleEl = document.getElementById("page-title");
+    const titleMap = {
+      dashboard: "Dashboard",
+      roamin: "Roam IN",
+      roamout: "Roam OUT",
+      countries: "Countries",
+    };
+    if (titleEl) titleEl.textContent = titleMap[page] || "Dashboard";
+
+    // --------------------------
+    // Update breadcrumb active item
+    // --------------------------
+    const breadcrumbEl = document.querySelector(".breadcrumb .active");
+    if (breadcrumbEl) breadcrumbEl.textContent = titleMap[page] || "Dashboard";
+
+    // --------------------------
+    // Update sidebar active menu
+    // --------------------------
+    document.querySelectorAll("#sidebar a.nav-link").forEach(link => {
+      link.classList.remove("active");
+      const hrefPage = link.getAttribute("href").replace(".html", "").replace("#", "");
+      if (hrefPage === page) link.classList.add("active");
+    });
+
+    // --------------------------
+    // Call page-specific init function
+    // --------------------------
     const initFuncName = `${page}Init`;
     if (typeof window[initFuncName] === "function") {
       window[initFuncName]();
     }
+
   } catch (err) {
     console.error(`Failed to load page ${page}:`, err);
   }
 }
 
-// Detect hash change (URL fragment) to load pages dynamically
+// ==========================
+// Handle hash navigation
+// ==========================
 window.addEventListener("hashchange", () => {
   const page = location.hash.replace("#", "") || "dashboard";
   loadPage(page);
 });
 
+// ==========================
 // Initial load
+// ==========================
 window.addEventListener("DOMContentLoaded", async () => {
   await loadLayout();
-
   const initialPage = location.hash.replace("#", "") || "dashboard";
   loadPage(initialPage);
 });
