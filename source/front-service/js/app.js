@@ -99,6 +99,12 @@ window.addEventListener("hashchange", () => {
 // ==========================
 window.addEventListener("DOMContentLoaded", async () => {
   await loadLayout();
-  const initialPage = location.hash.replace("#", "") || "dashboard";
-  loadPage(initialPage);
+
+  // Get hash, default to 'dashboard'
+  let initialPage = location.hash.replace("#", "") || "dashboard";
+
+  // If you want to auto-load Roam OUT for testing:
+  // initialPage = "roamout";
+
+  await loadPage(initialPage);
 });

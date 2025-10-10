@@ -1,6 +1,6 @@
 /**
  * Roam IN Page Script
- * Handles line chart (history) and pie chart (by country)
+ * Handles charts and country filter logic
  */
 
 const API_URL = "http://localhost:3000/api/v1"; // ✅ central variable
@@ -15,6 +15,7 @@ async function roaminInit() {
 
   await loadRoamInLineChart();
   await loadRoamInPieChart();
+  await loadCountryFilter(); // ✅ load dropdown + chart
 }
 
 /**
@@ -50,42 +51,7 @@ async function loadRoamInLineChart() {
     const labels = data.data.map(item => formatDateDDMMYYYY(item.date));
     const values = data.data.map(item => item.value);
 
-    const minValue = Math.min(...values);
-    const maxValue = Math.max(...values);
-    const padding = (maxValue - minValue) * 0.1;
-
-    new Chart(ctx, {
-      type: "line",
-      data: {
-        labels,
-        datasets: [
-          {
-            label: "Roam IN",
-            data: values,
-            borderColor: "#007bff",
-            backgroundColor: "rgba(0,123,255,0.2)",
-            fill: true,
-            tension: 0.3,
-            pointRadius: 3
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: true } },
-        scales: {
-          x: { title: { display: true, text: "Date" } },
-          y: { 
-            title: { display: true, text: "Value" },
-            beginAtZero: false,
-            min: minValue - padding,
-            max: maxValue + padding
-          }
-        }
-      }
-    });
-
+    renderLineChart(ctx, "Roam IN", labels, values, "#007bff");
   } catch (err) {
     console.error("Failed to load line chart:", err);
   }
@@ -140,8 +106,138 @@ async function loadRoamInPieChart() {
         }
       }
     });
-
   } catch (err) {
     console.error("Failed to load pie chart:", err);
   }
+}
+
+/**
+ * Load Country Filter (Dropdown)
+ */
+async function loadCountryFilter() {
+  const select = document.getElementById("countryFilter");
+  if (!select) return;
+
+  try {
+    const res = await fetch(`${API_URL}/countries`);
+    const countries = await res.json();
+
+    // ✅ Add default "All" option
+    select.innerHTML = `<option value="all">All</option>`;
+
+    countries.forEach(country => {
+      const opt = document.createElement("option");
+      opt.value = country.country_name;
+      opt.textContent = country.country_name;
+      select.appendChild(opt);
+    });
+
+    // ✅ Load initial chart (All countries)
+    await loadCountryLineChart("all");
+
+    // ✅ Event listener for filter changes
+    select.addEventListener("change", async (e) => {
+      const selected = e.target.value;
+
+      // 🔹 Update pie chart title dynamically
+      const titleEl = document.getElementById("distributionTitle");
+      if (titleEl) {
+        titleEl.textContent =
+          selected === "all"
+            ? "Distribution"
+            : `Distribution (${selected})`;
+      }
+
+      // 🔹 Reload the line chart for the selected country
+      await loadCountryLineChart(selected);
+    });
+  } catch (err) {
+    console.error("Failed to load countries:", err);
+  }
+}
+
+/**
+ * Load Country Line Chart (Dynamic)
+ */
+async function loadCountryLineChart(countryName = "all") {
+  const ctx = document.getElementById("country-line-chart");
+  if (!ctx) return;
+
+  try {
+    const payload =
+      countryName === "all"
+        ? {
+            dimension: "global",
+            aggregation: "history",
+            filter: [{ key: "direction", value: "in" }]
+          }
+        : {
+            dimension: "country",
+            aggregation: "history",
+            filter: [
+              { key: "direction", value: "in" },
+              { key: "country", value: countryName }
+            ]
+          };
+
+    const res = await fetch(`${API_URL}/metrics`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    const labels = data.data.map(item => formatDateDDMMYYYY(item.date));
+    const values = data.data.map(item => item.value);
+
+    renderLineChart(ctx, countryName === "all" ? "All Countries" : countryName, labels, values, "#28a745");
+  } catch (err) {
+    console.error("Failed to load country line chart:", err);
+  }
+}
+
+/**
+ * Render Line Chart (Reusable)
+ */
+function renderLineChart(ctx, label, labels, values, color) {
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+  const padding = (maxValue - minValue) * 0.1;
+
+  // Destroy existing chart instance if any (to prevent overlap)
+  if (ctx.chartInstance) {
+    ctx.chartInstance.destroy();
+  }
+
+  ctx.chartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        {
+          label,
+          data: values,
+          borderColor: color,
+          backgroundColor: `${color}33`,
+          fill: true,
+          tension: 0.3,
+          pointRadius: 3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: true } },
+      scales: {
+        x: { title: { display: false } }, // ✅ no x-axis title
+        y: {
+          title: { display: true, text: "Value" },
+          beginAtZero: false,
+          min: minValue - padding,
+          max: maxValue + padding
+        }
+      }
+    }
+  });
 }

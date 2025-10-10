@@ -179,7 +179,7 @@ async function loadGlobalTrendChart() {
         },
         scales: {
           x: {
-            title: { display: true, text: "Date" }
+            title: { display: false }
           },
           y: {
             title: { display: true, text: "Value" },
