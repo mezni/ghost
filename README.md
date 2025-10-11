@@ -5,5 +5,7 @@ docker exec -it roamdb-service psql -U myuser -d roamdb
 
 python3 -m http.server 8080
 
+RUST_LOG=debug cargo run
 
-                      
+### --- HEALTH
+curl -X GET http://localhost:3000/api/v1/health                    
