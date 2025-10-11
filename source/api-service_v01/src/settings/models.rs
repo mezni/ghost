@@ -1,9 +1,7 @@
+// settings/models.rs
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
 
-// =====================
-// Country Models
-// =====================
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Country {
     pub country_id: i32,
@@ -25,6 +23,7 @@ pub struct CreateCountry {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateCountry {
+    pub iso_code: Option<String>,
     pub country_name: Option<String>,
     pub updated_by: String,
 }
@@ -38,7 +37,7 @@ pub struct CountryDTO {
 
 impl From<Country> for CountryDTO {
     fn from(country: Country) -> Self {
-        Self {
+        CountryDTO {
             country_id: country.country_id,
             iso_code: country.iso_code,
             country_name: country.country_name,
@@ -46,10 +45,8 @@ impl From<Country> for CountryDTO {
     }
 }
 
-// =====================
-// Operator Models
-// =====================
-#[derive(Debug, Clone, Serialize, Deserialize)]
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Operator {
     pub operator_id: i32,
     pub operator_name: String,
@@ -71,15 +68,19 @@ pub struct CreateOperator {
     pub created_by: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+
+
+
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct UpdateOperator {
-    pub operator_id: i32,
     pub operator_name: Option<String>,
     pub brand_name: Option<String>,
+    pub country_name: Option<String>,
     pub updated_by: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct OperatorDTO {
     pub operator_id: i32,
     pub operator_name: String,
@@ -88,10 +89,11 @@ pub struct OperatorDTO {
 
 impl From<Operator> for OperatorDTO {
     fn from(op: Operator) -> Self {
-        Self {
+        OperatorDTO {
             operator_id: op.operator_id,
             operator_name: op.operator_name,
             country_name: op.country_name,
         }
     }
 }
+

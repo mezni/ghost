@@ -1,7 +1,7 @@
 use crate::core::errors::AppError;
 use crate::settings::models::{
-    Country, CountryDTO, CreateCountry, CreateOperator, Operator, OperatorDTO, UpdateCountry,
-    UpdateOperator,
+    Country, CountryDTO, CreateCountry, UpdateCountry,
+    Operator, OperatorDTO, CreateOperator, UpdateOperator,
 };
 use crate::settings::repositories::{CountryRepository, OperatorRepository};
 use deadpool_postgres::Pool;
@@ -41,11 +41,7 @@ impl CountryService {
     }
 
     /// Update an existing country
-    pub async fn update(
-        pool: &Pool,
-        id: i32,
-        input: UpdateCountry,
-    ) -> Result<CountryDTO, AppError> {
+    pub async fn update(pool: &Pool, id: i32, input: UpdateCountry) -> Result<CountryDTO, AppError> {
         let country = CountryRepository::update(pool, id, input).await?;
         Ok(CountryDTO::from(country))
     }
@@ -62,9 +58,35 @@ impl CountryService {
 pub struct OperatorService;
 
 impl OperatorService {
+    /// Get an operator by ID
+    pub async fn get_by_id(pool: &Pool, id: i32) -> Result<OperatorDTO, AppError> {
+        let operator = OperatorRepository::get_by_id(pool, id)
+            .await?
+            .ok_or_else(|| AppError::Other("Operator not found".into()))?;
+        Ok(OperatorDTO::from(operator))
+    }
+
     /// Get all operators
     pub async fn get_all(pool: &Pool) -> Result<Vec<OperatorDTO>, AppError> {
         let operators = OperatorRepository::get_all(pool).await?;
         Ok(operators.into_iter().map(OperatorDTO::from).collect())
+    }
+
+    /// Create a new operator
+    pub async fn create(pool: &Pool, input: CreateOperator) -> Result<OperatorDTO, AppError> {
+        // Optional: you could add a duplicate check on operator_name + country_id
+        let operator = OperatorRepository::create(pool, input).await?;
+        Ok(OperatorDTO::from(operator))
+    }
+
+    /// Update an existing operator
+    pub async fn update(pool: &Pool, id: i32, input: UpdateOperator) -> Result<OperatorDTO, AppError> {
+        let operator = OperatorRepository::update(pool, id, input).await?;
+        Ok(OperatorDTO::from(operator))
+    }
+
+    /// Delete an operator by ID
+    pub async fn delete(pool: &Pool, id: i32) -> Result<(), AppError> {
+        OperatorRepository::delete(pool, id).await
     }
 }

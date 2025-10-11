@@ -6,6 +6,52 @@ docker exec -it roamdb-service psql -U myuser -d roamdb
 python3 -m http.server 8080
 
 
+### --- COUNTRIES
+curl -X GET http://localhost:3000/api/v1/countries
+
+curl -X GET http://localhost:3000/api/v1/countries/1
+
+curl -X POST http://localhost:3000/api/v1/countries\
+  -H "Content-Type: application/json" \
+  -d '{
+    "iso_code": "W9",
+    "country_name": "W9TEST",
+    "created_by": "admin"
+  }'
+
+curl -X PUT http://localhost:3000/api/v1/countries/260 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "country_name": "W9TEST-UPDATE",
+    "updated_by": "admin"
+  }'
+
+curl -X DELETE http://localhost:3000/api/v1/countries/260
+
+
+### --- OPERATORS
+curl -X GET http://localhost:3000/api/v1/operators
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############################################################
 
 curl -X GET http://localhost:3000/api/v1/countries
 
