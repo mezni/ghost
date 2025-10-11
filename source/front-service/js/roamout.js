@@ -1,13 +1,4 @@
-/**
- * Roam OUT Page Script
- * Handles charts and country filter logic
- */
-
-const API_URL = "http://localhost:3000/api/v1"; 
-
-// --------------------------
-// Global init function
-// --------------------------
+// ✅ Expose the init function on window
 window.roamoutInit = async function() {
   console.log("💠 Roam OUT page initialized");
 
@@ -16,10 +7,12 @@ window.roamoutInit = async function() {
     return;
   }
 
+  // You can add actual chart-loading calls here
   await loadRoamOutLineChart();
   await loadRoamOutPieChart();
-  await loadCountryFilterOut(); // ✅ load dropdown + chart
+  await loadCountryFilterOut(); 
 };
+
 
 /**
  * Format date to dd/mm/yyyy
