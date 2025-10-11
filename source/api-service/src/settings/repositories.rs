@@ -32,7 +32,7 @@ impl CountryRepository {
     pub async fn get_by_id(pool: &Pool, id: i32) -> Result<Option<Country>, AppError> {
         let client = pool.get().await?;
         let stmt = client
-            .prepare("SELECT * FROM cfg_countries WHERE  is_valid = TRUE AND UPPER(country_id) = UPPER($1)")
+            .prepare("SELECT * FROM cfg_countries WHERE  is_valid = TRUE AND country_id = $1")
             .await?;
         let rows = client.query(&stmt, &[&id]).await?;
 
@@ -54,7 +54,7 @@ impl CountryRepository {
         let stmt = client
             .prepare(
                 "INSERT INTO cfg_countries (iso_code, country_name, created_by)
-                 VALUES ($1, $2, $3)
+                 VALUES (UPPER($1), $2, $3)
                  RETURNING *",
             )
             .await?;

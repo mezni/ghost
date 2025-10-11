@@ -9,6 +9,12 @@ python3 -m http.server 8080
 
 curl -X GET http://localhost:3000/api/v1/countries
 
+curl -X POST http://localhost:3000/api/v1/countries -H "Content-Type: application/json" -d '{
+  "iso_code": "AA",
+  "country_name": "TESTAA",
+  "created_by": "dali"
+}'
+
 "dimension": "global",
 "aggregation": "top",   -- latest, history  X
 "filter": [
