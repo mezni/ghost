@@ -75,8 +75,8 @@ async function renderTable() {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${start + i + 1}</td>
-      <td>${op.operator_name || 'N/A'}</td>
       <td>${op.country_name || 'N/A'}</td>
+      <td>${op.operator_name || 'N/A'}</td>
       <td>
         <button class="btn btn-sm btn-primary me-1" onclick="editOperator(${op.operator_id})">
           <i class="fas fa-edit"></i> Edit
@@ -130,13 +130,20 @@ function editOperator(id) {
 
   document.getElementById("operatorId").value = op.operator_id;
   document.getElementById("operatorName").value = op.operator_name;
-  document.getElementById("operatorCountry").value = op.country_name;
 
   document.getElementById("operatorModalLabel").textContent = "Edit Operator";
+
+  // Load countries and set the selected value
+  loadCountries().then(() => {
+    const countrySelect = document.getElementById("operatorCountry");
+    countrySelect.value = op.country_name;
+    countrySelect.disabled = true; // make read-only
+  });
 
   const modal = new bootstrap.Modal(document.getElementById("operatorModal"));
   modal.show();
 }
+
 
 async function deleteOperator(id) {
   if (!confirm("Are you sure you want to delete this operator?")) return;
@@ -157,16 +164,20 @@ async function deleteOperator(id) {
 
 function initAddOperatorButton() {
   waitForElement("#addOperatorBtn").then(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
       document.getElementById("operatorForm").reset();
       document.getElementById("operatorId").value = "";
       document.getElementById("operatorModalLabel").textContent = "Add Operator";
+
+      await loadCountries();
+      document.getElementById("operatorCountry").disabled = false; // enable for Add
 
       const modal = new bootstrap.Modal(document.getElementById("operatorModal"));
       modal.show();
     });
   });
 }
+
 
 function initSaveOperatorButton() {
   waitForElement("#saveOperatorBtn").then(btn => {
@@ -250,6 +261,28 @@ function initSearch() {
       renderTable();
     });
   });
+}
+
+
+async function loadCountries() {
+  const apiUrl = window.API_URL || "http://localhost:3000/api/v1/settings";
+  try {
+    const res = await fetch(`${apiUrl}/countries`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const countries = await res.json();
+
+    const select = await waitForElement("#operatorCountry");
+    select.innerHTML = '<option value="">Select a country</option>';
+    countries.forEach(c => {
+      const option = document.createElement("option");
+      option.value = c.country_name; // use c.country_id if backend expects ID
+      option.textContent = c.country_name;
+      select.appendChild(option);
+    });
+  } catch (err) {
+    console.error("Failed to load countries:", err);
+    AppUtils.notify("Load Countries", `Failed: ${err.message}`, "error");
+  }
 }
 
 // -------------------------

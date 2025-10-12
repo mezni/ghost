@@ -5,17 +5,19 @@
   <input type="text" id="operatorSearch" class="form-control w-25" placeholder="Search operators...">
 </div>
 
+
 <table id="operatorsTable" class="table table-striped">
   <thead>
     <tr>
       <th>#</th>
+      <th>Country Name</th>
       <th>Operator Name</th>
-      <th>Country</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody></tbody>
 </table>
+
 
 <div class="d-flex justify-content-between align-items-center">
   <button class="btn btn-outline-secondary" id="prevPageBtnOp">Previous</button>
@@ -35,12 +37,14 @@
         <form id="operatorForm">
           <input type="hidden" id="operatorId">
           <div class="mb-3">
-            <label for="operatorName" class="form-label">Operator Name</label>
-            <input type="text" id="operatorName" class="form-control" required>
+            <label for="operatorCountry" class="form-label">Country Name</label>
+            <select id="operatorCountry" class="form-control" required>
+              <option value="">Select a country</option>
+            </select>
           </div>
           <div class="mb-3">
-            <label for="operatorCountry" class="form-label">Country</label>
-            <input type="text" id="operatorCountry" class="form-control" required>
+            <label for="operatorName" class="form-label">Operator Name</label>
+            <input type="text" id="operatorName" class="form-control" required>
           </div>
         </form>
       </div>

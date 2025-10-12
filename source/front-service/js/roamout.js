@@ -116,7 +116,7 @@ async function loadCountryFilterOut() {
   if (!select) return;
 
   try {
-    const res = await fetch(`${API_URL}/countries`);
+    const res = await fetch(`${API_URL}/settings/countries`);
     const countries = await res.json();
 
     select.innerHTML = `<option value="all">All</option>`;

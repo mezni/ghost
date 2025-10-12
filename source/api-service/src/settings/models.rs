@@ -95,3 +95,86 @@ impl From<Operator> for OperatorDTO {
         }
     }
 }
+
+
+// =====================
+// Network Models
+// =====================
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Network {
+    pub network_id: i32,
+    pub plmn_code: String,
+    pub plmn: String,
+    pub mcc: String,
+    pub mnc: String,
+    pub operator_id: i32,
+    pub country_name: String, 
+    pub operator_name: String,    
+    pub tech_2g: bool,
+    pub tech_3g: bool,
+    pub tech_lte: bool,
+    pub is_valid: bool,
+    pub created_at: NaiveDateTime,
+    pub created_by: String,
+    pub updated_at: Option<NaiveDateTime>,
+    pub updated_by: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CreateNetwork {
+    pub plmn_code: String,
+    pub plmn: String,
+    pub mcc: String,
+    pub mnc: String,
+    pub country_name: String, 
+    pub operator_name: String,  
+    pub tech_2g: Option<bool>,
+    pub tech_3g: Option<bool>,
+    pub tech_lte: Option<bool>,
+    pub created_by: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct UpdateNetwork {
+    pub network_id: i32,
+    pub plmn_code: Option<String>,
+    pub plmn: Option<String>,
+    pub mcc: Option<String>,
+    pub mnc: Option<String>,
+    pub tech_2g: Option<bool>,
+    pub tech_3g: Option<bool>,
+    pub tech_lte: Option<bool>,
+    pub updated_by: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct NetworkDTO {
+    pub network_id: i32,
+    pub plmn_code: String,
+    pub plmn: String,
+    pub mcc: String,
+    pub mnc: String,
+    pub country_name: String,
+    pub operator_name: String,
+    pub tech_2g: bool,
+    pub tech_3g: bool,
+    pub tech_lte: bool,
+}
+
+impl From<Network> for NetworkDTO {
+    fn from(net: Network) -> Self {
+        Self {
+            network_id: net.network_id,
+            plmn_code: net.plmn_code,
+            plmn: net.plmn,
+            mcc: net.mcc,
+            mnc: net.mnc,
+            country_name: net.country_name,
+            operator_name: net.operator_name,
+            tech_2g: net.tech_2g,
+            tech_3g: net.tech_3g,
+            tech_lte: net.tech_lte,
+        }
+    }
+}
+
