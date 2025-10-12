@@ -9,3 +9,11 @@ RUST_LOG=debug cargo run
 
 ### --- HEALTH
 curl -X GET http://localhost:3000/api/v1/health                    
+
+
+
+
+curl -X POST http://localhost:3000/api/v1/analytics -H "Content-Type: application/json" -d '{
+  "dimension": "notification",
+  "aggregation": "summary"
+}'
