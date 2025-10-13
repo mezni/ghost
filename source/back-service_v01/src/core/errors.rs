@@ -11,7 +11,6 @@ pub enum AppError {
     Db(tokio_postgres::Error),
     Pool(deadpool_postgres::PoolError),
     Csv(csv_async::Error),
-    Yaml(serde_yaml::Error),
     Other(String),
 }
 
@@ -22,7 +21,6 @@ impl fmt::Display for AppError {
             AppError::Db(e) => write!(f, "DB error: {}", e),
             AppError::Pool(e) => write!(f, "Pool error: {}", e),
             AppError::Csv(e) => write!(f, "CSV error: {}", e),
-            AppError::Yaml(e) => write!(f, "YAML error: {}", e),
             AppError::Other(s) => write!(f, "Other error: {}", s),
         }
     }
@@ -52,12 +50,6 @@ impl From<deadpool_postgres::PoolError> for AppError {
 impl From<csv_async::Error> for AppError {
     fn from(err: csv_async::Error) -> Self {
         AppError::Csv(err)
-    }
-}
-
-impl From<serde_yaml::Error> for AppError {
-    fn from(err: serde_yaml::Error) -> Self {
-        AppError::Yaml(err)
     }
 }
 

@@ -10,6 +10,13 @@ RUST_LOG=debug cargo run
 docker cp file_utf8.dmp roamdb-service:/file_utf8.dmp 
 docker exec -it roamdb-service psql -U myuser -d roamdb -f file_utf8.dmp 
 
+
+
+
+
+select country_id, operator_id, prefix from cfg_prefixes where is_valid is true;
+
+
 ### --- HEALTH
 curl -X GET http://localhost:3000/api/v1/health                    
 
