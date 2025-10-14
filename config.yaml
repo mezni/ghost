@@ -6,8 +6,8 @@ sources:
     archive_directory: /home/dali/yyyy
 
   - source_type: ROAM_OUT
-    source_directory: ../../../WORK/INPUT/ROUT/
+    source_directory: ../../WORK/INPUT/ROUT/
     file_pattern: ^HSS\d{4}_\d{4}_\d{14}\.txt$
 
   - source_type: ROAM_IN
-    source_directory: ../../../WORK/INPUT/RIN/
+    source_directory: ../../WORK/INPUT/RIN/

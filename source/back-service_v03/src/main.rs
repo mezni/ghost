@@ -13,7 +13,7 @@ async fn main() -> Result<(), AppError> {
     Logger::init();
     Logger::info("Starting application");
 
-    let config_file = "../../config.yaml";
+    let config_file = "../../../config.yaml";
     let config: AppConfig = read(config_file)?;
 
     // Create PostgreSQL pool

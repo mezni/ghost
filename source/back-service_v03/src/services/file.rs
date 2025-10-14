@@ -1,10 +1,3 @@
-use crate::core::errors::AppError;
-use crate::core::logger::Logger;
-
-use std::fs;
-
-use std::path::Path;
-
 use csv::ReaderBuilder;
 use std::fs::File;
 use std::io::{self, BufReader};
@@ -14,42 +7,6 @@ pub struct RoamOutRecord {
     pub imsi: String,
     pub msisdn: String,
     pub vlr_number: String,
-}
-
-pub fn dir_exists(path: &str) -> bool {
-    Path::new(path).is_dir()
-}
-
-pub fn delete_file(path: &str) -> Result<(), AppError> {
-    fs::remove_file(path).map_err(AppError::from)
-}
-
-pub fn move_file(source: &str, destination: &str) -> Result<(), AppError> {
-    fs::rename(source, destination).map_err(AppError::from)
-}
-
-pub fn archive_file(source: &str, destination: &str) -> Result<(), AppError> {
-    fs::copy(source, destination).map_err(AppError::from)?;
-    fs::remove_file(source).map_err(AppError::from)
-}
-
-pub fn get_first_n_files(dir_path: &str, n: usize) -> Result<Vec<String>, std::io::Error> {
-    let mut files = Vec::new();
-    let dir = fs::read_dir(dir_path)?;
-
-    for entry in dir {
-        let entry = entry?;
-        let path = entry.path();
-
-        if path.is_file() {
-            files.push(path.file_name().unwrap().to_string_lossy().into_owned());
-            if files.len() >= n {
-                break;
-            }
-        }
-    }
-
-    Ok(files)
 }
 
 pub struct RoamOutFileReader {}
