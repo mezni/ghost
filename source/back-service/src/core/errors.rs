@@ -1,4 +1,5 @@
 use deadpool_postgres;
+use regex::Error as RegexError;
 use std::error::Error;
 use std::fmt;
 use std::io;
@@ -12,7 +13,14 @@ pub enum AppError {
     Pool(deadpool_postgres::PoolError),
     Csv(csv_async::Error),
     Yaml(serde_yaml::Error),
+    Regex(RegexError),
     Other(String),
+}
+
+impl AppError {
+    pub fn new(msg: &str) -> Self {
+        AppError::Other(msg.to_string())
+    }
 }
 
 impl fmt::Display for AppError {
@@ -24,6 +32,7 @@ impl fmt::Display for AppError {
             AppError::Csv(e) => write!(f, "CSV error: {}", e),
             AppError::Yaml(e) => write!(f, "YAML error: {}", e),
             AppError::Other(s) => write!(f, "Other error: {}", s),
+            AppError::Regex(e) => write!(f, "Regex error: {}", e),
         }
     }
 }
@@ -70,5 +79,11 @@ impl From<String> for AppError {
 impl From<&str> for AppError {
     fn from(err: &str) -> Self {
         AppError::Other(err.to_string())
+    }
+}
+
+impl From<RegexError> for AppError {
+    fn from(err: RegexError) -> Self {
+        AppError::Regex(err)
     }
 }

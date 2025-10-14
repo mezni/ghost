@@ -1,12 +1,15 @@
 use crate::core::errors::AppError;
 use crate::core::logger::Logger;
 use crate::services::batch;
+use crate::services::config::{AppConfig, Source};
 use crate::services::file;
 use crate::services::lookup;
 use chrono::Utc;
 use deadpool_postgres::Pool;
 use regex::Regex;
 use std::path::PathBuf;
+
+use std::fs;
 
 #[derive(Debug)]
 struct RoamOutBatch {
@@ -20,38 +23,71 @@ struct RoamOutBatch {
     operator_id: Option<i32>,
 }
 
-pub async fn run(pool: Pool) -> Result<(), AppError> {
-    Logger::info("RUN");
+fn get_first_file(path: &str) -> Option<String> {
+    let path = std::path::Path::new(path);
+    if path.is_dir() {
+        let files = fs::read_dir(path).ok()?;
+        for file in files {
+            let file = file.ok()?;
+            let file_path = file.path();
+            if file_path.is_file() {
+                return file_path
+                    .file_name()
+                    .map(|f| f.to_string_lossy().into_owned());
+            }
+        }
+    }
+    None
+}
 
-    let prefix_lookup = lookup::PrefixLookup::new(&pool)
-        .await
-        .map_err(AppError::from)?;
-    let batch_id = 1;
-
-    let batch_mgr = batch::BatchManager::new(pool.clone());
-
-    let file_pattern = Regex::new(r"^HSS\d{4}_\d{4}_\d{14}\.txt$").unwrap();
-    let dir_name = "../../../WORK/INPUT/ROUT/";
-
-    let file_name = "HSS9860_1549_20250912000000.txt";
-
+pub async fn load_roamin(
+    pool: &Pool,
+    batch_mgr: &batch::BatchManager,
+    source: &Source,
+    file_name: String,
+) -> Result<(), AppError> {
+    Logger::info("CALL ROAMIN");
     let batch_id = batch_mgr
-        .insert_batch("LOADER", "OUT", file_name, "STARTED")
+        .insert_batch("LOADER", "IN", &file_name, "STARTED")
+        .await?;
+    batch_mgr.update_status(batch_id, "COMPLETED").await?;
+    Ok(())
+}
+
+pub async fn load_roamout(
+    pool: &Pool,
+    batch_mgr: &batch::BatchManager,
+    source: &Source,
+    file_name: String,
+    prefix_lookup: lookup::PrefixLookup,
+) -> Result<(), AppError> {
+    Logger::info("CALL ROAMOUT");
+    let batch_id = batch_mgr
+        .insert_batch("LOADER", "OUT", &file_name, "STARTED")
         .await?;
 
-    let batch_date = if file_pattern.is_match(file_name) {
-        let date_str = &file_name[13..21];
-        format!(
-            "{}-{}-{}",
-            &date_str[0..4],
-            &date_str[4..6],
-            &date_str[6..8]
-        )
+    let batch_date = if let Some(pattern) = source.file_pattern.as_deref() {
+        let file_pattern = Regex::new(pattern)?;
+        if file_pattern.is_match(&file_name) {
+            let date_str = &file_name[13..21];
+            format!(
+                "{}-{}-{}",
+                &date_str[0..4],
+                &date_str[4..6],
+                &date_str[6..8]
+            )
+        } else {
+            batch_mgr.update_status(batch_id, "FAILED").await?;
+            return Err(AppError::new(&format!(
+                "Invalid file name format: {}",
+                file_name
+            )));
+        }
     } else {
-        return Err(AppError::from("Invalid file name"));
+        "1999-12-01".to_string()
     };
 
-    let file_path = PathBuf::from(dir_name).join(file_name);
+    let file_path = PathBuf::from(source.source_directory.clone()).join(file_name);
     let records =
         file::RoamOutFileReader::read(file_path.to_str().unwrap()).map_err(AppError::from)?;
 
@@ -95,8 +131,35 @@ pub async fn run(pool: Pool) -> Result<(), AppError> {
     }
 
     transaction.commit().await.map_err(AppError::from)?;
+
     batch_mgr.update_status(batch_id, "COMPLETED").await?;
-    Logger::info("Batches loaded into stg_roam_out table");
+    Ok(())
+}
+
+pub async fn run(pool: Pool, config: AppConfig) -> Result<(), AppError> {
+    let batch_mgr = batch::BatchManager::new(pool.clone());
+
+    for source in &config.sources {
+        println!("{:?}", source);
+
+        match source.source_type.as_str() {
+            "ROAM_IN" => {
+                if let Some(file_name) = get_first_file(&source.source_directory) {
+                    load_roamin(&pool, &batch_mgr, source, file_name.clone()).await?;
+                }
+            }
+            "ROAM_OUT" => {
+                let prefix_lookup = lookup::PrefixLookup::new(&pool)
+                    .await
+                    .map_err(AppError::from)?;
+                if let Some(file_name) = get_first_file(&source.source_directory) {
+                    load_roamout(&pool, &batch_mgr, source, file_name.clone(), prefix_lookup)
+                        .await?;
+                }
+            }
+            _ => {}
+        }
+    }
 
     Ok(())
 }
