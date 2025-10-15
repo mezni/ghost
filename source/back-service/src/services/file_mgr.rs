@@ -11,6 +11,10 @@ pub fn check_directory(directory: &PathBuf) -> bool {
     directory.is_dir()
 }
 
+pub fn delete_file(path: &PathBuf) -> Result<(), AppError> {
+    fs::remove_file(path).map_err(AppError::from)
+}
+
 pub fn get_first_n_files(dir_path: &str, n: usize) -> Result<Vec<String>, AppError> {
     let mut files = Vec::new();
     let dir = fs::read_dir(dir_path)?;
