@@ -8,6 +8,7 @@ use chrono::NaiveDateTime;
 use chrono::format::ParseError;
 use deadpool_postgres::Pool;
 use regex::Regex;
+use std::path::Path;
 use std::path::PathBuf;
 
 const FILE_TO_PROCESS: usize = 5;
@@ -135,7 +136,9 @@ pub async fn load(
                     &prefix_lookup,
                 )
                 .await?;
-                //                load_roamout(&pool, batch_id, source_directory, file_name.clone(), prefix_lookup);
+
+                let path = format!("{}/{}", source.source_directory, file_name);
+                let _ = file::delete_file(&path);
             }
         }
         _ => {}

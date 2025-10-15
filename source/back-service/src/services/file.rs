@@ -21,6 +21,7 @@ pub fn dir_exists(path: &str) -> bool {
 }
 
 pub fn delete_file(path: &str) -> Result<(), AppError> {
+    println!("{}", path);
     fs::remove_file(path).map_err(AppError::from)
 }
 

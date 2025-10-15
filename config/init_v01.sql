@@ -487,3 +487,108 @@ WHERE prefix IN (
 DROP TABLE ldr_countries;
 DROP TABLE ldr_operators;
 DROP TABLE ldr_prefixes;
+
+-------------------------------------------
+-- DEMO
+-------------------------------------------
+
+INSERT INTO batch_execs (batch_name) VALUES ('TEST');
+
+INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id, country_id, operator_id, value)
+SELECT 3, 1, d.date_id, o.country_id, o.operator_id, 1000 + FLOOR(RANDOM()* 1000)   
+FROM ref_dates d, cfg_operators o
+JOIN cfg_countries c ON o.country_id = c.country_id
+WHERE date BETWEEN CURRENT_DATE - INTERVAL '45 day' AND CURRENT_DATE
+AND c.iso_code in ('FR');
+
+INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id, country_id, operator_id, value)
+SELECT 3, 1, d.date_id, o.country_id, o.operator_id,  500 + FLOOR(RANDOM()* 500)   
+FROM ref_dates d, cfg_operators o
+JOIN cfg_countries c ON o.country_id = c.country_id
+WHERE date BETWEEN CURRENT_DATE - INTERVAL '45 day' AND CURRENT_DATE
+AND c.iso_code in ('MA', 'DZ', 'BE');
+
+INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id, country_id, operator_id, value)
+SELECT 3, 1, d.date_id, o.country_id, o.operator_id, 200 + FLOOR(RANDOM()* 200)   
+FROM ref_dates d, cfg_operators o
+JOIN cfg_countries c ON o.country_id = c.country_id
+WHERE date BETWEEN CURRENT_DATE - INTERVAL '45 day' AND CURRENT_DATE
+AND c.iso_code in ('EG', 'CA', 'US', 'DE', 'CI');
+
+INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id, country_id, operator_id, value)
+SELECT 8, 1, d.date_id, o.country_id, o.operator_id, 800 + FLOOR(RANDOM()* 800)   
+FROM ref_dates d, cfg_operators o
+JOIN cfg_countries c ON o.country_id = c.country_id
+WHERE date BETWEEN CURRENT_DATE - INTERVAL '45 day' AND CURRENT_DATE
+AND c.iso_code in ('FR');
+
+INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id, country_id, operator_id, value)
+SELECT 8, 1, d.date_id, o.country_id, o.operator_id,  300 + FLOOR(RANDOM()* 300)   
+FROM ref_dates d, cfg_operators o
+JOIN cfg_countries c ON o.country_id = c.country_id
+WHERE date BETWEEN CURRENT_DATE - INTERVAL '45 day' AND CURRENT_DATE
+AND c.iso_code in ('MA', 'DZ', 'BE');
+
+INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id, country_id, operator_id, value)
+SELECT 8, 1, d.date_id, o.country_id, o.operator_id, 100 + FLOOR(RANDOM()* 100)   
+FROM ref_dates d, cfg_operators o
+JOIN cfg_countries c ON o.country_id = c.country_id
+WHERE date BETWEEN CURRENT_DATE - INTERVAL '45 day' AND CURRENT_DATE
+AND c.iso_code in ('EG', 'CA', 'US', 'DE', 'CI');
+
+INSERT INTO trx_metrics_country (metric_definition_id,batch_id,date_id, country_id, value)  
+SELECT 2, batch_id , date_id , country_id, sum(value) 
+FROM trx_metrics_operator
+WHERE metric_definition_id = 3
+GROUP BY batch_id , date_id , country_id;
+
+INSERT INTO trx_metrics_country (metric_definition_id,batch_id,date_id, country_id, value)  
+SELECT 7, batch_id , date_id , country_id, sum(value) 
+FROM trx_metrics_operator
+WHERE metric_definition_id = 8
+GROUP BY batch_id , date_id , country_id;
+
+INSERT INTO trx_metrics_global (metric_definition_id,batch_id,date_id, value)  
+SELECT 1, batch_id , date_id , sum(value) 
+FROM trx_metrics_operator
+WHERE metric_definition_id = 3
+GROUP BY batch_id , date_id;
+
+INSERT INTO trx_metrics_global (metric_definition_id,batch_id,date_id, value)  
+SELECT 6, batch_id , date_id , sum(value) 
+FROM trx_metrics_operator
+WHERE metric_definition_id = 8
+GROUP BY batch_id , date_id ;
+
+INSERT INTO trx_perf_out (batch_id, date_id, country_id, operator_id, country_count, operator_count, target_percentage, actual_percentage, is_outside_tolerance)
+WITH percentages AS (
+    SELECT 
+        op.batch_id,
+        op.date_id,            
+        op.country_id,
+        op.operator_id,
+        c.value AS country_value,
+        op.value AS operator_value,
+        ROUND((op.value::float / c.value) * 100) as percentage
+    FROM trx_metrics_operator op
+    JOIN trx_metrics_country c 
+        ON op.country_id = c.country_id 
+        AND op.date_id = c.date_id
+)
+SELECT 
+    batch_id,
+    date_id,            
+    country_id,
+    operator_id,
+    country_value,
+    operator_value,
+    5,
+    percentage,
+    percentage > 20 AS is_over_20
+FROM percentages;  
+
+INSERT INTO trx_notifications (batch_id, date_id, rule_id, ref_id, message)
+SELECT batch_id,date_id,4, NULL, 'SoR Messages: '||nbr::text
+FROM (SELECT batch_id,date_id,count(*) as nbr 
+FROM trx_perf_out
+GROUP BY batch_id,date_id) t;
