@@ -4,7 +4,7 @@ mod services;
 use crate::core::db::Db;
 use crate::core::errors::AppError;
 use crate::core::logger::Logger;
-use crate::services::config::{AppConfig, read};
+use crate::services::config_mgr::{AppConfig, read};
 use crate::services::scheduler;
 
 #[tokio::main]

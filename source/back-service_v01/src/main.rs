@@ -4,36 +4,22 @@ mod services;
 use crate::core::db::Db;
 use crate::core::errors::AppError;
 use crate::core::logger::Logger;
-use crate::services::{batch_manager::BatchManager, file_loader::RoamOutLoader};
+use crate::services::config::{AppConfig, read};
+use crate::services::scheduler;
 
 #[tokio::main]
 async fn main() -> Result<(), AppError> {
+    // Initialize logger
     Logger::init();
-    Logger::info("Starting batch manager demo");
+    Logger::info("Starting application");
 
-    let pool = Db::create_pool(); // deadpool_postgres::Pool
-    let batch_manager = BatchManager::new(pool.clone());
-    let loader = RoamOutLoader::new(pool.clone());
+    let config_file = "../../config.yaml";
+    let config: AppConfig = read(config_file)?;
 
-    // --- Insert batch ---
-    let batch_id = batch_manager
-        .insert_batch("LOADER", "OUT", "roam_out.csv", "STARTED")
-        .await?;
-    println!("INFO Created batch with ID: {}", batch_id);
+    // Create PostgreSQL pool
+    let pool = Db::create_pool();
+    scheduler::run(pool, config).await?;
 
-    // --- Load CSV ---
-    let inserted = loader
-        .load_csv(
-            "../../WORK/INPUT/ROUT/HSS9860_1549_20250912000000.txt",
-            batch_id,
-            "2025-10-12",
-        )
-        .await?;
-    println!("INFO Inserted {} rows from CSV", inserted);
-
-    // --- Update batch status ---
-    batch_manager.update_status(batch_id, "COMPLETED").await?;
-    println!("INFO Batch {} marked as COMPLETED", batch_id);
-
+    Logger::info("Application finished");
     Ok(())
 }
