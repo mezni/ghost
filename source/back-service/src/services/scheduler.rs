@@ -6,6 +6,7 @@ use crate::services::file_mgr;
 use crate::services::lookup;
 use crate::services::roamin_loader;
 use crate::services::roamout_loader;
+use crate::services::transformer;
 use deadpool_postgres::Pool;
 use regex::Regex;
 use std::path::PathBuf;
@@ -44,6 +45,9 @@ pub async fn execute(pool: &Pool, config: &AppConfig) -> Result<(), AppError> {
             _ => {}
         }
     }
+
+    transformer::transform(&pool, &batch_mgr).await?;
+
     Ok(())
 }
 

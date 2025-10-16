@@ -185,10 +185,8 @@ pub async fn handle_file_action(
             }
         }
         _ => {
-            return Err(AppError::new(format!(
-                "Unknown file action: {}",
-                file_action
-            )));
+            delete_file(file_path)?;
+            Logger::info(&format!("Successfully deleted file: {:?}", file_path));
         }
     }
     Ok(())

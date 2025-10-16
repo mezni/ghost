@@ -1,4 +1,3 @@
-use crate::core::db::Db;
 use crate::core::errors::AppError;
 use deadpool_postgres::Pool;
 
@@ -56,25 +55,37 @@ impl BatchManager {
         client
             .execute(
                 r#"
-            UPDATE batch_execs
-            SET corr_id = $1
-            WHERE batch_id = $2
-            "#,
-                &[&corr_id, &batch_id], // Pass both parameters
+                UPDATE batch_execs
+                SET corr_id = $1
+                WHERE batch_id = $2
+                "#,
+                &[&corr_id, &batch_id],
             )
             .await?;
         Ok(())
     }
 
-    pub async fn get_corr_id(&self) -> Result<Option<i32>, AppError> {
-        let client = self.pool.get().await.map_err(AppError::from)?;
-        let query = "SELECT min(be.batch_id) 
-            FROM batch_execs be 
-            LEFT JOIN batch_execs bec 
-                ON be.batch_id = bec.corr_id AND bec.batch_status = 'COMPLETED'
-            WHERE bec.corr_id IS NULL;";
-        let row = client.query_opt(query, &[]).await.map_err(AppError::from)?;
-        let corr_id = row.map(|r| r.get::<_, i32>(0));
-        Ok(corr_id)
+    pub async fn get_corr_id(&self, batch_source: String) -> Result<Option<i32>, AppError> {
+        let client = self.pool.get().await?;
+        let query = "
+            SELECT MIN(batch_id) as min_batch_id
+            FROM batch_execs bec
+            WHERE bec.batch_status = 'COMPLETED'
+            AND bec.batch_name = 'LOADER'
+            AND bec.source_type = $1
+            AND batch_id NOT IN (SELECT corr_id FROM batch_execs be WHERE corr_id IS NOT NULL)
+        ";
+
+        let row = client.query_opt(query, &[&batch_source]).await?;
+
+        // Handle the case where MIN returns NULL (no rows found)
+        match row {
+            Some(row) => {
+                // Get the value as Option<i32> to handle NULL properly
+                let min_batch_id: Option<i32> = row.get("min_batch_id");
+                Ok(min_batch_id)
+            }
+            None => Ok(None),
+        }
     }
 }

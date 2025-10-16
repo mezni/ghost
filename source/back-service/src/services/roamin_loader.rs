@@ -11,7 +11,7 @@ use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
 
-const FILE_TO_PROCESS: usize = 5;
+const FILE_TO_PROCESS: usize = 0;
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct FileProcessed {
@@ -273,6 +273,8 @@ pub async fn load(
                 // Handle file actions after successful processing
                 if let Some(file_action) = &source.post_action {
                     file_mgr::handle_file_action(&file_path, &archive_path, file_action).await;
+                } else {
+                    file_mgr::handle_file_action(&file_path, &archive_path, "delete").await;
                 }
             }
             Err(e) => {
