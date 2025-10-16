@@ -14,7 +14,17 @@ docker exec -it roamdb-service psql -U myuser -d roamdb -f file_utf8.dmp
 
 
 
-select country_id, operator_id, prefix from cfg_prefixes where is_valid is true;
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### --- HEALTH

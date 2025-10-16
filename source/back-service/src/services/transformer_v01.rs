@@ -43,7 +43,7 @@ const INSERT_GLOBAL_IN_QUERY: &str = "
 const INSERT_COUNTRY_OUT_QUERY: &str = "
     INSERT INTO trx_metrics_country (metric_definition_id, batch_id, date_id, country_id, value)
     SELECT md.metric_definition_id, sro.batch_id, rd.date_id, 
-           sro.country_id , COUNT(*) 
+           COALESCE(sro.country_id, 0) as country_id, COUNT(*) 
     FROM stg_roam_out sro 
     JOIN ref_dates rd ON rd.date_str = sro.batch_date
     JOIN (
@@ -55,13 +55,13 @@ const INSERT_COUNTRY_OUT_QUERY: &str = "
         AND rmt.name = 'COUNTRY'
     ) AS md ON TRUE
     WHERE sro.batch_id = $2
-    GROUP BY md.metric_definition_id, sro.batch_id, rd.date_id, sro.country_id;
+    GROUP BY md.metric_definition_id, sro.batch_id, rd.date_id, COALESCE(sro.country_id, 0)
 ";
 
 const INSERT_COUNTRY_IN_QUERY: &str = "
     INSERT INTO trx_metrics_country (metric_definition_id, batch_id, date_id, country_id, value)
     SELECT md.metric_definition_id, sri.batch_id, rd.date_id, 
-           sri.country_id as country_id, SUM(nsub::INT) 
+           COALESCE(sri.country_id, 0) as country_id, SUM(nsub::INT) 
     FROM stg_roam_in sri 
     JOIN ref_dates rd ON rd.date_str = sri.batch_date
     JOIN (
@@ -73,13 +73,13 @@ const INSERT_COUNTRY_IN_QUERY: &str = "
         AND rmt.name = 'COUNTRY'
     ) AS md ON TRUE
     WHERE sri.batch_id = $2
-    GROUP BY md.metric_definition_id, sri.batch_id, rd.date_id, sri.country_id
+    GROUP BY md.metric_definition_id, sri.batch_id, rd.date_id, COALESCE(sri.country_id, 0)
 ";
 
 const INSERT_OPERATOR_OUT_QUERY: &str = "
-    INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id, country_id, operator_id, value)
-    SELECT md.metric_definition_id, sro.batch_id, rd.date_id, sro.country_id,
-           sro.operator_id, COUNT(*) 
+    INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id, operator_id, value)
+    SELECT md.metric_definition_id, sro.batch_id, rd.date_id, 
+           COALESCE(sro.operator_id, 0) as operator_id, COUNT(*) 
     FROM stg_roam_out sro 
     JOIN ref_dates rd ON rd.date_str = sro.batch_date
     JOIN (
@@ -91,13 +91,13 @@ const INSERT_OPERATOR_OUT_QUERY: &str = "
         AND rmt.name = 'OPERATOR'
     ) AS md ON TRUE
     WHERE sro.batch_id = $2
-    GROUP BY md.metric_definition_id, sro.batch_id, rd.date_id, sro.country_id, sro.operator_id
+    GROUP BY md.metric_definition_id, sro.batch_id, rd.date_id, COALESCE(sro.operator_id, 0)
 ";
 
 const INSERT_OPERATOR_IN_QUERY: &str = "
-    INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id,country_id, operator_id, value)
-    SELECT md.metric_definition_id, sri.batch_id, rd.date_id, sri.country_id,
-           sri.operator_id, SUM(nsub::INT)
+    INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id, operator_id, value)
+    SELECT md.metric_definition_id, sri.batch_id, rd.date_id, 
+           COALESCE(sri.operator_id, 0) as operator_id, SUM(nsub::INT) 
     FROM stg_roam_in sri 
     JOIN ref_dates rd ON rd.date_str = sri.batch_date
     JOIN (
@@ -109,7 +109,7 @@ const INSERT_OPERATOR_IN_QUERY: &str = "
         AND rmt.name = 'OPERATOR'
     ) AS md ON TRUE
     WHERE sri.batch_id = $2
-    GROUP BY md.metric_definition_id, sri.batch_id, rd.date_id, sri.country_id, sri.operator_id
+    GROUP BY md.metric_definition_id, sri.batch_id, rd.date_id, COALESCE(sri.operator_id, 0)
 ";
 
 const DELETE_IN_QUERY: &str = "DELETE FROM stg_roam_in WHERE batch_id = $1";
@@ -119,33 +119,34 @@ pub async fn transform(pool: &Pool, batch_mgr: &batch_mgr::BatchManager) -> Resu
     Logger::info("Starting data transformation process");
 
     for source_type in [SOURCE_TYPE_IN, SOURCE_TYPE_OUT] {
-        loop {
-            let corr_id = batch_mgr.get_corr_id(source_type.to_string()).await?;
+        let mut corr_id = batch_mgr.get_corr_id(source_type.to_string()).await?;
 
-            if let Some(id) = corr_id {
-                Logger::debug(&format!("Correlation ID for {}: {:?}", source_type, id));
+        while let Some(id) = corr_id {
+            Logger::debug(&format!("Correlation ID for {}: {:?}", source_type, id));
 
-                let batch_id = batch_mgr
-                    .insert_batch("TRANSFORMER", source_type, "", "STARTED")
-                    .await?;
+            let batch_id = batch_mgr
+                .insert_batch("TRANSFORMER", source_type, "", "STARTED")
+                .await?;
 
-                if let Err(e) = perform_transformation(pool, source_type, id).await {
-                    Logger::error(&format!(
-                        "Transformation failed for {} batch {}: {}",
-                        source_type, id, e
-                    ));
-                    batch_mgr.update_status(batch_id, "FAILED").await?;
-                } else {
-                    batch_mgr.update_corr_id(batch_id, id).await?;
-                    batch_mgr.update_status(batch_id, "COMPLETED").await?;
-                    Logger::info(&format!(
-                        "Successfully transformed {} batch {}",
-                        source_type, id
-                    ));
-                }
+            Logger::debug(&format!("batch {} : corr {}", batch_id, id));
+
+            if let Err(e) = perform_transformation(pool, source_type, id).await {
+                Logger::error(&format!(
+                    "Transformation failed for {} batch {}: {}",
+                    source_type, id, e
+                ));
+                batch_mgr.update_status(batch_id, "FAILED").await?;
             } else {
-                break;
+                let _ = batch_mgr.update_corr_id(batch_id, id).await?;
+                batch_mgr.update_status(batch_id, "COMPLETED").await?;
+                Logger::info(&format!(
+                    "Successfully transformed {} batch {}",
+                    source_type, id
+                ));
             }
+
+            // Get next correlation ID
+            corr_id = batch_mgr.get_corr_id(source_type.to_string()).await?;
         }
     }
 
@@ -215,8 +216,18 @@ async fn perform_transformation(
     // Delete processed records from staging table
     let _deleted_rows = transaction.execute(delete_query, &[&corr_id]).await?;
 
+    Logger::debug(&format!(
+        "Deleted rows from staging table for batch {}",
+        corr_id
+    ));
+
     // Commit the transaction
     transaction.commit().await?;
+
+    Logger::info(&format!(
+        "Transformation completed for {} batch {}",
+        source_type, corr_id
+    ));
 
     Ok(())
 }
