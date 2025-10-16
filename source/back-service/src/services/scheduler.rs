@@ -3,6 +3,7 @@ use crate::core::logger::Logger;
 use crate::services::batch_mgr;
 use crate::services::config_mgr::AppConfig;
 use crate::services::file_mgr;
+use crate::services::lookup;
 use crate::services::roamin_loader;
 use crate::services::roamout_loader;
 use deadpool_postgres::Pool;
@@ -23,14 +24,20 @@ pub async fn execute(pool: &Pool, config: &AppConfig) -> Result<(), AppError> {
             ROAM_IN => match PathBuf::from(&source.source_directory) {
                 directory => {
                     if file_mgr::check_directory(&directory) {
-                        roamin_loader::load(&pool, &batch_mgr, source).await?;
+                        let prefix_lookup = lookup::PrefixLookup::new(&pool)
+                            .await
+                            .map_err(AppError::from)?;
+                        roamin_loader::load(&pool, &batch_mgr, source, &prefix_lookup).await?;
                     }
                 }
             },
             ROAM_OUT => match PathBuf::from(&source.source_directory) {
                 directory => {
                     if file_mgr::check_directory(&directory) {
-                        roamout_loader::load(&pool, &batch_mgr, source).await?;
+                        let prefix_lookup = lookup::PrefixLookup::new(&pool)
+                            .await
+                            .map_err(AppError::from)?;
+                        roamout_loader::load(&pool, &batch_mgr, source, &prefix_lookup).await?;
                     }
                 }
             },

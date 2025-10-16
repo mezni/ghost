@@ -6,6 +6,7 @@ use std::path::Path;
 use std::path::PathBuf;
 
 use regex::Regex;
+use tokio::task;
 
 pub fn check_directory(directory: &PathBuf) -> bool {
     directory.is_dir()
@@ -13,6 +14,68 @@ pub fn check_directory(directory: &PathBuf) -> bool {
 
 pub fn delete_file(path: &PathBuf) -> Result<(), AppError> {
     fs::remove_file(path).map_err(AppError::from)
+}
+
+pub async fn archive_file(
+    source_path: &PathBuf,
+    archive_path: &PathBuf,
+    action: &str,
+) -> Result<(), AppError> {
+    let source = source_path.clone();
+    let archive = archive_path.clone();
+    let action_str = action.to_string();
+
+    // Use tokio::task::spawn_blocking for file operations since they are blocking
+    task::spawn_blocking(move || {
+        match action_str.to_lowercase().as_str() {
+            "move" => {
+                // Create archive directory if it doesn't exist
+                if !archive.exists() {
+                    fs::create_dir_all(&archive).map_err(|e| {
+                        AppError::new(format!("Failed to create archive directory: {}", e))
+                    })?;
+                }
+
+                let file_name = source
+                    .file_name()
+                    .ok_or_else(|| AppError::invalid_file_name(source.to_string_lossy()))?;
+
+                let destination = archive.join(file_name);
+
+                // Move the file
+                fs::rename(&source, &destination)
+                    .map_err(|e| AppError::new(format!("Failed to move file: {}", e)))?;
+
+                Ok(())
+            }
+            "copy" => {
+                // Create archive directory if it doesn't exist
+                if !archive.exists() {
+                    fs::create_dir_all(&archive).map_err(|e| {
+                        AppError::new(format!("Failed to create archive directory: {}", e))
+                    })?;
+                }
+
+                let file_name = source
+                    .file_name()
+                    .ok_or_else(|| AppError::invalid_file_name(source.to_string_lossy()))?;
+
+                let destination = archive.join(file_name);
+
+                // Copy the file
+                fs::copy(&source, &destination)
+                    .map_err(|e| AppError::new(format!("Failed to copy file: {}", e)))?;
+
+                Ok(())
+            }
+            _ => Err(AppError::new(format!(
+                "Unsupported archive action: {}",
+                action_str
+            ))),
+        }
+    })
+    .await
+    .map_err(|e| AppError::new(format!("Task join error: {}", e)))?
 }
 
 pub fn get_first_n_files(dir_path: &str, n: usize) -> Result<Vec<String>, AppError> {
@@ -87,4 +150,46 @@ pub fn get_files(
     }
 
     Ok(files)
+}
+
+pub async fn handle_file_action(
+    file_path: &PathBuf,
+    archive_path: &Option<PathBuf>,
+    file_action: &str,
+) -> Result<(), AppError> {
+    match file_action.to_lowercase().as_str() {
+        "delete" => {
+            delete_file(file_path)?;
+            Logger::info(&format!("Successfully deleted file: {:?}", file_path));
+        }
+        "move" => {
+            if let Some(archive_path) = archive_path {
+                archive_file(file_path, archive_path, "move").await?;
+                Logger::info(&format!(
+                    "Successfully moved file: {:?} to {:?}",
+                    file_path, archive_path
+                ));
+            } else {
+                return Err(AppError::new("Archive path is required for move action"));
+            }
+        }
+        "copy" => {
+            if let Some(archive_path) = archive_path {
+                archive_file(file_path, archive_path, "copy").await?;
+                Logger::info(&format!(
+                    "Successfully copied file: {:?} to {:?}",
+                    file_path, archive_path
+                ));
+            } else {
+                return Err(AppError::new("Archive path is required for copy action"));
+            }
+        }
+        _ => {
+            return Err(AppError::new(format!(
+                "Unknown file action: {}",
+                file_action
+            )));
+        }
+    }
+    Ok(())
 }

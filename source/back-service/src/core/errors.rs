@@ -122,3 +122,9 @@ impl From<RegexError> for AppError {
         AppError::Regex(err)
     }
 }
+
+impl From<csv::Error> for AppError {
+    fn from(err: csv::Error) -> Self {
+        AppError::Other(format!("CSV error: {}", err))
+    }
+}

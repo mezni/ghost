@@ -3,12 +3,13 @@ use crate::core::logger::Logger;
 use crate::services::batch_mgr;
 use crate::services::config_mgr::Source;
 use crate::services::file_mgr;
+use crate::services::lookup;
 use chrono::{Local, NaiveDate};
-use deadpool_postgres::Pool;
+use deadpool_postgres::{Client, Pool};
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 const FILE_TO_PROCESS: usize = 5;
 
@@ -49,61 +50,38 @@ pub struct RoamInData {
     pub records: Vec<RoamInDataRecord>,
 }
 
-pub async fn parse_file(file: FileProcessed) -> Result<RoamInData, AppError> {
-    let file_content = fs::read_to_string(&file.file_path)?;
-
-    let (metadata, records) = parse_file_content(&file_content)?;
-
-    // Archive the file if archive path is specified
-    if let (Some(archive_path), Some(file_action)) = (&file.archive_path, &file.file_action) {
-        if let Err(e) = archive_file(&file.file_path, archive_path, file_action).await {
-            Logger::error(&format!(
-                "Failed to archive file {:?}: {}",
-                file.file_path, e
-            ));
-        }
-    }
-
-    Ok(RoamInData { metadata, records })
+#[derive(Debug)]
+pub struct RoamInBatch {
+    pub batch_id: i32,
+    pub batch_date: String,
+    pub hlraddr: String,
+    pub nsub: String,  // Changed to String
+    pub nsuba: String, // Changed to String
+    pub prefix: String,
+    pub country_id: Option<i32>,
+    pub operator_id: Option<i32>,
 }
 
-async fn archive_file(
-    source_path: &Path,
-    archive_path: &Path,
-    action: &str,
-) -> Result<(), AppError> {
-    match action.to_lowercase().as_str() {
-        "move" => {
-            if !archive_path.exists() {
-                fs::create_dir_all(archive_path)?;
-            }
-            let destination = archive_path.join(
-                source_path
-                    .file_name()
-                    .ok_or_else(|| AppError::invalid_file_name(source_path.to_string_lossy()))?,
-            );
-            fs::rename(source_path, destination)?;
-        }
-        "copy" => {
-            if !archive_path.exists() {
-                fs::create_dir_all(archive_path)?;
-            }
-            let destination = archive_path.join(
-                source_path
-                    .file_name()
-                    .ok_or_else(|| AppError::invalid_file_name(source_path.to_string_lossy()))?,
-            );
-            fs::copy(source_path, destination)?;
-        }
-        "delete" => {
-            fs::remove_file(source_path)?;
-        }
-        _ => {
-            // Unknown action, just log and continue
-            Logger::warn(&format!("Unknown file action: {}", action));
-        }
+fn extract_creation_date(line: &str) -> Option<String> {
+    let parts: Vec<&str> = line.split_whitespace().collect();
+    parts.get(4).and_then(|&date_str| {
+        NaiveDate::parse_from_str(date_str, "%Y%m%d")
+            .map(|date| date.format("%Y-%m-%d").to_string())
+            .ok()
+    })
+}
+
+fn update_summary(summary: &mut SummaryRecord, key: &str, value: u64) {
+    match key {
+        "TOTNSUB" => summary.totnsub = value,
+        "TOTNSUBA" => summary.totnsuba = value,
+        "NSUBPR" => summary.nsubpr = value,
+        "NSUBXP" => summary.nsubxp = value,
+        "NSUBPXOU" => summary.nsubpxou = value,
+        "NSUBSGS" => summary.nsubsgs = value,
+        "NSUBGS" => summary.nsubgs = value,
+        _ => {}
     }
-    Ok(())
 }
 
 fn parse_file_content(content: &str) -> Result<(Metadata, Vec<RoamInDataRecord>), AppError> {
@@ -181,32 +159,77 @@ fn parse_file_content(content: &str) -> Result<(Metadata, Vec<RoamInDataRecord>)
     Ok((metadata, records))
 }
 
-fn extract_creation_date(line: &str) -> Option<String> {
-    let parts: Vec<&str> = line.split_whitespace().collect();
-    parts.get(4).and_then(|&date_str| {
-        NaiveDate::parse_from_str(date_str, "%Y%m%d")
-            .map(|date| date.format("%Y-%m-%d").to_string())
-            .ok()
-    })
+pub fn read_file(file_processed: FileProcessed) -> Result<RoamInData, AppError> {
+    let file_content = fs::read_to_string(&file_processed.file_path)?;
+    let (metadata, records) = parse_file_content(&file_content)?;
+    Logger::info(&format!("Reading file: {:?}", &file_processed.file_path));
+
+    Ok(RoamInData { metadata, records })
 }
 
-fn update_summary(summary: &mut SummaryRecord, key: &str, value: u64) {
-    match key {
-        "TOTNSUB" => summary.totnsub = value,
-        "TOTNSUBA" => summary.totnsuba = value,
-        "NSUBPR" => summary.nsubpr = value,
-        "NSUBXP" => summary.nsubxp = value,
-        "NSUBPXOU" => summary.nsubpxou = value,
-        "NSUBSGS" => summary.nsubsgs = value,
-        "NSUBGS" => summary.nsubgs = value,
-        _ => {}
+pub async fn insert_roam_in_batches(pool: &Pool, batches: &[RoamInBatch]) -> Result<u64, AppError> {
+    if batches.is_empty() {
+        Logger::info("No roam in batches to insert");
+        return Ok(0);
     }
+
+    let mut client: Client = pool.get().await?;
+    let mut inserted_rows = 0;
+
+    // Use a transaction for atomicity
+    let transaction = client.transaction().await?;
+
+    let stmt = transaction
+        .prepare(
+            "INSERT INTO stg_roam_in (
+                batch_id, batch_date, hlraddr, nsub, nsuba,
+                prefix, country_id, operator_id
+             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+        )
+        .await?;
+
+    for batch in batches {
+        match transaction
+            .execute(
+                &stmt,
+                &[
+                    &batch.batch_id,
+                    &batch.batch_date,
+                    &batch.hlraddr,
+                    &batch.nsub,  // Now String
+                    &batch.nsuba, // Now String
+                    &batch.prefix,
+                    &batch.country_id,
+                    &batch.operator_id,
+                ],
+            )
+            .await
+        {
+            Ok(result) => {
+                inserted_rows += result;
+            }
+            Err(e) => {
+                Logger::error(&format!(
+                    "Failed to insert batch record: HLR={}, NSUB={}, NSUBA={}, Error: {}",
+                    batch.hlraddr, batch.nsub, batch.nsuba, e
+                ));
+                // Continue with other records even if one fails
+            }
+        }
+    }
+
+    // Commit the transaction
+    transaction.commit().await?;
+
+    Logger::info(&format!("Inserted {} roam in batch records", inserted_rows));
+    Ok(inserted_rows)
 }
 
 pub async fn load(
     pool: &Pool,
     batch_mgr: &batch_mgr::BatchManager,
     source: &Source,
+    prefix_lookup: &lookup::PrefixLookup,
 ) -> Result<(), AppError> {
     Logger::info("Starting ROAMIN data load process");
 
@@ -221,44 +244,99 @@ pub async fn load(
         return Ok(());
     }
 
+    Logger::info(&format!("Found {} files to process", files.len()));
+
+    let mut total_processed = 0;
+    let mut total_failed = 0;
+    let mut total_records = 0;
+
     for file in files {
         let file_path = PathBuf::from(&source.source_directory).join(&file);
         let archive_path = source.archive_directory.as_ref().map(PathBuf::from);
 
         let file_processed = FileProcessed {
-            file_path,
+            file_path: file_path.clone(),
             file_type: "IN".to_string(),
             file_action: source.post_action.clone(),
-            archive_path,
+            archive_path: archive_path.clone(),
         };
 
-        Logger::debug(&format!("Processing file: {}", file));
-        let file_processed_clone = file_processed.clone();
-        match parse_file(file_processed).await {
-            Ok(roam_data) => {
-                Logger::debug(&format!(
-                    "Successfully parsed file: {} ({} records)",
-                    file,
-                    roam_data.records.len()
+        match process_single_file(&file, file_processed, pool, batch_mgr, prefix_lookup).await {
+            Ok(record_count) => {
+                total_processed += 1;
+                total_records += record_count;
+                Logger::info(&format!(
+                    "✅ Successfully processed file: {} ({} records)",
+                    file, record_count
                 ));
 
-                // TODO: Add database insertion logic here using pool and batch_mgr
-                // Example:
-                // batch_mgr.insert_roam_data(pool, &roam_data).await?;
-
-                if let Some(action) = &file_processed_clone.file_action {
-                    if action.to_lowercase() == "delete" {
-                        let _ = file_mgr::delete_file(&file_processed_clone.file_path);
-                    }
-                } else {
-                    let _ = file_mgr::delete_file(&file_processed_clone.file_path);
+                // Handle file actions after successful processing
+                if let Some(file_action) = &source.post_action {
+                    file_mgr::handle_file_action(&file_path, &archive_path, file_action).await;
                 }
             }
             Err(e) => {
-                Logger::error(&format!("Failed to parse file {}: {}", file, e));
+                total_failed += 1;
+                Logger::error(&format!("❌ Failed to process file {}: {}", file, e));
             }
         }
     }
 
+    Logger::info(&format!(
+        "Completed ROAMIN data load process. Files: {} processed, {} failed. Total records: {}",
+        total_processed, total_failed, total_records
+    ));
     Ok(())
+}
+
+async fn process_single_file(
+    file_name: &str,
+    file_processed: FileProcessed,
+    pool: &Pool,
+    batch_mgr: &batch_mgr::BatchManager,
+    prefix_lookup: &lookup::PrefixLookup,
+) -> Result<usize, AppError> {
+    // Read file data
+    let roam_data = read_file(file_processed)?;
+    let records = roam_data.records;
+
+    if records.is_empty() {
+        Logger::info(&format!("No records to process in file: {}", file_name));
+        return Ok(0);
+    }
+
+    // Start batch
+    let batch_id = batch_mgr
+        .insert_batch("LOADER", "IN", file_name, "STARTED")
+        .await?;
+
+    let batch_date = roam_data.metadata.creation_date;
+    let mut batches = Vec::new();
+
+    // Convert records to batches with prefix lookup
+    for record in records {
+        let hlraddr = record.hlraddr.clone();
+        let parts: Vec<&str> = hlraddr.split('-').collect();
+        let hlraddr_number = parts.get(1).unwrap_or(&"").to_string();
+
+        let prefixes = prefix_lookup.lookup(hlraddr_number);
+        batches.push(RoamInBatch {
+            batch_id,
+            batch_date: batch_date.clone(),
+            hlraddr: record.hlraddr,
+            nsub: record.nsub.to_string(),   // Convert i32 to String
+            nsuba: record.nsuba.to_string(), // Convert i32 to String
+            prefix: prefixes.prefix,
+            country_id: prefixes.country_id,
+            operator_id: prefixes.operator_id,
+        });
+    }
+
+    // Insert batches into database
+    let inserted_count = insert_roam_in_batches(pool, &batches).await?;
+
+    // Update batch status
+    batch_mgr.update_status(batch_id, "COMPLETED").await?;
+
+    Ok(batches.len())
 }
