@@ -2,6 +2,12 @@
 -- REFERENCE 
 -------------------------------------------
 
+CREATE TABLE IF NOT EXISTS ref_global_config (
+    global_config_id SERIAL PRIMARY KEY,
+    key VARCHAR(100),
+    value VARCHAR(100) 
+);
+
 CREATE TABLE ref_roam_directions (
     roam_direction_id SERIAL PRIMARY KEY,
     direction VARCHAR(100) NOT NULL,
@@ -56,6 +62,10 @@ CREATE TABLE IF NOT EXISTS ref_dates (
 );
 
 CREATE INDEX idx_ref_dates_date_str ON ref_dates(date_str);
+
+INSERT INTO ref_global_config (key, value)
+VALUES ('home_country', 'Tunisia'),
+       ('home_operator', 'Orange');
 
 INSERT INTO ref_roam_directions (direction, description) 
 VALUES 
@@ -355,6 +365,23 @@ CREATE TABLE IF NOT EXISTS stg_roam_in (
 
 
 -------------------------------------------
+-- VIEWS
+-------------------------------------------
+CREATE OR REPLACE VIEW v_metrics_global AS
+SELECT 
+  trx.batch_id,
+  rd.date_str,
+  rrd.direction,
+  rmt.name,
+  trx.value
+FROM 
+  trx_metrics_global trx
+  JOIN ref_dates rd ON trx.date_id = rd.date_id
+  JOIN ref_metric_definitions rmd ON trx.metric_definition_id = rmd.metric_definition_id
+  JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+  JOIN ref_metric_types rmt ON rmd.metric_type_id = rmt.metric_type_id;
+
+-------------------------------------------
 -- INITIAL LOAD 
 -------------------------------------------
 CREATE TABLE ldr_countries (
@@ -394,6 +421,16 @@ CREATE TABLE IF NOT EXISTS ldr_prefixes (
 );
 
 
+CREATE TABLE IF NOT EXISTS ldr_sor_plan (
+    id SERIAL PRIMARY KEY,
+    country TEXT,
+    operator TEXT,
+    rate TEXT,
+    routage TEXT,
+    created_by TEXT DEFAULT 'system'
+);
+
+
 COPY ldr_countries (iso, common_name, name_en, name_fr, prefix, prefix_flag)
 FROM '/countries.csv'
 DELIMITER ',' CSV HEADER;
@@ -404,6 +441,10 @@ DELIMITER ',' CSV HEADER;
 
 COPY ldr_prefixes (country,operator,cc,ndc,prefix)
 FROM '/prefixes.csv'
+DELIMITER ',' CSV HEADER;
+
+COPY ldr_sor_plan (country, operator, rate, routage)
+FROM '/sor_plan.csv'
 DELIMITER ',' CSV HEADER;
 
 INSERT INTO cfg_countries (iso_code, country_name, created_by) 
@@ -484,6 +525,22 @@ WHERE prefix IN (
     WHERE t.rn > 1
 );
 
+INSERT INTO cfg_sor_plan (operator_id, rate, created_by, routage_type_id)
+SELECT 
+  o.operator_id, 
+  ldr.rate, 
+  ldr.created_by, 
+  1
+FROM 
+  ldr_sor_plan ldr
+  JOIN cfg_operators o ON upper(ldr.operator) = upper(o.operator_name)
+  JOIN cfg_countries c ON c.country_id = o.country_id
+WHERE 
+  upper(ldr.country) = upper(c.country_name);
+
 DROP TABLE ldr_countries;
 DROP TABLE ldr_operators;
 DROP TABLE ldr_prefixes;
+DROP TABLE ldr_sor_plan;
+
+

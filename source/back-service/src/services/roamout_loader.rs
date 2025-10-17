@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
 
-const FILE_TO_PROCESS: usize = 0;
+const FILE_TO_PROCESS: usize = 5;
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct FileProcessed {

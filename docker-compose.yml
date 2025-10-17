@@ -17,6 +17,7 @@ services:
       - ./config/countries.csv:/countries.csv
       - ./config/operators.csv:/operators.csv
       - ./config/prefixes.csv:/prefixes.csv
+      - ./config/sor_plan.csv:/sor_plan.csv
     networks:
       - gamma_network
 
