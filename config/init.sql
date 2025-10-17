@@ -370,9 +370,9 @@ CREATE TABLE IF NOT EXISTS stg_roam_in (
 CREATE OR REPLACE VIEW v_metrics_global AS
 SELECT 
   trx.batch_id,
-  rd.date_str,
+  rd.date,
   rrd.direction,
-  rmt.name,
+  rmt.name as metric_type,
   trx.value
 FROM 
   trx_metrics_global trx
@@ -381,6 +381,41 @@ FROM
   JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
   JOIN ref_metric_types rmt ON rmd.metric_type_id = rmt.metric_type_id;
 
+CREATE OR REPLACE VIEW v_metrics_country AS
+SELECT 
+  trx.batch_id,
+  rd.date,
+  rrd.direction,
+  rmt.name as metric_type,
+  cc.country_name,
+  trx.value
+FROM 
+  trx_metrics_country trx
+  JOIN ref_dates rd ON trx.date_id = rd.date_id
+  JOIN ref_metric_definitions rmd ON trx.metric_definition_id = rmd.metric_definition_id
+  JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+  JOIN ref_metric_types rmt ON rmd.metric_type_id = rmt.metric_type_id
+  LEFT JOIN cfg_countries cc ON cc.country_id = trx.country_id
+  ;
+
+CREATE OR REPLACE VIEW v_metrics_operator AS
+SELECT 
+  trx.batch_id,
+  rd.date,
+  rrd.direction,
+  rmt.name as metric_type,
+  cc.country_name,
+  co.operator_name,  
+  trx.value
+FROM 
+  trx_metrics_operator trx
+  JOIN ref_dates rd ON trx.date_id = rd.date_id
+  JOIN ref_metric_definitions rmd ON trx.metric_definition_id = rmd.metric_definition_id
+  JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+  JOIN ref_metric_types rmt ON rmd.metric_type_id = rmt.metric_type_id
+  LEFT JOIN cfg_operators co ON co.operator_id = trx.operator_id
+  LEFT JOIN cfg_countries cc ON cc.country_id = co.country_id  
+  ;  
 -------------------------------------------
 -- INITIAL LOAD 
 -------------------------------------------

@@ -2,7 +2,6 @@ use crate::core::errors::AppError;
 use crate::core::logger::Logger;
 use std::fs;
 
-use std::path::Path;
 use std::path::PathBuf;
 
 use regex::Regex;
@@ -76,25 +75,6 @@ pub async fn archive_file(
     })
     .await
     .map_err(|e| AppError::new(format!("Task join error: {}", e)))?
-}
-
-pub fn get_first_n_files(dir_path: &str, n: usize) -> Result<Vec<String>, AppError> {
-    let mut files = Vec::new();
-    let dir = fs::read_dir(dir_path)?;
-
-    for entry in dir {
-        let entry = entry?;
-        let path = entry.path();
-
-        if path.is_file() {
-            files.push(path.file_name().unwrap().to_string_lossy().into_owned());
-            if files.len() >= n {
-                break;
-            }
-        }
-    }
-
-    Ok(files)
 }
 
 pub fn get_files(

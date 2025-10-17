@@ -1,7 +1,7 @@
 use crate::core::errors::AppError;
 use crate::core::logger::Logger;
 use crate::services::batch_mgr;
-use deadpool_postgres::{Client, Pool};
+use deadpool_postgres::Pool;
 
 const SOURCE_TYPE_IN: &str = "IN";
 const SOURCE_TYPE_OUT: &str = "OUT";
@@ -28,6 +28,8 @@ const INSERT_GLOBAL_IN_QUERY: &str = "
     SELECT md.metric_definition_id, $3, rd.date_id, SUM(nsub::INT) 
     FROM stg_roam_in sri 
     JOIN ref_dates rd ON rd.date_str = sri.batch_date
+    JOIN cfg_operators co ON co.operator_id = sri.operator_id
+    JOIN cfg_countries cc ON cc.country_id =  co.country_id
     JOIN (
         SELECT rmd.metric_definition_id 
         FROM ref_metric_definitions rmd 
@@ -37,7 +39,113 @@ const INSERT_GLOBAL_IN_QUERY: &str = "
         AND rmt.name = 'GLOBAL'
     ) AS md ON TRUE
     WHERE sri.batch_id = $2
+    AND sri.country_id NOT IN (
+        SELECT country_id 
+        FROM cfg_countries 
+        WHERE upper(country_name) = (SELECT upper(value) FROM ref_global_config WHERE upper(key) = 'HOME_COUNTRY')
+    )
+    AND sri.operator_id NOT IN (
+        SELECT operator_id 
+        FROM cfg_operators 
+        WHERE upper(operator_name) = (SELECT upper(value) FROM ref_global_config WHERE upper(key) = 'HOME_OPERATOR')
+    )
     GROUP BY md.metric_definition_id, rd.date_id
+";
+
+const INSERT_COUNTRY_OUT_QUERY: &str = "
+    INSERT INTO trx_metrics_country (metric_definition_id, batch_id, date_id, country_id, value)
+    SELECT md.metric_definition_id, $3, rd.date_id, 
+           sro.country_id , COUNT(*) 
+    FROM stg_roam_out sro 
+    JOIN ref_dates rd ON rd.date_str = sro.batch_date
+    JOIN (
+        SELECT rmd.metric_definition_id 
+        FROM ref_metric_definitions rmd 
+        JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id 
+        JOIN ref_metric_types rmt ON rmt.metric_type_id = rmd.metric_type_id
+        WHERE rrd.direction = $1
+        AND rmt.name = 'COUNTRY'
+    ) AS md ON TRUE
+    WHERE sro.batch_id = $2
+    GROUP BY md.metric_definition_id, sro.batch_id, rd.date_id, sro.country_id;
+";
+
+const INSERT_COUNTRY_IN_QUERY: &str = "
+    INSERT INTO trx_metrics_country (metric_definition_id, batch_id, date_id, country_id, value)
+    SELECT md.metric_definition_id, $3, rd.date_id, 
+           sri.country_id as country_id, SUM(nsub::INT) 
+    FROM stg_roam_in sri 
+    JOIN ref_dates rd ON rd.date_str = sri.batch_date
+    JOIN cfg_operators co ON co.operator_id = sri.operator_id
+    JOIN cfg_countries cc ON cc.country_id =  co.country_id
+    JOIN (
+        SELECT rmd.metric_definition_id 
+        FROM ref_metric_definitions rmd 
+        JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id 
+        JOIN ref_metric_types rmt ON rmt.metric_type_id = rmd.metric_type_id
+        WHERE rrd.direction = $1
+        AND rmt.name = 'COUNTRY'
+    ) AS md ON TRUE
+    WHERE sri.batch_id = $2
+    AND sri.country_id NOT IN (
+        SELECT country_id 
+        FROM cfg_countries 
+        WHERE upper(country_name) = (SELECT upper(value) FROM ref_global_config WHERE upper(key) = 'HOME_COUNTRY')
+    )
+    AND sri.operator_id NOT IN (
+        SELECT operator_id 
+        FROM cfg_operators 
+        WHERE upper(operator_name) = (SELECT upper(value) FROM ref_global_config WHERE upper(key) = 'HOME_OPERATOR')
+    )
+    GROUP BY md.metric_definition_id, sri.batch_id, rd.date_id, sri.country_id
+";
+
+const INSERT_OPERATOR_OUT_QUERY: &str = "
+    INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id, country_id, operator_id, value)
+    SELECT md.metric_definition_id, $3, rd.date_id, sro.country_id,
+           sro.operator_id, COUNT(*) 
+    FROM stg_roam_out sro 
+    JOIN ref_dates rd ON rd.date_str = sro.batch_date
+    JOIN (
+        SELECT rmd.metric_definition_id 
+        FROM ref_metric_definitions rmd 
+        JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id 
+        JOIN ref_metric_types rmt ON rmt.metric_type_id = rmd.metric_type_id
+        WHERE rrd.direction = $1
+        AND rmt.name = 'OPERATOR'
+    ) AS md ON TRUE
+    WHERE sro.batch_id = $2
+    GROUP BY md.metric_definition_id, sro.batch_id, rd.date_id, sro.country_id, sro.operator_id
+";
+
+const INSERT_OPERATOR_IN_QUERY: &str = "
+    INSERT INTO trx_metrics_operator (metric_definition_id, batch_id, date_id,country_id, operator_id, value)
+    SELECT md.metric_definition_id, $3, rd.date_id, sri.country_id,
+           sri.operator_id, SUM(nsub::INT)
+    FROM stg_roam_in sri 
+    JOIN ref_dates rd ON rd.date_str = sri.batch_date
+    JOIN cfg_operators co ON co.operator_id = sri.operator_id
+    JOIN cfg_countries cc ON cc.country_id =  co.country_id
+    JOIN (
+        SELECT rmd.metric_definition_id 
+        FROM ref_metric_definitions rmd 
+        JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id 
+        JOIN ref_metric_types rmt ON rmt.metric_type_id = rmd.metric_type_id
+        WHERE rrd.direction = $1
+        AND rmt.name = 'OPERATOR'
+    ) AS md ON TRUE
+    WHERE sri.batch_id = $2
+    AND sri.country_id NOT IN (
+        SELECT country_id 
+        FROM cfg_countries 
+        WHERE upper(country_name) = (SELECT upper(value) FROM ref_global_config WHERE upper(key) = 'HOME_COUNTRY')
+    )
+    AND sri.operator_id NOT IN (
+        SELECT operator_id 
+        FROM cfg_operators 
+        WHERE upper(operator_name) = (SELECT upper(value) FROM ref_global_config WHERE upper(key) = 'HOME_OPERATOR')
+    )
+    GROUP BY md.metric_definition_id, sri.batch_id, rd.date_id, sri.country_id, sri.operator_id
 ";
 
 const DELETE_IN_QUERY: &str = "DELETE FROM stg_roam_in WHERE batch_id = $1";
@@ -100,9 +208,19 @@ async fn perform_transformation(
     let mut client = pool.get().await?;
     let transaction = client.transaction().await?;
 
-    let (global_query, delete_query) = match source_type {
-        SOURCE_TYPE_IN => (INSERT_GLOBAL_IN_QUERY, DELETE_IN_QUERY),
-        SOURCE_TYPE_OUT => (INSERT_GLOBAL_OUT_QUERY, DELETE_OUT_QUERY),
+    let (global_query, country_query, operator_query, delete_query) = match source_type {
+        SOURCE_TYPE_IN => (
+            INSERT_GLOBAL_IN_QUERY,
+            INSERT_COUNTRY_IN_QUERY,
+            INSERT_OPERATOR_IN_QUERY,
+            DELETE_IN_QUERY,
+        ),
+        SOURCE_TYPE_OUT => (
+            INSERT_GLOBAL_OUT_QUERY,
+            INSERT_COUNTRY_OUT_QUERY,
+            INSERT_OPERATOR_OUT_QUERY,
+            DELETE_OUT_QUERY,
+        ),
         _ => {
             return Err(AppError::Other(format!(
                 "Invalid source type: {}",
@@ -119,6 +237,24 @@ async fn perform_transformation(
     Logger::debug(&format!(
         "Inserted {} global rows for batch {}",
         inserted_global_rows, corr_id
+    ));
+
+    let country_rows = transaction
+        .execute(country_query, &[&source_type, &corr_id, &batch_id])
+        .await?;
+
+    Logger::debug(&format!(
+        "Inserted {} country rows for batch {}",
+        country_rows, corr_id
+    ));
+
+    let operator_rows = transaction
+        .execute(operator_query, &[&source_type, &corr_id, &batch_id])
+        .await?;
+
+    Logger::debug(&format!(
+        "Inserted {} operator rows for batch {}",
+        operator_rows, corr_id
     ));
 
     // Delete processed records from staging table

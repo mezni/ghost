@@ -8,7 +8,6 @@ use crate::services::roamin_loader;
 use crate::services::roamout_loader;
 use crate::services::transformer;
 use deadpool_postgres::Pool;
-use regex::Regex;
 use std::path::PathBuf;
 use tokio::time::{Duration, interval};
 
@@ -59,5 +58,4 @@ pub async fn run(pool: Pool, config: AppConfig) -> Result<(), AppError> {
         }
         interval.tick().await;
     }
-    Ok(())
 }

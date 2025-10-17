@@ -11,7 +11,7 @@ use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
 
-const FILE_TO_PROCESS: usize = 5;
+const FILE_TO_PROCESS: usize = 1;
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct FileProcessed {
@@ -272,9 +272,10 @@ pub async fn load(
 
                 // Handle file actions after successful processing
                 if let Some(file_action) = &source.post_action {
-                    file_mgr::handle_file_action(&file_path, &archive_path, file_action).await;
+                    let _ =
+                        file_mgr::handle_file_action(&file_path, &archive_path, file_action).await;
                 } else {
-                    file_mgr::handle_file_action(&file_path, &archive_path, "delete").await;
+                    let _ = file_mgr::handle_file_action(&file_path, &archive_path, "delete").await;
                 }
             }
             Err(e) => {
@@ -336,6 +337,8 @@ async fn process_single_file(
 
     // Insert batches into database
     let inserted_count = insert_roam_in_batches(pool, &batches).await?;
+
+    Logger::debug(&format!("Inserted {} rows ", inserted_count));
 
     // Update batch status
     batch_mgr.update_status(batch_id, "COMPLETED").await?;
