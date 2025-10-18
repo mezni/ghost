@@ -76,3 +76,9 @@ impl From<io::Error> for AppError {
         AppError::Io(e)
     }
 }
+
+impl From<regex::Error> for AppError {
+    fn from(err: regex::Error) -> Self {
+        AppError::Other(format!("Regex error: {}", err))
+    }
+}
