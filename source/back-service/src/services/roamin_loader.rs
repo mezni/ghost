@@ -11,7 +11,7 @@ use sqlx::{Pool, Postgres, QueryBuilder};
 use std::fs;
 use std::path::PathBuf;
 
-const FILE_TO_PROCESS: usize = 10;
+const FILE_TO_PROCESS: usize = 5;
 const BATCH_NAME: &str = "LOADER";
 const FILE_TYPE: &str = "IN";
 const BATCH_INSERT_SIZE: usize = 500;

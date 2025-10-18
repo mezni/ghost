@@ -10,10 +10,10 @@ use sqlx::{Pool, Postgres, QueryBuilder};
 use std::fs;
 use std::path::PathBuf;
 
-const FILE_TO_PROCESS: usize = 10;
+const FILE_TO_PROCESS: usize = 5;
 const BATCH_NAME: &str = "LOADER";
 const FILE_TYPE: &str = "OUT";
-const BATCH_INSERT_SIZE: usize = 500; // number of rows per DB insert
+const BATCH_INSERT_SIZE: usize = 500;
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct FileProcessed {

@@ -7,6 +7,7 @@ use crate::services::file_manager;
 use crate::services::lookup::PrefixLookup;
 use crate::services::roamin_loader;
 use crate::services::roamout_loader;
+use crate::services::transformer;
 use sqlx::PgPool;
 use std::path::PathBuf;
 use tokio::time::{self, Duration};
@@ -57,6 +58,8 @@ async fn execute_once(
             }
         }
     }
+
+    transformer::run(pool, batch_manager).await?;
 
     Ok(())
 }
