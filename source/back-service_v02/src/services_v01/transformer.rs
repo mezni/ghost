@@ -266,9 +266,7 @@ async fn process_others(
         }
     }
 
-    Logger::debug(&format!(
-        "Processed"
-    ));
+    Logger::debug(&format!("Processed"));
 
     Ok(())
 }

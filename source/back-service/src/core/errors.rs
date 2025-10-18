@@ -1,130 +1,78 @@
-use deadpool_postgres;
-use regex::Error as RegexError;
+// core/errors.rs
+use sqlx::Error as SqlxError;
 use std::error::Error;
 use std::fmt;
 use std::io;
-use tokio_postgres;
 
-/// Custom application error type
+#[non_exhaustive]
 #[derive(Debug)]
 pub enum AppError {
+    Other(String),
+    EnvVar(std::env::VarError),
+    ParseInt(std::num::ParseIntError),
+    Sqlx(SqlxError),
     Io(io::Error),
-    Db(tokio_postgres::Error),
-    Pool(deadpool_postgres::PoolError),
-    Csv(csv_async::Error),
-    Yaml(serde_yaml::Error),
-    Regex(RegexError),
-    InvalidFileName(String), // Now includes the file name for context
+
+    // Custom file-related errors
     InvalidDirectory(String),
     InvalidPattern(String, String),
-    Other(String),
+    InvalidFileName(String),
 }
 
 impl AppError {
-    pub fn new<S: Into<String>>(msg: S) -> Self {
+    /// Create a generic error from a string
+    pub fn new<T: Into<String>>(msg: T) -> Self {
         AppError::Other(msg.into())
     }
 
-    pub fn invalid_directory<S: Into<String>>(path: S) -> Self {
-        AppError::InvalidDirectory(path.into())
-    }
-
-    pub fn invalid_pattern<S1: Into<String>, S2: Into<String>>(pattern: S1, error: S2) -> Self {
-        AppError::InvalidPattern(pattern.into(), error.into())
-    }
-
-    pub fn invalid_file_name<S: Into<String>>(name: S) -> Self {
+    /// Helper for invalid file name
+    pub fn invalid_file_name<T: Into<String>>(name: T) -> Self {
         AppError::InvalidFileName(name.into())
+    }
+
+    /// Helper for invalid pattern
+    pub fn invalid_pattern<T: Into<String>, U: Into<String>>(pattern: T, err: U) -> Self {
+        AppError::InvalidPattern(pattern.into(), err.into())
     }
 }
 
 impl fmt::Display for AppError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
+            AppError::Other(msg) => write!(f, "{}", msg),
+            AppError::EnvVar(e) => write!(f, "Environment variable error: {}", e),
+            AppError::ParseInt(e) => write!(f, "Parse int error: {}", e),
+            AppError::Sqlx(e) => write!(f, "SQLx error: {}", e),
             AppError::Io(e) => write!(f, "IO error: {}", e),
-            AppError::Db(e) => write!(f, "Database error: {}", e),
-            AppError::Pool(e) => write!(f, "Connection pool error: {}", e),
-            AppError::Csv(e) => write!(f, "CSV processing error: {}", e),
-            AppError::Yaml(e) => write!(f, "YAML processing error: {}", e),
-            AppError::Regex(e) => write!(f, "Regex error: {}", e),
-            AppError::InvalidFileName(name) => write!(f, "Invalid file name: {}", name),
             AppError::InvalidDirectory(path) => write!(f, "Invalid directory: {}", path),
-            AppError::InvalidPattern(pattern, error) => {
-                write!(f, "Invalid regex pattern '{}': {}", pattern, error)
-            }
-            AppError::Other(s) => write!(f, "Application error: {}", s),
+            AppError::InvalidPattern(pat, err) => write!(f, "Invalid pattern `{}`: {}", pat, err),
+            AppError::InvalidFileName(name) => write!(f, "Invalid file name: {}", name),
         }
     }
 }
 
-impl Error for AppError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
-        match self {
-            AppError::Io(e) => Some(e),
-            AppError::Db(e) => Some(e),
-            AppError::Pool(e) => Some(e),
-            AppError::Csv(e) => Some(e),
-            AppError::Yaml(e) => Some(e),
-            AppError::Regex(e) => Some(e),
-            AppError::InvalidFileName(_)
-            | AppError::InvalidDirectory(_)
-            | AppError::InvalidPattern(_, _)
-            | AppError::Other(_) => None,
-        }
+impl Error for AppError {}
+
+impl From<std::env::VarError> for AppError {
+    fn from(e: std::env::VarError) -> Self {
+        AppError::EnvVar(e)
     }
 }
 
-/// Conversion implementations
+impl From<std::num::ParseIntError> for AppError {
+    fn from(e: std::num::ParseIntError) -> Self {
+        AppError::ParseInt(e)
+    }
+}
+
+impl From<SqlxError> for AppError {
+    fn from(e: SqlxError) -> Self {
+        AppError::Sqlx(e)
+    }
+}
+
 impl From<io::Error> for AppError {
-    fn from(err: io::Error) -> Self {
-        AppError::Io(err)
-    }
-}
-
-impl From<tokio_postgres::Error> for AppError {
-    fn from(err: tokio_postgres::Error) -> Self {
-        AppError::Db(err)
-    }
-}
-
-impl From<deadpool_postgres::PoolError> for AppError {
-    fn from(err: deadpool_postgres::PoolError) -> Self {
-        AppError::Pool(err)
-    }
-}
-
-impl From<csv_async::Error> for AppError {
-    fn from(err: csv_async::Error) -> Self {
-        AppError::Csv(err)
-    }
-}
-
-impl From<serde_yaml::Error> for AppError {
-    fn from(err: serde_yaml::Error) -> Self {
-        AppError::Yaml(err)
-    }
-}
-
-impl From<String> for AppError {
-    fn from(err: String) -> Self {
-        AppError::Other(err)
-    }
-}
-
-impl From<&str> for AppError {
-    fn from(err: &str) -> Self {
-        AppError::Other(err.to_string())
-    }
-}
-
-impl From<RegexError> for AppError {
-    fn from(err: RegexError) -> Self {
-        AppError::Regex(err)
-    }
-}
-
-impl From<csv::Error> for AppError {
-    fn from(err: csv::Error) -> Self {
-        AppError::Other(format!("CSV error: {}", err))
+    fn from(e: io::Error) -> Self {
+        AppError::Io(e)
     }
 }
