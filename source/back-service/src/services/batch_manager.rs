@@ -1,3 +1,4 @@
+// services/batch_manager.rs
 use crate::core::db::Db;
 use crate::core::errors::AppError;
 use sqlx::{PgPool, Row}; // Row needed for try_get
@@ -111,6 +112,61 @@ impl BatchManager {
     /// Mark batch as SUCCESS
     pub async fn batch_succeeded(&self, batch_id: i32) -> Result<(), AppError> {
         self.update_batch_exec(batch_id, "SUCCESS").await
+    }
+
+    // ===========================
+    // Correlation ID functions
+    // ===========================
+
+    /// Update corr_id of a batch
+    pub async fn update_corr_id(&self, batch_id: i32, corr_id: i32) -> Result<(), AppError> {
+        sqlx::query(
+            r#"
+            UPDATE batch_execs
+            SET corr_id = $1
+            WHERE batch_id = $2
+            "#,
+        )
+        .bind(corr_id)
+        .bind(batch_id)
+        .execute(&*self.pool)
+        .await
+        .map_err(AppError::Sqlx)?;
+
+        Ok(())
+    }
+
+    /// Get the MIN(batch_id) for a completed LOADER batch of a given source_type not already used as corr_id
+    pub async fn get_corr_id(
+        &self,
+        batch_source: String,
+        last_batch_id: i32,
+    ) -> Result<Option<i32>, AppError> {
+        let row = sqlx::query(
+            r#"
+        SELECT MIN(batch_id) as min_batch_id
+        FROM batch_execs bec
+        WHERE bec.batch_status = 'SUCCESS'
+        AND bec.batch_name = 'LOADER'
+        AND bec.source_type = $1
+        AND batch_id > $2
+        AND batch_id NOT IN (
+            SELECT corr_id FROM batch_execs be WHERE corr_id IS NOT NULL
+        )
+        "#,
+        )
+        .bind(batch_source)
+        .bind(last_batch_id)
+        .fetch_optional(&*self.pool)
+        .await
+        .map_err(AppError::Sqlx)?;
+
+        if let Some(row) = row {
+            let min_batch_id: Option<i32> = row.try_get("min_batch_id")?;
+            Ok(min_batch_id)
+        } else {
+            Ok(None)
+        }
     }
 }
 

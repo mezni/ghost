@@ -11,3 +11,4 @@ docker cp file_utf8.dmp roamdb-service:/file_utf8.dmp
 docker exec -it roamdb-service psql -U myuser -d roamdb -f file_utf8.dmp 
 
 
+
