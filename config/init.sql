@@ -65,7 +65,9 @@ CREATE INDEX idx_ref_dates_date_str ON ref_dates(date_str);
 
 INSERT INTO ref_global_config (key, value)
 VALUES ('home_country', 'Tunisia'),
-       ('home_operator', 'Orange');
+       ('home_operator', 'Orange'),
+       ('deviance_interval', '2')
+       ;
 
 INSERT INTO ref_roam_directions (direction, description) 
 VALUES 

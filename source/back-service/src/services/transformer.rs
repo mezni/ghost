@@ -387,6 +387,50 @@ async fn process_alerts(
                     .await
                     .map_err(AppError::Sqlx)?;
             }
+        } else if rule.name == "sor_plan_deviation" {
+            let select_query = r#"
+                SELECT batch_id, date_id,COUNT(*) AS value
+                FROM trx_perf_out 
+                WHERE ABS(COALESCE(target_percentage, 0) - actual_percentage) > (
+                    SELECT value::INT 
+                    FROM ref_global_config 
+                    WHERE key = 'deviance_interval'
+                )
+                AND target_percentage IS NOT NULL
+                AND batch_id = $1
+                GROUP BY batch_id, date_id
+                            "#;
+
+            if let Some(row) = sqlx::query(select_query)
+                .bind(corr_id)
+                .fetch_optional(pool)
+                .await
+                .map_err(AppError::Sqlx)?
+            {
+                let alert_batch_id: i32 = row.get("batch_id");
+                let date_id: i32 = row.get("date_id");
+                let value: i64 = row.get("value");
+
+                Logger::info(&format!(
+                    "🚨 ALERT triggered — batch_id={} date_id={} value={}",
+                    alert_batch_id, date_id, value
+                ));
+
+                let insert_query = r#"
+                    INSERT INTO trx_notifications (batch_id, date_id, rule_id, message)
+                    VALUES ($1, $2, $3, $4)
+                "#;
+
+                let message = format!("ROAM OUT: SoR deviance detected = {}", value);
+                sqlx::query(insert_query)
+                    .bind(alert_batch_id)
+                    .bind(date_id)
+                    .bind(rule.rule_id)
+                    .bind(message)
+                    .execute(pool)
+                    .await
+                    .map_err(AppError::Sqlx)?;
+            }
         }
     }
 
