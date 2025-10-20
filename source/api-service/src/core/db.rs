@@ -1,38 +1,52 @@
-use deadpool_postgres::{Config as DeadpoolConfig, Pool};
+use crate::core::errors::AppError;
 use dotenvy::dotenv;
+use sqlx::PgPool;
 use std::env;
-use tokio_postgres::NoTls;
+use tokio::sync::OnceCell;
 
 pub struct Db;
 
+static DB_POOL: OnceCell<PgPool> = OnceCell::const_new();
+
 impl Db {
-    pub fn create_pool() -> Pool {
-        // Load environment variables from .env
+    /// Initialize and return a global PostgreSQL connection pool.
+    pub async fn pool() -> Result<&'static PgPool, AppError> {
+        DB_POOL
+            .get_or_try_init(|| async {
+                dotenv().ok();
+
+                let host = env::var("ROAM_DB_HOST").map_err(AppError::EnvVar)?;
+                let dbname = env::var("ROAM_DB_NAME").map_err(AppError::EnvVar)?;
+                let user = env::var("ROAM_DB_USER").map_err(AppError::EnvVar)?;
+                let password = env::var("ROAM_DB_PASSWORD").map_err(AppError::EnvVar)?;
+                let port = env::var("ROAM_DB_PORT").unwrap_or_else(|_| "5432".to_string());
+
+                let database_url = format!(
+                    "postgres://{}:{}@{}:{}/{}",
+                    user, password, host, port, dbname
+                );
+
+                // Only needed for SQLx macros at compile time; optional at runtime
+                // unsafe { env::set_var("DATABASE_URL", &database_url); }
+
+                PgPool::connect(&database_url).await.map_err(AppError::Sqlx)
+            })
+            .await
+    }
+
+    /// Get the database URL for SQLx macros
+    pub fn database_url() -> Result<String, AppError> {
         dotenv().ok();
 
-        let host = env::var("ROAM_DB_HOST").expect("ROAM_DB_HOST must be set");
-        let dbname = env::var("ROAM_DB_NAME").expect("ROAM_DB_NAME must be set");
-        let user = env::var("ROAM_DB_USER").expect("ROAM_DB_USER must be set");
-        let password = env::var("ROAM_DB_PASSWORD").expect("ROAM_DB_PASSWORD must be set");
+        let host = env::var("ROAM_DB_HOST").map_err(AppError::EnvVar)?;
+        let dbname = env::var("ROAM_DB_NAME").map_err(AppError::EnvVar)?;
+        let user = env::var("ROAM_DB_USER").map_err(AppError::EnvVar)?;
+        let password = env::var("ROAM_DB_PASSWORD").map_err(AppError::EnvVar)?;
         let port = env::var("ROAM_DB_PORT").unwrap_or_else(|_| "5432".to_string());
-        let max_connections = env::var("ROAM_DB_MAX_CONNECTIONS")
-            .unwrap_or_else(|_| "5".to_string())
-            .parse()
-            .expect("ROAM_DB_MAX_CONNECTIONS must be a valid integer");
 
-        let mut cfg = DeadpoolConfig::new();
-        cfg.host = Some(host);
-        cfg.dbname = Some(dbname);
-        cfg.user = Some(user);
-        cfg.password = Some(password);
-        cfg.port = Some(port.parse().unwrap_or(5432));
-
-        cfg.pool = Some(deadpool_postgres::PoolConfig {
-            max_size: max_connections,
-            ..Default::default()
-        });
-
-        cfg.create_pool(None, NoTls)
-            .expect("Failed to create database pool")
+        Ok(format!(
+            "postgres://{}:{}@{}:{}/{}",
+            user, password, host, port, dbname
+        ))
     }
 }

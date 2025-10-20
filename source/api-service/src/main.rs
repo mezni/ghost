@@ -2,55 +2,49 @@ mod analytics;
 mod core;
 mod settings;
 
+use crate::core::db::Db;
+use crate::core::errors::AppError;
+use crate::core::logger::Logger;
+use crate::core::middleware::{ErrorMiddleware, RequestLogger};
 use actix_cors::Cors;
-use actix_web::{App, HttpServer, web};
-use core::errors::AppError;
-use core::logger::Logger;
-use core::middleware::ApiCallTracker;
-
-const SERVER_IP: &str = "0.0.0.0";
-const SERVER_PORT: u16 = 3000;
+use actix_web::{App, HttpServer, middleware, web};
 
 #[actix_web::main]
 async fn main() -> Result<(), AppError> {
+    // Initialize logging
     Logger::init();
-    Logger::info(&format!(
-        "Starting API server on {}:{}",
-        SERVER_IP, SERVER_PORT
-    ));
+    Logger::info("🔹 Starting API service");
 
-    let pool = core::db::Db::create_pool();
+    // Initialize PostgreSQL pool
+    let pool = Db::pool().await?;
+    Logger::info("✅ Database pool initialized");
 
+    // Start HTTP server
+    Logger::info("🚀 Starting server on http://0.0.0.0:3000");
     HttpServer::new(move || {
+        // CORS configuration
         let cors = Cors::default()
-            .allowed_origin_fn(|origin, _req_head| {
-                let origin_str = origin.to_str().unwrap_or("");
-                origin_str.starts_with("http://localhost")
-                    || origin_str.starts_with("http://127.0.0.1")
-            })
-            .allowed_methods(vec!["GET", "POST", "PUT", "DELETE", "OPTIONS"])
-            .allowed_headers(vec![
-                actix_web::http::header::AUTHORIZATION,
-                actix_web::http::header::ACCEPT,
-                actix_web::http::header::CONTENT_TYPE,
-            ])
-            .max_age(3600);
+            .allow_any_origin()
+            .allow_any_method()
+            .allow_any_header();
 
         App::new()
-            .wrap(cors)
-            .wrap(ApiCallTracker)
+            // Add Db pool to app data
             .app_data(web::Data::new(pool.clone()))
-            .service(
-                web::scope("/api/v1")
-                    .service(core::health::health)
-                    .service(core::metrics::metrics)
-                    .service(settings::handlers::scope())
-                    .service(analytics::handlers::scope()),
-            )
+            // Middlewares
+            .wrap(RequestLogger)
+            .wrap(ErrorMiddleware)
+            .wrap(middleware::Logger::default()) // optional
+            .wrap(cors)
+            // Configure your routes
+            .configure(core::health::config)
+            .configure(settings::routes::config)
+            .configure(analytics::routes::config)
     })
-    .bind((SERVER_IP, SERVER_PORT))?
+    .bind(("0.0.0.0", 3000))?
     .run()
-    .await?;
+    .await
+    .map_err(|e| AppError::Internal(e.to_string()))?;
 
     Ok(())
 }

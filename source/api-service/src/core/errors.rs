@@ -1,84 +1,82 @@
+// src/core/errors.rs
 use actix_web::{HttpResponse, ResponseError};
-use deadpool_postgres::PoolError;
-use serde::Serialize;
+use sqlx::Error as SqlxError;
+use std::env::VarError;
+use std::io;
 use thiserror::Error;
-use tokio_postgres::Error as PgError;
 
+/// Central application error type
 #[derive(Debug, Error)]
 pub enum AppError {
-    #[error("I/O error: {0}")]
-    Io(#[from] std::io::Error),
-
+    // ───── Database & Env Errors ─────
     #[error("Database error: {0}")]
-    DbError(String),
+    Sqlx(#[from] SqlxError),
 
-    #[error("Connection pool error: {0}")]
-    PoolError(String),
+    #[error("Environment variable error: {0}")]
+    EnvVar(#[from] VarError),
 
-    #[error("Not found: {0}")]
-    NotFound(String),
+    #[error("I/O error: {0}")]
+    Io(#[from] io::Error),
 
-    #[error("Bad request: {0}")]
+    // ───── Request/Validation Errors ─────
+    #[error("Invalid request: {0}")]
     BadRequest(String),
 
-    #[error("Other error: {0}")]
-    Other(String),
+    #[error("Resource not found")]
+    NotFound,
+
+    // ───── Authentication/Authorization Errors ─────
+    #[error("Unauthorized")]
+    Unauthorized,
+
+    #[error("Forbidden")]
+    Forbidden,
+
+    // ───── Internal Server Error ─────
+    #[error("Internal server error: {0}")]
+    Internal(String),
 }
 
-// -------------------- From implementations --------------------
-
-// Convert deadpool_postgres::PoolError -> AppError
-impl From<PoolError> for AppError {
-    fn from(err: PoolError) -> Self {
-        AppError::PoolError(err.to_string())
-    }
-}
-
-// Convert tokio_postgres::Error -> AppError
-impl From<PgError> for AppError {
-    fn from(err: PgError) -> Self {
-        AppError::DbError(err.to_string())
-    }
-}
-
-// -------------------- Shortcuts --------------------
-
-impl AppError {
-    pub fn bad_request(msg: &str) -> Self {
-        AppError::BadRequest(msg.to_string())
-    }
-
-    pub fn db_error(msg: &str) -> Self {
-        AppError::DbError(msg.to_string())
-    }
-
-    pub fn pool_error(msg: &str) -> Self {
-        AppError::PoolError(msg.to_string())
-    }
-}
-
-// -------------------- JSON response --------------------
-
-#[derive(Serialize)]
-struct ErrorResponse {
-    status: String,
-    message: String,
-}
-
+/// Map AppError to proper HTTP responses
 impl ResponseError for AppError {
     fn error_response(&self) -> HttpResponse {
-        let err_json = ErrorResponse {
-            status: "error".into(),
-            message: self.to_string(),
-        };
-
         match self {
-            AppError::Io(_) | AppError::DbError(_) | AppError::Other(_) => {
-                HttpResponse::InternalServerError().json(err_json)
+            // ───── Common Errors ─────
+            AppError::BadRequest(msg) => {
+                HttpResponse::BadRequest().json(error_body("Bad Request", msg))
             }
-            AppError::PoolError(_) => HttpResponse::ServiceUnavailable().json(err_json),
-            AppError::NotFound(_) => HttpResponse::NotFound().json(err_json),
-            AppError::BadRequest(_) => HttpResponse::BadRequest().json(err_json),
+            AppError::NotFound => {
+                HttpResponse::NotFound().json(error_body("Not Found", "Resource not found"))
+            }
+            AppError::Unauthorized => {
+                HttpResponse::Unauthorized().json(error_body("Unauthorized", "Access denied"))
+            }
+            AppError::Forbidden => {
+                HttpResponse::Forbidden().json(error_body("Forbidden", "Not allowed"))
+            }
+
+            // ───── System Errors ─────
+            AppError::Sqlx(err) => HttpResponse::InternalServerError()
+                .json(error_body("Database Error", &err.to_string())),
+            AppError::EnvVar(err) => HttpResponse::InternalServerError()
+                .json(error_body("Environment Error", &err.to_string())),
+            AppError::Io(err) => {
+                HttpResponse::InternalServerError().json(error_body("IO Error", &err.to_string()))
+            }
+            AppError::Internal(msg) => {
+                HttpResponse::InternalServerError().json(error_body("Internal Server Error", msg))
+            }
         }
     }
 }
+
+/// JSON error response format
+fn error_body(error: &str, message: &str) -> serde_json::Value {
+    serde_json::json!({
+        "error": error,
+        "message": message
+    })
+}
+
+/// Convenient alias
+pub type AppResult<T> = Result<T, AppError>;
