@@ -1,26 +1,23 @@
-use crate::core::logger::Logger;
 use actix_web::{
-    Error, HttpResponse,
-    body::EitherBody,
+    Error,
     dev::{Service, ServiceRequest, ServiceResponse, Transform},
 };
-use futures_util::future::{FutureExt, LocalBoxFuture, Ready, ok};
-use std::rc::Rc;
-use std::time::Instant;
-use tracing::error;
+use futures_util::future::{LocalBoxFuture, Ready, ok};
+use std::{
+    rc::Rc,
+    task::{Context, Poll},
+};
+use tracing::{error, info};
 
-// ─────────────────────────────
-// 🧰 Panic & error catching middleware
-// ─────────────────────────────
+/// ErrorMiddleware handles panics and errors, returning a graceful error response.
 pub struct ErrorMiddleware;
 
 impl<S, B> Transform<S, ServiceRequest> for ErrorMiddleware
 where
     S: Service<ServiceRequest, Response = ServiceResponse<B>, Error = Error> + 'static,
-    S::Future: 'static,
     B: 'static,
 {
-    type Response = ServiceResponse<EitherBody<B>>;
+    type Response = ServiceResponse<B>;
     type Error = Error;
     type InitError = ();
     type Transform = ErrorMiddlewareService<S>;
@@ -40,68 +37,36 @@ pub struct ErrorMiddlewareService<S> {
 impl<S, B> Service<ServiceRequest> for ErrorMiddlewareService<S>
 where
     S: Service<ServiceRequest, Response = ServiceResponse<B>, Error = Error> + 'static,
-    S::Future: 'static,
     B: 'static,
 {
-    type Response = ServiceResponse<EitherBody<B>>;
+    type Response = ServiceResponse<B>;
     type Error = Error;
     type Future = LocalBoxFuture<'static, Result<Self::Response, Self::Error>>;
 
-    fn poll_ready(
-        &self,
-        ctx: &mut std::task::Context<'_>,
-    ) -> std::task::Poll<Result<(), Self::Error>> {
+    fn poll_ready(&self, ctx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
         self.service.poll_ready(ctx)
     }
 
     fn call(&self, req: ServiceRequest) -> Self::Future {
-        let srv = self.service.clone();
-
+        let service = self.service.clone();
         Box::pin(async move {
-            // Split request into parts to safely reuse in panic case
-            let (req_parts, payload) = req.into_parts();
-            let req_for_service = ServiceRequest::from_parts(req_parts.clone(), payload);
-
-            let res = std::panic::AssertUnwindSafe(srv.call(req_for_service))
-                .catch_unwind()
-                .await;
-
-            match res {
-                Ok(Ok(response)) => Ok(response.map_into_left_body()),
-                Ok(Err(e)) => {
-                    error!("❌ Request error: {:?}", e);
-                    Err(e)
-                }
-                Err(panic) => {
-                    error!("💥 Panic caught: {:?}", panic);
-
-                    let response = HttpResponse::InternalServerError().json(serde_json::json!({
-                        "error": "Internal Server Error",
-                        "message": "An unexpected error occurred"
-                    }));
-
-                    Ok(ServiceResponse::new(
-                        req_parts,
-                        response.map_into_right_body(),
-                    ))
-                }
-            }
+            service.call(req).await.map_err(|e| {
+                error!("Error processing request: {}", e);
+                e
+            })
         })
     }
 }
 
-// ─────────────────────────────
-// 🪵 Request logger middleware
-// ─────────────────────────────
+/// RequestLogger logs request details and timing.
 pub struct RequestLogger;
 
 impl<S, B> Transform<S, ServiceRequest> for RequestLogger
 where
     S: Service<ServiceRequest, Response = ServiceResponse<B>, Error = Error> + 'static,
-    S::Future: 'static,
     B: 'static,
 {
-    type Response = ServiceResponse<EitherBody<B>>;
+    type Response = ServiceResponse<B>;
     type Error = Error;
     type InitError = ();
     type Transform = RequestLoggerService<S>;
@@ -121,75 +86,45 @@ pub struct RequestLoggerService<S> {
 impl<S, B> Service<ServiceRequest> for RequestLoggerService<S>
 where
     S: Service<ServiceRequest, Response = ServiceResponse<B>, Error = Error> + 'static,
-    S::Future: 'static,
     B: 'static,
 {
-    type Response = ServiceResponse<EitherBody<B>>;
+    type Response = ServiceResponse<B>;
     type Error = Error;
     type Future = LocalBoxFuture<'static, Result<Self::Response, Self::Error>>;
 
-    fn poll_ready(
-        &self,
-        ctx: &mut std::task::Context<'_>,
-    ) -> std::task::Poll<Result<(), Self::Error>> {
+    fn poll_ready(&self, ctx: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
         self.service.poll_ready(ctx)
     }
 
     fn call(&self, req: ServiceRequest) -> Self::Future {
-        let start = Instant::now();
+        let start = std::time::Instant::now();
         let method = req.method().clone();
         let path = req.path().to_string();
-        let srv = self.service.clone();
+        let service = self.service.clone();
 
         Box::pin(async move {
-            let result = srv.call(req).await;
+            let result = service.call(req).await;
             let duration = start.elapsed();
-
-            match &result {
-                Ok(res) => {
-                    let status = res.status().as_u16();
-                    if status >= 500 {
-                        Logger::error(&format!(
-                            "❌ {} {} -> {} ({} ms)",
-                            method,
-                            path,
-                            status,
-                            duration.as_millis()
-                        ));
-                    } else if status >= 400 {
-                        Logger::warn(&format!(
-                            "⚠️ {} {} -> {} ({} ms)",
-                            method,
-                            path,
-                            status,
-                            duration.as_millis()
-                        ));
-                    } else {
-                        Logger::info(&format!(
-                            "✅ {} {} -> {} ({} ms)",
-                            method,
-                            path,
-                            status,
-                            duration.as_millis()
-                        ));
-                    }
-                }
-                Err(e) => {
-                    Logger::error(&format!(
-                        "❌ {} {} -> error: {:?} ({} ms)",
-                        method,
-                        path,
-                        e,
-                        duration.as_millis()
-                    ));
-                }
-            }
-
-            // convert response to EitherBody
-            match result {
-                Ok(res) => Ok(res.map_into_left_body()),
-                Err(e) => Err(e),
-            }
+            log_request(method, path, &result, duration);
+            result
         })
+    }
+}
+
+fn log_request<B>(
+    method: actix_web::http::Method,
+    path: String,
+    result: &Result<ServiceResponse<B>, Error>,
+    duration: std::time::Duration,
+) {
+    match result {
+        Ok(response) => info!(
+            "{} {} -> {} ({}ms)",
+            method,
+            path,
+            response.status(),
+            duration.as_millis()
+        ),
+        Err(e) => error!("{} {} -> Error: {}", method, path, e),
     }
 }

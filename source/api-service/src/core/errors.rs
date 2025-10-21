@@ -5,10 +5,10 @@ use std::env::VarError;
 use std::io;
 use thiserror::Error;
 
-/// Central application error type
+/// Centralized application error type
 #[derive(Debug, Error)]
 pub enum AppError {
-    // ───── Database & Env Errors ─────
+    // ───── Database & System Errors ─────
     #[error("Database error: {0}")]
     Sqlx(#[from] SqlxError),
 
@@ -32,45 +32,73 @@ pub enum AppError {
     #[error("Forbidden")]
     Forbidden,
 
-    // ───── Internal Server Error ─────
+    // ───── Internal Errors ─────
     #[error("Internal server error: {0}")]
     Internal(String),
 }
 
-/// Map AppError to proper HTTP responses
+/// Maps AppError to proper HTTP responses
 impl ResponseError for AppError {
     fn error_response(&self) -> HttpResponse {
         match self {
-            // ───── Common Errors ─────
-            AppError::BadRequest(msg) => {
-                HttpResponse::BadRequest().json(error_body("Bad Request", msg))
-            }
-            AppError::NotFound => {
-                HttpResponse::NotFound().json(error_body("Not Found", "Resource not found"))
-            }
-            AppError::Unauthorized => {
-                HttpResponse::Unauthorized().json(error_body("Unauthorized", "Access denied"))
-            }
-            AppError::Forbidden => {
-                HttpResponse::Forbidden().json(error_body("Forbidden", "Not allowed"))
-            }
+            // ───── Request & Auth Errors ─────
+            AppError::BadRequest(msg) => HttpResponse::BadRequest().json(error_body(
+                "Bad Request",
+                msg,
+            )),
+            AppError::NotFound => HttpResponse::NotFound().json(error_body(
+                "Not Found",
+                "The requested resource was not found",
+            )),
+            AppError::Unauthorized => HttpResponse::Unauthorized().json(error_body(
+                "Unauthorized",
+                "Authentication required",
+            )),
+            AppError::Forbidden => HttpResponse::Forbidden().json(error_body(
+                "Forbidden",
+                "You do not have permission to access this resource",
+            )),
 
-            // ───── System Errors ─────
-            AppError::Sqlx(err) => HttpResponse::InternalServerError()
-                .json(error_body("Database Error", &err.to_string())),
-            AppError::EnvVar(err) => HttpResponse::InternalServerError()
-                .json(error_body("Environment Error", &err.to_string())),
-            AppError::Io(err) => {
-                HttpResponse::InternalServerError().json(error_body("IO Error", &err.to_string()))
+            // ───── System & Database Errors ─────
+            AppError::Sqlx(err) => {
+                let (status, message) = map_sqlx_error(err);
+                HttpResponse::build(status).json(error_body("Database Error", &message))
             }
-            AppError::Internal(msg) => {
-                HttpResponse::InternalServerError().json(error_body("Internal Server Error", msg))
-            }
+            AppError::EnvVar(err) => HttpResponse::InternalServerError().json(error_body(
+                "Environment Error",
+                &err.to_string(),
+            )),
+            AppError::Io(err) => HttpResponse::InternalServerError().json(error_body(
+                "IO Error",
+                &err.to_string(),
+            )),
+
+            // ───── Internal Errors ─────
+            AppError::Internal(msg) => HttpResponse::InternalServerError().json(error_body(
+                "Internal Server Error",
+                msg,
+            )),
         }
     }
 }
 
-/// JSON error response format
+/// Convert sqlx errors into user-friendly messages
+fn map_sqlx_error(err: &SqlxError) -> (actix_web::http::StatusCode, String) {
+    use actix_web::http::StatusCode;
+    match err {
+        SqlxError::RowNotFound => (StatusCode::NOT_FOUND, "Record not found".to_string()),
+        SqlxError::Database(db_err) => (
+            StatusCode::BAD_REQUEST,
+            format!("Database constraint error: {}", db_err.message()),
+        ),
+        _ => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            "Unexpected database error".to_string(),
+        ),
+    }
+}
+
+/// Standard JSON error response format
 fn error_body(error: &str, message: &str) -> serde_json::Value {
     serde_json::json!({
         "error": error,
@@ -78,5 +106,5 @@ fn error_body(error: &str, message: &str) -> serde_json::Value {
     })
 }
 
-/// Convenient alias
+/// Convenient result alias
 pub type AppResult<T> = Result<T, AppError>;

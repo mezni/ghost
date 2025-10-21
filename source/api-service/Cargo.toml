@@ -6,12 +6,14 @@ edition = "2024"
 [dependencies]
 actix-cors = "0.7.1"
 actix-rt = "2.11.0"
+actix-service = "2.0.3"
 actix-web = "4.11.0"
+chrono = { version = "0.4.42", features = ["serde"] }
 dotenvy = "0.15.7"
 futures-util = "0.3.31"
 serde = "1.0.228"
 serde_json = "1.0.145"
-sqlx = { version = "0.8.6", features = ["postgres", "chrono", "uuid", "runtime-tokio-rustls"] }
+sqlx = { version = "0.8.6", features = ["postgres", "chrono", "uuid", "runtime-tokio-rustls", "macros", "runtime-tokio-native-tls"] }
 thiserror = "2.0.17"
 tokio = { version = "1.48.0", features = ["full"] }
 tracing = "0.1.41"

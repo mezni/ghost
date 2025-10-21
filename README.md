@@ -12,3 +12,4 @@ docker exec -it roamdb-service psql -U myuser -d roamdb -f file_utf8.dmp
 
 
 
+curl -X GET http://localhost:3000/api/v1/health
