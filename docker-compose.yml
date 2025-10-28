@@ -1,0 +1,66 @@
+services:
+  database:
+    build:
+      context: ./source
+      dockerfile: roamdb-service/Dockerfile
+    image: gamma/roamdb:latest
+    container_name: roamdb-service
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${ROAM_DB_USER}
+      POSTGRES_PASSWORD: ${ROAM_DB_PASSWORD}
+      POSTGRES_DB: ${ROAM_DB_NAME}
+    volumes:
+      - roamdb_data:/var/lib/postgresql/data
+      - ./config/initdb:/docker-entrypoint-initdb.d
+      - ./config/data/countries.csv:/countries.csv
+      - ./config/data/operators.csv:/operators.csv
+      - ./config/data/prefixes.csv:/prefixes.csv
+      - ./config/data/sor_plan.csv:/sor_plan.csv
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${ROAM_DB_USER} -d ${ROAM_DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - gamma_network
+
+  data-generator:
+    build:
+      context: ./source
+      dockerfile: tools/Dockerfile
+    image: beta/data-generator:latest
+    container_name: data-generator
+    volumes:
+      - ./WORK:/app/WORK
+      - ./config/data/roam_out_ref.txt:/app/roam_out_ref.txt
+      - ./config/data/roam_in_ref.txt:/app/roam_in_ref.txt
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - gamma_network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - "9090:80"
+    depends_on:
+      database:
+        condition: service_healthy
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - gamma_network
+
+volumes:
+  roamdb_data:
+  pgadmin_data:
+
+networks:
+  gamma_network:
