@@ -3,6 +3,7 @@ use chrono::Utc;
 
 use crate::core::error::{Result, AppError};
 use crate::user_model::{User, CreateUserRequest, UpdateUserRequest};
+use crate::keycloak_service::KeycloakService;
 
 #[derive(Clone)]
 pub struct UserService {
@@ -14,11 +15,28 @@ impl UserService {
         Self { pool }
     }
 
-    pub async fn create_user(&self, user_data: CreateUserRequest) -> Result<User> {
+    pub async fn create_user(&self, user_data: CreateUserRequest, keycloak_service: &KeycloakService) -> Result<User> {
+        // First create user in Keycloak
+        let keycloak_user_id = match keycloak_service.create_user_in_keycloak(
+            &user_data.username,
+            &user_data.email,
+            &user_data.first_name,
+            &user_data.last_name,
+            &user_data.password,
+        ).await {
+            Ok(user_id) => Some(user_id),
+            Err(e) => {
+                eprintln!("Failed to create user in Keycloak: {}", e);
+                // Continue without Keycloak ID - user can be created in Keycloak later
+                None
+            }
+        };
+
+        // Then create user in our database
         let user = sqlx::query_as::<_, User>(
             r#"
-            INSERT INTO users (username, email, first_name, last_name, created_at, updated_at)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            INSERT INTO users (username, email, first_name, last_name, keycloak_id, created_at, updated_at)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING id, username, email, first_name, last_name, keycloak_id, is_active, created_at, updated_at
             "#
         )
@@ -26,6 +44,7 @@ impl UserService {
         .bind(&user_data.email)
         .bind(&user_data.first_name)
         .bind(&user_data.last_name)
+        .bind(keycloak_user_id)
         .bind(Utc::now())
         .bind(Utc::now())
         .fetch_one(&self.pool)
@@ -34,8 +53,8 @@ impl UserService {
         Ok(user)
     }
 
+    // ... rest of your methods remain the same
     pub async fn get_user_by_id(&self, user_id: &str) -> Result<User> {
-        // Parse string to Uuid for database query
         let uuid = user_id.parse::<sqlx::types::Uuid>()
             .map_err(|_| AppError::InvalidInput("Invalid user ID format".to_string()))?;
             
@@ -73,7 +92,6 @@ impl UserService {
     }
 
     pub async fn update_user(&self, user_id: &str, user_data: UpdateUserRequest) -> Result<User> {
-        // Parse string to Uuid for database query
         let uuid = user_id.parse::<sqlx::types::Uuid>()
             .map_err(|_| AppError::InvalidInput("Invalid user ID format".to_string()))?;
             
@@ -104,7 +122,6 @@ impl UserService {
     }
 
     pub async fn delete_user(&self, user_id: &str) -> Result<()> {
-        // Parse string to Uuid for database query
         let uuid = user_id.parse::<sqlx::types::Uuid>()
             .map_err(|_| AppError::InvalidInput("Invalid user ID format".to_string()))?;
             
@@ -123,7 +140,6 @@ impl UserService {
     }
 
     pub async fn link_keycloak_id(&self, user_id: &str, keycloak_id: &str) -> Result<()> {
-        // Parse string to Uuid for database query
         let uuid = user_id.parse::<sqlx::types::Uuid>()
             .map_err(|_| AppError::InvalidInput("Invalid user ID format".to_string()))?;
             

@@ -1,17 +1,20 @@
 use actix_web::{web, HttpResponse};
 
 use crate::user_service::UserService;
+use crate::keycloak_service::KeycloakService;
 use crate::user_model::{CreateUserRequest, UpdateUserRequest, UserResponse};
 use crate::core::error::Result;
 
 pub async fn create_user(
     user_service: web::Data<UserService>,
+    keycloak_service: web::Data<KeycloakService>,
     user_data: web::Json<CreateUserRequest>,
 ) -> Result<HttpResponse> {
-    let user = user_service.create_user(user_data.into_inner()).await?;
+    let user = user_service.create_user(user_data.into_inner(), &keycloak_service).await?;
     Ok(HttpResponse::Created().json(UserResponse::from(user)))
 }
 
+// ... rest of the handlers remain the same
 pub async fn get_user(
     user_service: web::Data<UserService>,
     user_id: web::Path<String>,
