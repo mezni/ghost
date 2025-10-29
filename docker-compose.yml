@@ -1,101 +1,84 @@
+version: '3.8'
+
 services:
-  users-database:
-    image: postgres:17.6
-    container_name: users-database
-    restart: always
-    networks:
-      - ev-net
+  # PostgreSQL Database
+  postgres:
+    image: postgres:17
+    container_name: users-db
     environment:
-      POSTGRES_PASSWORD: users
-      POSTGRES_USER: users
-      POSTGRES_DB: kong_db  # Default database for Kong
-    volumes:
-      - users_data:/var/lib/postgresql/data
-      - ./config/users-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      POSTGRES_DB: users_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - users-net
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U users -d kong_db"] 
-      interval: 5s
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
       timeout: 5s
       retries: 5
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "3"
 
-  kong-migrations:
-    image: kong:3.7.0
-    container_name: kong-migrations
+  # Keycloak Identity Provider
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.0
+    container_name: keycloak
     environment:
-      KONG_DATABASE: postgres
-      KONG_PG_HOST: users-database
-      KONG_PG_USER: users
-      KONG_PG_PASSWORD: users
-      KONG_PG_DATABASE: kong_db
-    command: "kong migrations bootstrap"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin123
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres123
+    ports:
+      - "8080:8080"
+    command: start-dev
     depends_on:
-      users-database:
+      postgres:
         condition: service_healthy
     networks:
-      - ev-net
-    restart: on-failure
-
-  kong:
-    image: kong:3.7.0
-    restart: always
-    networks:
-      - ev-net
-    environment:
-      KONG_DATABASE: postgres
-      KONG_PG_HOST: users-database
-      KONG_PG_USER: users
-      KONG_PG_PASSWORD: users
-      KONG_PG_DATABASE: kong_db
-      KONG_PROXY_LISTEN: 0.0.0.0:8000
-      KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
-      KONG_ADMIN_LISTEN: 0.0.0.0:8001
-      KONG_PROXY_ACCESS_LOG: /dev/stdout
-      KONG_ADMIN_ACCESS_LOG: /dev/stdout
-      KONG_PROXY_ERROR_LOG: /dev/stderr
-      KONG_ADMIN_ERROR_LOG: /dev/stderr
-    depends_on:
-      kong-migrations:
-        condition: service_completed_successfully
+      - users-net
     healthcheck:
-      test: ["CMD", "kong", "health"]
-      interval: 10s
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/ready"]
+      interval: 30s
       timeout: 10s
-      retries: 10
-      start_period: 30s
-    ports:
-      - "8000:8000"
-      - "8001:8001"
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "3"
+      retries: 3
 
-  konga:
-    image: pantsel/konga:latest
-    restart: always
-    networks:
-      - ev-net
-    environment:
-      DB_URI: "postgresql://users:users@users-database:5432/users_db?ssl=false"  # Use DB_URI instead
-      TOKEN_SECRET: 4b5ffb1b86049479d7bc875bcaf0a9b4fcfd1b16
-      NODE_ENV: production
-    depends_on:
-      users-database:
-        condition: service_healthy
-      kong:
-        condition: service_healthy
-    ports:
-      - "1337:1337"
-      
+  # User Management Service
+#  users-service:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: user-management-service
+#    environment:
+#      DATABASE_URL: postgres://postgres:postgres123@postgres:5432/users_db
+#      HOST: 0.0.0.0
+#      PORT: 8000
+#      KEYCLOAK_URL: http://keycloak:8080
+#      KEYCLOAK_REALM: master
+#      KEYCLOAK_CLIENT_ID: user-management-service
+#      KEYCLOAK_CLIENT_SECRET: your-client-secret-here
+#      JWT_SECRET: your-super-secret-jwt-key-here
+#      RUST_LOG: debug
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#      keycloak:
+#        condition: service_healthy
+#    networks:
+#      - users-net
+#    volumes:
+#      - ./migrations:/app/migrations
+#    restart: unless-stopped
+
 networks:
-  ev-net:
+  users-net:
     driver: bridge
 
 volumes:
-  users_data:
+  postgres_data:
