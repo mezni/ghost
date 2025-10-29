@@ -1,0 +1,101 @@
+services:
+  users-database:
+    image: postgres:17.6
+    container_name: users-database
+    restart: always
+    networks:
+      - ev-net
+    environment:
+      POSTGRES_PASSWORD: users
+      POSTGRES_USER: users
+      POSTGRES_DB: kong_db  # Default database for Kong
+    volumes:
+      - users_data:/var/lib/postgresql/data
+      - ./config/users-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U users -d kong_db"] 
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  kong-migrations:
+    image: kong:3.7.0
+    container_name: kong-migrations
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: users-database
+      KONG_PG_USER: users
+      KONG_PG_PASSWORD: users
+      KONG_PG_DATABASE: kong_db
+    command: "kong migrations bootstrap"
+    depends_on:
+      users-database:
+        condition: service_healthy
+    networks:
+      - ev-net
+    restart: on-failure
+
+  kong:
+    image: kong:3.7.0
+    restart: always
+    networks:
+      - ev-net
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: users-database
+      KONG_PG_USER: users
+      KONG_PG_PASSWORD: users
+      KONG_PG_DATABASE: kong_db
+      KONG_PROXY_LISTEN: 0.0.0.0:8000
+      KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+    depends_on:
+      kong-migrations:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "kong", "health"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  konga:
+    image: pantsel/konga:latest
+    restart: always
+    networks:
+      - ev-net
+    environment:
+      DB_URI: "postgresql://users:users@users-database:5432/users_db?ssl=false"  # Use DB_URI instead
+      TOKEN_SECRET: 4b5ffb1b86049479d7bc875bcaf0a9b4fcfd1b16
+      NODE_ENV: production
+    depends_on:
+      users-database:
+        condition: service_healthy
+      kong:
+        condition: service_healthy
+    ports:
+      - "1337:1337"
+      
+networks:
+  ev-net:
+    driver: bridge
+
+volumes:
+  users_data:
