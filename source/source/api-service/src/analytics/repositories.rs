@@ -1,4 +1,4 @@
-use crate::analytics::models::{CountryMetric, Filter, NotifMetric, ValidatedMetricsRequest};
+use crate::analytics::models::{Filter, ValidatedMetricsRequest};
 use crate::core::errors::AppError;
 use serde_json::json;
 use sqlx::{PgPool, Row};
@@ -7,60 +7,147 @@ pub struct MetricsRepository;
 
 impl MetricsRepository {
     const GET_GLOBAL_METRICS_QUERY: &str = r#"
-        SELECT rd.date_str AS date, fct.value
-        FROM trx_metrics_global fct
-        JOIN ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
-        JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
-        JOIN ref_dates rd ON rd.date_id = fct.date_id
-        WHERE (fct.date_id, fct.batch_id) IN (
-            SELECT date_id, MAX(batch_id) AS max_batch_id
-            FROM trx_metrics_global
-            GROUP BY date_id
-        )
-        AND UPPER(rrd.direction) = UPPER($1)
+SELECT 
+    date_str AS date, 
+    value
+FROM (
+    SELECT 
+        rd.date_str, 
+        fct.value,
+        ROW_NUMBER() OVER (PARTITION BY fct.date_id ORDER BY fct.batch_id DESC) as rn
+    FROM 
+        trx_metrics_global fct
+    JOIN 
+        ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+    JOIN 
+        ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+    JOIN 
+        ref_dates rd ON rd.date_id = fct.date_id
+    WHERE 
+        UPPER(rrd.direction) = UPPER($1)
+        -- DATE_FILTER_PLACEHOLDER --
+) t
+WHERE rn = 1
+ORDER BY 
+    date_str
     "#;
 
     const GET_COUNTRY_METRICS_QUERY: &str = r#"
-        SELECT rd.date_str AS date, cc.country_name AS country, fct.value
-        FROM trx_metrics_country fct
-        JOIN ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
-        JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
-        JOIN ref_dates rd ON rd.date_id = fct.date_id
-        JOIN cfg_countries cc ON cc.country_id = fct.country_id
-        WHERE (fct.date_id, fct.batch_id) IN (
-            SELECT date_id, MAX(batch_id) AS max_batch_id
-            FROM trx_metrics_country
-            GROUP BY date_id
-        )
-        AND UPPER(rrd.direction) = UPPER($1)
+SELECT 
+    date_str AS date, 
+    country_name AS country,
+    value
+FROM (
+    SELECT 
+        rd.date_str, 
+        cc.country_name,
+        fct.value,
+        ROW_NUMBER() OVER (PARTITION BY fct.date_id, fct.country_id ORDER BY fct.batch_id DESC) as rn
+    FROM 
+        trx_metrics_country fct
+    JOIN 
+        ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+    JOIN 
+        ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+    JOIN 
+        ref_dates rd ON rd.date_id = fct.date_id
+    JOIN 
+        cfg_countries cc ON cc.country_id = fct.country_id
+    WHERE 
+        UPPER(rrd.direction) = UPPER($1)
+        -- COUNTRY_FILTER_PLACEHOLDER --
+        -- DATE_FILTER_PLACEHOLDER --
+) t
+WHERE rn = 1
+ORDER BY 
+    date_str
+    "#;
+
+    const GET_OPERATOR_METRICS_QUERY: &str = r#"
+SELECT 
+    date_str AS date, 
+    operator_name AS operator,
+    value
+FROM (
+    SELECT 
+        rd.date_str, 
+        co.operator_name,
+        fct.value,
+        ROW_NUMBER() OVER (PARTITION BY fct.date_id, fct.operator_id ORDER BY fct.batch_id DESC) as rn
+    FROM 
+        trx_metrics_operator fct
+    JOIN 
+        ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+    JOIN 
+        ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+    JOIN 
+        ref_dates rd ON rd.date_id = fct.date_id
+    JOIN 
+        cfg_operators co ON co.operator_id = fct.operator_id
+    WHERE 
+        UPPER(rrd.direction) = UPPER($1)
+        -- OPERATOR_FILTER_PLACEHOLDER --
+        -- DATE_FILTER_PLACEHOLDER --
+) t
+WHERE rn = 1
+ORDER BY 
+    date_str
     "#;
 
     const GET_COUNTRY_METRICS_TOP_QUERY: &str = r#"
-        SELECT date, country, SUM(value)::bigint AS value
-        FROM (
-            SELECT 
-                rd.date_str AS date,
-                CASE 
-                    WHEN ROW_NUMBER() OVER (PARTITION BY rd.date_str ORDER BY fct.value DESC) <= CAST ($2 AS INT)
-                    THEN cc.country_name 
-                    ELSE 'Others'
-                END AS country,
-                fct.value
-            FROM trx_metrics_country fct
-            JOIN ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
-            JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
-            JOIN ref_dates rd ON rd.date_id = fct.date_id
-            JOIN cfg_countries cc ON cc.country_id = fct.country_id
-            WHERE (fct.date_id, fct.batch_id) IN (
-                SELECT date_id, MAX(batch_id) AS max_batch_id
-                FROM trx_metrics_country
-                GROUP BY date_id
-            )
-            AND UPPER(rrd.direction) = UPPER($1)
-            AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country)
-        ) AS ranked
-        GROUP BY date, country
-        ORDER BY value DESC
+SELECT date, country, SUM(value)::bigint AS value
+FROM (
+    SELECT 
+        rd.date_str AS date,
+        CASE 
+            WHEN ROW_NUMBER() OVER (PARTITION BY rd.date_str ORDER BY fct.value DESC) <= CAST ($2 AS INT)
+            THEN cc.country_name 
+            ELSE 'Others'
+        END AS country,
+        fct.value
+    FROM trx_metrics_country fct
+    JOIN ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+    JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+    JOIN ref_dates rd ON rd.date_id = fct.date_id
+    JOIN cfg_countries cc ON cc.country_id = fct.country_id
+    WHERE (fct.date_id, fct.batch_id) IN (
+        SELECT date_id, MAX(batch_id) AS max_batch_id
+        FROM trx_metrics_country
+        GROUP BY date_id
+    )
+    AND UPPER(rrd.direction) = UPPER($1)
+    AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country)
+) AS ranked
+GROUP BY date, country
+ORDER BY value DESC
+    "#;
+
+    const GET_OPERATOR_METRICS_TOP_QUERY: &str = r#"
+SELECT date, operator, SUM(value)::bigint AS value
+FROM (
+    SELECT 
+        rd.date_str AS date,
+        CASE 
+            WHEN ROW_NUMBER() OVER (PARTITION BY rd.date_str ORDER BY fct.value DESC) <= CAST ($2 AS INT)
+            THEN co.operator_name 
+            ELSE 'Others'
+        END AS operator,
+        fct.value
+    FROM trx_metrics_operator fct
+    JOIN ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+    JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+    JOIN ref_dates rd ON rd.date_id = fct.date_id
+    JOIN cfg_operators co ON co.operator_id = fct.operator_id
+    WHERE (fct.date_id, fct.batch_id) IN (
+        SELECT date_id, MAX(batch_id) AS max_batch_id
+        FROM trx_metrics_operator
+        GROUP BY date_id
+    )
+    AND UPPER(rrd.direction) = UPPER($1)
+    AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_operator)
+) AS ranked
+GROUP BY date, operator
+ORDER BY value DESC
     "#;
 
     const GET_NOTIF_DET_METRICS_QUERY: &str = r#"
@@ -86,6 +173,7 @@ impl MetricsRepository {
         match req.dimension.to_lowercase().as_str() {
             "global" => Self::get_global_metrics(pool, req).await,
             "country" => Self::get_country_metrics(pool, req).await,
+            "operator" => Self::get_operator_metrics(pool, req).await,
             "notification" => Self::get_notif_metrics(pool, req).await,
             _ => Err(AppError::BadRequest("Invalid dimension".to_string())),
         }
@@ -100,22 +188,17 @@ impl MetricsRepository {
         let aggregation = &req.aggregation;
         let size = get_size_for_aggregation(aggregation, req.size)?;
 
-        let query = match aggregation.as_str() {
-            "latest" => format!(
-                "{} AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_global) ORDER BY rd.date_str",
-                Self::GET_GLOBAL_METRICS_QUERY
-            ),
-            "history" => format!(
-                "{} AND rd.date >= CURRENT_DATE - INTERVAL '{} days' ORDER BY rd.date_str",
-                Self::GET_GLOBAL_METRICS_QUERY,
-                size
-            ),
+        let date_filter = match aggregation.as_str() {
+            "latest" => "AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_global)",
+            "history" => &format!("AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size),
             _ => {
                 return Err(AppError::BadRequest(
                     "Aggregation 'latest' or 'history' is required".to_string(),
                 ));
             }
         };
+
+        let query = Self::GET_GLOBAL_METRICS_QUERY.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
 
         let rows = sqlx::query(&query)
             .bind(direction)
@@ -146,20 +229,22 @@ impl MetricsRepository {
         match aggregation.as_str() {
             "latest" | "history" => {
                 let mut query = Self::GET_COUNTRY_METRICS_QUERY.to_string();
-                if !country.is_empty() {
-                    query.push_str(" AND UPPER(cc.country_name) = UPPER($2)");
-                }
-                if aggregation == "latest" {
-                    query.push_str(
-                        " AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country)",
-                    );
+
+                // Replace country filter placeholder
+                let country_filter = if !country.is_empty() {
+                    " AND UPPER(cc.country_name) = UPPER($2)"
                 } else {
-                    query.push_str(&format!(
-                        " AND rd.date >= CURRENT_DATE - INTERVAL '{} days'",
-                        size
-                    ));
-                }
-                query.push_str(" ORDER BY rd.date_str");
+                    ""
+                };
+                query = query.replace("-- COUNTRY_FILTER_PLACEHOLDER --", country_filter);
+
+                // Replace date filter placeholder
+                let date_filter = match aggregation.as_str() {
+                    "latest" => " AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country)",
+                    "history" => &format!(" AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size),
+                    _ => unreachable!(),
+                };
+                query = query.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
 
                 let mut q = sqlx::query(&query).bind(direction.clone());
                 if !country.is_empty() {
@@ -192,6 +277,78 @@ impl MetricsRepository {
                     let country: String = row.try_get("country")?;
                     let value: i64 = row.try_get("value")?;
                     metrics.push(json!({ "date": date, "country": country, "value": value }));
+                }
+
+                Ok(json!({ "data": metrics, "status": "success" }))
+            }
+
+            _ => Err(AppError::BadRequest(
+                "Aggregation 'latest', 'history' or 'top' is required".to_string(),
+            )),
+        }
+    }
+
+    // ------------------- Operator -------------------
+    async fn get_operator_metrics(
+        pool: &PgPool,
+        req: &ValidatedMetricsRequest,
+    ) -> Result<serde_json::Value, AppError> {
+        let direction = get_direction_from_filters(req.filter.as_ref())?;
+        let aggregation = &req.aggregation;
+        let size = get_size_for_aggregation(aggregation, req.size)?;
+        let operator = get_operator_from_filters(req.filter.as_ref());
+
+        match aggregation.as_str() {
+            "latest" | "history" => {
+                let mut query = Self::GET_OPERATOR_METRICS_QUERY.to_string();
+
+                // Replace operator filter placeholder
+                let operator_filter = if !operator.is_empty() {
+                    " AND UPPER(co.operator_name) = UPPER($2)"
+                } else {
+                    ""
+                };
+                query = query.replace("-- OPERATOR_FILTER_PLACEHOLDER --", operator_filter);
+
+                // Replace date filter placeholder
+                let date_filter = match aggregation.as_str() {
+                    "latest" => " AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_operator)",
+                    "history" => &format!(" AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size),
+                    _ => unreachable!(),
+                };
+                query = query.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
+
+                let mut q = sqlx::query(&query).bind(direction.clone());
+                if !operator.is_empty() {
+                    q = q.bind(operator);
+                }
+
+                let rows = q.fetch_all(pool).await.map_err(AppError::Sqlx)?;
+                let mut metrics = Vec::new();
+                for row in rows {
+                    let date: String = row.try_get("date")?;
+                    let operator: String = row.try_get("operator")?;
+                    let value: i64 = row.try_get("value")?;
+                    metrics.push(json!({ "date": date, "operator": operator, "value": value }));
+                }
+
+                Ok(json!({ "data": metrics, "status": "success" }))
+            }
+
+            "top" => {
+                let rows = sqlx::query(Self::GET_OPERATOR_METRICS_TOP_QUERY)
+                    .bind(direction)
+                    .bind(size)
+                    .fetch_all(pool)
+                    .await
+                    .map_err(AppError::Sqlx)?;
+
+                let mut metrics = Vec::new();
+                for row in rows {
+                    let date: String = row.try_get("date")?;
+                    let operator: String = row.try_get("operator")?;
+                    let value: i64 = row.try_get("value")?;
+                    metrics.push(json!({ "date": date, "operator": operator, "value": value }));
                 }
 
                 Ok(json!({ "data": metrics, "status": "success" }))
@@ -274,6 +431,23 @@ fn get_country_from_filters(filters: Option<&Vec<Filter>>) -> String {
             .iter()
             .find_map(|f| {
                 if f.key.to_lowercase() == "country" {
+                    Some(f.value.clone())
+                } else {
+                    None
+                }
+            })
+            .unwrap_or_default()
+    } else {
+        "".to_string()
+    }
+}
+
+fn get_operator_from_filters(filters: Option<&Vec<Filter>>) -> String {
+    if let Some(filters) = filters {
+        filters
+            .iter()
+            .find_map(|f| {
+                if f.key.to_lowercase() == "operator" {
                     Some(f.value.clone())
                 } else {
                     None
