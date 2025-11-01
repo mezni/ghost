@@ -328,7 +328,7 @@ CREATE TABLE IF NOT EXISTS trx_perf_out (
     operator_count BIGINT,
     target_percentage BIGINT,
     actual_percentage BIGINT,
-    is_outside_tolerance BOOLEAN    
+    is_outside_tolerance BOOLEAN  
 );
 
 CREATE TABLE IF NOT EXISTS trx_notifications (

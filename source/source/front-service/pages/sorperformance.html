@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <!-- Header with Actions and Search -->
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <button class="btn btn-success" id="refreshSorDataBtn">
+        <i class="fas fa-sync-alt"></i> Refresh Data
+      </button>
+      <button class="btn btn-info" id="exportSorDataBtn">
+        <i class="fas fa-download"></i> Export
+      </button>
+    </div>
+    <input type="text" id="sorSearch" class="form-control w-25" placeholder="Search by country or operator...">
+  </div>
+
+  <!-- SoR Performance Table -->
+  <table id="sorPerformanceTable" class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Country</th>
+        <th>Operator</th>
+        <th>Target %</th>
+        <th>Actual %</th>
+        <th>Variance</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between align-items-center">
+    <button class="btn btn-outline-secondary" id="prevPageBtnSor">Previous</button>
+    <span id="paginationInfoSor"></span>
+    <button class="btn btn-outline-secondary" id="nextPageBtnSor">Next</button>
+  </div>
+
+
+</div>

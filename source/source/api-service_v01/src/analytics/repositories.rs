@@ -166,37 +166,6 @@ ORDER BY value DESC
 LIMIT $2
     "#;
 
-const GET_SOR_PERFORMANCE_QUERY: &str = r#"
-SELECT 
-    tpo.perf_id,
-    tpo.batch_id,
-    rd.date_str AS date,
-    cc.country_name AS country,
-    co.operator_name AS operator,
-    tpo.country_count::INT AS country_count,
-    tpo.operator_count::INT AS operator_count,
-    COALESCE(tpo.target_percentage, 0) AS target_percentage,
-    COALESCE(tpo.actual_percentage, 0) AS actual_percentage,
-    COALESCE(tpo.is_outside_tolerance, false) AS is_outside_tolerance
-FROM 
-    trx_perf_out tpo
-JOIN 
-    batch_execs be ON tpo.batch_id = be.batch_id
-JOIN 
-    ref_dates rd ON tpo.date_id = rd.date_id
-LEFT JOIN 
-    cfg_countries cc ON tpo.country_id = cc.country_id
-LEFT JOIN 
-    cfg_operators co ON tpo.operator_id = co.operator_id
-WHERE 
-    1=1
-    -- DATE_FILTER_PLACEHOLDER --
-    -- COUNTRY_FILTER_PLACEHOLDER --
-    -- OPERATOR_FILTER_PLACEHOLDER --
-ORDER BY 
-    rd.date_str DESC
-    "#;
-
     const GET_NOTIF_DET_METRICS_QUERY: &str = r#"
         SELECT rd.date_str AS date, fct.message AS value
         FROM trx_notifications fct
@@ -224,7 +193,6 @@ ORDER BY
             "global" => Self::get_global_metrics(pool, req).await,
             "country" => Self::get_country_metrics(pool, req).await,
             "operator" => Self::get_operator_metrics(pool, req).await,
-            "sor_performance" => Self::get_sor_performance_metrics(pool, req).await,
             "notification" => Self::get_notif_metrics(pool, req).await,
             _ => Err(AppError::BadRequest("Invalid dimension".to_string())),
         }
@@ -461,98 +429,6 @@ ORDER BY
         }
     }
 
-// ------------------- SoR Performance -------------------
-async fn get_sor_performance_metrics(
-    pool: &PgPool,
-    req: &ValidatedMetricsRequest,
-) -> Result<serde_json::Value, AppError> {
-    println!("Processing SoR performance metrics request: {:?}", req);
-    
-    let aggregation = &req.aggregation;
-    let size = get_size_for_aggregation(aggregation, req.size)?;
-    let country = get_country_from_filters(req.filter.as_ref());
-    let operator = get_operator_from_filters(req.filter.as_ref());
-
-    let mut query = Self::GET_SOR_PERFORMANCE_QUERY.to_string();
-
-    // Replace date filter placeholder
-    let date_filter = match aggregation.as_str() {
-        "latest" => "AND tpo.date_id = (SELECT MAX(date_id) FROM trx_perf_out)",
-        "history" => &format!("AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size),
-        _ => {
-            return Err(AppError::BadRequest(
-                "Aggregation 'latest' or 'history' is required".to_string(),
-            ));
-        }
-    };
-    query = query.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
-
-    // Replace country filter placeholder
-    let country_filter = if !country.is_empty() {
-        " AND UPPER(cc.country_name) = UPPER($1)"
-    } else {
-        ""
-    };
-    query = query.replace("-- COUNTRY_FILTER_PLACEHOLDER --", country_filter);
-
-    // Replace operator filter placeholder
-    let operator_filter = if !operator.is_empty() {
-        " AND UPPER(co.operator_name) = UPPER($2)"
-    } else {
-        ""
-    };
-    query = query.replace("-- OPERATOR_FILTER_PLACEHOLDER --", operator_filter);
-
-    println!("Executing SoR performance query: {}", query);
-
-    let mut q = sqlx::query(&query);
-    if !country.is_empty() {
-        q = q.bind(country.clone());
-    }
-    if !operator.is_empty() {
-        q = q.bind(operator);
-    }
-
-    let rows = q.fetch_all(pool).await.map_err(AppError::Sqlx)?;
-    let mut metrics = Vec::new();
-    for row in rows {
-        let perf_id: i32 = row.try_get("perf_id")?;
-        let batch_id: i32 = row.try_get("batch_id")?;
-        let date: String = row.try_get("date")?;
-        let country: Option<String> = row.try_get("country")?;
-        let operator: Option<String> = row.try_get("operator")?;
-        let country_count: i32 = row.try_get("country_count")?;
-        let operator_count: i32 = row.try_get("operator_count")?;
-        
-        // These are INT8 in database, so use i64
-        let target_percentage_raw: i64 = row.try_get("target_percentage")?;
-        let actual_percentage_raw: i64 = row.try_get("actual_percentage")?;
-        
-        // Convert to f64 for calculations
-        let target_percentage = target_percentage_raw as f64;
-        let actual_percentage = actual_percentage_raw as f64;
-        
-        let is_outside_tolerance: bool = row.try_get("is_outside_tolerance")?;
-
-        metrics.push(json!({
-            "perf_id": perf_id,
-            "batch_id": batch_id,
-            "date": date,
-            "country": country,
-            "operator": operator,
-            "country_count": country_count,
-            "operator_count": operator_count,
-            "target_percentage": target_percentage,
-            "actual_percentage": actual_percentage,
-            "is_outside_tolerance": is_outside_tolerance,
-            "success_rate": actual_percentage,
-            "variance": (actual_percentage - target_percentage).abs()
-        }));
-    }
-
-    println!("SoR performance metrics result: {} records", metrics.len());
-    Ok(json!({ "data": metrics, "status": "success" }))
-}
     // ------------------- Notification -------------------
     async fn get_notif_metrics(
         pool: &PgPool,

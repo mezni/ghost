@@ -76,7 +76,6 @@ async function loadPage(page) {
       dashboard: "Dashboard",
       roamin: "Roam IN",
       roamout: "Roam OUT", 
-      sorperformance: "SoR Performance", // ✅ Added SoR Performance
       countries: "Countries",
       operators: "Operators",
       networks: "Networks",
