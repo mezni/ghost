@@ -1,13 +1,10 @@
 use crate::core::errors::AppError;
 use crate::settings::models::{
-    Country, CreateCountry, CreateNetwork, CreateOperator, CreateSorPlan, Network, Operator,
-    SorPlan, UpdateCountry, UpdateNetwork, UpdateOperator, UpdateSorPlan,
-    Prefix, CreatePrefix, UpdatePrefix,
+    Country, CreateCountry, CreateNetwork, CreateOperator, CreatePrefix, CreateSorPlan, Network,
+    Operator, Prefix, SorPlan, UpdateCountry, UpdateNetwork, UpdateOperator, UpdatePrefix,
+    UpdateSorPlan,
 };
 use sqlx::PgPool;
-
-
-
 
 pub struct CountryRepository;
 pub struct OperatorRepository;
@@ -456,7 +453,6 @@ impl NetworkRepository {
     }
 }
 
-
 impl SorPlanRepository {
     pub async fn get_all(pool: &PgPool) -> Result<Vec<SorPlan>, AppError> {
         let plans = sqlx::query_as::<_, SorPlan>(
@@ -480,7 +476,7 @@ impl SorPlanRepository {
             JOIN cfg_countries c ON o.country_id = c.country_id
             JOIN ref_routage_types r ON s.routage_type_id = r.routage_type_id
             ORDER BY s.sor_plan_id
-            "#
+            "#,
         )
         .fetch_all(pool)
         .await
@@ -511,7 +507,7 @@ impl SorPlanRepository {
             JOIN cfg_countries c ON o.country_id = c.country_id
             JOIN ref_routage_types r ON s.routage_type_id = r.routage_type_id
             WHERE s.sor_plan_id = $1
-            "#
+            "#,
         )
         .bind(sor_plan_id)
         .fetch_optional(pool)
@@ -608,7 +604,7 @@ impl SorPlanRepository {
             UPDATE cfg_sor_plan
             SET is_valid = FALSE, updated_at = NOW()
             WHERE sor_plan_id = $1
-            "#
+            "#,
         )
         .bind(sor_plan_id)
         .execute(pool)
@@ -616,9 +612,8 @@ impl SorPlanRepository {
         .map_err(AppError::Sqlx)?;
 
         Ok(result.rows_affected())
-    }    
+    }
 }
-
 
 use sqlx::Row;
 
@@ -634,25 +629,28 @@ impl PrefixRepository {
             LEFT JOIN cfg_countries c ON p.country_id = c.country_id
             LEFT JOIN cfg_operators o ON p.operator_id = o.operator_id
             ORDER BY p.prefix_id
-            "#
+            "#,
         )
         .fetch_all(pool)
         .await
         .map_err(AppError::Sqlx)?;
 
-        let prefixes = rows.into_iter().map(|r| Prefix {
-            prefix_id: r.get("prefix_id"),
-            country_id: r.get("country_id"),
-            operator_id: r.get("operator_id"),
-            prefix: r.get("prefix"),
-            is_valid: r.get("is_valid"),
-            created_at: r.get("created_at"),
-            created_by: r.get("created_by"),
-            updated_at: r.get("updated_at"),
-            updated_by: r.get("updated_by"),
-            country_name: r.get("country_name"),
-            operator_name: r.get("operator_name"),
-        }).collect();
+        let prefixes = rows
+            .into_iter()
+            .map(|r| Prefix {
+                prefix_id: r.get("prefix_id"),
+                country_id: r.get("country_id"),
+                operator_id: r.get("operator_id"),
+                prefix: r.get("prefix"),
+                is_valid: r.get("is_valid"),
+                created_at: r.get("created_at"),
+                created_by: r.get("created_by"),
+                updated_at: r.get("updated_at"),
+                updated_by: r.get("updated_by"),
+                country_name: r.get("country_name"),
+                operator_name: r.get("operator_name"),
+            })
+            .collect();
 
         Ok(prefixes)
     }
@@ -668,7 +666,7 @@ impl PrefixRepository {
             LEFT JOIN cfg_countries c ON p.country_id = c.country_id
             LEFT JOIN cfg_operators o ON p.operator_id = o.operator_id
             WHERE p.prefix_id = $1
-            "#
+            "#,
         )
         .bind(id)
         .fetch_one(pool)

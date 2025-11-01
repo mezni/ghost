@@ -1,11 +1,11 @@
 use crate::core::errors::AppError;
 use crate::settings::models::{
-    Country, CreateCountry, CreateNetwork, CreateOperator, CreateSorPlan, Network, Operator,
-    SorPlan, UpdateCountry, UpdateNetwork, UpdateOperator, UpdateSorPlan,
-    Prefix, CreatePrefix, UpdatePrefix,
+    Country, CreateCountry, CreateNetwork, CreateOperator, CreatePrefix, CreateSorPlan, Network,
+    Operator, Prefix, SorPlan, UpdateCountry, UpdateNetwork, UpdateOperator, UpdatePrefix,
+    UpdateSorPlan,
 };
 use crate::settings::repositories::{
-    CountryRepository, NetworkRepository, OperatorRepository, SorPlanRepository, PrefixRepository,
+    CountryRepository, NetworkRepository, OperatorRepository, PrefixRepository, SorPlanRepository,
 };
 use sqlx::PgPool;
 
@@ -166,8 +166,6 @@ impl SorPlanService {
         SorPlanRepository::delete(pool, sor_plan_id).await
     }
 }
-
-
 
 impl PrefixService {
     pub async fn get_all(pool: &PgPool) -> Result<Vec<Prefix>, AppError> {

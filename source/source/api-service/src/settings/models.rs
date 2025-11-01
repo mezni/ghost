@@ -124,7 +124,7 @@ pub struct SorPlan {
     pub sor_plan_id: i32,
     pub operator_id: i32,
     pub operator_name: String,
-    pub country_name: String,         
+    pub country_name: String,
     pub routage_type_id: i32,
     pub routage_type_name: String,
     pub barring: bool,
@@ -155,7 +155,6 @@ pub struct UpdateSorPlan {
     pub updated_by: String,
     pub is_current: Option<bool>,
 }
-
 
 // DB model
 #[derive(Debug, Clone, Serialize, Deserialize)]

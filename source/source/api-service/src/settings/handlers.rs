@@ -1,10 +1,24 @@
 use crate::core::errors::AppError;
 use crate::settings::models::{
-    Country, CreateCountry, CreateNetwork, CreateOperator, Network, Operator, UpdateCountry,
-    UpdateNetwork, UpdateOperator, CreateSorPlan, UpdateSorPlan, SorPlan,
-    Prefix, CreatePrefix, UpdatePrefix, // <--- Added Prefix models
+    Country,
+    CreateCountry,
+    CreateNetwork,
+    CreateOperator,
+    CreatePrefix,
+    CreateSorPlan,
+    Network,
+    Operator,
+    Prefix,
+    SorPlan,
+    UpdateCountry,
+    UpdateNetwork,
+    UpdateOperator,
+    UpdatePrefix, // <--- Added Prefix models
+    UpdateSorPlan,
 };
-use crate::settings::services::{CountryService, NetworkService, OperatorService, SorPlanService, PrefixService};
+use crate::settings::services::{
+    CountryService, NetworkService, OperatorService, PrefixService, SorPlanService,
+};
 use actix_web::{HttpResponse, web};
 use sqlx::PgPool;
 
@@ -69,14 +83,14 @@ pub fn config(cfg: &mut web::ServiceConfig) {
             .route("/{id}", web::delete().to(delete_sor_plan)),
     );
 
-cfg.service(
-    web::scope("/settings/prefixes")
-        .route("", web::get().to(get_all_prefixes))
-        .route("/{id}", web::get().to(get_prefix_by_id))
-        .route("", web::post().to(create_prefix))
-        .route("/{id}", web::put().to(update_prefix))
-        .route("/{id}", web::delete().to(delete_prefix)),
-);    
+    cfg.service(
+        web::scope("/settings/prefixes")
+            .route("", web::get().to(get_all_prefixes))
+            .route("/{id}", web::get().to(get_prefix_by_id))
+            .route("", web::post().to(create_prefix))
+            .route("/{id}", web::put().to(update_prefix))
+            .route("/{id}", web::delete().to(delete_prefix)),
+    );
 }
 
 // =========================
@@ -244,8 +258,6 @@ async fn delete_sor_plan(
     Ok(HttpResponse::Ok().json(deleted))
 }
 
-
-
 // =========================
 // Prefix Handlers
 // =========================
@@ -275,7 +287,8 @@ async fn update_prefix(
     path: web::Path<i32>,
     body: web::Json<UpdatePrefix>,
 ) -> Result<HttpResponse, AppError> {
-    let prefix = PrefixService::update(pool.get_ref(), path.into_inner(), body.into_inner()).await?;
+    let prefix =
+        PrefixService::update(pool.get_ref(), path.into_inner(), body.into_inner()).await?;
     Ok(HttpResponse::Ok().json(prefix))
 }
 

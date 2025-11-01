@@ -53,7 +53,7 @@ async fn main() -> Result<(), AppError> {
                     web::scope("/api/v1")
                         .configure(core::health::config)
                         .configure(settings::handlers::config)
-                        .configure(analytics::routes::config),
+                        .configure(analytics::handlers::config),
                 )
         }
     })
