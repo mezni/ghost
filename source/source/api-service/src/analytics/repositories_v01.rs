@@ -87,7 +87,6 @@ FROM (
     WHERE 
         UPPER(rrd.direction) = UPPER($1)
         -- OPERATOR_FILTER_PLACEHOLDER --
-        -- COUNTRY_FILTER_PLACEHOLDER --
         -- DATE_FILTER_PLACEHOLDER --
 ) t
 WHERE rn = 1
@@ -152,12 +151,9 @@ FROM (
             ref_dates rd ON rd.date_id = fct.date_id
         JOIN 
             cfg_operators co ON co.operator_id = fct.operator_id
-        JOIN 
-            cfg_countries cc ON cc.country_id = co.country_id
         WHERE 
             UPPER(rrd.direction) = UPPER($1)
             AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_operator)
-            -- COUNTRY_FILTER_PLACEHOLDER --
     ) t
     WHERE rn = 1
 ) ranked
@@ -329,7 +325,6 @@ LIMIT $2
         let aggregation = &req.aggregation;
         let size = get_size_for_aggregation(aggregation, req.size)?;
         let operator = get_operator_from_filters(req.filter.as_ref());
-        let country = get_country_from_filters(req.filter.as_ref());
 
         match aggregation.as_str() {
             "latest" | "history" => {
@@ -343,14 +338,6 @@ LIMIT $2
                 };
                 query = query.replace("-- OPERATOR_FILTER_PLACEHOLDER --", operator_filter);
 
-                // Replace country filter placeholder (for operator queries)
-                let country_filter = if !country.is_empty() {
-                    " AND UPPER(cc.country_name) = UPPER($3)"
-                } else {
-                    ""
-                };
-                query = query.replace("-- COUNTRY_FILTER_PLACEHOLDER --", country_filter);
-
                 // Replace date filter placeholder
                 let date_filter = match aggregation.as_str() {
                     "latest" => " AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_operator)",
@@ -359,22 +346,11 @@ LIMIT $2
                 };
                 query = query.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
 
-                // Add JOIN for country if country filter is applied
-                if !country.is_empty() {
-                    query = query.replace(
-                        "JOIN cfg_operators co ON co.operator_id = fct.operator_id",
-                        "JOIN cfg_operators co ON co.operator_id = fct.operator_id\n        JOIN cfg_countries cc ON cc.country_id = co.country_id"
-                    );
-                }
-
                 println!("Executing operator query: {}", query);
 
                 let mut q = sqlx::query(&query).bind(direction.clone());
                 if !operator.is_empty() {
-                    q = q.bind(operator.clone());
-                }
-                if !country.is_empty() {
-                    q = q.bind(country);
+                    q = q.bind(operator);
                 }
 
                 let rows = q.fetch_all(pool).await.map_err(AppError::Sqlx)?;
@@ -392,25 +368,13 @@ LIMIT $2
 
             "top" => {
                 println!("Executing operator top query with size: {}", size);
-                
-                let mut query = Self::GET_OPERATOR_METRICS_TOP_QUERY.to_string();
+                let rows = sqlx::query(Self::GET_OPERATOR_METRICS_TOP_QUERY)
+                    .bind(direction)
+                    .bind(size)
+                    .fetch_all(pool)
+                    .await
+                    .map_err(AppError::Sqlx)?;
 
-                // Replace country filter placeholder for top query
-                let country_filter = if !country.is_empty() {
-                    " AND UPPER(cc.country_name) = UPPER($3)"
-                } else {
-                    ""
-                };
-                query = query.replace("-- COUNTRY_FILTER_PLACEHOLDER --", country_filter);
-
-                println!("Executing operator top query: {}", query);
-
-                let mut q = sqlx::query(&query).bind(direction.clone()).bind(size);
-                if !country.is_empty() {
-                    q = q.bind(country);
-                }
-
-                let rows = q.fetch_all(pool).await.map_err(AppError::Sqlx)?;
                 let mut metrics = Vec::new();
                 for row in rows {
                     let date: String = row.try_get("date")?;

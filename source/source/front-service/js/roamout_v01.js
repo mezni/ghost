@@ -128,9 +128,8 @@ async function loadCountryFilterOut() {
       select.appendChild(opt);
     });
 
-    // Load initial charts (All countries)
+    // Load initial chart (All countries)
     await loadCountryLineChartOut("all");
-    await loadOperatorPieChartOut("all"); // ✅ Load initial operator pie chart
 
     // Event listener for filter changes
     select.addEventListener("change", async (e) => {
@@ -140,12 +139,11 @@ async function loadCountryFilterOut() {
       if (titleEl) {
         titleEl.textContent =
           selected === "all"
-            ? "Operator Distribution"
-            : `Operator Distribution (${selected})`;
+            ? "Distribution"
+            : `Distribution (${selected})`;
       }
 
       await loadCountryLineChartOut(selected);
-      await loadOperatorPieChartOut(selected); // ✅ Update operator pie chart
     });
   } catch (err) {
     console.error("Failed to load countries:", err);
@@ -195,105 +193,6 @@ async function loadCountryLineChartOut(countryName = "all") {
     );
   } catch (err) {
     console.error("Failed to load country line chart:", err);
-  }
-}
-
-/**
- * Load Operator Pie Chart (Dynamic) for Roam OUT
- */
-async function loadOperatorPieChartOut(countryName = "all") {
-  const ctx = document.getElementById("new-pie-chart-out");
-  if (!ctx) return;
-
-  try {
-    const payload =
-      countryName === "all"
-        ? {
-            dimension: "operator",
-            aggregation: "top",
-            filter: [{ key: "direction", value: "out" }]
-          }
-        : {
-            dimension: "operator",
-            aggregation: "top",
-            filter: [
-              { key: "direction", value: "out" },
-              { key: "country", value: countryName }
-            ]
-          };
-
-    const res = await fetch(`${API_URL}/analytics`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    const data = await res.json();
-    
-    // Handle case where no data is returned
-    if (!data.data || data.data.length === 0) {
-      console.warn("No operator data found for country:", countryName);
-      if (ctx.chartInstance) {
-        ctx.chartInstance.destroy();
-        ctx.chartInstance = null;
-      }
-      return;
-    }
-
-    const labels = data.data.map(item => item.operator);
-    const values = data.data.map(item => item.value);
-
-    const colors = labels.map((_, i) => `hsl(${(i * 360) / labels.length}, 70%, 55%)`);
-
-    // Destroy existing chart instance if any
-    if (ctx.chartInstance) {
-      ctx.chartInstance.destroy();
-    }
-
-    ctx.chartInstance = new Chart(ctx, {
-      type: "pie",
-      data: {
-        labels,
-        datasets: [
-          {
-            data: values,
-            backgroundColor: colors,
-            borderColor: "#fff",
-            borderWidth: 2
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { 
-            position: "bottom",
-            labels: {
-              boxWidth: 12,
-              font: { size: 11 }
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label: (context) => `${context.label}: ${context.parsed.toLocaleString()}`
-            }
-          },
-          title: {
-            display: true,
-            text: countryName === "all" ? "Top Operators" : `Top Operators - ${countryName}`,
-            font: { size: 14 }
-          }
-        }
-      }
-    });
-  } catch (err) {
-    console.error("Failed to load operator pie chart:", err);
-    // Destroy chart if there's an error
-    if (ctx.chartInstance) {
-      ctx.chartInstance.destroy();
-      ctx.chartInstance = null;
-    }
   }
 }
 
