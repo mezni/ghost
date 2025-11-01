@@ -7,8 +7,7 @@ use sqlx::PgPool;
 
 /// Configure the `/analytics` scope
 pub fn config(cfg: &mut web::ServiceConfig) {
-    cfg.service(handle_analytics)
-       .service(test_analytics);
+    cfg.service(handle_analytics).service(test_analytics);
 }
 
 #[post("/analytics")]

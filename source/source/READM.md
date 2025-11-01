@@ -1,3 +1,5 @@
+http://localhost:3000/api/v1/settings/countries
+
 1. Get all countries
 curl -X GET http://localhost:3000/api/v1/countries \
      -H "Accept: application/json"

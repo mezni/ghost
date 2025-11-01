@@ -1,8 +1,8 @@
 use crate::analytics::models::ValidatedMetricsRequest;
 use crate::analytics::repositories::MetricsRepository;
 use crate::core::errors::AppError;
-use sqlx::PgPool;
 use serde_json::json;
+use sqlx::PgPool;
 
 pub struct MetricsService;
 

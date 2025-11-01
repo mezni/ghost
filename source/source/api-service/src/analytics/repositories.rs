@@ -79,7 +79,10 @@ impl MetricsRepository {
     "#;
 
     // Main dispatcher
-    pub async fn get_metrics(pool: &PgPool, req: &ValidatedMetricsRequest) -> Result<serde_json::Value, AppError> {
+    pub async fn get_metrics(
+        pool: &PgPool,
+        req: &ValidatedMetricsRequest,
+    ) -> Result<serde_json::Value, AppError> {
         match req.dimension.to_lowercase().as_str() {
             "global" => Self::get_global_metrics(pool, req).await,
             "country" => Self::get_country_metrics(pool, req).await,
@@ -89,15 +92,29 @@ impl MetricsRepository {
     }
 
     // ------------------- Global -------------------
-    async fn get_global_metrics(pool: &PgPool, req: &ValidatedMetricsRequest) -> Result<serde_json::Value, AppError> {
+    async fn get_global_metrics(
+        pool: &PgPool,
+        req: &ValidatedMetricsRequest,
+    ) -> Result<serde_json::Value, AppError> {
         let direction = get_direction_from_filters(req.filter.as_ref())?;
         let aggregation = &req.aggregation;
         let size = get_size_for_aggregation(aggregation, req.size)?;
 
         let query = match aggregation.as_str() {
-            "latest" => format!("{} AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_global) ORDER BY rd.date_str", Self::GET_GLOBAL_METRICS_QUERY),
-            "history" => format!("{} AND rd.date >= CURRENT_DATE - INTERVAL '{} days' ORDER BY rd.date_str", Self::GET_GLOBAL_METRICS_QUERY, size),
-            _ => return Err(AppError::BadRequest("Aggregation 'latest' or 'history' is required".to_string())),
+            "latest" => format!(
+                "{} AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_global) ORDER BY rd.date_str",
+                Self::GET_GLOBAL_METRICS_QUERY
+            ),
+            "history" => format!(
+                "{} AND rd.date >= CURRENT_DATE - INTERVAL '{} days' ORDER BY rd.date_str",
+                Self::GET_GLOBAL_METRICS_QUERY,
+                size
+            ),
+            _ => {
+                return Err(AppError::BadRequest(
+                    "Aggregation 'latest' or 'history' is required".to_string(),
+                ));
+            }
         };
 
         let rows = sqlx::query(&query)
@@ -117,7 +134,10 @@ impl MetricsRepository {
     }
 
     // ------------------- Country -------------------
-    async fn get_country_metrics(pool: &PgPool, req: &ValidatedMetricsRequest) -> Result<serde_json::Value, AppError> {
+    async fn get_country_metrics(
+        pool: &PgPool,
+        req: &ValidatedMetricsRequest,
+    ) -> Result<serde_json::Value, AppError> {
         let direction = get_direction_from_filters(req.filter.as_ref())?;
         let aggregation = &req.aggregation;
         let size = get_size_for_aggregation(aggregation, req.size)?;
@@ -130,9 +150,14 @@ impl MetricsRepository {
                     query.push_str(" AND UPPER(cc.country_name) = UPPER($2)");
                 }
                 if aggregation == "latest" {
-                    query.push_str(" AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country)");
+                    query.push_str(
+                        " AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country)",
+                    );
                 } else {
-                    query.push_str(&format!(" AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size));
+                    query.push_str(&format!(
+                        " AND rd.date >= CURRENT_DATE - INTERVAL '{} days'",
+                        size
+                    ));
                 }
                 query.push_str(" ORDER BY rd.date_str");
 
@@ -172,20 +197,32 @@ impl MetricsRepository {
                 Ok(json!({ "data": metrics, "status": "success" }))
             }
 
-            _ => Err(AppError::BadRequest("Aggregation 'latest', 'history' or 'top' is required".to_string())),
+            _ => Err(AppError::BadRequest(
+                "Aggregation 'latest', 'history' or 'top' is required".to_string(),
+            )),
         }
     }
 
     // ------------------- Notification -------------------
-    async fn get_notif_metrics(pool: &PgPool, req: &ValidatedMetricsRequest) -> Result<serde_json::Value, AppError> {
+    async fn get_notif_metrics(
+        pool: &PgPool,
+        req: &ValidatedMetricsRequest,
+    ) -> Result<serde_json::Value, AppError> {
         let aggregation = &req.aggregation;
         let query = match aggregation.as_str() {
             "summary" => Self::GET_NOTIF_SUM_METRICS_QUERY,
             "detail" => Self::GET_NOTIF_DET_METRICS_QUERY,
-            _ => return Err(AppError::BadRequest("Aggregation 'summary' or 'detail' is required".to_string())),
+            _ => {
+                return Err(AppError::BadRequest(
+                    "Aggregation 'summary' or 'detail' is required".to_string(),
+                ));
+            }
         };
 
-        let rows = sqlx::query(query).fetch_all(pool).await.map_err(AppError::Sqlx)?;
+        let rows = sqlx::query(query)
+            .fetch_all(pool)
+            .await
+            .map_err(AppError::Sqlx)?;
         let mut metrics = Vec::new();
         for row in rows {
             let date: String = row.try_get("date")?;
@@ -200,14 +237,23 @@ impl MetricsRepository {
 // ------------------- Filter Helpers -------------------
 fn get_direction_from_filters(filters: Option<&Vec<Filter>>) -> Result<String, AppError> {
     if let Some(filters) = filters {
-        let dir = filters.iter()
-            .find_map(|f| if f.key.to_lowercase() == "direction" { Some(f.value.clone()) } else { None })
+        let dir = filters
+            .iter()
+            .find_map(|f| {
+                if f.key.to_lowercase() == "direction" {
+                    Some(f.value.clone())
+                } else {
+                    None
+                }
+            })
             .ok_or(AppError::BadRequest("Direction is required".to_string()))?;
 
         if ["in", "out"].contains(&dir.to_lowercase().as_str()) {
             Ok(dir)
         } else {
-            Err(AppError::BadRequest("Direction must be 'in' or 'out'".to_string()))
+            Err(AppError::BadRequest(
+                "Direction must be 'in' or 'out'".to_string(),
+            ))
         }
     } else {
         Err(AppError::BadRequest("Direction is required".to_string()))
@@ -224,8 +270,15 @@ fn get_size_for_aggregation(aggregation: &str, size: Option<u32>) -> Result<i32,
 
 fn get_country_from_filters(filters: Option<&Vec<Filter>>) -> String {
     if let Some(filters) = filters {
-        filters.iter()
-            .find_map(|f| if f.key.to_lowercase() == "country" { Some(f.value.clone()) } else { None })
+        filters
+            .iter()
+            .find_map(|f| {
+                if f.key.to_lowercase() == "country" {
+                    Some(f.value.clone())
+                } else {
+                    None
+                }
+            })
             .unwrap_or_default()
     } else {
         "".to_string()

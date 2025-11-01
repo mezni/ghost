@@ -68,7 +68,6 @@ impl MetricsRequest {
                 | "notification"
         ) {
             return Err(AppError::BadRequest("Invalid dimension".to_string()));
-            
         }
 
         let aggregation = if let Some(agg) = &self.aggregation {
