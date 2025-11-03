@@ -3,6 +3,10 @@ docker volume rm $(docker volume ls -qf dangling=true)
 
 docker exec -it roamdb-service psql -U myuser -d roamdb
 
+RUST_LOG=debug cargo run
+
+
+python3 -m http.server 8080
 
 curl -X POST http://localhost:3000/api/v1/analytics \
   -H 'Content-Type: application/json' \
@@ -15,6 +19,109 @@ curl -X POST http://localhost:3000/api/v1/analytics \
       {"key": "operator", "value": "Orange"}
     ]
   }'
+
+
+curl -X POST http://localhost:3000/api/v1/analytics \
+  -H "Content-Type: application/json" \
+  -d '{
+    "dimension": "subscriber",
+    "aggregation": "latest",
+    "filter": [
+      {
+        "key": "direction",
+        "value": "OUT"
+      },
+      {
+        "key": "operator",
+        "value": "Orange"
+      },
+      {
+        "key": "country",
+        "value": "France"
+      }
+    ]
+  }'
+
+
+2025-11-02T02:27:41.153237Z  INFO 🔹 Starting API service
+2025-11-02T02:27:41.858539Z  INFO ✅ Database pool initialized
+2025-11-02T02:27:41.859238Z  INFO 🚀 Starting server on http://0.0.0.0:3000
+2025-11-02T02:27:41.860251Z  INFO starting 2 workers
+2025-11-02T02:27:41.861215Z  INFO Actix runtime found; starting in Actix runtime
+2025-11-02T02:27:41.862024Z  INFO starting service: "actix-web-service-0.0.0.0:3000", workers: 2, listening on: 0.0.0.0:3000
+Received metrics request: ValidatedMetricsRequest { dimension: "subscriber", aggregation: "latest", filter: Some([Filter { key: "direction", value: "OUT", operator: None }, Filter { key: "operator", value: "Orange", operator: None }, Filter { key: "country", value: "France", operator: None }]), size: Some(30), period: None }
+Processing subscriber metrics request: ValidatedMetricsRequest { dimension: "subscriber", aggregation: "latest", filter: Some([Filter { key: "direction", value: "OUT", operator: None }, Filter { key: "operator", value: "Orange", operator: None }, Filter { key: "country", value: "France", operator: None }]), size: Some(30), period: None }
+Executing subscriber query: 
+SELECT 
+    date_str AS date, 
+    imsi AS imsi,
+    msisdn AS msisdn,
+    value
+FROM (
+    SELECT 
+        rd.date_str, 
+        cs.imsi,
+        cs.msisdn,
+        fct.value,
+        ROW_NUMBER() OVER (PARTITION BY fct.date_id, fct.subscriber_id ORDER BY fct.batch_id DESC) as rn
+    FROM 
+        trx_metrics_subscriber fct
+    JOIN 
+        ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+    JOIN 
+        ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+    JOIN 
+        ref_dates rd ON rd.date_id = fct.date_id
+    JOIN 
+        cfg_subscribers cs ON cs.subscriber_id = fct.subscriber_id
+    JOIN 
+        cfg_operators co ON co.operator_id = fct.operator_id
+    JOIN 
+        cfg_countries cc ON cc.country_id = fct.country_id
+    WHERE 
+        UPPER(rrd.direction) = UPPER('OUT')
+         AND UPPER(cc.country_name) = UPPER('France') AND UPPER(co.operator_name) = UPPER('Orange') AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_subscriber)
+) t
+WHERE rn = 1
+ORDER BY 
+    date_str;
+
+SELECT 
+    date_str AS date, 
+    cs.imsi AS imsi,
+    cs.msisdn AS msisdn,
+    value
+FROM (
+    SELECT 
+        rd.date_str, 
+        cs.imsi,
+        cs.msisdn,
+        fct.value,
+        ROW_NUMBER() OVER (PARTITION BY fct.date_id, fct.subscriber_id ORDER BY fct.batch_id DESC) as rn
+    FROM 
+        trx_metrics_subscriber fct
+    JOIN 
+        ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+    JOIN 
+        ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+    JOIN 
+        ref_dates rd ON rd.date_id = fct.date_id
+    JOIN 
+        cfg_subscribers cs ON cs.subscriber_id = fct.subscriber_id
+    WHERE 
+        UPPER(rrd.direction) = UPPER('OUT')
+         AND UPPER(cc.country_name) = UPPER('France')
+         AND UPPER(co.operator_name) = UPPER('Orange')
+         AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_subscriber)
+) t
+WHERE rn = 1
+ORDER BY 
+    date_str;
+
+
+UPDATE trx_perf_out
+SET is_outside_tolerance = NULL
+WHERE is_outside_tolerance IS FALSE;  
 
 
 SELECT 

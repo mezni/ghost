@@ -101,7 +101,8 @@ VALUES
     ('imsi_is_not_local', 'IMSI non local'),
     ('local_vlr_number', 'vlr_number Local'),
     ('sor_plan_bar', 'Barring operator'),
-    ('sor_plan_deviation', 'Deviation SoR');
+    ('sor_plan_deviation', 'Deviation SoR'),
+    ('baring_operator', 'Baring Operator');
 
 INSERT INTO ref_metric_definitions (metric_type_id, roam_direction_id, name, description)
 VALUES 
@@ -236,7 +237,8 @@ CREATE TABLE cfg_subscribers (
     msisdn VARCHAR(100) NOT NULL,
     roam_direction_id INTEGER NOT NULL REFERENCES ref_roam_directions(roam_direction_id),
     first_seen TIMESTAMP,
-    last_seen TIMESTAMP    
+    last_seen TIMESTAMP,
+    CONSTRAINT unique_imsi UNIQUE (imsi)    
 );
 
 
@@ -326,9 +328,10 @@ CREATE TABLE IF NOT EXISTS trx_perf_out (
     operator_id INTEGER REFERENCES cfg_operators(operator_id),
     country_count BIGINT,
     operator_count BIGINT,
-    target_percentage BIGINT,
-    actual_percentage BIGINT,
-    is_outside_tolerance BOOLEAN  
+    target_percentage DECIMAL(10, 2),
+    actual_percentage DECIMAL(10, 2),
+    is_outside_tolerance BOOLEAN DEFAULT FALSE,
+    is_barring BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS trx_notifications (
@@ -337,8 +340,19 @@ CREATE TABLE IF NOT EXISTS trx_notifications (
     date_id INTEGER NOT NULL REFERENCES ref_dates(date_id),
     rule_id INTEGER NOT NULL REFERENCES ref_rules(rule_id),
     ref_id INT,
-    message VARCHAR(255) NULL
+    message TEXT NULL
 );
+
+
+CREATE TABLE IF NOT EXISTS trx_alerts (
+    alert_id SERIAL PRIMARY KEY,
+    batch_id INTEGER NOT NULL REFERENCES batch_execs(batch_id), 
+    date_id INTEGER NOT NULL REFERENCES ref_dates(date_id),
+    rule_id INTEGER NOT NULL REFERENCES ref_rules(rule_id),
+    ref_id INT,
+    message TEXT NULL
+);
+
 
 -------------------------------------------
 -- STAGING 
@@ -365,7 +379,91 @@ CREATE TABLE IF NOT EXISTS stg_roam_in (
     operator_id INT
 );
 
+-------------------------------------------
+-- USERS
+-------------------------------------------
+-- Enhanced users table with roles
+CREATE TYPE user_role AS ENUM ('super_admin', 'admin', 'operator', 'viewer');
 
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role user_role DEFAULT 'viewer',
+    is_active BOOLEAN DEFAULT true,
+    permissions JSONB DEFAULT '[]',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create user_permissions table for fine-grained permissions
+CREATE TABLE user_permissions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    permission_key VARCHAR(100) NOT NULL,
+    granted BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, permission_key)
+);
+
+CREATE INDEX idx_users_username_lower_active ON users (LOWER(username), is_active);
+CREATE INDEX idx_users_email_lower ON users (LOWER(email));
+CREATE INDEX idx_user_permissions_user_granted ON user_permissions (user_id, granted);
+CREATE INDEX idx_users_id_active ON users (id, is_active);
+
+-- Insert default users with different roles
+INSERT INTO users (username, email, password_hash, role) VALUES 
+    ('superadmin', 'superadmin@roamadmin.com', '$2b$12$1MNfH3KR0knWJBQk.YZ5MeXANUmvzGvj52j2RkroK8s/Tu2Dns7VG', 'super_admin'), -- password: superadmin123
+    ('admin', 'admin@roamadmin.com', '$2b$12$PxvAb1.BKewkD5lgGThncueBC8V33Y7NWnTkFUHWtgHp47a7cClO.', 'admin'), -- password: admin123
+    ('operator1', 'operator1@roamadmin.com', '$2b$12$u5P2fCYeHvzCE0AE2Y5AIePKQiS7aSpjF87s1sjVPAHeRwjGbeOmu', 'operator'), -- password: operator123
+    ('viewer1', 'viewer1@roamadmin.com', '$2b$12$QJUTmtIm9Ur/p5HoNoTDfuH1QvpbBWfCVhgGlZtcw9xtYUOT1fDCC', 'viewer'); -- password: viewer123
+
+-- Insert permissions for different roles
+INSERT INTO user_permissions (user_id, permission_key) 
+SELECT id, unnest(ARRAY[
+    'dashboard:read',
+    'roamin:read',
+    'roamout:read',
+    'sorperformance:read'
+]) FROM users WHERE role = 'viewer';
+
+INSERT INTO user_permissions (user_id, permission_key) 
+SELECT id, unnest(ARRAY[
+    'dashboard:read',
+    'roamin:read', 'roamin:write',
+    'roamout:read', 'roamout:write', 
+    'sorperformance:read', 'sorperformance:write',
+    'countries:read',
+    'operators:read'
+]) FROM users WHERE role = 'operator';
+
+INSERT INTO user_permissions (user_id, permission_key) 
+SELECT id, unnest(ARRAY[
+    'dashboard:read',
+    'roamin:read', 'roamin:write', 'roamin:delete',
+    'roamout:read', 'roamout:write', 'roamout:delete',
+    'sorperformance:read', 'sorperformance:write', 'sorperformance:delete',
+    'countries:read', 'countries:write', 'countries:delete',
+    'operators:read', 'operators:write', 'operators:delete',
+    'sorplans:read', 'sorplans:write', 'sorplans:delete',
+    'prefixes:read', 'prefixes:write', 'prefixes:delete',
+    'users:read', 'users:write'
+]) FROM users WHERE role = 'admin';
+
+INSERT INTO user_permissions (user_id, permission_key) 
+SELECT id, unnest(ARRAY[
+    'dashboard:read',
+    'roamin:read', 'roamin:write', 'roamin:delete',
+    'roamout:read', 'roamout:write', 'roamout:delete',
+    'sorperformance:read', 'sorperformance:write', 'sorperformance:delete',
+    'countries:read', 'countries:write', 'countries:delete',
+    'operators:read', 'operators:write', 'operators:delete',
+    'sorplans:read', 'sorplans:write', 'sorplans:delete',
+    'prefixes:read', 'prefixes:write', 'prefixes:delete',
+    'users:read', 'users:write', 'users:delete',
+    'system:admin'
+]) FROM users WHERE role = 'super_admin';
 -------------------------------------------
 -- VIEWS
 -------------------------------------------
@@ -464,6 +562,7 @@ CREATE TABLE IF NOT EXISTS ldr_sor_plan (
     operator TEXT,
     rate TEXT,
     routage TEXT,
+    baring TEXT,
     created_by TEXT DEFAULT 'system'
 );
 
@@ -480,7 +579,7 @@ COPY ldr_prefixes (country,operator,cc,ndc,prefix)
 FROM '/prefixes.csv'
 DELIMITER ',' CSV HEADER;
 
-COPY ldr_sor_plan (country, operator, rate, routage)
+COPY ldr_sor_plan (country, operator, rate, routage, baring)
 FROM '/sor_plan.csv'
 DELIMITER ',' CSV HEADER;
 
@@ -562,18 +661,20 @@ WHERE prefix IN (
     WHERE t.rn > 1
 );
 
-INSERT INTO cfg_sor_plan (operator_id, rate, created_by, routage_type_id)
+INSERT INTO cfg_sor_plan (operator_id, rate, barring, created_by, routage_type_id)
 SELECT 
   o.operator_id, 
   ldr.rate, 
-  ldr.created_by, 
-  1
+  CASE WHEN ldr.baring = 'X' THEN TRUE ELSE FALSE END AS barring,
+  ldr.created_by,
+  r.routage_type_id
 FROM 
   ldr_sor_plan ldr
+  JOIN cfg_countries c ON upper(ldr.country) = upper(c.country_name)
   JOIN cfg_operators o ON upper(ldr.operator) = upper(o.operator_name)
-  JOIN cfg_countries c ON c.country_id = o.country_id
+  LEFT JOIN ref_routage_types r ON upper(ldr.routage) = upper(r.routage_type_name)
 WHERE 
-  upper(ldr.country) = upper(c.country_name);
+  c.country_id = o.country_id;
 
 DROP TABLE ldr_countries;
 DROP TABLE ldr_operators;

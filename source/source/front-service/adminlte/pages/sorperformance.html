@@ -1,0 +1,222 @@
+<div class="container-fluid">
+  <!-- Blacklist Report Card -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5 class="card-title">Blacklist Report</h5>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+              <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+              <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+            </button>
+            <div class="btn-group">
+              <button type="button" class="btn btn-tool dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="bi bi-wrench"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end" role="menu">
+                <a href="#" class="dropdown-item">Action</a>
+                <a href="#" class="dropdown-item">Another action</a>
+                <a href="#" class="dropdown-item">Something else here</a>
+                <a class="dropdown-divider"></a>
+                <a href="#" class="dropdown-item">Separated link</a>
+              </div>
+            </div>
+            <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <!--begin::Row-->
+          <div class="row">
+            <div class="col-md-8">
+              <p class="text-center">
+                <strong>Total roamers with Blacklisted operators</strong>
+              </p>
+              <div id="sales-chart" style="min-height: 195px;">
+                <div class="d-flex align-items-center justify-content-center h-100 bg-light rounded">
+                  <p class="text-muted mb-0">Loading chart data...</p>
+                </div>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-md-4">
+              <p class="text-center">
+                <strong>Top 5 Highest Variance</strong>
+              </p>
+              <div id="goal-completion-container">
+                <!-- Progress groups will be populated dynamically by JavaScript -->
+                <div class="progress-group">
+                  <span class="progress-text">Loading data...</span>
+                  <span class="float-end"><b>0</b>/0</span>
+                  <div class="progress progress-sm">
+                    <div class="progress-bar text-bg-secondary" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!--end::Row-->
+        </div>
+        <!-- ./card-body -->
+        <div class="card-footer">
+          <!--begin::Row-->
+          <div class="row">
+            <div class="col-md-3 col-6">
+              <div class="text-center border-end">
+                <span class="text-success">
+                  <i class="bi bi-caret-up-fill"></i> 17%
+                </span>
+                <h5 class="fw-bold mb-0" id="totalOperators">0</h5>
+                <span class="text-uppercase">TOTAL OPERATORS</span>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="text-center border-end">
+                <span class="text-info"> <i class="bi bi-caret-left-fill"></i> 0% </span>
+                <h5 class="fw-bold mb-0" id="blacklistedOperators">0</h5>
+                <span class="text-uppercase">BLACKLISTED</span>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="text-center border-end">
+                <span class="text-success">
+                  <i class="bi bi-caret-up-fill"></i> 20%
+                </span>
+                <h5 class="fw-bold mb-0" id="affectedCountries">0</h5>
+                <span class="text-uppercase">AFFECTED COUNTRIES</span>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="text-center">
+                <span class="text-danger">
+                  <i class="bi bi-caret-down-fill"></i> 18%
+                </span>
+                <h5 class="fw-bold mb-0" id="totalRoamers">0</h5>
+                <span class="text-uppercase">TOTAL ROAMERS</span>
+              </div>
+            </div>
+          </div>
+          <!--end::Row-->
+        </div>
+        <!-- /.card-footer -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+
+  <!-- Rest of your existing HTML remains the same -->
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <button class="btn btn-success" id="refreshSorDataBtn">
+        <i class="fas fa-sync-alt"></i> Refresh Data
+      </button>
+      <button class="btn btn-info" id="exportSorDataBtn">
+        <i class="fas fa-download"></i> Export
+      </button>
+    </div>
+    <input type="text" id="sorSearch" class="form-control w-25" placeholder="Search by country or operator...">
+  </div>
+
+  <!-- SoR Performance Table -->
+  <table id="sorPerformanceTable" class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Country</th>
+        <th>Operator</th>
+        <th>Target %</th>
+        <th>Actual %</th>
+        <th>Variance</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between align-items-center">
+    <button class="btn btn-outline-secondary" id="prevPageBtnSor">Previous</button>
+    <span id="paginationInfoSor"></span>
+    <button class="btn btn-outline-secondary" id="nextPageBtnSor">Next</button>
+  </div>
+
+  <!-- SOR Plan Management Section -->
+  <div class="d-flex justify-content-between mb-3 mt-4">
+    <button class="btn btn-success" id="addSorPlanBtn">
+      <i class="fas fa-plus"></i> Add SOR Plan
+    </button>
+    <input type="text" id="sorPlanSearch" class="form-control w-25" placeholder="Search SOR plans...">
+  </div>
+
+  <table id="sorPlanTable" class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Country Name</th>
+        <th>Operator Name</th>
+        <th>Routage Type</th>
+        <th>Barring</th>
+        <th>Rate</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="d-flex justify-content-between align-items-center">
+    <button class="btn btn-outline-secondary" id="prevPageBtnSP">Previous</button>
+    <span id="paginationInfoSP"></span>
+    <button class="btn btn-outline-secondary" id="nextPageBtnSP">Next</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="sorPlanModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="sorPlanModalLabel" class="modal-title">Add SOR Plan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="sorPlanForm">
+            <input type="hidden" id="sorPlanId">
+            <div class="mb-3">
+              <label for="sorPlanOperator" class="form-label">Operator Name</label>
+              <select id="sorPlanOperator" class="form-control" required>
+                <option value="">Select an operator</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="sorPlanRoutage" class="form-label">Routage Type</label>
+              <select id="sorPlanRoutage" class="form-control" required>
+                <option value="">Select a routage type</option>
+              </select>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" id="sorPlanBarring" class="form-check-input">
+              <label class="form-check-label" for="sorPlanBarring">Barring</label>
+            </div>
+            <div class="mb-3">
+              <label for="sorPlanRate" class="form-label">Rate</label>
+              <input type="text" id="sorPlanRate" class="form-control" required>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" id="sorPlanCurrent" class="form-check-input">
+              <label class="form-check-label" for="sorPlanCurrent">Is Current</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="saveSorPlanBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

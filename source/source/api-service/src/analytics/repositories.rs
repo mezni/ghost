@@ -95,6 +95,42 @@ ORDER BY
     date_str
     "#;
 
+    const GET_SUBSCRIBER_METRICS_QUERY: &str = r#"
+SELECT 
+    date_str AS date, 
+    imsi AS imsi,
+    msisdn AS msisdn,
+    value
+FROM (
+    SELECT 
+        rd.date_str, 
+        cs.imsi,
+        cs.msisdn,
+        fct.value,
+        ROW_NUMBER() OVER (PARTITION BY fct.date_id, fct.subscriber_id ORDER BY fct.batch_id DESC) as rn
+    FROM 
+        trx_metrics_subscriber fct
+    JOIN 
+        ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+    JOIN 
+        ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+    JOIN 
+        ref_dates rd ON rd.date_id = fct.date_id
+    JOIN 
+        cfg_subscribers cs ON cs.subscriber_id = fct.subscriber_id
+    JOIN 
+        cfg_operators co ON co.operator_id = fct.operator_id
+    JOIN 
+        cfg_countries cc ON cc.country_id = fct.country_id
+    WHERE 
+        UPPER(rrd.direction) = UPPER($1)
+        -- SUBSCRIBER_FILTER_PLACEHOLDER -- -- COUNTRY_FILTER_PLACEHOLDER -- -- OPERATOR_FILTER_PLACEHOLDER -- -- DATE_FILTER_PLACEHOLDER --
+) t
+WHERE rn = 1
+ORDER BY 
+    date_str
+    "#;
+
     const GET_COUNTRY_METRICS_TOP_QUERY: &str = r#"
 SELECT date, country, SUM(value)::bigint AS value
 FROM (
@@ -166,7 +202,48 @@ ORDER BY value DESC
 LIMIT $2
     "#;
 
-const GET_SOR_PERFORMANCE_QUERY: &str = r#"
+    const GET_SUBSCRIBER_METRICS_TOP_QUERY: &str = r#"
+SELECT date, imsi, msisdn, value
+FROM (
+    SELECT 
+        date_str AS date,
+        imsi AS imsi,
+        msisdn AS msisdn,
+        value
+    FROM (
+        SELECT 
+            rd.date_str, 
+            cs.imsi,
+            cs.msisdn,
+            fct.value,
+            ROW_NUMBER() OVER (PARTITION BY fct.date_id, fct.subscriber_id ORDER BY fct.batch_id DESC) as rn
+        FROM 
+            trx_metrics_subscriber fct
+        JOIN 
+            ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+        JOIN 
+            ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+        JOIN 
+            ref_dates rd ON rd.date_id = fct.date_id
+        JOIN 
+            cfg_subscribers cs ON cs.subscriber_id = fct.subscriber_id
+        JOIN 
+            cfg_operators co ON co.operator_id = fct.operator_id
+        JOIN 
+            cfg_countries cc ON cc.country_id = fct.country_id
+        WHERE 
+            UPPER(rrd.direction) = UPPER($1)
+            AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_subscriber)
+            -- COUNTRY_FILTER_PLACEHOLDER --
+            -- OPERATOR_FILTER_PLACEHOLDER --
+    ) t
+    WHERE rn = 1
+) ranked
+ORDER BY value DESC
+LIMIT $2
+    "#;
+
+    const GET_SOR_PERFORMANCE_BASIC_QUERY: &str = r#"
 SELECT 
     tpo.perf_id,
     tpo.batch_id,
@@ -175,9 +252,10 @@ SELECT
     co.operator_name AS operator,
     tpo.country_count::INT AS country_count,
     tpo.operator_count::INT AS operator_count,
-    COALESCE(tpo.target_percentage, 0) AS target_percentage,
-    COALESCE(tpo.actual_percentage, 0) AS actual_percentage,
-    COALESCE(tpo.is_outside_tolerance, false) AS is_outside_tolerance
+    COALESCE(tpo.target_percentage::FLOAT8, 0) AS target_percentage,
+    COALESCE(tpo.actual_percentage::FLOAT8, 0) AS actual_percentage,
+    COALESCE(tpo.is_outside_tolerance, false) AS is_outside_tolerance,
+    COALESCE(tpo.is_barring, false) AS is_barring
 FROM 
     trx_perf_out tpo
 JOIN 
@@ -193,6 +271,98 @@ WHERE
     -- DATE_FILTER_PLACEHOLDER --
     -- COUNTRY_FILTER_PLACEHOLDER --
     -- OPERATOR_FILTER_PLACEHOLDER --
+    -- OUTSIDE_TOLERANCE_FILTER_PLACEHOLDER --
+    -- BARRING_FILTER_PLACEHOLDER --
+ORDER BY 
+    rd.date_str DESC
+    "#;
+
+    const GET_SOR_PERFORMANCE_DETAIL_QUERY: &str = r#"
+SELECT 
+    tpo.perf_id,
+    tpo.batch_id,
+    rd.date_str AS date,
+    cc.country_name AS country,
+    co.operator_name AS operator,
+    tpo.country_count::INT AS country_count,
+    tpo.operator_count::INT AS operator_count,
+    COALESCE(tpo.target_percentage::FLOAT8, 0) AS target_percentage,
+    COALESCE(tpo.actual_percentage::FLOAT8, 0) AS actual_percentage,
+    COALESCE(tpo.is_outside_tolerance, false) AS is_outside_tolerance,
+    COALESCE(tpo.is_barring, false) AS is_barring,
+    -- Additional calculated fields for detailed analysis
+    ROUND((tpo.operator_count::NUMERIC / NULLIF(tpo.country_count::NUMERIC, 0)) * 100, 2) AS calculated_percentage,
+    ABS(COALESCE(tpo.target_percentage::FLOAT8, 0) - COALESCE(tpo.actual_percentage::FLOAT8, 0)) AS percentage_deviation,
+    CASE 
+        WHEN tpo.country_count > 0 THEN 
+            ROUND((tpo.operator_count::NUMERIC / tpo.country_count::NUMERIC) * 100, 2)
+        ELSE 0 
+    END AS actual_distribution,
+    -- Performance classification
+    CASE 
+        WHEN COALESCE(tpo.is_barring, false) THEN 'BARRED'
+        WHEN COALESCE(tpo.is_outside_tolerance, false) THEN 'DEVIATION'
+        ELSE 'NORMAL'
+    END AS performance_status,
+    -- Risk level assessment
+    CASE 
+        WHEN COALESCE(tpo.is_barring, false) THEN 'CRITICAL'
+        WHEN ABS(COALESCE(tpo.target_percentage::FLOAT8, 0) - COALESCE(tpo.actual_percentage::FLOAT8, 0)) > 20 THEN 'HIGH'
+        WHEN ABS(COALESCE(tpo.target_percentage::FLOAT8, 0) - COALESCE(tpo.actual_percentage::FLOAT8, 0)) > 10 THEN 'MEDIUM'
+        ELSE 'LOW'
+    END AS risk_level
+FROM 
+    trx_perf_out tpo
+JOIN 
+    batch_execs be ON tpo.batch_id = be.batch_id
+JOIN 
+    ref_dates rd ON tpo.date_id = rd.date_id
+LEFT JOIN 
+    cfg_countries cc ON tpo.country_id = cc.country_id
+LEFT JOIN 
+    cfg_operators co ON tpo.operator_id = co.operator_id
+WHERE 
+    1=1
+    -- DATE_FILTER_PLACEHOLDER --
+    -- COUNTRY_FILTER_PLACEHOLDER --
+    -- OPERATOR_FILTER_PLACEHOLDER --
+    -- OUTSIDE_TOLERANCE_FILTER_PLACEHOLDER --
+    -- BARRING_FILTER_PLACEHOLDER --
+ORDER BY 
+    rd.date_str DESC, cc.country_name, co.operator_name
+    "#;
+
+    const GET_SOR_PERFORMANCE_SUMMARY_QUERY: &str = r#"
+SELECT 
+    rd.date_str AS date,
+    COUNT(*) AS total_records,
+    COUNT(CASE WHEN tpo.is_outside_tolerance THEN 1 END) AS outside_tolerance_count,
+    COUNT(CASE WHEN tpo.is_barring THEN 1 END) AS barring_count,
+    COUNT(CASE WHEN NOT tpo.is_outside_tolerance AND NOT tpo.is_barring THEN 1 END) AS normal_count,
+    ROUND(AVG(COALESCE(tpo.actual_percentage, 0))::NUMERIC, 2) AS avg_actual_percentage,
+    ROUND(AVG(COALESCE(tpo.target_percentage, 0))::NUMERIC, 2) AS avg_target_percentage,
+    ROUND(AVG(ABS(COALESCE(tpo.actual_percentage, 0) - COALESCE(tpo.target_percentage, 0)))::NUMERIC, 2) AS avg_deviation,
+    -- Top deviations
+    MAX(ABS(COALESCE(tpo.actual_percentage, 0) - COALESCE(tpo.target_percentage, 0))) AS max_deviation
+FROM 
+    trx_perf_out tpo
+JOIN 
+    batch_execs be ON tpo.batch_id = be.batch_id
+JOIN 
+    ref_dates rd ON tpo.date_id = rd.date_id
+LEFT JOIN 
+    cfg_countries cc ON tpo.country_id = cc.country_id
+LEFT JOIN 
+    cfg_operators co ON tpo.operator_id = co.operator_id
+WHERE 
+    1=1
+    -- DATE_FILTER_PLACEHOLDER --
+    -- COUNTRY_FILTER_PLACEHOLDER --
+    -- OPERATOR_FILTER_PLACEHOLDER --
+    -- OUTSIDE_TOLERANCE_FILTER_PLACEHOLDER --
+    -- BARRING_FILTER_PLACEHOLDER --
+GROUP BY 
+    rd.date_str
 ORDER BY 
     rd.date_str DESC
     "#;
@@ -212,6 +382,21 @@ ORDER BY
         GROUP BY rd.date_str
     "#;
 
+    const GET_ALERT_DET_METRICS_QUERY: &str = r#"
+        SELECT rd.date_str AS date, fct.message AS value
+        FROM trx_alerts fct
+        JOIN ref_dates rd ON rd.date_id = fct.date_id
+        WHERE fct.date_id = (SELECT MAX(date_id) FROM trx_alerts)
+    "#;
+
+    const GET_ALERT_SUM_METRICS_QUERY: &str = r#"
+        SELECT rd.date_str AS date, COUNT(*)::text AS value
+        FROM trx_alerts fct
+        JOIN ref_dates rd ON rd.date_id = fct.date_id
+        WHERE fct.date_id = (SELECT MAX(date_id) FROM trx_alerts)
+        GROUP BY rd.date_str
+    "#;
+
     // Main dispatcher
     pub async fn get_metrics(
         pool: &PgPool,
@@ -219,13 +404,15 @@ ORDER BY
     ) -> Result<serde_json::Value, AppError> {
         // Debug: Print the incoming request
         println!("Received metrics request: {:?}", req);
-        
+
         match req.dimension.to_lowercase().as_str() {
             "global" => Self::get_global_metrics(pool, req).await,
             "country" => Self::get_country_metrics(pool, req).await,
             "operator" => Self::get_operator_metrics(pool, req).await,
+            "subscriber" => Self::get_subscriber_metrics(pool, req).await,
             "sor_performance" => Self::get_sor_performance_metrics(pool, req).await,
             "notification" => Self::get_notif_metrics(pool, req).await,
+            "alerts" => Self::get_alert_metrics(pool, req).await,
             _ => Err(AppError::BadRequest("Invalid dimension".to_string())),
         }
     }
@@ -236,7 +423,7 @@ ORDER BY
         req: &ValidatedMetricsRequest,
     ) -> Result<serde_json::Value, AppError> {
         println!("Processing global metrics request: {:?}", req);
-        
+
         let direction = get_direction_from_filters(req.filter.as_ref())?;
         let aggregation = &req.aggregation;
         let size = get_size_for_aggregation(aggregation, req.size)?;
@@ -251,7 +438,8 @@ ORDER BY
             }
         };
 
-        let query = Self::GET_GLOBAL_METRICS_QUERY.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
+        let query =
+            Self::GET_GLOBAL_METRICS_QUERY.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
         println!("Executing global query: {}", query);
 
         let rows = sqlx::query(&query)
@@ -277,7 +465,7 @@ ORDER BY
         req: &ValidatedMetricsRequest,
     ) -> Result<serde_json::Value, AppError> {
         println!("Processing country metrics request: {:?}", req);
-        
+
         let direction = get_direction_from_filters(req.filter.as_ref())?;
         let aggregation = &req.aggregation;
         let size = get_size_for_aggregation(aggregation, req.size)?;
@@ -298,7 +486,9 @@ ORDER BY
                 // Replace date filter placeholder
                 let date_filter = match aggregation.as_str() {
                     "latest" => " AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_country)",
-                    "history" => &format!(" AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size),
+                    "history" => {
+                        &format!(" AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size)
+                    }
                     _ => unreachable!(),
                 };
                 query = query.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
@@ -356,7 +546,7 @@ ORDER BY
         req: &ValidatedMetricsRequest,
     ) -> Result<serde_json::Value, AppError> {
         println!("Processing operator metrics request: {:?}", req);
-        
+
         let direction = get_direction_from_filters(req.filter.as_ref())?;
         let aggregation = &req.aggregation;
         let size = get_size_for_aggregation(aggregation, req.size)?;
@@ -385,8 +575,12 @@ ORDER BY
 
                 // Replace date filter placeholder
                 let date_filter = match aggregation.as_str() {
-                    "latest" => " AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_operator)",
-                    "history" => &format!(" AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size),
+                    "latest" => {
+                        " AND fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_operator)"
+                    }
+                    "history" => {
+                        &format!(" AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size)
+                    }
                     _ => unreachable!(),
                 };
                 query = query.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
@@ -424,7 +618,7 @@ ORDER BY
 
             "top" => {
                 println!("Executing operator top query with size: {}", size);
-                
+
                 let mut query = Self::GET_OPERATOR_METRICS_TOP_QUERY.to_string();
 
                 // Replace country filter placeholder for top query
@@ -461,105 +655,578 @@ ORDER BY
         }
     }
 
-// ------------------- SoR Performance -------------------
-async fn get_sor_performance_metrics(
-    pool: &PgPool,
-    req: &ValidatedMetricsRequest,
-) -> Result<serde_json::Value, AppError> {
-    println!("Processing SoR performance metrics request: {:?}", req);
-    
-    let aggregation = &req.aggregation;
-    let size = get_size_for_aggregation(aggregation, req.size)?;
-    let country = get_country_from_filters(req.filter.as_ref());
-    let operator = get_operator_from_filters(req.filter.as_ref());
+    // ------------------- Subscriber -------------------
+    async fn get_subscriber_metrics(
+        pool: &PgPool,
+        req: &ValidatedMetricsRequest,
+    ) -> Result<serde_json::Value, AppError> {
+        println!("Processing subscriber metrics request: {:?}", req);
 
-    let mut query = Self::GET_SOR_PERFORMANCE_QUERY.to_string();
+        let direction = get_direction_from_filters(req.filter.as_ref())?;
+        let aggregation = &req.aggregation;
+        let size = get_size_for_aggregation(aggregation, req.size)?;
+        let subscriber = get_subscriber_from_filters(req.filter.as_ref());
+        let country = get_country_from_filters(req.filter.as_ref());
+        let operator = get_operator_from_filters(req.filter.as_ref());
 
-    // Replace date filter placeholder
-    let date_filter = match aggregation.as_str() {
-        "latest" => "AND tpo.date_id = (SELECT MAX(date_id) FROM trx_perf_out)",
-        "history" => &format!("AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size),
-        _ => {
-            return Err(AppError::BadRequest(
-                "Aggregation 'latest' or 'history' is required".to_string(),
-            ));
+        match aggregation.as_str() {
+            "latest" | "history" => {
+                // Build WHERE clause dynamically based on which filters are present
+                let mut where_parts = Vec::new();
+                let mut params: Vec<String> = Vec::new();
+
+                // Always add direction as first parameter
+                params.push(direction.clone());
+                where_parts.push("UPPER(rrd.direction) = UPPER($1)".to_string());
+
+                // Track parameter index
+                let mut param_index = 2;
+
+                // Add subscriber filter if present
+                if !subscriber.is_empty() {
+                    where_parts.push(format!("UPPER(cs.imsi) = UPPER(${})", param_index));
+                    params.push(subscriber.clone());
+                    param_index += 1;
+                }
+
+                // Add country filter if present
+                if !country.is_empty() {
+                    where_parts.push(format!("UPPER(cc.country_name) = UPPER(${})", param_index));
+                    params.push(country.clone());
+                    param_index += 1;
+                }
+
+                // Add operator filter if present
+                if !operator.is_empty() {
+                    where_parts.push(format!("UPPER(co.operator_name) = UPPER(${})", param_index));
+                    params.push(operator.clone());
+                    param_index += 1;
+                }
+
+                // Add date filter (no parameter needed for this one)
+                let date_filter = match aggregation.as_str() {
+                    "latest" => "fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_subscriber)"
+                        .to_string(),
+                    "history" => format!("rd.date >= CURRENT_DATE - INTERVAL '{} days'", size),
+                    _ => unreachable!(),
+                };
+                where_parts.push(date_filter);
+
+                let where_clause = where_parts.join(" AND ");
+
+                // Build the complete query
+                let query = format!(
+                    r#"
+SELECT 
+    date_str AS date, 
+    imsi AS imsi,
+    msisdn AS msisdn,
+    value
+FROM (
+    SELECT 
+        rd.date_str, 
+        cs.imsi,
+        cs.msisdn,
+        fct.value,
+        ROW_NUMBER() OVER (PARTITION BY fct.date_id, fct.subscriber_id ORDER BY fct.batch_id DESC) as rn
+    FROM 
+        trx_metrics_subscriber fct
+    JOIN 
+        ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+    JOIN 
+        ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+    JOIN 
+        ref_dates rd ON rd.date_id = fct.date_id
+    JOIN 
+        cfg_subscribers cs ON cs.subscriber_id = fct.subscriber_id
+    JOIN 
+        cfg_operators co ON co.operator_id = fct.operator_id
+    JOIN 
+        cfg_countries cc ON cc.country_id = fct.country_id
+    WHERE 
+        {}
+) t
+WHERE rn = 1
+ORDER BY 
+    date_str
+                "#,
+                    where_clause
+                );
+
+                println!("Executing subscriber query: {}", query);
+                println!("Parameters: {:?}", params);
+
+                let mut q = sqlx::query(&query);
+                for param in params {
+                    q = q.bind(param);
+                }
+
+                let rows = q.fetch_all(pool).await.map_err(AppError::Sqlx)?;
+                let mut metrics = Vec::new();
+                for row in rows {
+                    let date: String = row.try_get("date")?;
+                    let imsi: String = row.try_get("imsi")?;
+                    let msisdn: String = row.try_get("msisdn")?;
+                    let value: i64 = row.try_get("value")?;
+                    metrics.push(json!({
+                        "date": date,
+                        "imsi": imsi,
+                        "msisdn": msisdn,
+                        "value": value
+                    }));
+                }
+
+                println!("Subscriber metrics result: {} records", metrics.len());
+                Ok(json!({ "data": metrics, "status": "success" }))
+            }
+
+            "top" => {
+                println!("Executing subscriber top query with size: {}", size);
+
+                // Build WHERE clause dynamically for top query
+                let mut where_parts = Vec::new();
+                let mut params: Vec<String> = Vec::new();
+
+                // Always add direction as first parameter
+                params.push(direction.clone());
+                where_parts.push("UPPER(rrd.direction) = UPPER($1)".to_string());
+                where_parts.push(
+                    "fct.date_id = (SELECT MAX(date_id) FROM trx_metrics_subscriber)".to_string(),
+                );
+
+                // Track parameter index
+                let mut param_index = 2;
+
+                // Add country filter if present
+                if !country.is_empty() {
+                    where_parts.push(format!("UPPER(cc.country_name) = UPPER(${})", param_index));
+                    params.push(country.clone());
+                    param_index += 1;
+                }
+
+                // Add operator filter if present
+                if !operator.is_empty() {
+                    where_parts.push(format!("UPPER(co.operator_name) = UPPER(${})", param_index));
+                    params.push(operator.clone());
+                }
+
+                let where_clause = where_parts.join(" AND ");
+
+                // Build the complete top query
+                let query = format!(
+                    r#"
+SELECT date, imsi, msisdn, value
+FROM (
+    SELECT 
+        date_str AS date,
+        imsi AS imsi,
+        msisdn AS msisdn,
+        value
+    FROM (
+        SELECT 
+            rd.date_str, 
+            cs.imsi,
+            cs.msisdn,
+            fct.value,
+            ROW_NUMBER() OVER (PARTITION BY fct.date_id, fct.subscriber_id ORDER BY fct.batch_id DESC) as rn
+        FROM 
+            trx_metrics_subscriber fct
+        JOIN 
+            ref_metric_definitions rmd ON rmd.metric_definition_id = fct.metric_definition_id
+        JOIN 
+            ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+        JOIN 
+            ref_dates rd ON rd.date_id = fct.date_id
+        JOIN 
+            cfg_subscribers cs ON cs.subscriber_id = fct.subscriber_id
+        JOIN 
+            cfg_operators co ON co.operator_id = fct.operator_id
+        JOIN 
+            cfg_countries cc ON cc.country_id = fct.country_id
+        WHERE 
+            {}
+    ) t
+    WHERE rn = 1
+) ranked
+ORDER BY value DESC
+LIMIT $2
+                "#,
+                    where_clause
+                );
+
+                println!("Executing subscriber top query: {}", query);
+                println!(
+                    "Parameters: direction={}, size={}, country={:?}, operator={:?}",
+                    direction, size, country, operator
+                );
+
+                let mut q = sqlx::query(&query).bind(direction.clone()).bind(size);
+                if !country.is_empty() {
+                    q = q.bind(country.clone());
+                }
+                if !operator.is_empty() {
+                    q = q.bind(operator.clone());
+                }
+
+                let rows = q.fetch_all(pool).await.map_err(AppError::Sqlx)?;
+                let mut metrics = Vec::new();
+                for row in rows {
+                    let date: String = row.try_get("date")?;
+                    let imsi: String = row.try_get("imsi")?;
+                    let msisdn: String = row.try_get("msisdn")?;
+                    let value: i64 = row.try_get("value")?;
+                    metrics.push(json!({
+                        "date": date,
+                        "imsi": imsi,
+                        "msisdn": msisdn,
+                        "value": value
+                    }));
+                }
+
+                println!("Subscriber top metrics result: {} records", metrics.len());
+                Ok(json!({ "data": metrics, "status": "success" }))
+            }
+
+            _ => Err(AppError::BadRequest(
+                "Aggregation 'latest', 'history' or 'top' is required".to_string(),
+            )),
         }
-    };
-    query = query.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
-
-    // Replace country filter placeholder
-    let country_filter = if !country.is_empty() {
-        " AND UPPER(cc.country_name) = UPPER($1)"
-    } else {
-        ""
-    };
-    query = query.replace("-- COUNTRY_FILTER_PLACEHOLDER --", country_filter);
-
-    // Replace operator filter placeholder
-    let operator_filter = if !operator.is_empty() {
-        " AND UPPER(co.operator_name) = UPPER($2)"
-    } else {
-        ""
-    };
-    query = query.replace("-- OPERATOR_FILTER_PLACEHOLDER --", operator_filter);
-
-    println!("Executing SoR performance query: {}", query);
-
-    let mut q = sqlx::query(&query);
-    if !country.is_empty() {
-        q = q.bind(country.clone());
-    }
-    if !operator.is_empty() {
-        q = q.bind(operator);
     }
 
-    let rows = q.fetch_all(pool).await.map_err(AppError::Sqlx)?;
-    let mut metrics = Vec::new();
-    for row in rows {
-        let perf_id: i32 = row.try_get("perf_id")?;
-        let batch_id: i32 = row.try_get("batch_id")?;
-        let date: String = row.try_get("date")?;
-        let country: Option<String> = row.try_get("country")?;
-        let operator: Option<String> = row.try_get("operator")?;
-        let country_count: i32 = row.try_get("country_count")?;
-        let operator_count: i32 = row.try_get("operator_count")?;
-        
-        // These are INT8 in database, so use i64
-        let target_percentage_raw: i64 = row.try_get("target_percentage")?;
-        let actual_percentage_raw: i64 = row.try_get("actual_percentage")?;
-        
-        // Convert to f64 for calculations
-        let target_percentage = target_percentage_raw as f64;
-        let actual_percentage = actual_percentage_raw as f64;
-        
-        let is_outside_tolerance: bool = row.try_get("is_outside_tolerance")?;
+    // ------------------- SoR Performance -------------------
+    async fn get_sor_performance_metrics(
+        pool: &PgPool,
+        req: &ValidatedMetricsRequest,
+    ) -> Result<serde_json::Value, AppError> {
+        println!("Processing SoR performance metrics request: {:?}", req);
 
-        metrics.push(json!({
-            "perf_id": perf_id,
-            "batch_id": batch_id,
-            "date": date,
-            "country": country,
-            "operator": operator,
-            "country_count": country_count,
-            "operator_count": operator_count,
-            "target_percentage": target_percentage,
-            "actual_percentage": actual_percentage,
-            "is_outside_tolerance": is_outside_tolerance,
-            "success_rate": actual_percentage,
-            "variance": (actual_percentage - target_percentage).abs()
-        }));
+        let aggregation = &req.aggregation;
+        let size = get_size_for_aggregation(aggregation, req.size)?;
+        let country = get_country_from_filters(req.filter.as_ref());
+        let operator = get_operator_from_filters(req.filter.as_ref());
+        let outside_tolerance = get_outside_tolerance_from_filters(req.filter.as_ref());
+        let barring = get_barring_from_filters(req.filter.as_ref());
+
+        match aggregation.as_str() {
+            "detail" => {
+                let mut query = Self::GET_SOR_PERFORMANCE_DETAIL_QUERY.to_string();
+
+                // Replace date filter placeholder
+                let date_filter = "AND rd.date >= CURRENT_DATE - INTERVAL '7 days'";
+                query = query.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
+
+                // Replace country filter placeholder
+                let country_filter = if !country.is_empty() {
+                    " AND UPPER(cc.country_name) = UPPER($1)"
+                } else {
+                    ""
+                };
+                query = query.replace("-- COUNTRY_FILTER_PLACEHOLDER --", country_filter);
+
+                // Replace operator filter placeholder
+                let operator_filter = if !operator.is_empty() {
+                    if !country.is_empty() {
+                        " AND UPPER(co.operator_name) = UPPER($2)"
+                    } else {
+                        " AND UPPER(co.operator_name) = UPPER($1)"
+                    }
+                } else {
+                    ""
+                };
+                query = query.replace("-- OPERATOR_FILTER_PLACEHOLDER --", operator_filter);
+
+                // Replace outside tolerance filter placeholder
+                let tolerance_filter = match outside_tolerance {
+                    Some(true) => " AND tpo.is_outside_tolerance IS TRUE",
+                    Some(false) => " AND tpo.is_outside_tolerance IS FALSE", 
+                    None => ""
+                };
+                query = query.replace("-- OUTSIDE_TOLERANCE_FILTER_PLACEHOLDER --", tolerance_filter);
+
+                // Replace barring filter placeholder
+                let barring_filter = match barring {
+                    Some(true) => " AND tpo.is_barring IS TRUE",
+                    Some(false) => " AND tpo.is_barring IS FALSE", 
+                    None => ""
+                };
+                query = query.replace("-- BARRING_FILTER_PLACEHOLDER --", barring_filter);
+
+                // Clean up the query
+                query = Self::cleanup_query_where_clause(&query);
+
+                println!("Executing SoR performance detail query: {}", query);
+
+                let mut q = sqlx::query(&query);
+                
+                if !country.is_empty() && !operator.is_empty() {
+                    q = q.bind(country).bind(operator);
+                } else if !country.is_empty() {
+                    q = q.bind(country);
+                } else if !operator.is_empty() {
+                    q = q.bind(operator);
+                }
+
+                let rows = q.fetch_all(pool).await.map_err(|e| {
+                    println!("Database error in detail query: {:?}", e);
+                    AppError::Sqlx(e)
+                })?;
+
+                let mut metrics = Vec::new();
+                for row in rows {
+                    let perf_id: i32 = row.try_get("perf_id")?;
+                    let batch_id: i32 = row.try_get("batch_id")?;
+                    let date: String = row.try_get("date")?;
+                    let country: Option<String> = row.try_get("country")?;
+                    let operator: Option<String> = row.try_get("operator")?;
+                    let country_count: i32 = row.try_get("country_count")?;
+                    let operator_count: i32 = row.try_get("operator_count")?;
+                    let target_percentage: f64 = row.try_get("target_percentage")?;
+                    let actual_percentage: f64 = row.try_get("actual_percentage")?;
+                    let is_outside_tolerance: bool = row.try_get("is_outside_tolerance")?;
+                    let is_barring: bool = row.try_get("is_barring")?;
+                    let calculated_percentage: f64 = row.try_get("calculated_percentage")?;
+                    let percentage_deviation: f64 = row.try_get("percentage_deviation")?;
+                    let actual_distribution: f64 = row.try_get("actual_distribution")?;
+                    let performance_status: String = row.try_get("performance_status")?;
+                    let risk_level: String = row.try_get("risk_level")?;
+
+                    metrics.push(json!({
+                        "perf_id": perf_id,
+                        "batch_id": batch_id,
+                        "date": date,
+                        "country": country,
+                        "operator": operator,
+                        "country_count": country_count,
+                        "operator_count": operator_count,
+                        "target_percentage": target_percentage,
+                        "actual_percentage": actual_percentage,
+                        "is_outside_tolerance": is_outside_tolerance,
+                        "is_barring": is_barring,
+                        "calculated_percentage": calculated_percentage,
+                        "percentage_deviation": percentage_deviation,
+                        "actual_distribution": actual_distribution,
+                        "performance_status": performance_status,
+                        "risk_level": risk_level,
+                        "success_rate": actual_percentage,
+                        "variance": (actual_percentage - target_percentage).abs(),
+                        "compliance_status": if is_barring { "BARRED" } else if is_outside_tolerance { "NON_COMPLIANT" } else { "COMPLIANT" }
+                    }));
+                }
+
+                println!("SoR performance detail result: {} records", metrics.len());
+                Ok(json!({ "data": metrics, "status": "success" }))
+            }
+
+            "summary" => {
+                let mut query = Self::GET_SOR_PERFORMANCE_SUMMARY_QUERY.to_string();
+
+                // Replace date filter placeholder
+                let date_filter = "AND rd.date >= CURRENT_DATE - INTERVAL '30 days'";
+                query = query.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
+
+                // Replace country filter placeholder
+                let country_filter = if !country.is_empty() {
+                    " AND UPPER(cc.country_name) = UPPER($1)"
+                } else {
+                    ""
+                };
+                query = query.replace("-- COUNTRY_FILTER_PLACEHOLDER --", country_filter);
+
+                // Replace operator filter placeholder
+                let operator_filter = if !operator.is_empty() {
+                    if !country.is_empty() {
+                        " AND UPPER(co.operator_name) = UPPER($2)"
+                    } else {
+                        " AND UPPER(co.operator_name) = UPPER($1)"
+                    }
+                } else {
+                    ""
+                };
+                query = query.replace("-- OPERATOR_FILTER_PLACEHOLDER --", operator_filter);
+
+                // Replace outside tolerance filter placeholder
+                let tolerance_filter = match outside_tolerance {
+                    Some(true) => " AND tpo.is_outside_tolerance IS TRUE",
+                    Some(false) => " AND tpo.is_outside_tolerance IS FALSE", 
+                    None => ""
+                };
+                query = query.replace("-- OUTSIDE_TOLERANCE_FILTER_PLACEHOLDER --", tolerance_filter);
+
+                // Replace barring filter placeholder
+                let barring_filter = match barring {
+                    Some(true) => " AND tpo.is_barring IS TRUE",
+                    Some(false) => " AND tpo.is_barring IS FALSE", 
+                    None => ""
+                };
+                query = query.replace("-- BARRING_FILTER_PLACEHOLDER --", barring_filter);
+
+                // Clean up the query
+                query = Self::cleanup_query_where_clause(&query);
+
+                println!("Executing SoR performance summary query: {}", query);
+
+                let mut q = sqlx::query(&query);
+                
+                if !country.is_empty() && !operator.is_empty() {
+                    q = q.bind(country).bind(operator);
+                } else if !country.is_empty() {
+                    q = q.bind(country);
+                } else if !operator.is_empty() {
+                    q = q.bind(operator);
+                }
+
+                let rows = q.fetch_all(pool).await.map_err(|e| {
+                    println!("Database error in summary query: {:?}", e);
+                    AppError::Sqlx(e)
+                })?;
+
+                let mut metrics = Vec::new();
+                for row in rows {
+                    let date: String = row.try_get("date")?;
+                    let total_records: i64 = row.try_get("total_records")?;
+                    let outside_tolerance_count: i64 = row.try_get("outside_tolerance_count")?;
+                    let barring_count: i64 = row.try_get("barring_count")?;
+                    let normal_count: i64 = row.try_get("normal_count")?;
+                    let avg_actual_percentage: f64 = row.try_get("avg_actual_percentage")?;
+                    let avg_target_percentage: f64 = row.try_get("avg_target_percentage")?;
+                    let avg_deviation: f64 = row.try_get("avg_deviation")?;
+                    let max_deviation: f64 = row.try_get("max_deviation")?;
+
+                    metrics.push(json!({
+                        "date": date,
+                        "total_records": total_records,
+                        "outside_tolerance_count": outside_tolerance_count,
+                        "barring_count": barring_count,
+                        "normal_count": normal_count,
+                        "avg_actual_percentage": avg_actual_percentage,
+                        "avg_target_percentage": avg_target_percentage,
+                        "avg_deviation": avg_deviation,
+                        "max_deviation": max_deviation,
+                        "outside_tolerance_rate": if total_records > 0 { (outside_tolerance_count as f64 / total_records as f64) * 100.0 } else { 0.0 },
+                        "barring_rate": if total_records > 0 { (barring_count as f64 / total_records as f64) * 100.0 } else { 0.0 },
+                        "compliance_rate": if total_records > 0 { (normal_count as f64 / total_records as f64) * 100.0 } else { 0.0 }
+                    }));
+                }
+
+                println!("SoR performance summary result: {} records", metrics.len());
+                Ok(json!({ "data": metrics, "status": "success" }))
+            }
+
+            "latest" | "history" => {
+                let mut query = Self::GET_SOR_PERFORMANCE_BASIC_QUERY.to_string();
+
+                // Replace date filter placeholder
+                let date_filter = match aggregation.as_str() {
+                    "latest" => "AND tpo.date_id = (SELECT MAX(date_id) FROM trx_perf_out)",
+                    "history" => &format!("AND rd.date >= CURRENT_DATE - INTERVAL '{} days'", size),
+                    _ => unreachable!(),
+                };
+                query = query.replace("-- DATE_FILTER_PLACEHOLDER --", date_filter);
+
+                // Replace country filter placeholder
+                let country_filter = if !country.is_empty() {
+                    " AND UPPER(cc.country_name) = UPPER($1)"
+                } else {
+                    ""
+                };
+                query = query.replace("-- COUNTRY_FILTER_PLACEHOLDER --", country_filter);
+
+                // Replace operator filter placeholder
+                let operator_filter = if !operator.is_empty() {
+                    if !country.is_empty() {
+                        " AND UPPER(co.operator_name) = UPPER($2)"
+                    } else {
+                        " AND UPPER(co.operator_name) = UPPER($1)"
+                    }
+                } else {
+                    ""
+                };
+                query = query.replace("-- OPERATOR_FILTER_PLACEHOLDER --", operator_filter);
+
+                // Replace outside tolerance filter placeholder
+                let tolerance_filter = match outside_tolerance {
+                    Some(true) => " AND tpo.is_outside_tolerance IS TRUE",
+                    Some(false) => " AND tpo.is_outside_tolerance IS FALSE", 
+                    None => ""
+                };
+                query = query.replace("-- OUTSIDE_TOLERANCE_FILTER_PLACEHOLDER --", tolerance_filter);
+
+                // Replace barring filter placeholder
+                let barring_filter = match barring {
+                    Some(true) => " AND tpo.is_barring IS TRUE",
+                    Some(false) => " AND tpo.is_barring IS FALSE", 
+                    None => ""
+                };
+                query = query.replace("-- BARRING_FILTER_PLACEHOLDER --", barring_filter);
+
+                // Clean up the query
+                query = Self::cleanup_query_where_clause(&query);
+
+                println!("Executing SoR performance basic query: {}", query);
+
+                let mut q = sqlx::query(&query);
+                
+                if !country.is_empty() && !operator.is_empty() {
+                    q = q.bind(country).bind(operator);
+                } else if !country.is_empty() {
+                    q = q.bind(country);
+                } else if !operator.is_empty() {
+                    q = q.bind(operator);
+                }
+
+                let rows = q.fetch_all(pool).await.map_err(|e| {
+                    println!("Database error in basic query: {:?}", e);
+                    AppError::Sqlx(e)
+                })?;
+
+                let mut metrics = Vec::new();
+                for row in rows {
+                    let perf_id: i32 = row.try_get("perf_id")?;
+                    let batch_id: i32 = row.try_get("batch_id")?;
+                    let date: String = row.try_get("date")?;
+                    let country: Option<String> = row.try_get("country")?;
+                    let operator: Option<String> = row.try_get("operator")?;
+                    let country_count: i32 = row.try_get("country_count")?;
+                    let operator_count: i32 = row.try_get("operator_count")?;
+                    let target_percentage: f64 = row.try_get("target_percentage")?;
+                    let actual_percentage: f64 = row.try_get("actual_percentage")?;
+                    let is_outside_tolerance: bool = row.try_get("is_outside_tolerance")?;
+                    let is_barring: bool = row.try_get("is_barring")?;
+
+                    metrics.push(json!({
+                        "perf_id": perf_id,
+                        "batch_id": batch_id,
+                        "date": date,
+                        "country": country,
+                        "operator": operator,
+                        "country_count": country_count,
+                        "operator_count": operator_count,
+                        "target_percentage": target_percentage,
+                        "actual_percentage": actual_percentage,
+                        "is_outside_tolerance": is_outside_tolerance,
+                        "is_barring": is_barring,
+                        "success_rate": actual_percentage,
+                        "variance": (actual_percentage - target_percentage).abs()
+                    }));
+                }
+
+                println!("SoR performance basic result: {} records", metrics.len());
+                Ok(json!({ "data": metrics, "status": "success" }))
+            }
+
+            _ => Err(AppError::BadRequest(
+                "Aggregation 'detail', 'summary', 'latest' or 'history' is required".to_string(),
+            )),
+        }
     }
 
-    println!("SoR performance metrics result: {} records", metrics.len());
-    Ok(json!({ "data": metrics, "status": "success" }))
-}
     // ------------------- Notification -------------------
     async fn get_notif_metrics(
         pool: &PgPool,
         req: &ValidatedMetricsRequest,
     ) -> Result<serde_json::Value, AppError> {
         println!("Processing notification metrics request: {:?}", req);
-        
+
         let aggregation = &req.aggregation;
         let query = match aggregation.as_str() {
             "summary" => Self::GET_NOTIF_SUM_METRICS_QUERY,
@@ -586,6 +1253,59 @@ async fn get_sor_performance_metrics(
 
         println!("Notification metrics result: {} records", metrics.len());
         Ok(json!({ "data": metrics, "status": "success" }))
+    }
+
+    // ------------------- Alert Metrics -------------------
+    async fn get_alert_metrics(
+        pool: &PgPool,
+        req: &ValidatedMetricsRequest,
+    ) -> Result<serde_json::Value, AppError> {
+        println!("Processing alert metrics request: {:?}", req);
+
+        let aggregation = &req.aggregation;
+        let query = match aggregation.as_str() {
+            "summary" => Self::GET_ALERT_SUM_METRICS_QUERY,
+            "detail" => Self::GET_ALERT_DET_METRICS_QUERY,
+            _ => {
+                return Err(AppError::BadRequest(
+                    "Aggregation 'summary' or 'detail' is required".to_string(),
+                ));
+            }
+        };
+
+        println!("Executing alert query: {}", query);
+
+        let rows = sqlx::query(query)
+            .fetch_all(pool)
+            .await
+            .map_err(AppError::Sqlx)?;
+        let mut metrics = Vec::new();
+        for row in rows {
+            let date: String = row.try_get("date")?;
+            let value: String = row.try_get("value")?;
+            metrics.push(json!({ "date": date, "value": value }));
+        }
+
+        println!("Alert metrics result: {} records", metrics.len());
+        Ok(json!({ "data": metrics, "status": "success" }))
+    }
+
+    // Helper function to clean up WHERE clause by removing empty lines
+    fn cleanup_query_where_clause(query: &str) -> String {
+        let mut cleaned = query.to_string();
+        
+        // Remove empty placeholder lines
+        cleaned = cleaned.replace("WHERE \n    1=1\n    \n    \n    \n    \n", "WHERE 1=1");
+        cleaned = cleaned.replace("WHERE \n    1=1\n    \n    \n    \n", "WHERE 1=1");
+        cleaned = cleaned.replace("WHERE \n    1=1\n    \n    \n", "WHERE 1=1");
+        cleaned = cleaned.replace("WHERE \n    1=1\n    \n", "WHERE 1=1");
+        
+        // Clean up any remaining empty lines and double spaces
+        cleaned = cleaned.replace("    \n", "");
+        cleaned = cleaned.replace("  ", " ");
+        cleaned = cleaned.replace("\n\n", "\n");
+        
+        cleaned
     }
 }
 
@@ -654,5 +1374,50 @@ fn get_operator_from_filters(filters: Option<&Vec<Filter>>) -> String {
             .unwrap_or_default()
     } else {
         "".to_string()
+    }
+}
+
+fn get_subscriber_from_filters(filters: Option<&Vec<Filter>>) -> String {
+    if let Some(filters) = filters {
+        filters
+            .iter()
+            .find_map(|f| {
+                if f.key.to_lowercase() == "subscriber" || f.key.to_lowercase() == "imsi" {
+                    Some(f.value.clone())
+                } else {
+                    None
+                }
+            })
+            .unwrap_or_default()
+    } else {
+        "".to_string()
+    }
+}
+
+fn get_outside_tolerance_from_filters(filters: Option<&Vec<Filter>>) -> Option<bool> {
+    if let Some(filters) = filters {
+        filters.iter().find_map(|f| {
+            if f.key.to_lowercase() == "is_outside_tolerance" {
+                Some(f.value.to_lowercase() == "true")
+            } else {
+                None
+            }
+        })
+    } else {
+        None
+    }
+}
+
+fn get_barring_from_filters(filters: Option<&Vec<Filter>>) -> Option<bool> {
+    if let Some(filters) = filters {
+        filters.iter().find_map(|f| {
+            if f.key.to_lowercase() == "is_barring" {
+                Some(f.value.to_lowercase() == "true")
+            } else {
+                None
+            }
+        })
+    } else {
+        None
     }
 }

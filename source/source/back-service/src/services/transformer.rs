@@ -153,54 +153,114 @@ AND sri.operator_id NOT IN (
 GROUP BY md.metric_definition_id, sri.batch_id, rd.date_id, sri.country_id, sri.operator_id
 "#;
 
+const UPSERT_SUBSCRIBER_REF_OUT_QUERY: &str = r#"
+INSERT INTO cfg_subscribers (imsi, msisdn, roam_direction_id, first_seen, last_seen)
+SELECT 
+    sro.imsi, 
+    sro.msisdn, 
+    rrd.roam_direction_id,
+    CASE 
+        WHEN cs.subscriber_id IS NULL THEN NOW()
+        ELSE cs.first_seen
+    END as first_seen,
+    NOW() as last_seen
+FROM stg_roam_out sro
+CROSS JOIN ref_roam_directions rrd
+LEFT JOIN cfg_subscribers cs ON sro.imsi = cs.imsi
+WHERE rrd.direction = 'OUT'
+AND sro.batch_id = $1
+ON CONFLICT (imsi) 
+DO UPDATE SET 
+    msisdn = EXCLUDED.msisdn,
+    last_seen = NOW()
+WHERE cfg_subscribers.msisdn != EXCLUDED.msisdn
+"#;
+
+const INSERT_SUBSCRIBER_OUT_QUERY: &str = r#"
+INSERT INTO trx_metrics_subscriber (metric_definition_id, batch_id, date_id, country_id, operator_id, subscriber_id, value)
+SELECT 
+    md.metric_definition_id, 
+    $3, 
+    rd.date_id, 
+    sro.country_id, 
+    sro.operator_id, 
+    cs.subscriber_id, 
+    1
+FROM stg_roam_out sro
+JOIN ref_dates rd ON rd.date_str = sro.batch_date
+JOIN cfg_subscribers cs ON sro.imsi = cs.imsi
+JOIN (
+    SELECT rmd.metric_definition_id
+    FROM ref_metric_definitions rmd
+    JOIN ref_roam_directions rrd ON rrd.roam_direction_id = rmd.roam_direction_id
+    JOIN ref_metric_types rmt ON rmt.metric_type_id = rmd.metric_type_id
+    WHERE rrd.direction = $1
+    AND rmt.name = 'SUBSCRIBER'
+) AS md ON TRUE
+WHERE sro.batch_id = $2
+"#;
+
 const DELETE_IN_QUERY: &str = r#"DELETE FROM stg_roam_in WHERE batch_id = $1"#;
 const DELETE_OUT_QUERY: &str = r#"DELETE FROM stg_roam_out WHERE batch_id = $1"#;
 
 const INSERT_PERF_OUT_QUERY: &str = r#"
-    INSERT INTO trx_perf_out (
-        batch_id, date_id, country_id, operator_id, 
-        country_count, operator_count, target_percentage, actual_percentage
-    )
+INSERT INTO trx_perf_out (
+    batch_id, date_id, country_id, operator_id, 
+    country_count, operator_count, target_percentage, actual_percentage, is_barring
+)
+SELECT 
+    op.batch_id,
+    op.date_id,
+    op.country_id,
+    op.operator_id,
+    co.country_count,
+    op.operator_count,
+    csp.rate::FLOAT AS target_percentage,
+    ROUND((operator_count::NUMERIC / country_count::NUMERIC) * 100, 2) AS actual_percentage,
+    csp.barring
+FROM (
     SELECT 
-        op.batch_id,
-        op.date_id,
-        op.country_id,
-        op.operator_id,
-        co.country_count,
-        op.operator_count,
-        csp.rate::INT AS target_percentage,
-        ROUND(((operator_count::DECIMAL / country_count::DECIMAL) * 100)::NUMERIC, 2) as actual_percentage
-    FROM (
-        SELECT 
-            sro.batch_id,
-            rd.date_id,
-            sro.country_id,
-            sro.operator_id,
-            COUNT(*) as operator_count
-        FROM stg_roam_out sro
-        JOIN ref_dates rd ON rd.date_str = sro.batch_date
-        WHERE sro.batch_id = $1
-        GROUP BY sro.batch_id, rd.date_id, sro.country_id, sro.operator_id
-    ) op
-    JOIN (
-        SELECT 
-            sro.batch_id,
-            rd.date_id,
-            sro.country_id,
-            COUNT(*) as country_count
-        FROM stg_roam_out sro
-        JOIN ref_dates rd ON rd.date_str = sro.batch_date
-        WHERE sro.batch_id = $1
-        GROUP BY sro.batch_id, rd.date_id, sro.country_id
-    ) co ON op.batch_id = co.batch_id 
-        AND op.date_id = co.date_id 
-        AND op.country_id = co.country_id
-    LEFT JOIN cfg_sor_plan csp ON csp.operator_id = op.operator_id
-    ORDER BY 
-        op.batch_id,
-        op.date_id,
-        op.country_id,
-        op.operator_id;
+        sro.batch_id,
+        rd.date_id,
+        sro.country_id,
+        sro.operator_id,
+        COUNT(*) AS operator_count
+    FROM stg_roam_out sro
+    JOIN ref_dates rd ON rd.date_str = sro.batch_date
+    WHERE sro.batch_id = $1
+    GROUP BY sro.batch_id, rd.date_id, sro.country_id, sro.operator_id
+) op
+JOIN (
+    SELECT 
+        sro.batch_id,
+        rd.date_id,
+        sro.country_id,
+        COUNT(*) AS country_count
+    FROM stg_roam_out sro
+    JOIN ref_dates rd ON rd.date_str = sro.batch_date
+    WHERE sro.batch_id = $1
+    GROUP BY sro.batch_id, rd.date_id, sro.country_id
+) co ON op.batch_id = co.batch_id 
+    AND op.date_id = co.date_id 
+    AND op.country_id = co.country_id
+LEFT JOIN cfg_sor_plan csp ON csp.operator_id = op.operator_id
+ORDER BY 
+    op.batch_id,
+    op.date_id,
+    op.country_id,
+    op.operator_id;
+"#;
+
+const UPDATE_PERF_OUT_QUERY: &str = r#"
+UPDATE trx_perf_out 
+SET is_outside_tolerance = TRUE
+WHERE ABS(COALESCE(target_percentage, 0) - actual_percentage) > (
+    SELECT value::INT 
+    FROM ref_global_config 
+    WHERE key = 'deviance_interval'
+)
+AND target_percentage IS NOT NULL    
+AND batch_id = $1
 "#;
 
 // ============================
@@ -235,6 +295,7 @@ pub async fn run(pool: &Pool<Postgres>, batch_mgr: &BatchManager) -> Result<(), 
 // ============================
 // Process Metrics
 // ============================
+
 async fn process_metrics(
     pool: &Pool<Postgres>,
     source_type: &str,
@@ -278,6 +339,32 @@ async fn process_metrics(
             )));
         }
     };
+
+    // Execute subscriber reference upsert for OUT direction
+    if source_type == "OUT" {
+        sqlx::query(UPSERT_SUBSCRIBER_REF_OUT_QUERY)
+            .bind(corr_id)
+            .execute(pool)
+            .await
+            .map_err(AppError::Sqlx)?;
+        Logger::info(&format!(
+            "✅ Subscriber reference updated [OUT] batch_id={} corr_id={}",
+            batch_id, corr_id
+        ));
+
+        // Insert subscriber metrics for OUT direction
+        sqlx::query(INSERT_SUBSCRIBER_OUT_QUERY)
+            .bind(source_type)
+            .bind(corr_id)
+            .bind(batch_id)
+            .execute(pool)
+            .await
+            .map_err(AppError::Sqlx)?;
+        Logger::info(&format!(
+            "✅ Subscriber metrics inserted [OUT] batch_id={} corr_id={}",
+            batch_id, corr_id
+        ));
+    }
 
     sqlx::query(global_query)
         .bind(source_type)
@@ -389,17 +476,12 @@ async fn process_alerts(
             }
         } else if rule.name == "sor_plan_deviation" {
             let select_query = r#"
-                SELECT batch_id, date_id,COUNT(*) AS value
+                SELECT batch_id, date_id, COUNT(*) AS value
                 FROM trx_perf_out 
-                WHERE ABS(COALESCE(target_percentage, 0) - actual_percentage) > (
-                    SELECT value::INT 
-                    FROM ref_global_config 
-                    WHERE key = 'deviance_interval'
-                )
-                AND target_percentage IS NOT NULL
+                WHERE is_outside_tolerance IS TRUE
                 AND batch_id = $1
                 GROUP BY batch_id, date_id
-                            "#;
+            "#;
 
             if let Some(row) = sqlx::query(select_query)
                 .bind(corr_id)
@@ -430,6 +512,102 @@ async fn process_alerts(
                     .execute(pool)
                     .await
                     .map_err(AppError::Sqlx)?;
+
+                // Insert detailed alerts for deviance with rule_id
+                let insert_deviance_alerts = r#"
+                    INSERT INTO trx_alerts (batch_id, date_id, rule_id, message)
+                    SELECT 
+                        tpf.batch_id, 
+                        tpf.date_id,
+                        $2,
+                        cc.country_name || ':' || co.operator_name || ' is blacklisted and ' || tpf.operator_count || ' roamer(s) found'
+                    FROM 
+                        trx_perf_out tpf 
+                        JOIN cfg_operators co ON tpf.operator_id = co.operator_id
+                        JOIN cfg_countries cc ON co.country_id = cc.country_id
+                    WHERE 
+                        tpf.operator_count > 0
+                        AND tpf.is_barring IS TRUE
+                        AND tpf.batch_id = $1
+                "#;
+
+                sqlx::query(insert_deviance_alerts)
+                    .bind(corr_id)
+                    .bind(rule.rule_id)
+                    .execute(pool)
+                    .await
+                    .map_err(AppError::Sqlx)?;                
+            }
+        } else if rule.name == "baring_operator" {
+            Logger::info("Checking rule [baring_operator]");
+
+            let select_query = r#"
+                SELECT batch_id, date_id, COUNT(*) AS value
+                FROM trx_perf_out 
+                WHERE is_barring IS TRUE
+                AND batch_id = $1
+                GROUP BY batch_id, date_id
+            "#;
+
+            if let Some(row) = sqlx::query(select_query)
+                .bind(corr_id)
+                .fetch_optional(pool)
+                .await
+                .map_err(AppError::Sqlx)?
+            {
+                let alert_batch_id: i32 = row.get("batch_id");
+                let date_id: i32 = row.get("date_id");
+                let value: i64 = row.get("value");
+
+                Logger::info(&format!(
+                    "🚨 ALERT triggered — batch_id={} date_id={} value={}",
+                    alert_batch_id, date_id, value
+                ));
+
+                let insert_query = r#"
+                    INSERT INTO trx_notifications (batch_id, date_id, rule_id, message)
+                    VALUES ($1, $2, $3, $4)
+                "#;
+
+                let message = format!("ROAM OUT: Barred Operator detected = {}", value);
+                sqlx::query(insert_query)
+                    .bind(alert_batch_id)
+                    .bind(date_id)
+                    .bind(rule.rule_id)
+                    .bind(message)
+                    .execute(pool)
+                    .await
+                    .map_err(AppError::Sqlx)?;
+
+                // Insert detailed alerts for barred operators with rule_id
+                let insert_barred_alerts = r#"
+                    INSERT INTO trx_alerts (batch_id, date_id, rule_id, message)
+                    SELECT 
+                        tpf.batch_id, 
+                        tpf.date_id,
+                        $2,
+                        cc.country_name || ':' || co.operator_name || ' is out of interval ' || tpf.operator_count ||'/'|| tpf.country_count||' (roamers) %actual='||actual_percentage||' or %target='||target_percentage
+                    FROM 
+                        trx_perf_out tpf 
+                        JOIN cfg_operators co ON tpf.operator_id = co.operator_id
+                        JOIN cfg_countries cc ON co.country_id = cc.country_id
+                    WHERE 
+                        tpf.operator_count > 0
+                        AND tpf.is_outside_tolerance IS TRUE
+                        AND tpf.batch_id = $1
+                "#;
+
+                sqlx::query(insert_barred_alerts)
+                    .bind(corr_id)
+                    .bind(rule.rule_id)
+                    .execute(pool)
+                    .await
+                    .map_err(AppError::Sqlx)?;
+
+                Logger::info(&format!(
+                    "✅ Detailed barred operator alerts inserted for batch_id={} with rule_id={}",
+                    corr_id, rule.rule_id
+                ));
             }
         }
     }
@@ -483,11 +661,29 @@ pub async fn process_perfs(
         source_type, batch_id, corr_id
     ));
 
+    // Insert performance metrics
     sqlx::query(INSERT_PERF_OUT_QUERY)
         .bind(corr_id)
         .execute(pool)
         .await
         .map_err(AppError::Sqlx)?;
+
+    Logger::info(&format!(
+        "✅ Performance metrics inserted for {} with corr_id={}",
+        source_type, corr_id
+    ));
+
+    // Update tolerance flags
+    sqlx::query(UPDATE_PERF_OUT_QUERY)
+        .bind(corr_id)
+        .execute(pool)
+        .await
+        .map_err(AppError::Sqlx)?;
+
+    Logger::info(&format!(
+        "✅ Tolerance flags updated for {} with corr_id={}",
+        source_type, corr_id
+    ));
 
     Logger::info(&format!(
         "Finished inserting performance metrics for {} with corr_id={}",

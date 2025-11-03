@@ -1,0 +1,57 @@
+<div class="d-flex justify-content-between mb-3">
+  <button class="btn btn-success" id="addOperatorBtn">
+    <i class="fas fa-plus"></i> Add Operator
+  </button>
+  <input type="text" id="operatorSearch" class="form-control w-25" placeholder="Search operators...">
+</div>
+
+
+<table id="operatorsTable" class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Country Name</th>
+      <th>Operator Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+
+<div class="d-flex justify-content-between align-items-center">
+  <button class="btn btn-outline-secondary" id="prevPageBtnOp">Previous</button>
+  <span id="paginationInfoOp"></span>
+  <button class="btn btn-outline-secondary" id="nextPageBtnOp">Next</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="operatorModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="operatorModalLabel" class="modal-title">Add Operator</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="operatorForm">
+          <input type="hidden" id="operatorId">
+          <div class="mb-3">
+            <label for="operatorCountry" class="form-label">Country Name</label>
+            <select id="operatorCountry" class="form-control" required>
+              <option value="">Select a country</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="operatorName" class="form-label">Operator Name</label>
+            <input type="text" id="operatorName" class="form-control" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="saveOperatorBtn">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
