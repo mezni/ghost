@@ -185,14 +185,24 @@
 
             <div class="col-md-4">
               <p class="text-center">
-                <strong>Deviation Details by Country</strong>
+                <strong>Deviation History by Country</strong>
               </p>
               
               <!-- Country Filter Section -->
               <div class="mb-3">
                 <label for="countryFilter" class="form-label fw-semibold">Filter by Country:</label>
                 <select id="countryFilter" class="form-select">
-                  <option value="">Loading countries...</option>
+                  <option value="">All Countries</option>
+                  <option value="USA">United States</option>
+                  <option value="UK">United Kingdom</option>
+                  <option value="GER">Germany</option>
+                  <option value="FRA">France</option>
+                  <option value="CAN">Canada</option>
+                  <option value="AUS">Australia</option>
+                  <option value="JPN">Japan</option>
+                  <option value="CHN">China</option>
+                  <option value="IND">India</option>
+                  <option value="BRA">Brazil</option>
                 </select>
               </div>
               
@@ -218,3 +228,89 @@
     <!-- /.col -->
   </div>
 </div>
+
+<!-- JavaScript for Country Filter Functionality -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const countryFilter = document.getElementById('countryFilter');
+  const deviationHistoryContainer = document.getElementById('deviationHistoryContainer');
+  
+  // Sample country data for demonstration
+  const countryData = {
+    'USA': {
+      title: 'USA Deviation History',
+      data: 'United States deviation trend data would be displayed here...'
+    },
+    'UK': {
+      title: 'UK Deviation History',
+      data: 'United Kingdom deviation trend data would be displayed here...'
+    },
+    'GER': {
+      title: 'Germany Deviation History',
+      data: 'Germany deviation trend data would be displayed here...'
+    },
+    'FRA': {
+      title: 'France Deviation History',
+      data: 'France deviation trend data would be displayed here...'
+    },
+    'CAN': {
+      title: 'Canada Deviation History',
+      data: 'Canada deviation trend data would be displayed here...'
+    },
+    'AUS': {
+      title: 'Australia Deviation History',
+      data: 'Australia deviation trend data would be displayed here...'
+    },
+    'JPN': {
+      title: 'Japan Deviation History',
+      data: 'Japan deviation trend data would be displayed here...'
+    },
+    'CHN': {
+      title: 'China Deviation History',
+      data: 'China deviation trend data would be displayed here...'
+    },
+    'IND': {
+      title: 'India Deviation History',
+      data: 'India deviation trend data would be displayed here...'
+    },
+    'BRA': {
+      title: 'Brazil Deviation History',
+      data: 'Brazil deviation trend data would be displayed here...'
+    }
+  };
+  
+  countryFilter.addEventListener('change', function() {
+    const selectedCountry = this.value;
+    
+    if (selectedCountry === '') {
+      // Show default message when no country is selected
+      deviationHistoryContainer.innerHTML = `
+        <div class="d-flex align-items-center justify-content-center h-100 bg-light rounded p-3">
+          <p class="text-muted mb-0 text-center">
+            Select a country to view deviation history
+          </p>
+        </div>
+      `;
+    } else {
+      // Show data for selected country
+      const countryInfo = countryData[selectedCountry];
+      deviationHistoryContainer.innerHTML = `
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h6 class="mb-0">${countryInfo.title}</h6>
+          </div>
+          <div class="card-body">
+            <p class="card-text">${countryInfo.data}</p>
+            <div class="mt-3 p-2 bg-light rounded">
+              <small class="text-muted">
+                <i class="bi bi-info-circle me-1"></i>
+                Historical deviation data for ${countryFilter.options[countryFilter.selectedIndex].text}
+              </small>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  });
+});
+</script>

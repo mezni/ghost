@@ -235,7 +235,9 @@ document.addEventListener('DOMContentLoaded', function() {
     demoHelper.className = 'text-center mt-3 small text-muted';
     demoHelper.innerHTML = `
         Demo credentials:<br>
+        <strong>superadmin</strong> / <strong>superadmin123</strong> (Super Admin)<br>
         <strong>admin</strong> / <strong>admin123</strong> (Admin)<br>
+        <strong>operator1</strong> / <strong>operator123</strong> (Operator)<br>
         <strong>viewer1</strong> / <strong>viewer123</strong> (Viewer)
     `;
     document.querySelector('.login-card-body').appendChild(demoHelper);
