@@ -1,23 +1,33 @@
-const BASE_API = "http://localhost:3000/api/v1";
+// const BASE_API = "http://localhost:3000/api/v1";
+//const BASE_API = "http://host.docker.internal:3000/api/v1";
+const BASE_API = "/api/v1";
 window.API_URL = BASE_API;
-const API_URL = BASE_API; 
+const API_URL = BASE_API;
 
-// Authentication check function
+// ==========================
+// Authentication utilities
+// ==========================
 function checkAuth() {
-    const authData = JSON.parse(localStorage.getItem('roamadmin_auth') || sessionStorage.getItem('roamadmin_auth'));
-    return !!(authData && authData.isLoggedIn && authData.token);
+  const authData = JSON.parse(
+    localStorage.getItem("roamadmin_auth") ||
+    sessionStorage.getItem("roamadmin_auth")
+  );
+  return !!(authData && authData.isLoggedIn && authData.token);
 }
 
 function redirectToLogin() {
-    window.location.href = 'login.html';
+  window.location.href = "login.html";
 }
 
 function logout() {
-    localStorage.removeItem('roamadmin_auth');
-    sessionStorage.removeItem('roamadmin_auth');
-    redirectToLogin();
+  localStorage.removeItem("roamadmin_auth");
+  sessionStorage.removeItem("roamadmin_auth");
+  redirectToLogin();
 }
 
+// ==========================
+// App Utilities
+// ==========================
 const AppUtils = {
   fetchData: async (endpoint) => {
     try {
@@ -50,155 +60,140 @@ const AppUtils = {
 // Role-based UI Management
 // ==========================
 function updateUIForRole(role, permissions) {
-    console.log(`🎭 Updating UI for role: ${role}`);
-    
-    // Get all menu items with role data
-    const allRoleItems = document.querySelectorAll('[data-role]');
-    const adminItems = document.querySelectorAll('[data-role*="admin"]');
-    const operatorItems = document.querySelectorAll('[data-role*="operator"]');
-    const superAdminItems = document.querySelectorAll('[data-role*="super_admin"]');
-    const viewerItems = document.querySelectorAll('[data-role*="all"]');
-    
-    // Hide all role-specific items first
-    allRoleItems.forEach(item => {
-        item.style.display = 'none';
-    });
-    
-    // Show items based on role
-    switch(role) {
-        case 'super_admin':
-            console.log('👑 Showing Super Admin menu items');
-            allRoleItems.forEach(item => item.style.display = 'block');
-            break;
-        case 'admin':
-            console.log('⚡ Showing Admin menu items');
-            adminItems.forEach(item => item.style.display = 'block');
-            operatorItems.forEach(item => item.style.display = 'block');
-            viewerItems.forEach(item => item.style.display = 'block');
-            break;
-        case 'operator':
-            console.log('🔧 Showing Operator menu items');
-            operatorItems.forEach(item => item.style.display = 'block');
-            viewerItems.forEach(item => item.style.display = 'block');
-            break;
-        case 'viewer':
-            console.log('👀 Showing Viewer menu items');
-            viewerItems.forEach(item => item.style.display = 'block');
-            break;
-        default:
-            console.log('❓ Unknown role, showing only viewer items');
-            viewerItems.forEach(item => item.style.display = 'block');
-            break;
-    }
-    
-    // Update username display with role badge
-    updateUserDisplay(role);
+  console.log(`🎭 Updating UI for role: ${role}`);
+
+  const allRoleItems = document.querySelectorAll("[data-role]");
+  const adminItems = document.querySelectorAll('[data-role*="admin"]');
+  const operatorItems = document.querySelectorAll('[data-role*="operator"]');
+  const superAdminItems = document.querySelectorAll('[data-role*="super_admin"]');
+  const viewerItems = document.querySelectorAll('[data-role*="all"]');
+
+  // Hide all
+  allRoleItems.forEach((item) => (item.style.display = "none"));
+
+  // Show items by role
+  switch (role) {
+    case "super_admin":
+      allRoleItems.forEach((item) => (item.style.display = "block"));
+      break;
+    case "admin":
+      adminItems.forEach((item) => (item.style.display = "block"));
+      operatorItems.forEach((item) => (item.style.display = "block"));
+      viewerItems.forEach((item) => (item.style.display = "block"));
+      break;
+    case "operator":
+      operatorItems.forEach((item) => (item.style.display = "block"));
+      viewerItems.forEach((item) => (item.style.display = "block"));
+      break;
+    case "viewer":
+      viewerItems.forEach((item) => (item.style.display = "block"));
+      break;
+    default:
+      viewerItems.forEach((item) => (item.style.display = "block"));
+      break;
+  }
+
+  updateUserDisplay(role);
 }
 
 function updateUserDisplay(role) {
-    const authData = JSON.parse(localStorage.getItem('roamadmin_auth') || sessionStorage.getItem('roamadmin_auth'));
-    if (!authData) return;
-    
-    const usernameDisplay = document.getElementById('username-display');
-    const userFullname = document.getElementById('user-fullname');
-    
-    if (usernameDisplay) {
-        usernameDisplay.textContent = `${authData.username} (${role})`;
-    }
-    if (userFullname) {
-        userFullname.textContent = `${authData.username} - ${formatRoleName(role)}`;
-    }
-    
-    // Add role badge to sidebar
-    updateSidebarRoleBadge(role);
+  const authData = JSON.parse(
+    localStorage.getItem("roamadmin_auth") ||
+    sessionStorage.getItem("roamadmin_auth")
+  );
+  if (!authData) return;
+
+  const usernameDisplay = document.getElementById("username-display");
+  const userFullname = document.getElementById("user-fullname");
+
+  if (usernameDisplay) {
+    usernameDisplay.textContent = `${authData.username} (${role})`;
+  }
+  if (userFullname) {
+    userFullname.textContent = `${authData.username} - ${formatRoleName(role)}`;
+  }
+
+  updateSidebarRoleBadge(role);
 }
 
 function formatRoleName(role) {
-    const roleNames = {
-        'super_admin': 'Super Administrator',
-        'admin': 'Administrator',
-        'operator': 'Operator',
-        'viewer': 'Viewer'
-    };
-    return roleNames[role] || role;
+  const roleNames = {
+    super_admin: "Super Administrator",
+    admin: "Administrator",
+    operator: "Operator",
+    viewer: "Viewer"
+  };
+  return roleNames[role] || role;
 }
 
 function updateSidebarRoleBadge(role) {
-    // Remove existing role badge
-    const existingBadge = document.querySelector('.role-badge');
-    if (existingBadge) {
-        existingBadge.remove();
-    }
-    
-    // Add new role badge
-    const brandLink = document.querySelector('.brand-link');
-    if (brandLink) {
-        const roleBadge = document.createElement('div');
-        roleBadge.className = 'role-badge';
-        roleBadge.innerHTML = `
-            <small class="badge badge-light position-absolute" style="top: 10px; right: 10px; font-size: 0.6rem;">
-                ${formatRoleName(role)}
-            </small>
-        `;
-        brandLink.style.position = 'relative';
-        brandLink.appendChild(roleBadge);
-    }
+  const existingBadge = document.querySelector(".role-badge");
+  if (existingBadge) existingBadge.remove();
+
+  const brandLink = document.querySelector(".brand-link");
+  if (brandLink) {
+    const roleBadge = document.createElement("div");
+    roleBadge.className = "role-badge";
+    roleBadge.innerHTML = `
+      <small class="badge badge-light position-absolute" 
+             style="top:10px; right:10px; font-size:0.6rem;">
+        ${formatRoleName(role)}
+      </small>`;
+    brandLink.style.position = "relative";
+    brandLink.appendChild(roleBadge);
+  }
 }
 
 // ==========================
-// Initialize common layout
+// Layout Loader
 // ==========================
 async function loadLayout() {
   await AppUtils.loadHTML("pages/header.html", "header");
   await AppUtils.loadHTML("pages/footer.html", "footer");
   await AppUtils.loadHTML("pages/sidebar.html", "sidebar");
-  
-  // Wait for sidebar to be fully loaded before initializing
-  await new Promise(resolve => setTimeout(resolve, 100));
-  
+
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
   initTreeview();
   setupLogoutHandler();
-  
-  // Update UI based on role AFTER sidebar is loaded
-  const authData = JSON.parse(localStorage.getItem('roamadmin_auth') || sessionStorage.getItem('roamadmin_auth'));
+
+  const authData = JSON.parse(
+    localStorage.getItem("roamadmin_auth") ||
+    sessionStorage.getItem("roamadmin_auth")
+  );
   if (authData && authData.role) {
-    console.log('🔄 Updating UI with role from auth data:', authData.role);
     updateUIForRole(authData.role, authData.permissions || []);
   }
 }
 
 // ==========================
-// Setup logout handler
+// Sidebar + Navigation
 // ==========================
 function setupLogoutHandler() {
-  document.addEventListener('click', function(e) {
-    if (e.target && e.target.id === 'logout-btn') {
+  document.addEventListener("click", function (e) {
+    if (e.target && e.target.id === "logout-btn") {
       e.preventDefault();
       logout();
     }
   });
 }
 
-// ==========================
-// Sidebar treeview toggle
-// ==========================
 function initTreeview() {
-  document.querySelectorAll("#sidebar .nav-item > a").forEach(link => {
+  document.querySelectorAll("#sidebar .nav-item > a").forEach((link) => {
     const submenu = link.nextElementSibling;
     if (submenu && submenu.classList.contains("nav-treeview")) {
       link.addEventListener("click", (e) => {
         e.preventDefault();
         const isVisible = submenu.style.display === "block";
-        document.querySelectorAll("#sidebar .nav-treeview").forEach(ul => ul.style.display = "none");
+        document
+          .querySelectorAll("#sidebar .nav-treeview")
+          .forEach((ul) => (ul.style.display = "none"));
         submenu.style.display = isVisible ? "none" : "block";
       });
     }
   });
 }
 
-// ==========================
-// Load page content
-// ==========================
 async function loadPage(page) {
   const container = document.getElementById("content-area");
   if (!container) return;
@@ -208,15 +203,12 @@ async function loadPage(page) {
     const html = await res.text();
     container.innerHTML = html;
 
-    // Wait for browser to parse HTML
-    await new Promise(resolve => requestAnimationFrame(resolve));
+    await new Promise((resolve) => requestAnimationFrame(resolve));
 
-    // Update title and breadcrumb
-    const titleEl = document.getElementById("page-title");
     const titleMap = {
       dashboard: "Dashboard",
       roamin: "Roam IN",
-      roamout: "Roam OUT", 
+      roamout: "Roam OUT",
       sorperformance: "SoR Performance",
       countries: "Countries",
       operators: "Operators",
@@ -224,54 +216,44 @@ async function loadPage(page) {
       sorplans: "SOR Plans",
       prefixes: "Prefixes",
     };
+
+    const titleEl = document.getElementById("page-title");
     if (titleEl) titleEl.textContent = titleMap[page] || "Dashboard";
 
     const breadcrumbEl = document.querySelector(".breadcrumb .active");
     if (breadcrumbEl) breadcrumbEl.textContent = titleMap[page] || "Dashboard";
 
-    // Sidebar highlight
-    document.querySelectorAll("#sidebar a.nav-link").forEach(link => {
+    document.querySelectorAll("#sidebar a.nav-link").forEach((link) => {
       link.classList.remove("active");
-      const hrefPage = link.getAttribute("href")?.replace(".html", "").replace("#", "");
+      const hrefPage = link
+        .getAttribute("href")
+        ?.replace(".html", "")
+        .replace("#", "");
       if (hrefPage === page) link.classList.add("active");
     });
 
-    // Load page-specific JS dynamically
     const scriptPath = `js/${page}.js`;
+    document.querySelectorAll(`script[data-page-script]`).forEach((s) => s.remove());
 
-    // Remove previous page script
-    document.querySelectorAll(`script[data-page-script]`).forEach(s => s.remove());
-
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.src = scriptPath;
     script.setAttribute("data-page-script", page);
     script.onload = () => {
       console.log(`✅ Loaded ${scriptPath}`);
       const initFunc = `${page}Init`;
-      if (typeof window[initFunc] === "function") {
-        console.log(`🚀 Calling ${initFunc}()`);
-        window[initFunc]();
-      }
+      if (typeof window[initFunc] === "function") window[initFunc]();
     };
     script.onerror = () => {
-      console.warn(`⚠️ Could not load ${scriptPath}, trying cached init function`);
       const initFunc = `${page}Init`;
-      if (typeof window[initFunc] === "function") {
-        console.log(`🚀 Calling ${initFunc}() from cache`);
-        window[initFunc]();
-      }
+      if (typeof window[initFunc] === "function") window[initFunc]();
     };
     document.head.appendChild(script);
-
   } catch (err) {
     console.error(`❌ Failed to load page ${page}:`, err);
     container.innerHTML = `<div class="text-danger">Failed to load page: ${err.message}</div>`;
   }
 }
 
-// ==========================
-// Handle navigation
-// ==========================
 function handleNavigation() {
   const page = location.hash.replace("#", "") || "dashboard";
   console.log(`📄 handleNavigation -> ${page}`);
@@ -281,11 +263,19 @@ function handleNavigation() {
 window.addEventListener("hashchange", handleNavigation);
 
 // ==========================
-// Initial load with authentication check
+// Initial load with safe auth check
 // ==========================
 window.addEventListener("DOMContentLoaded", async () => {
-  // Check authentication before loading anything
+  const currentPage = window.location.pathname.split("/").pop();
+
+  // ✅ Skip auth check if on login page
+  if (currentPage === "login.html") {
+    console.log("🚪 Login page detected, skipping auth check...");
+    return;
+  }
+
   if (!checkAuth()) {
+    console.log("❌ Not authenticated, redirecting to login...");
     redirectToLogin();
     return;
   }
@@ -294,8 +284,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   handleNavigation();
 });
 
-// Make these functions available globally for login.js
+// Make functions available to login.js
 window.updateUIForRole = updateUIForRole;
-window.handlePostLoginUI = function(authData) {
-    updateUIForRole(authData.user.role, authData.permissions || []);
+window.handlePostLoginUI = function (authData) {
+  updateUIForRole(authData.user.role, authData.permissions || []);
 };

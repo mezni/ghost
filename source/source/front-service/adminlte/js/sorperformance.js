@@ -1,10 +1,3 @@
-console.log("🎯 sorperformance.js loaded");
-
-// Check if API_URL is already defined, if not, define it
-if (typeof API_URL === 'undefined') {
-    const API_URL = 'http://localhost:3000/api/v1';
-}
-
 window.sorperformanceInit = async function() {
   console.log("💠 SoR Performance page initialized");
 
