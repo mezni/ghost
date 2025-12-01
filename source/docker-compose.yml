@@ -1,0 +1,97 @@
+services:
+  database:
+    build:
+      context: .
+      dockerfile: ./source/roamdb-service/Dockerfile
+    image: gamma/roamdb:latest
+    container_name: roamdb-service
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${ROAM_DB_USER}
+      POSTGRES_PASSWORD: ${ROAM_DB_PASSWORD}
+      POSTGRES_DB: ${ROAM_DB_NAME}
+    volumes:
+      - roamdb_data:/var/lib/postgresql/data
+      - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./config/countries.csv:/countries.csv
+      - ./config/operators.csv:/operators.csv
+      - ./config/prefixes.csv:/prefixes.csv
+      - ./config/sor_plan.csv:/sor_plan.csv
+    networks:
+      - gamma_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${ROAM_DB_USER} -d ${ROAM_DB_NAME}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  data-generator:
+    build:
+      context: .
+      dockerfile: ./source/tools/Dockerfile
+    image: gamma/data-generator:latest
+    container_name: data-generator
+    volumes:
+      - ./WORK:/app/WORK
+      - ./config/roam_out_ref.txt:/app/roam_out_ref.txt
+      - ./config/roam_in_ref.txt:/app/roam_in_ref.txt
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - gamma_network
+          
+  back-service:
+    build:
+      context: .
+      dockerfile: ./source/back-service/Dockerfile
+    image: gamma/back-service:latest
+    container_name: back-service
+    volumes:
+      - ./WORK:/app/WORK
+      - ./.env:/app/.env 
+      - ./config.yaml:/app/config.yaml 
+    working_dir: /app
+    environment:
+      - RUST_LOG=info
+    networks:
+      - gamma_network  
+
+  api-service:
+    build:
+      context: .
+      dockerfile: ./source/api-service/Dockerfile
+    image: gamma/api-service:latest
+    container_name: api-service
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./.env:/app/.env 
+    working_dir: /app
+    environment:
+      - RUST_LOG=info
+    networks:
+      - gamma_network  
+
+  front-service:
+    build:
+      context: ./source/front-service
+      dockerfile: Dockerfile
+    image: gamma/front-service:latest
+    container_name: front-service
+    working_dir: /app
+    ports:
+      - "8080:80"
+    restart: always
+    environment:
+      - RUST_LOG=info
+    networks:
+      - gamma_network  
+
+volumes:
+  roamdb_data:
+
+networks:
+  gamma_network:

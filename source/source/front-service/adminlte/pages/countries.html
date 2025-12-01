@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-between mb-3">
+  <button class="btn btn-success" id="addCountryBtn">
+    <i class="fas fa-plus"></i> Add Country
+  </button>
+  <input type="text" id="countrySearch" class="form-control w-25" placeholder="Search countries...">
+</div>
+
+
+
+<table id="countriesTable" class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>ISO Code</th>
+      <th>Operator Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+
+<div class="d-flex justify-content-between align-items-center">
+  <button class="btn btn-outline-secondary" id="prevPageBtn">Previous</button>
+  <span id="paginationInfo"></span>
+  <button class="btn btn-outline-secondary" id="nextPageBtn">Next</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="countryModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="countryModalLabel" class="modal-title">Add Country</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="countryForm">
+          <input type="hidden" id="countryId">
+          <div class="mb-3">
+            <label for="countryCode" class="form-label">ISO Code</label>
+            <input type="text" id="countryCode" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="countryName" class="form-label">Country Name</label>
+            <input type="text" id="countryName" class="form-control" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="saveCountryBtn">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
